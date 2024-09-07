@@ -15,7 +15,7 @@ public class Task {
         this.bornTime = System.currentTimeMillis();
     }
     public void run(){
-        run();
+        run.run();
     }
 
     public boolean isDone(){
