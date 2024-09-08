@@ -45,8 +45,9 @@ public class Motor{
     double getPos(){
         return dev.getCurrentPosition();
     }
-    double timeOld = timer.seconds();
 
+
+    double timeOld = timer.seconds();
     double velTrueK0 = 0;
     double velTrueK = 0;
     public static double K = 1;
