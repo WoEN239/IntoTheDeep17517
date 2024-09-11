@@ -1,15 +1,17 @@
-package org.firstinspires.ftc.teamcode.Modules;
+package org.firstinspires.ftc.teamcode.Modules.DriveTrain;
 
 
 import org.firstinspires.ftc.teamcode.Devices.Motor;
-import org.firstinspires.ftc.teamcode.Events.DriveTrainStatus;
 import org.firstinspires.ftc.teamcode.Math.Position;
+import org.firstinspires.ftc.teamcode.Modules.IModule;
 import org.firstinspires.ftc.teamcode.Robot;
 
 public class DriveTrain implements IModule {
     Robot robot;
-    public DriveTrainStatus status = new DriveTrainStatus();
-
+    private Position velVector = new Position(0,0,0);
+    private Position posVector = new Position(0,0,0);
+    private Position velTarget = new Position(0,0,0);
+    private Position posTarget = new Position(0,0,0);
     Motor rightForwardDrive;
     Motor rightBackDrive;
     Motor leftForwardDrive;
@@ -23,20 +25,18 @@ public class DriveTrain implements IModule {
         leftBackDrive     = robot.devicePool.leftBackDrive;
         leftForwardDrive  = robot.devicePool.leftForwardDrive;
     }
-    public DriveTrain(){
-    }
+    public DriveTrain(){}
     public void moveVel(Position pos){
-        status.xVelTar = pos.x;
-        status.yVelTar = pos.y;
-        status.hVelTar = pos.h;
-
+        velTarget.x = pos.x;
+        velTarget.y = pos.y;
+        velTarget.h = pos.h;
     }
     @Override
     public void update(){
-        rightBackDrive   .setVel(status.yVelTar+status.xVelTar+status.hVelTar);
-        rightForwardDrive.setVel(status.yVelTar-status.xVelTar+status.hVelTar);
-        leftBackDrive    .setVel(status.yVelTar-status.xVelTar-status.hVelTar);
-        leftForwardDrive .setVel(status.yVelTar+status.xVelTar-status.hVelTar);
+        //rightBackDrive   .setVel(velTarget.y+velTarget.x+velTarget.h);
+        //rightForwardDrive.setVel(velTarget.y-velTarget.x+velTarget.h);
+        leftBackDrive    .setVel(velTarget.y-velTarget.x-velTarget.h);
+        //leftForwardDrive .setVel(velTarget.y+velTarget.x-velTarget.h);
     }
 
 }
