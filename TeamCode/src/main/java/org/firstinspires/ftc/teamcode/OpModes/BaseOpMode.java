@@ -10,15 +10,19 @@ public abstract class BaseOpMode extends LinearOpMode {
         robot = new Robot(this);
         robot.init();
     }
-    boolean first = true;
+    protected boolean firstInit = true;
+    protected boolean firstStart = true;
     @Override
     public void runOpMode(){
-        if (opModeInInit() && first){
+        if (opModeInInit() && firstInit){
           initOpMode();
-          first = false;
+          firstInit = false;
         }
         waitForStart();
         while (opModeIsActive()){
+            if(firstStart){
+                robot.timer.reset();
+            }
             doing();
             robot.update();
         }

@@ -1,25 +1,22 @@
 package org.firstinspires.ftc.teamcode.Devices;
 
-
-
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Math.Pid;
 import org.firstinspires.ftc.teamcode.Math.PidStatus;
-
+@Config
 public class Motor{
-    private int id;
-    private String name;
-    private DcMotorEx dev;
+    public final DcMotorEx dev;
     private int dir = 1;
-    private ElapsedTime timer;
+    private ElapsedTime timer = new ElapsedTime();
     public Motor(String name, HardwareMap map, ElapsedTime timer) {
         this.dev = map.get(DcMotorEx.class,name);
-        this.id = dev.getPortNumber();
-        this.name = dev.getDeviceName();
-        this.timer = timer;
+        for (int i = 0; i < K; i++) {
+            lastVels[i] = 0;
+        }
     }
 
     public void setDir(int i){
@@ -27,19 +24,13 @@ public class Motor{
             dir = i;
         }
     }
-    public String getName() {
-        return name;
-    }
-    public int getId() {
-        return id;
-    }
     PidStatus pidStatus = new PidStatus(0,0,0,0,0,0);
     Pid pid = new Pid(pidStatus);
     public void setVel(double vel){
         double u = pid.calc(vel,getPos());
         setPower(u);
     }
-    void setPower(double power){
+    public void setPower(double power){
         dev.setPower(power*dir);
     }
     double getPos(){
@@ -50,20 +41,21 @@ public class Motor{
     double timeOld = timer.seconds();
     double velTrueK0 = 0;
     double velTrueK = 0;
-    public static double K = 1;
-    double getVel(){
-        double tNow = timer.seconds();
-        double dt = tNow- timeOld;
-        double aK = (velTrueK-velTrueK0)/dt;
-
+    public static int K = 1;
+    double [] lastVels  = new double[K];
+    public double getVel(){
         double velSensorK1 = dev.getVelocity();
+        double sum = 0;
 
-        double velTrueK1 = K*velSensorK1 + (1-K)*(velTrueK + aK*dt);
-        timeOld = tNow;
-        velTrueK0 = velTrueK;
-        velTrueK = velTrueK1;
-
-        return velTrueK1;
+        for (int i = 0; i < lastVels.length-1; i++) {
+            lastVels[i] = lastVels[i+1];
+        }
+        lastVels[K-1] = velSensorK1;
+        for (double i: lastVels
+             ) {
+            sum+=i;
+        }
+        return sum/K;
     }
     public void updatePid(PidStatus status){
         pidStatus.copyFrom(status);

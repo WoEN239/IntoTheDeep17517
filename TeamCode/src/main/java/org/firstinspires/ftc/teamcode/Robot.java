@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class Robot extends ModulesList {
     LinearOpMode opMode;
-    private ArrayList<Task> taskQueue = new ArrayList<>();
+    private final ArrayList<Task> taskQueue = new ArrayList<>();
     public DevicePool devicePool;
     public HardwareMap hardwareMap;
     public ElapsedTime timer = new ElapsedTime();
@@ -42,5 +42,7 @@ public class Robot extends ModulesList {
             i.update();
         }
     }
-
+    public void updateTasks(){
+        taskQueue.forEach(Task::run);
+    }
 }
