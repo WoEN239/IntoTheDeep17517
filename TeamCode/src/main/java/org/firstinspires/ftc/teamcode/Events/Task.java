@@ -4,20 +4,20 @@ import java.util.function.Supplier;
 
 public class Task {
     private final Runnable run;
-    private final Supplier<Boolean> isDone;
-    private final double guardTime;
-    private final double bornTime;
+    private Supplier<Boolean> isDone;
+    private final Supplier<Boolean> isStart;
 
-    public Task(Runnable run,Supplier<Boolean> isDone, double guardTime,double bornTime){
+    public Task(Supplier<Boolean> isStart, Supplier<Boolean> isDone,Runnable run){
         this.isDone = isDone;
         this.run = run;
-        this.guardTime = guardTime;
-        this.bornTime = bornTime;
+        this.isStart = isStart;
     }
-    public void run(double timeNowSeconds){
-        if(timeNowSeconds>=bornTime){
-            if(!isDone.get()) {
+    public void run(){
+        if(isStart.get()){
+            if (!isDone.get()){
                 run.run();
+            }else{
+                isDone = ()->false;
             }
         }
 
