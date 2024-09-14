@@ -8,16 +8,18 @@ import org.firstinspires.ftc.teamcode.Devices.DevicePool;
 import org.firstinspires.ftc.teamcode.Events.Task;
 import org.firstinspires.ftc.teamcode.Modules.IModule;
 import org.firstinspires.ftc.teamcode.Modules.ModulesList;
+import org.firstinspires.ftc.teamcode.Modules.TelemetryOutput;
 
 import java.security.PublicKey;
 import java.util.ArrayList;
 
 public class Robot extends ModulesList {
-    LinearOpMode opMode;
+    public LinearOpMode opMode;
     private final ArrayList<Task> taskQueue = new ArrayList<>();
     public DevicePool devicePool;
     public HardwareMap hardwareMap;
     public ElapsedTime timer = new ElapsedTime();
+    public TelemetryOutput telemetryOutput;
     public double getSeconds(){
         return timer.seconds();
     }
@@ -25,6 +27,7 @@ public class Robot extends ModulesList {
         this.opMode = opMode;
         this.hardwareMap = opMode.hardwareMap;
         devicePool = new DevicePool(this);
+        telemetryOutput = new TelemetryOutput(this);
     }
     public void addToQueue(Task task){
         taskQueue.add(task);
@@ -43,6 +46,7 @@ public class Robot extends ModulesList {
         for (IModule i:modules
         ) {
             i.update();
+            telemetryOutput.update();
         }
     }
     public void updateTasks(){
