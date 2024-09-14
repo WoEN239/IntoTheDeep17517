@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Events.Task;
@@ -9,15 +10,20 @@ public class Auto extends BaseOpMode{
     boolean first = true;
     @Override
     public void doing(){
-        if(first) {
-            robot.addToQueue(new Task(
-                            () -> robot.timer.seconds() > 1,
-                            () -> false,
-                            () -> robot.devicePool.leftBackDrive.setPower(1)
+        robot.addToQueue(new Task(
+                            () -> robot.getSeconds()>5,
+                            () -> robot.getSeconds()>20,
+                            new Runnable[]{
+                                    ()->robot.devicePool.leftBackDrive.setPower(0.2),
+                            },
+                            new Runnable[]{
+                                    ()->robot.devicePool.leftBackDrive.setPower(0)
+                            }
                     )
             );
-            first = false;
-        }
-
+        FtcDashboard.getInstance().getTelemetry().addData("g",robot.getSeconds());
+        FtcDashboard.getInstance().getTelemetry().update();
+        robot.updateTasks();
     }
+
 }

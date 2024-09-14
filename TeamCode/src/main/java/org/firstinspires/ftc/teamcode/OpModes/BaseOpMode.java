@@ -22,6 +22,7 @@ public abstract class BaseOpMode extends LinearOpMode {
         while (opModeIsActive()){
             if(firstStart){
                 robot.timer.reset();
+                firstStart = false;
             }
             doing();
             robot.update();
