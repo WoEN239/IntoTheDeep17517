@@ -18,6 +18,9 @@ public class Robot extends ModulesList {
     public DevicePool devicePool;
     public HardwareMap hardwareMap;
     public ElapsedTime timer = new ElapsedTime();
+    public double getSeconds(){
+        return timer.seconds();
+    }
     public Robot(LinearOpMode opMode){
         this.opMode = opMode;
         this.hardwareMap = opMode.hardwareMap;
@@ -34,7 +37,7 @@ public class Robot extends ModulesList {
         ) {
             i.init(this);
         }
-        timer.reset();
+        //timer.reset();
     }
     public void update(){
         for (IModule i:modules
