@@ -11,12 +11,9 @@ import org.firstinspires.ftc.teamcode.Math.PidStatus;
 public class Motor{
     public final DcMotorEx dev;
     private int dir = 1;
-    private ElapsedTime timer = new ElapsedTime();
-    public Motor(String name, HardwareMap map, ElapsedTime timer) {
+    public Motor(String name, HardwareMap map) {
         this.dev = map.get(DcMotorEx.class,name);
-        for (int i = 0; i < K; i++) {
-            lastVels[i] = 0;
-        }
+
     }
 
     public void setDir(int i){
@@ -37,27 +34,23 @@ public class Motor{
         return dev.getCurrentPosition();
     }
 
-
-    double timeOld = timer.seconds();
-    double velTrueK0 = 0;
-    double velTrueK = 0;
-    public static int K = 1;
-    double [] lastVels  = new double[K];
     public double getVel(){
-        double velSensorK1 = dev.getVelocity();
-        double sum = 0;
-
-        for (int i = 0; i < lastVels.length-1; i++) {
-            lastVels[i] = lastVels[i+1];
-        }
-        lastVels[K-1] = velSensorK1;
-        for (double i: lastVels
-             ) {
-            sum+=i;
-        }
-        return sum/K;
+        return dir * filter(dev.getVelocity());
     }
+
     public void updatePid(PidStatus status){
         pidStatus.copyFrom(status);
+    }
+    static public int K = 100;
+    double [] lastVel = new double[K];
+    int n = 0;
+    private double filter(double i){
+        lastVel[n] = i;
+        n = (n+1)%K;
+        i = 0;
+        for(int j = 0; j<K;j++){
+            i = i +lastVel[j];
+        }
+        return i/K;
     }
 }
