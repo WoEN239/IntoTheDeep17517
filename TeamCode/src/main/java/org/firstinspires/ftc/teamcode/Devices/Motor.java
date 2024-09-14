@@ -15,7 +15,7 @@ public class Motor{
         this.dev = map.get(DcMotorEx.class,name);
 
     }
-
+    ElapsedTime timer = new ElapsedTime();
     public void setDir(int i){
         if (i == 1 || i ==-1) {
             dir = i;
@@ -23,8 +23,12 @@ public class Motor{
     }
     PidStatus pidStatus = new PidStatus(0,0,0,0,0,0);
     Pid pid = new Pid(pidStatus);
+    double posOld = 0;
     public void setVel(double vel){
-        double u = pid.calc(vel,getPos());
+
+        double u = pid.calc(vel,this.getVel());
+
+
         setPower(u);
     }
     public void setPower(double power){
@@ -33,9 +37,18 @@ public class Motor{
     double getPos(){
         return dev.getCurrentPosition();
     }
-
+    double velL = 0;
+    double tOld = 0;
     public double getVel(){
-        return dir * filter(dev.getVelocity());
+        double tNow = timer.seconds();
+        if(tNow - tOld > 1/1000.0) {
+            double posNow = dev.getCurrentPosition();
+            double vel = filter((posNow - posOld) / (tNow - tOld));
+            tOld = tNow;
+            posOld = posNow;
+            velL = vel;
+        }
+        return dir * velL;
     }
 
     public void updatePid(PidStatus status){
@@ -44,6 +57,7 @@ public class Motor{
     static public int K = 100;
     double [] lastVel = new double[K];
     int n = 0;
+
     private double filter(double i){
         lastVel[n] = i;
         n = (n+1)%K;
