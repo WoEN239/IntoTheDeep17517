@@ -15,7 +15,7 @@ public class TeleOp extends BaseOpMode{
 
         this.telemetry.addData("vel",robot.devicePool.leftBackDrive.getVel());
         FtcDashboard.getInstance().getTelemetry().addData("vel",robot.devicePool.leftBackDrive.getVel());
-        FtcDashboard.getInstance().getTelemetry().addData("velЫ",robot.devicePool.leftBackDrive.dev.getVelocity());
+        FtcDashboard.getInstance().getTelemetry().addData("velFrom getVelocity()",robot.devicePool.leftBackDrive.dev.getVelocity());
         FtcDashboard.getInstance().getTelemetry().update();
 
     }
