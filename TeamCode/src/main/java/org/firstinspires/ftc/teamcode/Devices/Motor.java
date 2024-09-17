@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Devices;
 
 import static java.lang.Math.abs;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -45,13 +46,13 @@ public class Motor{
     }
     /////////////////////////////////
 
-    public static int K  = 5;
-    public static double senseUp = 50;
-    public static double bigK    = 0.3;
-    public static double smallK  = 0.9;
+    public static int K  = 3;
+    public static double senseUp    = 50;
+    public static double bigK    = 0.4;
+    public static double smallK  = 0.01;
     private double posOld = 0;
     private double tOld   = 0;
-    private final double [] lastReads = new double[2*K+1];
+    private final double [] reads = new double[2*K+1];
     ElapsedTime timer = new ElapsedTime();
 
     public double getVel(){
@@ -63,29 +64,34 @@ public class Motor{
     public void updateVel(){
         double tNow = timer.seconds();
         double dt = tNow-tOld;
-        tOld = tNow;
+        if(dt>0.01) {
+            tOld = tNow;
 
-        double posNow = getPos();
-        double dp = posNow - posOld;
-        posOld = posNow;
+            double posNow = getPos();
+            double dp = posNow - posOld;
+            posOld = posNow;
+            FtcDashboard.getInstance().getTelemetry().addData("dt", dt);
+            for (int i = 0; i < (reads.length-1); i++) {
+                reads[i] = reads[(i+1)];
+            }
 
-        for(int i =0; i<(2*K); i++){
-            lastReads[i] = lastReads[i++];
+            reads[reads.length - 1] = dp / dt;
         }
-
-        lastReads[2*K] = dp/dt;
     }
     private double median(){
-        double [] sortReads = Arrays.stream(lastReads).sorted().toArray();
-        return sortReads[K+1];
+        double [] sortReads = Arrays.stream(reads).sorted().toArray();
+        return sortReads[K];
     }
     double vel = 0;
     private void filter(){
         double k = 0;
         double vNow = median();
+        FtcDashboard.getInstance().getTelemetry().addData("sens",abs(vNow - vel));
         if(abs(vNow - vel)>senseUp){
             k = bigK;
+            FtcDashboard.getInstance().getTelemetry().addData("up",true);
         }else{
+            FtcDashboard.getInstance().getTelemetry().addData("up",false);
             k = smallK;
         }
         vel = vel + (vNow - vel)*k;
