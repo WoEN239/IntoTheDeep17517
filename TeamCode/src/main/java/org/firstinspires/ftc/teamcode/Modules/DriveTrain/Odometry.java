@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
+
 import org.firstinspires.ftc.teamcode.Devices.Motor;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.IModule;
@@ -24,6 +26,17 @@ public class Odometry implements IModule {
     Motor rightm;
     Motor leftm;
     Motor ym;
+
+    public void reset(){
+        rightm.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightm.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        leftm.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftm.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        ym.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ym.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
 
     public Position getVelocityLocal() {
         return velocityLocal;
