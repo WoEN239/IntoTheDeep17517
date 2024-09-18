@@ -26,7 +26,7 @@ public class DriveTrain implements IModule {
         leftForwardDrive  = robot.devicePool.leftForwardDrive;
     }
     public DriveTrain(){}
-    public void moveVel(Position pos){
+    public void moveVel(double pos){
         velTarget.x = pos.x;
         velTarget.y = pos.y;
         velTarget.h = pos.h;

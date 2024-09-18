@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Devices.DevicePool;
 import org.firstinspires.ftc.teamcode.Events.Task;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Odometry;
 import org.firstinspires.ftc.teamcode.Modules.IModule;
 import org.firstinspires.ftc.teamcode.Modules.ModulesList;
 import org.firstinspires.ftc.teamcode.Modules.TelemetryOutput;
@@ -17,6 +18,7 @@ public class Robot extends ModulesList {
     public LinearOpMode opMode;
     private final ArrayList<Task> taskQueue = new ArrayList<>();
     public DevicePool devicePool;
+    public Odometry odometry;
     public HardwareMap hardwareMap;
     public ElapsedTime timer = new ElapsedTime();
     public TelemetryOutput telemetryOutput;
@@ -28,6 +30,7 @@ public class Robot extends ModulesList {
         this.hardwareMap = opMode.hardwareMap;
         devicePool = new DevicePool(this);
         telemetryOutput = new TelemetryOutput(this);
+        this.odometry = new Odometry();
     }
     public void addToQueue(Task task){
         taskQueue.add(task);
