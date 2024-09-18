@@ -29,13 +29,13 @@ public class Motor{
             dir = i;
         }
     }
-    PidStatus pidStatus = new PidStatus(0,0,0,0,0,0);
+
+    public static PidStatus pidStatus = new PidStatus(0,0,0,0,0,0);
     Pid pid = new Pid(pidStatus);
-    public void setVel(double vel){
-        double u = pid.calc(vel,getPos());
 
+    public void setVel(double velTar){
+        double u = pid.calc(velTar,this.vel);
         setPower(u);
-
     }
     public void setPower(double power){
         dev.setPower(power*dir);
@@ -52,7 +52,7 @@ public class Motor{
     public static double senseUp    = 50;
     public static double senseDown    = 10;
     public static double bigK    = 0.4;
-    public static double smallK  = 0.01;
+    public static double smallK  = 0.0005;
     private double posOld = 0;
     private double tOld   = 0;
     private final double [] reads = new double[2*K+1];

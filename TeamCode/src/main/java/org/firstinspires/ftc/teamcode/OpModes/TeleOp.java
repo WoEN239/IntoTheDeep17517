@@ -12,15 +12,14 @@ public class TeleOp extends BaseOpMode{
     public void doing(){
         Position target = new Position(rightStickY,rightStickX,leftStickX);
         if(isSin){
-            robot.devicePool.leftBackDrive.setPower(Math.sin(robot.timer.seconds()*u));
+            robot.devicePool.leftBackDrive.setVel(Math.sin(robot.timer.seconds())*u);
         }else {
-            robot.devicePool.leftBackDrive.setPower(u);
+            robot.devicePool.leftBackDrive.setVel(u);
         }
 
-        this.telemetry.addData("vel",robot.devicePool.leftBackDrive.getVel());
+
         FtcDashboard.getInstance().getTelemetry().addData("vel",robot.devicePool.leftBackDrive.getVel());
-        FtcDashboard.getInstance().getTelemetry().addData("u",Math.sin(robot.timer.seconds()*u));
-        FtcDashboard.getInstance().getTelemetry().addData("velFrom getVelocity()",robot.devicePool.leftBackDrive.dev.getVelocity());
+        FtcDashboard.getInstance().getTelemetry().addData("u",u);
         FtcDashboard.getInstance().getTelemetry().update();
 
     }
