@@ -33,7 +33,9 @@ public class Motor{
     Pid pid = new Pid(pidStatus);
     public void setVel(double vel){
         double u = pid.calc(vel,getPos());
+
         setPower(u);
+
     }
     public void setPower(double power){
         dev.setPower(power*dir);
@@ -48,6 +50,7 @@ public class Motor{
 
     public static int K  = 3;
     public static double senseUp    = 50;
+    public static double senseDown    = 10;
     public static double bigK    = 0.4;
     public static double smallK  = 0.01;
     private double posOld = 0;
@@ -56,27 +59,28 @@ public class Motor{
     ElapsedTime timer = new ElapsedTime();
 
     public double getVel(){
-        updateVel();
-        filter();
+        if(timer.seconds() - tOld> 0.005){
+            updateVel();
+            filter();
+        }
         return vel*dir;
     }
 
     public void updateVel(){
         double tNow = timer.seconds();
         double dt = tNow-tOld;
-        if(dt>0.01) {
-            tOld = tNow;
+        tOld = tNow;
 
-            double posNow = getPos();
-            double dp = posNow - posOld;
-            posOld = posNow;
-            FtcDashboard.getInstance().getTelemetry().addData("dt", dt);
-            for (int i = 0; i < (reads.length-1); i++) {
-                reads[i] = reads[(i+1)];
-            }
-
-            reads[reads.length - 1] = dp / dt;
+        double posNow = getPos();
+        double dp = posNow - posOld;
+        posOld = posNow;
+        FtcDashboard.getInstance().getTelemetry().addData("raw vel", dp/dt);
+        for (int i = 0; i < (reads.length-1); i++) {
+            reads[i] = reads[(i+1)];
         }
+
+        reads[reads.length - 1] = dp / dt;
+
     }
     private double median(){
         double [] sortReads = Arrays.stream(reads).sorted().toArray();
@@ -92,9 +96,19 @@ public class Motor{
             FtcDashboard.getInstance().getTelemetry().addData("up",true);
         }else{
             FtcDashboard.getInstance().getTelemetry().addData("up",false);
-            k = smallK;
+            k = (abs((vNow-vel))/senseUp)*bigK;
         }
-        vel = vel + (vNow - vel)*k;
+        FtcDashboard.getInstance().getTelemetry().addData("up",false);
+        if(abs(vNow - vel)<senseDown){
+            k = smallK;
+            FtcDashboard.getInstance().getTelemetry().addData("down",true);
+        }
+
+
+        FtcDashboard.getInstance().getTelemetry().addData("k",vNow);
+        FtcDashboard.getInstance().getTelemetry().addData("d",vel);
+
+        vel = vel + (vNow - vel) * k;
     }
 
 
