@@ -5,60 +5,52 @@ import static java.lang.Math.*;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.Robot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Pid {
-    private static final Logger log = LoggerFactory.getLogger(Pid.class);
-    double kp;
-    double kd;
-    double ki;
-    double kf;
-    double maxI;
-    double zeroBorder;
     PidStatus status;
-    public Pid(double kp, double kd, double ki,double kf, double maxI, double zeroBorder) {
-        this.kp = kp;
-        this.kd = kd;
-        this.ki = ki;
-        this.kf = kf;
-        this.maxI = maxI;
-        this.zeroBorder = zeroBorder;
-    }
 
     public Pid(PidStatus status) {
-        this.kp = status.kp;
-        this.kd = status.kd;
-        this.ki = status.ki;
-        this.kf = status.kf;
-        this.maxI = status.maxI;
-        this.zeroBorder = status.zeroBorder;
         this.status = status;
     }
-    public void updateStatus(PidStatus status) {
-        this.kp = status.kp;
-        this.kd = status.kd;
-        this.ki = status.ki;
-        this.kf = status.kf;
-        this.maxI = status.maxI;
-        this.zeroBorder = status.zeroBorder;
-    }
-    public void updateStatus(double kp, double kd, double ki,double kf) {
-        this.kp = kp;
-        this.kd = kd;
-        this.ki = ki;
-        this.kf = kf;
-    }
-
 
     private double tLast = (double)System.nanoTime()/(double)ElapsedTime.SECOND_IN_NANO;
     private double errLast = 0;
-    private double P;
-    private double I;
-    private double D;
-    private double F;
+    private double P = 0;
+    private double I = 0;
+    private double D = 0;
+    private double F = 0;
+    private double u = 0;
+    private double target = 0;
+    private double pos = 0;
 
-    public double calc(double target, double pos){
+    public void setPos(double pos) {
+        this.pos = pos;
+    }
+
+    public void setTarget(double target) {
+        this.target = target;
+    }
+
+    public double getU() {
+        return u;
+    }
+
+    public void update(){
+        calc();
+        if(status.isTelemetry){
+            Robot.telemetry.addData("P",P);
+            Robot.telemetry.addData("I",I);
+            Robot.telemetry.addData("D",D);
+            Robot.telemetry.addData("F",F);
+            Robot.telemetry.addData("Target",target);
+            Robot.telemetry.addData("position",pos);
+            Robot.telemetry.addData("pidU",u);
+        }
+    }
+    private void calc(){
         double err = target - pos;
         double dErr = err - errLast;
         errLast = err;
@@ -80,7 +72,7 @@ public class Pid {
         if(abs(u)<status.zeroBorder){
             u = 0;
         }
-        FtcDashboard.getInstance().getTelemetry().addData("power",u);
-        return u;
+        this.u = u;
     }
+
 }
