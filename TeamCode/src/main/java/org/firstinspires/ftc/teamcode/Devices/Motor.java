@@ -1,27 +1,40 @@
 package org.firstinspires.ftc.teamcode.Devices;
 
-import static java.lang.Math.abs;
-
-import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 
+import org.firstinspires.ftc.teamcode.Math.Filter;
+import org.firstinspires.ftc.teamcode.Math.FilterStatus;
 import org.firstinspires.ftc.teamcode.Math.Pid;
 import org.firstinspires.ftc.teamcode.Math.PidStatus;
 
-import java.util.Arrays;
+import java.util.Objects;
 
 
 @Config
 public class Motor{
-    public final DcMotorEx dev;
-    private int dir = 1;
-    public Motor(String name, HardwareMap map) {
-        this.dev = map.get(DcMotorEx.class,name);
+    public DcMotorEx dev;
+    private double velocity = 0;
+    private double position = 0;
 
+    private boolean isInit = true;
+    private int dir = 1;
+    private final VoltageSensor battery;
+
+    public Motor(String name, HardwareMap map) {
+        this.battery = map.voltageSensor.get("Control hub");
+        if (!Objects.equals(name, "")){
+            this.dev = map.get(DcMotorEx.class,name);
+        }else{
+            isInit = false;
+        }
+    }
+    public void update(){
+        updatePos();
+        updateVel();
     }
 
     public void setDir(int i){
@@ -29,88 +42,45 @@ public class Motor{
             dir = i;
         }
     }
-
     public static PidStatus pidStatus = new PidStatus(0,0,0,0,0,0);
     Pid pid = new Pid(pidStatus);
 
+    public static FilterStatus filterStatus = new FilterStatus(0,0,0,0,0);
+    Filter filter = new Filter(filterStatus);
+
     public void setVel(double velTar){
-        double u = pid.calc(velTar,this.vel);
-        setPower(u);
+        pid.setPos(velocity);
+        pid.setTarget(velTar);
+        pid.update();
+        double u = pid.getU();
+        setVoltage(u);
     }
     public void setPower(double power){
-        dev.setPower(power*dir);
-    }
-    double getPos(){
-        return dir*dev.getCurrentPosition();
-    }
-    public void updatePid(PidStatus status){
-        pidStatus.copyFrom(status);
-    }
-    /////////////////////////////////
-
-    public static int K  = 3;
-    public static double senseUp    = 50;
-    public static double senseDown    = 10;
-    public static double bigK    = 0.4;
-    public static double smallK  = 0.0005;
-    private double posOld = 0;
-    private double tOld   = 0;
-    private final double [] reads = new double[2*K+1];
-    ElapsedTime timer = new ElapsedTime();
-
-    public double getVel(){
-        if(timer.seconds() - tOld> 0.005){
-            updateVel();
-            filter();
+        if(isInit) {
+            dev.setPower(power * dir);
         }
-        return vel*dir;
     }
-
-    public void updateVel(){
-        double tNow = timer.seconds();
-        double dt = tNow-tOld;
-        tOld = tNow;
-
-        double posNow = getPos();
-        double dp = posNow - posOld;
-        posOld = posNow;
-        FtcDashboard.getInstance().getTelemetry().addData("raw vel", dp/dt);
-        for (int i = 0; i < (reads.length-1); i++) {
-            reads[i] = reads[(i+1)];
+    public void setVoltage(double voltage){
+        if(isInit){
+            dev.setPower(dir*((12/battery.getVoltage())*voltage)/12);
         }
-
-        reads[reads.length - 1] = dp / dt;
-
     }
-    private double median(){
-        double [] sortReads = Arrays.stream(reads).sorted().toArray();
-        return sortReads[K];
+    private void updatePos(){
+      if(isInit) {
+          position =  dir * dev.getCurrentPosition();
+      }
     }
-    double vel = 0;
-    private void filter(){
-        double k = 0;
-        double vNow = median();
-        FtcDashboard.getInstance().getTelemetry().addData("sens",abs(vNow - vel));
-        if(abs(vNow - vel)>senseUp){
-            k = bigK;
-            FtcDashboard.getInstance().getTelemetry().addData("up",true);
-        }else{
-            FtcDashboard.getInstance().getTelemetry().addData("up",false);
-            k = (abs((vNow-vel))/senseUp)*bigK;
-        }
-        FtcDashboard.getInstance().getTelemetry().addData("up",false);
-        if(abs(vNow - vel)<senseDown){
-            k = smallK;
-            FtcDashboard.getInstance().getTelemetry().addData("down",true);
-        }
-
-
-        FtcDashboard.getInstance().getTelemetry().addData("k",vNow);
-        FtcDashboard.getInstance().getTelemetry().addData("d",vel);
-
-        vel = vel + (vNow - vel) * k;
+    private void updateVel(){
+        filter.setPos(position);
+        filter.update();
+        velocity = filter.getVelocity();
     }
 
+    public double getVelocity() {
+        return velocity;
+    }
 
-
+    public double getPosition() {
+        return position;
+    }
 }
