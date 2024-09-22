@@ -1,36 +1,33 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Devices.DevicePool;
 import org.firstinspires.ftc.teamcode.Events.Task;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Odometry;
 import org.firstinspires.ftc.teamcode.Modules.IModule;
-import org.firstinspires.ftc.teamcode.Modules.ModulesList;
-import org.firstinspires.ftc.teamcode.Modules.TelemetryOutput;
 
-import java.security.PublicKey;
 import java.util.ArrayList;
 
 public class Robot extends ModulesList {
-    public LinearOpMode opMode;
+    public  LinearOpMode opMode;
     private final ArrayList<Task> taskQueue = new ArrayList<>();
     public DevicePool devicePool;
-    public Odometry odometry;
     public HardwareMap hardwareMap;
     public ElapsedTime timer = new ElapsedTime();
-    public TelemetryOutput telemetryOutput;
+    public static Telemetry telemetry = FtcDashboard.getInstance().getTelemetry();
     public double getSeconds(){
         return timer.seconds();
     }
     public Robot(LinearOpMode opMode){
         this.opMode = opMode;
+        Robot.telemetry = new MultipleTelemetry(FtcDashboard.getInstance().getTelemetry(),opMode.telemetry);
         this.hardwareMap = opMode.hardwareMap;
         devicePool = new DevicePool(this);
-        telemetryOutput = new TelemetryOutput(this);
-        this.odometry = new Odometry();
     }
     public void addToQueue(Task task){
         taskQueue.add(task);
@@ -43,13 +40,11 @@ public class Robot extends ModulesList {
         ) {
             i.init(this);
         }
-        //timer.reset();
     }
     public void update(){
         for (IModule i:modules
         ) {
             i.update();
-            telemetryOutput.update();
         }
     }
     public void updateTasks(){
