@@ -13,6 +13,11 @@ public class Position {
         this.y = y;
         this.h = h;
     }
+    public Position(){
+        this.x = 0;
+        this.y = 0;
+        this.h = 0;
+    }
     public void rotateIt(double degreesAngle){
         double angle1 = Math.toRadians(degreesAngle);
         double x1 = x * cos(angle1) - y * sin(angle1);
