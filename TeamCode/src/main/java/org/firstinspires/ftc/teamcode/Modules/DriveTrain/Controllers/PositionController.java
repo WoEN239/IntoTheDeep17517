@@ -11,6 +11,7 @@ public class PositionController implements IModule {
     private VelocityController controller;
     private Position position = new Position();
     private Position target = new Position();
+    public static boolean isUpdate = false;
     @Override
     public void init(Robot robot){
         this.robot = robot;
@@ -21,6 +22,7 @@ public class PositionController implements IModule {
     }
     public void move(Position target){
         this.target = target;
+        isUpdate = true;
     }
     
     public static PidStatus pidStatusY = new PidStatus(0,0,0,0,0,0);
@@ -50,7 +52,9 @@ public class PositionController implements IModule {
         pidH.setTarget(target.h);
         pidH.update();
         pidResult.h = pidH.getU();
-
-        controller.move(pidResult);
+        if(isUpdate) {
+            VelocityController.isUpdate = true;
+            controller.move(pidResult);
+        }
     }
 }

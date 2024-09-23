@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.Robot;
 
 public abstract class BaseOpMode extends LinearOpMode {
-    Robot robot;
+    protected Robot robot;
     protected void initOpMode(){
         robot = new Robot(this);
         robot.init();
@@ -25,6 +25,7 @@ public abstract class BaseOpMode extends LinearOpMode {
                 firstStart = false;
             }
             doing();
+            robot.updateTasks();
             robot.update();
         }
         rightStickX = gamepad1.right_stick_x;
