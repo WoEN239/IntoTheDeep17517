@@ -29,8 +29,8 @@ public class Gyro implements IModule {
 
     @Override
     public void update() {
-        angle = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
-        speed = imu.getRobotAngularVelocity(AngleUnit.DEGREES).xRotationRate;
+        angle = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+        speed = imu.getRobotAngularVelocity(AngleUnit.RADIANS).xRotationRate;
     }
     public double getAngle(){
         return angle;

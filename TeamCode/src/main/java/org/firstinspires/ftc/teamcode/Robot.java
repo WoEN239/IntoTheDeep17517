@@ -9,25 +9,28 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Devices.DevicePool;
 import org.firstinspires.ftc.teamcode.Events.Task;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RoadRunner;
 import org.firstinspires.ftc.teamcode.Modules.IModule;
 
 import java.util.ArrayList;
 
 public class Robot extends ModulesList {
     public  LinearOpMode opMode;
-    private final ArrayList<Task> taskQueue = new ArrayList<>();
     public DevicePool devicePool;
     public HardwareMap hardwareMap;
-    public ElapsedTime timer = new ElapsedTime();
     public static Telemetry telemetry = FtcDashboard.getInstance().getTelemetry();
-    public double getSeconds(){
-        return timer.seconds();
-    }
+
+    private final ArrayList<Task> taskQueue = new ArrayList<>();
+    public ElapsedTime timer = new ElapsedTime();
+
+    public RoadRunner roadRunner;
+
     public Robot(LinearOpMode opMode){
         this.opMode = opMode;
         Robot.telemetry = new MultipleTelemetry(FtcDashboard.getInstance().getTelemetry(),opMode.telemetry);
         this.hardwareMap = opMode.hardwareMap;
         devicePool = new DevicePool(this);
+        roadRunner = new RoadRunner(this);
     }
     public void addToQueue(Task task){
         taskQueue.add(task);
@@ -50,4 +53,9 @@ public class Robot extends ModulesList {
     public void updateTasks(){
         taskQueue.forEach(Task::run);
     }
+
+    public double getSeconds(){
+        return timer.seconds();
+    }
+
 }
