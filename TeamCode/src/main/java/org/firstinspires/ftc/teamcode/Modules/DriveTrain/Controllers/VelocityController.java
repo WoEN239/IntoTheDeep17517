@@ -8,25 +8,30 @@ import org.firstinspires.ftc.teamcode.Robot;
 
 public class VelocityController implements IModule {
     Robot robot;
-    private Position target = new Position(0,0,0);
+    private final Position target = new Position(0,0,0);
     DriveMotorsMap motorsMap;
+    public static boolean isUpdate = false;
+
     @Override
     public void init(Robot robot){
         this.robot = robot;
         motorsMap.init(robot);
+
     }
     public void move(Position target){
         this.target.x = target.x;
         this.target.y = target.y;
         this.target.h = target.h;
+        isUpdate = true;
     }
     @Override
-    public void update(){
+    public void update() {
         motorsMap.update();
-        motorsMap.rightBackDrive   .setVel(target.y+ target.x+ target.h);
-        motorsMap.rightForwardDrive.setVel(target.y- target.x+ target.h);
-        motorsMap.leftBackDrive    .setVel(target.y- target.x- target.h);
-        motorsMap.leftForwardDrive .setVel(target.y+ target.x- target.h);
+        if (isUpdate) {
+            motorsMap.rightBackDrive.setVel(target.y + target.x + target.h);
+            motorsMap.rightForwardDrive.setVel(target.y - target.x + target.h);
+            motorsMap.leftBackDrive.setVel(target.y - target.x - target.h);
+            motorsMap.leftForwardDrive.setVel(target.y + target.x - target.h);
+        }
     }
-
 }
