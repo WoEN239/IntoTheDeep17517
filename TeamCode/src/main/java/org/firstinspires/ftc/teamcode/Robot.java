@@ -60,4 +60,9 @@ public class Robot extends ModulesList {
         return timer.seconds();
     }
 
+    public enum TEAM
+    {
+        BLUE,RED
+    }
+    public static TEAM myTEAM = TEAM.BLUE;
 }
