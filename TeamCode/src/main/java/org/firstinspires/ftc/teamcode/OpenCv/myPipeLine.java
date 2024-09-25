@@ -13,7 +13,9 @@ import java.util.ArrayList;
 
 public class myPipeLine extends OpenCvPipeline {
     public Mat frame      = new Mat();
-    public Mat binaryMask      = new Mat();
+    public Mat binaryMaskUnshaped = new Mat();
+    public Mat binaryMask = new Mat();
+
 
     public Mat hvsMaskYellow    = new Mat();
     public Mat hvsMaskRed    = new Mat();
@@ -45,7 +47,7 @@ public class myPipeLine extends OpenCvPipeline {
         findAprilTag();
         doMask();
         findCentreObject();
-        return binaryMask;
+        return binaryMaskUnshaped;
     }
     public void findAprilTag(){
         aprilTagDetections =  aprilTagProcessor.getDetections();
@@ -60,7 +62,7 @@ public class myPipeLine extends OpenCvPipeline {
     }
     public void findCentreObject(){
         Moments m =  Imgproc.moments(binaryMask,true);
-        if(m.m00 >  100) {
+        if(m.m00 >  30) {
             objectCentre.x = m.m10 / m.m00;
             objectCentre.y = m.m01 / m.m00;
             isObject = true;
@@ -85,10 +87,12 @@ public class myPipeLine extends OpenCvPipeline {
                                    hvsMaxYellow.toScalar(),
                     binaryMaskYellow);
         if(Robot.myTEAM == Robot.TEAM.BLUE) {
-            Core.bitwise_or(binaryMaskBlue,binaryMaskYellow,binaryMask);
+            Core.bitwise_or(binaryMaskBlue,binaryMaskYellow, binaryMaskUnshaped);
         }else{
-            Core.bitwise_or(binaryMaskRed,binaryMaskYellow,binaryMask);
+            Core.bitwise_or(binaryMaskRed,binaryMaskYellow, binaryMaskUnshaped);
         }
-
+        binaryMask = binaryMaskUnshaped.rowRange(
+                ((int) binaryMaskUnshaped.size().width/4)*2,((int) binaryMaskUnshaped.size().width/4)*3
+        );
     }
 }
