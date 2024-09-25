@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.Devices.DevicePool;
 import org.firstinspires.ftc.teamcode.Events.Task;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RoadRunner;
 import org.firstinspires.ftc.teamcode.Modules.IModule;
+import org.firstinspires.ftc.teamcode.OpenCv.myPipeLine;
 
 import java.util.ArrayList;
 
@@ -24,6 +25,7 @@ public class Robot extends ModulesList {
     public ElapsedTime timer = new ElapsedTime();
 
     public RoadRunner roadRunner;
+    public myPipeLine pipeLine = new myPipeLine();
 
     public Robot(LinearOpMode opMode){
         this.opMode = opMode;

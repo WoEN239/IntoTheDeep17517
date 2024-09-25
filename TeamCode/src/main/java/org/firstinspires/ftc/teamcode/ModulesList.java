@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PositionViewer.Position
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.VelocityViewer.VelocityViewer;
 import org.firstinspires.ftc.teamcode.Modules.IModule;
 import org.firstinspires.ftc.teamcode.Modules.Lift;
+import org.firstinspires.ftc.teamcode.OpenCv.Camera;
 
 public class ModulesList {
     public Lift lift = new Lift();
@@ -15,8 +16,9 @@ public class ModulesList {
     public PositionViewer positionViewer = new PositionViewer();
     public VelocityViewer velocityViewer = new VelocityViewer();
     public Gyro imu = new Gyro();
+    public Camera camera = new Camera();
     protected IModule modules[] = new IModule[]{
-            lift, velocityController,imu,velocityViewer,positionViewer,positionController
+            lift, velocityController,imu,velocityViewer,positionViewer,positionController,camera
     };
 
 }

@@ -2,15 +2,17 @@ package org.firstinspires.ftc.teamcode.OpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.OpenCv.myPipeLine;
 import org.firstinspires.ftc.teamcode.Robot;
 
 public abstract class BaseOpMode extends LinearOpMode {
     protected Robot robot;
+
     protected void initOpMode(){
         robot = new Robot(this);
         robot.init();
     }
-    protected boolean firstInit = true;
+    private boolean firstInit = true;
     protected boolean firstStart = true;
     @Override
     public void runOpMode(){
