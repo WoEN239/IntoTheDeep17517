@@ -23,6 +23,7 @@ import com.acmerobotics.roadrunner.VelConstraint;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
+import org.firstinspires.ftc.teamcode.Modules.IModule;
 import org.firstinspires.ftc.teamcode.Robot;
 
 import java.util.Arrays;
@@ -30,11 +31,11 @@ import java.util.List;
 
 
 @Config
-public class RoadRunner {
+public class RoadRunner implements IModule {
     Robot robot;
     ElapsedTime timer = new ElapsedTime();
-
-    public RoadRunner(Robot robot){
+    @Override
+    public void init(Robot robot){
         this.robot = robot;
     }
     private final MecanumKinematics kinematics = new MecanumKinematics(trackWidth,xMultiplier,wheelDiameter);

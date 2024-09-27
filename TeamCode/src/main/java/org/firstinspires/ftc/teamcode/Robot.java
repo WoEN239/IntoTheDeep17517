@@ -9,10 +9,11 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Devices.DevicePool;
 import org.firstinspires.ftc.teamcode.Events.Task;
+import org.firstinspires.ftc.teamcode.Modules.Controller;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RoadRunner;
 import org.firstinspires.ftc.teamcode.Modules.IModule;
+import org.firstinspires.ftc.teamcode.Modules.Listener;
 import org.firstinspires.ftc.teamcode.OpenCv.myPipeLine;
-
 import java.util.ArrayList;
 
 public class Robot extends ModulesList {
@@ -24,7 +25,6 @@ public class Robot extends ModulesList {
     private final ArrayList<Task> taskQueue = new ArrayList<>();
     public ElapsedTime timer = new ElapsedTime();
 
-    public RoadRunner roadRunner;
     public myPipeLine pipeLine = new myPipeLine();
 
     public Robot(LinearOpMode opMode){
@@ -32,7 +32,6 @@ public class Robot extends ModulesList {
         Robot.telemetry = new MultipleTelemetry(FtcDashboard.getInstance().getTelemetry(),opMode.telemetry);
         this.hardwareMap = opMode.hardwareMap;
         devicePool = new DevicePool(this);
-        roadRunner = new RoadRunner(this);
     }
     public void addToQueue(Task task){
         taskQueue.add(task);
@@ -49,8 +48,17 @@ public class Robot extends ModulesList {
     public void update(){
         for (IModule i:modules
         ) {
-            i.update();
+            if(i instanceof Listener){
+                i.read();
+            }
         }
+        for (IModule i:modules
+        ) {
+            if(i instanceof Controller){
+                i.update();
+            }
+        }
+
     }
     public void updateTasks(){
         taskQueue.forEach(Task::run);

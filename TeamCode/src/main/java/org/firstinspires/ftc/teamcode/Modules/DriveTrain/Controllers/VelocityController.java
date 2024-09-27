@@ -2,11 +2,11 @@ package org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers;
 
 
 import org.firstinspires.ftc.teamcode.Math.Position;
+import org.firstinspires.ftc.teamcode.Modules.Controller;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Devices.DriveMotorsMap;
 import org.firstinspires.ftc.teamcode.Modules.IModule;
 import org.firstinspires.ftc.teamcode.Robot;
-
-public class VelocityController implements IModule {
+public class VelocityController implements Controller {
     Robot robot;
     private final Position target = new Position(0,0,0);
     DriveMotorsMap motorsMap;
