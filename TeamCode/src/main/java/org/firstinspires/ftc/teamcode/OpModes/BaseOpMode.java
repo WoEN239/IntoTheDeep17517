@@ -7,10 +7,14 @@ import org.firstinspires.ftc.teamcode.Robot;
 
 public abstract class BaseOpMode extends LinearOpMode {
     protected Robot robot;
+    protected boolean isCamera = false;
 
     protected void initOpMode(){
         robot = new Robot(this);
         robot.init();
+        if(isCamera){
+            robot.camera.startStream();
+        }
     }
     private boolean firstInit = true;
     protected boolean firstStart = true;
