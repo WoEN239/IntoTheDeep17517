@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.Events.Task;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.OpModes.BaseOpMode;
 
-@Autonomous
+@Autonomous(group = "Test")
 public class RoadRunnerTest extends BaseOpMode {
     @Override
     public void doing(){
