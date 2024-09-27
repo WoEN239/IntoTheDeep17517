@@ -44,6 +44,7 @@ public class myPipeLine extends OpenCvPipeline {
     Point objectCentre = new Point();
     @Override
     public Mat processFrame(Mat input) {
+        frame = input;
         findAprilTag();
         doMask();
         findCentreObject();
@@ -72,9 +73,13 @@ public class myPipeLine extends OpenCvPipeline {
 
     }
     public void doMask(){
-        Imgproc.cvtColor(frame,hvsMaskBlue,Imgproc.COLOR_BGR2HSV);
-        Imgproc.cvtColor(frame,hvsMaskRed,Imgproc.COLOR_BGR2HSV);
+        Imgproc.cvtColor(frame,hvsMaskBlue,  Imgproc.COLOR_RGBA2BGR);
+        Imgproc.cvtColor(frame,hvsMaskRed,   Imgproc.COLOR_RGBA2BGR);
+        Imgproc.cvtColor(frame,hvsMaskYellow,Imgproc.COLOR_RGBA2BGR);
+        Imgproc.cvtColor(frame,hvsMaskBlue,  Imgproc.COLOR_BGR2HSV);
+        Imgproc.cvtColor(frame,hvsMaskRed,   Imgproc.COLOR_BGR2HSV);
         Imgproc.cvtColor(frame,hvsMaskYellow,Imgproc.COLOR_BGR2HSV);
+
         Core.inRange(hvsMaskRed,hvsMinRed.toScalar(),
                                 hvsMaxRed.toScalar(),
                     binaryMaskRed);
