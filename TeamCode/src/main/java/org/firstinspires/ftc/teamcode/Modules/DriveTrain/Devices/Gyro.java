@@ -8,9 +8,10 @@ import com.qualcomm.robotcore.hardware.IMU;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.Modules.IModule;
+import org.firstinspires.ftc.teamcode.Modules.Listener;
 import org.firstinspires.ftc.teamcode.Robot;
 
-public class Gyro implements IModule {
+public class Gyro implements Listener {
     private IMU imu;
     private double angle;
     private double speed;
@@ -28,7 +29,7 @@ public class Gyro implements IModule {
     }
 
     @Override
-    public void update() {
+    public void read() {
         angle = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
         speed = imu.getRobotAngularVelocity(AngleUnit.RADIANS).xRotationRate;
     }

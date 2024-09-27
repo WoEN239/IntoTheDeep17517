@@ -1,10 +1,10 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers;
-
 import org.firstinspires.ftc.teamcode.Math.Pid;
 import org.firstinspires.ftc.teamcode.Math.PidStatus;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.IModule;
 import org.firstinspires.ftc.teamcode.Robot;
+
 
 public class PositionController implements IModule {
     Robot robot;
@@ -23,8 +23,9 @@ public class PositionController implements IModule {
     public void move(Position target){
         this.target = target;
         isUpdate = true;
+        update();
     }
-    
+
     public static PidStatus pidStatusY = new PidStatus(0,0,0,0,0,0);
     Pid pidY = new Pid(pidStatusY);
     
@@ -33,8 +34,7 @@ public class PositionController implements IModule {
     
     public static PidStatus pidStatusH = new PidStatus(0,0,0,0,0,0);
     Pid pidH = new Pid(pidStatusH);
-    
-    @Override
+
     public void update(){
         Position pidResult = new Position();
         
