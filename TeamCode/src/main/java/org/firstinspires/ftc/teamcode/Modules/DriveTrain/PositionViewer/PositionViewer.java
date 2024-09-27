@@ -1,10 +1,10 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain.PositionViewer;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
-import org.firstinspires.ftc.teamcode.Modules.IModule;
+import org.firstinspires.ftc.teamcode.Modules.Listener;
 import org.firstinspires.ftc.teamcode.Robot;
 
-public class PositionViewer implements IModule {
+public class PositionViewer implements Listener {
     private Robot robot;
     private PositionLocalViewer localViewer;
 
@@ -29,7 +29,7 @@ public class PositionViewer implements IModule {
         positionGlobal.plus(localViewer.deltaPosition);
     }
     @Override
-    public void update(){
+    public void read(){
         localViewer.update();
         calcGlobalPosition();
     }

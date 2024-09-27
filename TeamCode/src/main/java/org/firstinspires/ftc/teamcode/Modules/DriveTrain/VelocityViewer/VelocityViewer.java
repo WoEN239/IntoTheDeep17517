@@ -5,9 +5,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.Devices.Motor;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.IModule;
+import org.firstinspires.ftc.teamcode.Modules.Listener;
 import org.firstinspires.ftc.teamcode.Robot;
 
-public class VelocityViewer implements IModule {
+public class VelocityViewer implements Listener {
     private Robot robot;
     private VelocityLocalViewer localViewer = new VelocityLocalViewer();
 
@@ -30,7 +31,7 @@ public class VelocityViewer implements IModule {
         velocityGlobal.plus(localViewer.deltaVel);
     }
     @Override
-    public void update(){
+    public void read(){
         localViewer.update();
         calcGlobalVelocity();
     }
