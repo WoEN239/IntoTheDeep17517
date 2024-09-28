@@ -19,7 +19,7 @@ public class PositionLocalViewer {
     }
     public Position deltaPosition;
     private void calcLocalPosition(){
-        double x = yOdometer.dev.getCurrentPosition()                                            ;
+        double x = yOdometer.dev.getCurrentPosition();
         double y = (rightOdometer.dev.getCurrentPosition() + leftOdometer.dev.getCurrentPosition()) /2.0;
         double h = (rightOdometer.dev.getCurrentPosition() - leftOdometer.dev.getCurrentPosition()) /2.0;
         deltaPosition = new Position(x,y,h);

@@ -49,15 +49,19 @@ public class Filter {
         velMathNew = dp/dt;
     }
     private void updateReads(){
-        for(int i = 0; i < status.medianSize-1; i++){
-            reads[i] = reads[(i+1)];
+        if(status.medianSize >= 1) {
+            for (int i = 0; i < status.medianSize - 1; i++) {
+                reads[i] = reads[(i + 1)];
+            }
+            reads[status.medianSize - 1] = velMathNew;
         }
-        reads[status.medianSize-1] = velMathNew;
     }
-    private void calcMedian(){
-        double sortReads[] = reads.clone();
-        Arrays.sort(sortReads);
-        this.medianVelNow = sortReads[(status.medianSize-1)/2];
+    private void calcMedian() {
+        if (status.medianSize >= 1) {
+            double sortReads[] = reads.clone();
+            Arrays.sort(sortReads);
+            this.medianVelNow = sortReads[(status.medianSize - 1) / 2];
+        }
     }
     private void calcVel(){
         double k = 0;

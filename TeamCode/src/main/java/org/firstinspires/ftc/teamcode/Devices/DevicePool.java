@@ -17,9 +17,9 @@ public class DevicePool {
         rightForwardDrive = new Motor("",robot.hardwareMap);
         leftBackDrive = new Motor("motor",robot.hardwareMap);
         leftForwardDrive = new Motor("",robot.hardwareMap);
-        rightOdometer = new Motor("",robot.hardwareMap);
-        leftOdometer  = new Motor("",robot.hardwareMap);
-        yOdometer     = new Motor("",robot.hardwareMap);
+        rightOdometer = new Motor("rightOdometr",robot.hardwareMap);
+        leftOdometer  = new Motor("leftOdometr",robot.hardwareMap);
+        yOdometer     = new Motor("yOdometr",robot.hardwareMap);
 
     }
 }

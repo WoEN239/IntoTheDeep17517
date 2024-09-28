@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.OpenCv;
 
+import com.acmerobotics.dashboard.config.Config;
+
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
@@ -11,7 +13,11 @@ import org.opencv.imgproc.Moments;
 import org.openftc.easyopencv.OpenCvPipeline;
 import java.util.ArrayList;
 
+@Config
+
 public class myPipeLine extends OpenCvPipeline {
+
+
     public Mat frame      = new Mat();
     public Mat binaryMaskUnshaped = new Mat();
     public Mat binaryMask = new Mat();

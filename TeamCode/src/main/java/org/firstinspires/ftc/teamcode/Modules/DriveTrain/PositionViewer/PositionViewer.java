@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.Robot;
 
 public class PositionViewer implements Listener {
     private Robot robot;
-    private PositionLocalViewer localViewer;
+    private final PositionLocalViewer localViewer = new PositionLocalViewer();
 
     @Override
     public void init(Robot robot){

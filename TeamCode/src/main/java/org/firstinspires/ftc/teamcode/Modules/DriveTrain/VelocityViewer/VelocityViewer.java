@@ -13,6 +13,7 @@ public class VelocityViewer implements Listener {
     private VelocityLocalViewer localViewer = new VelocityLocalViewer();
 
     public void init(Robot robot){
+        this.robot = robot;
         localViewer.init(robot);
     }
     private final Position velocityGlobal = new Position(0,0,0);
