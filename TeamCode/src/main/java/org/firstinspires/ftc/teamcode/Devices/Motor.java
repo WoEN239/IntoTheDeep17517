@@ -25,7 +25,7 @@ public class Motor{
     private final VoltageSensor battery;
 
     public Motor(String name, HardwareMap map) {
-        this.battery = map.voltageSensor.get("Control hub");
+        this.battery = map.voltageSensor.get("Control Hub");
         if (!Objects.equals(name, "")){
             this.dev = map.get(DcMotorEx.class,name);
         }else{
