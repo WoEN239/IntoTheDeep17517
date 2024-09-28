@@ -16,8 +16,9 @@ public class Camera implements IModule {
     public OpenCvWebcam camera;
     AprilTagProcessor aprilTagProcessor = AprilTagProcessor.easyCreateWithDefaults();
     VisionPortal visionPortal;
-    public static int WIDTH = 480;
+    public static int WIDTH = 640;
     public static int HEIGHT = 480;
+
     public void init(Robot robot) {
         int cameraMonitorViewId = robot.hardwareMap.appContext.getResources()
                 .getIdentifier("cameraMonitorViewId", "id", robot.hardwareMap.appContext.getPackageName());
@@ -25,11 +26,12 @@ public class Camera implements IModule {
                 robot.hardwareMap.get(WebcamName.class, "Webcam 1"),
                 cameraMonitorViewId);
         camera.setPipeline(robot.pipeLine);
-        visionPortal = VisionPortal.easyCreateWithDefaults(robot.hardwareMap.get(WebcamName.class, "Webcam 1"),
-                                                            aprilTagProcessor);
+        //  visionPortal = VisionPortal.easyCreateWithDefaults(robot.hardwareMap.get(WebcamName.class, "Webcam 1"),
+        //                                                    aprilTagProcessor);
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
+                startStream();
                 Robot.telemetry.addLine("camera successful init");
             }
 
@@ -39,9 +41,10 @@ public class Camera implements IModule {
             }
         });
     }
-    public void startStream(){
-        camera.startStreaming(WIDTH,HEIGHT, OpenCvCameraRotation.SIDEWAYS_LEFT);
-        FtcDashboard.getInstance().startCameraStream(camera,60);
+
+    public void startStream() {
+        camera.startStreaming(WIDTH, HEIGHT, OpenCvCameraRotation.SIDEWAYS_LEFT);
+        FtcDashboard.getInstance().startCameraStream(camera, 30);
     }
 
 }
