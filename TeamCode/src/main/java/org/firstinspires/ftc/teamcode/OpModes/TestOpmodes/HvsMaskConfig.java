@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.Robot;
 
 @Autonomous(group = "Test")
 public class HvsMaskConfig  extends BaseOpMode {
-    {
+    static {
         isCamera = true;
     }
 
