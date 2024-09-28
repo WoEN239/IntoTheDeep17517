@@ -19,8 +19,8 @@ public class ModulesList {
     public Gyro imu = new Gyro();
     public RoadRunner roadRunner = new RoadRunner();
     public Camera camera = new Camera();
-    protected IModule modules[] = new IModule[]{
-            roadRunner,lift, velocityController,imu,velocityViewer,positionViewer,positionController,camera
+    protected IModule[] modules = new IModule[]{
+            roadRunner,lift,velocityController,imu,velocityViewer,positionViewer,positionController,camera
     };
 
 }
