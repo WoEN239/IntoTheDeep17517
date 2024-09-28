@@ -1,14 +1,17 @@
 package org.firstinspires.ftc.teamcode.Math;
 import static java.lang.Math.abs;
+
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import java.util.Arrays;
-
+@Config
 public class Filter {
     FilterStatus status;
     double velocityTrue = 0;
 
     public Filter(FilterStatus status) {
         this.status = status;
+        reads = new double[status.medianSize];
     }
     public void update(){
         calcNewVel();
@@ -28,7 +31,7 @@ public class Filter {
     private double vel = 0;
     private double medianVelNow = 0;
     private double medianVelOld = 0;
-    private final double [] reads = new double[status.medianSize];
+    private final double [] reads;
     ElapsedTime timer = new ElapsedTime();
 
     public void setPos(double posNew) {
