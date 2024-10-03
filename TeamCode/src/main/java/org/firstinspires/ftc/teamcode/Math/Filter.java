@@ -1,8 +1,12 @@
 package org.firstinspires.ftc.teamcode.Math;
 import static java.lang.Math.abs;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.teamcode.Robot;
+
 import java.util.Arrays;
 @Config
 public class Filter {
@@ -18,6 +22,9 @@ public class Filter {
         updateReads();
         calcMedian();
         calcVel();
+        if(status.isTelemetry) {
+            updateTelemetry();
+        }
     }
 
     public double getVelocity() {
@@ -28,7 +35,6 @@ public class Filter {
     private double posNew = 0;
     private double tOld   = 0;
     private double velMathNew = 0;
-    private double vel = 0;
     private double medianVelNow = 0;
     private double medianVelOld = 0;
     private final double [] reads;
@@ -36,6 +42,7 @@ public class Filter {
 
     public void setPos(double posNew) {
         this.posNew = posNew;
+        FtcDashboard.getInstance().getTelemetry().addData("updateMotors",posNew);
     }
 
     private void calcNewVel(){
@@ -56,9 +63,15 @@ public class Filter {
             reads[status.medianSize - 1] = velMathNew;
         }
     }
+    private void updateTelemetry(){
+        Robot.telemetry.addData("Median vel", medianVelNow);
+        Robot.telemetry.addData("Math vel", velMathNew);
+        Robot.telemetry.addData("Velocity", velocityTrue);
+
+    }
     private void calcMedian() {
         if (status.medianSize >= 1) {
-            double sortReads[] = reads.clone();
+            double[] sortReads = reads.clone();
             Arrays.sort(sortReads);
             this.medianVelNow = sortReads[(status.medianSize - 1) / 2];
         }

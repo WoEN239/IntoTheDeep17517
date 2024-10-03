@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Devices;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -11,27 +12,20 @@ import org.firstinspires.ftc.teamcode.Math.FilterStatus;
 import org.firstinspires.ftc.teamcode.Math.Pid;
 import org.firstinspires.ftc.teamcode.Math.PidStatus;
 
-import java.util.Objects;
-
-
 @Config
 public class Motor{
     public DcMotorEx dev;
     private double velocity = 0;
     private double position = 0;
 
-    private boolean isInit = true;
     private int dir = 1;
     private final VoltageSensor battery;
 
     public Motor(String name, HardwareMap map) {
         this.battery = map.voltageSensor.get("Control Hub");
-        if (!Objects.equals(name, "")){
-            this.dev = map.get(DcMotorEx.class,name);
-        }else{
-            isInit = false;
-        }
+        this.dev = map.get(DcMotorEx.class,name);
     }
+
     public void update(){
         updatePos();
         updateVel();
@@ -56,19 +50,18 @@ public class Motor{
         setVoltage(u);
     }
     public void setPower(double power){
-        if(isInit) {
             dev.setPower(power * dir);
-        }
+
     }
     public void setVoltage(double voltage){
-        if(isInit){
             dev.setPower(dir*((12/battery.getVoltage())*voltage)/12);
-        }
+
     }
     private void updatePos(){
-      if(isInit) {
+          FtcDashboard.getInstance().getTelemetry().addData("posfdfd"+this.toString(),getPosition());
+          FtcDashboard.getInstance().getTelemetry().update();
+          FtcDashboard.getInstance().getTelemetry().addData("rTime",System.nanoTime());
           position =  dir * dev.getCurrentPosition();
-      }
     }
     private void updateVel(){
         filter.setPos(position);

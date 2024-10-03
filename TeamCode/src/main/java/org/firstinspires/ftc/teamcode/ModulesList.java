@@ -20,7 +20,7 @@ public class ModulesList {
     public RoadRunner roadRunner = new RoadRunner();
     public Camera camera = new Camera();
     protected IModule[] modules = new IModule[]{
-            roadRunner,lift,velocityController,imu,velocityViewer,positionViewer,positionController,camera
+            roadRunner,lift,velocityController,imu,velocityViewer,positionViewer,positionController
     };
 
 }

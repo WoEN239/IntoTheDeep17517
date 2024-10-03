@@ -21,8 +21,7 @@ public class Auto extends BaseOpMode{
                             }
                     )
             );
-        FtcDashboard.getInstance().getTelemetry().addData("g",robot.getSeconds());
-        FtcDashboard.getInstance().getTelemetry().update();
+
         robot.update();
         robot.updateTasks();
     }
