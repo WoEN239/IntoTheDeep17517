@@ -13,13 +13,13 @@ public class DevicePool {
     public Motor yOdometer    ;
 
     public  DevicePool(Robot robot){
-        rightBackDrive = new Motor("",robot.hardwareMap);
-        rightForwardDrive = new Motor("",robot.hardwareMap);
+        rightBackDrive = new Motor("fake",robot.hardwareMap);
+        rightForwardDrive = new Motor("fake",robot.hardwareMap);
         leftBackDrive = new Motor("motor",robot.hardwareMap);
-        leftForwardDrive = new Motor("",robot.hardwareMap);
-        rightOdometer = new Motor("",robot.hardwareMap);
-        leftOdometer  = new Motor("",robot.hardwareMap);
-        yOdometer     = new Motor("",robot.hardwareMap);
+        leftForwardDrive = new Motor("fake",robot.hardwareMap);
+        rightOdometer = new Motor("fake",robot.hardwareMap);
+        leftOdometer  = new Motor("fake",robot.hardwareMap);
+        yOdometer     = new Motor("fake",robot.hardwareMap);
 
     }
 }

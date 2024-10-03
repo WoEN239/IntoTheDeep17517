@@ -13,6 +13,8 @@ import org.firstinspires.ftc.teamcode.Modules.Controller;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RoadRunner;
 import org.firstinspires.ftc.teamcode.Modules.IModule;
 import org.firstinspires.ftc.teamcode.Modules.Listener;
+import org.firstinspires.ftc.teamcode.OpModes.BaseOpMode;
+import org.firstinspires.ftc.teamcode.OpenCv.Camera;
 import org.firstinspires.ftc.teamcode.OpenCv.myPipeLine;
 import java.util.ArrayList;
 
@@ -32,6 +34,9 @@ public class Robot extends ModulesList {
         Robot.telemetry = new MultipleTelemetry(FtcDashboard.getInstance().getTelemetry(),opMode.telemetry);
         this.hardwareMap = opMode.hardwareMap;
         devicePool = new DevicePool(this);
+        if(BaseOpMode.isCamera){
+            camera.init(this);
+        }
     }
     public void addToQueue(Task task){
         taskQueue.add(task);
@@ -58,7 +63,7 @@ public class Robot extends ModulesList {
                 i.update();
             }
         }
-
+        telemetry.update();
     }
     public void updateTasks(){
         taskQueue.forEach(Task::run);
