@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.Robot;
 public class VelocityController implements Controller {
     Robot robot;
     private final Position target = new Position(0,0,0);
-    DriveMotorsMap motorsMap = new DriveMotorsMap();
+    DriveMotorsMap motorsMap      = new DriveMotorsMap();
     public static boolean isUpdate = false;
 
     @Override

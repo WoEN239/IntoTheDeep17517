@@ -4,6 +4,7 @@ import com.acmerobotics.dashboard.FtcDashboard;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.Modules.IModule;
+import org.firstinspires.ftc.teamcode.OpModes.BaseOpMode;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
@@ -12,13 +13,10 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-public class Camera implements IModule {
+public class Camera {
     public OpenCvWebcam camera;
-    AprilTagProcessor aprilTagProcessor = AprilTagProcessor.easyCreateWithDefaults();
-    VisionPortal visionPortal;
     public static int WIDTH = 640;
     public static int HEIGHT = 480;
-
     public void init(Robot robot) {
         int cameraMonitorViewId = robot.hardwareMap.appContext.getResources()
                 .getIdentifier("cameraMonitorViewId", "id", robot.hardwareMap.appContext.getPackageName());
@@ -26,13 +24,13 @@ public class Camera implements IModule {
                 robot.hardwareMap.get(WebcamName.class, "Webcam 1"),
                 cameraMonitorViewId);
         camera.setPipeline(robot.pipeLine);
-        //  visionPortal = VisionPortal.easyCreateWithDefaults(robot.hardwareMap.get(WebcamName.class, "Webcam 1"),
-        //                                                    aprilTagProcessor);
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
-                startStream();
                 Robot.telemetry.addLine("camera successful init");
+                if(BaseOpMode.isCamera){
+                    startStream();
+                }
             }
 
             @Override
@@ -42,7 +40,7 @@ public class Camera implements IModule {
         });
     }
 
-    public void startStream() {
+    private void startStream() {
         camera.startStreaming(WIDTH, HEIGHT, OpenCvCameraRotation.SIDEWAYS_LEFT);
         FtcDashboard.getInstance().startCameraStream(camera, 30);
     }

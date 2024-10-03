@@ -19,4 +19,5 @@ public class FilterStatus {
         this.bigK = bigK;
         this.smallK = smallK;
     }
+
 }
