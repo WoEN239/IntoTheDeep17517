@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PositionViewer.Position
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RoadRunner;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.VelocityViewer.VelocityViewer;
 import org.firstinspires.ftc.teamcode.Modules.IModule;
-import org.firstinspires.ftc.teamcode.Modules.Lift;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.Lift;
 import org.firstinspires.ftc.teamcode.OpenCv.Camera;
 
 public class ModulesList {

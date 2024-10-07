@@ -33,7 +33,7 @@ public class Robot extends ModulesList {
         this.opMode = opMode;
         Robot.telemetry = new MultipleTelemetry(FtcDashboard.getInstance().getTelemetry(),opMode.telemetry);
         this.hardwareMap = opMode.hardwareMap;
-        devicePool = new DevicePool(this);
+        devicePool = new DevicePool(hardwareMap);
         if(BaseOpMode.isCamera){
             camera.init(this);
         }
