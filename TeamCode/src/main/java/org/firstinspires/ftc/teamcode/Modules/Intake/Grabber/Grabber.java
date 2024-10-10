@@ -7,10 +7,10 @@ import org.firstinspires.ftc.teamcode.Robot;
 public class Grabber{
     Robot robot;
 
-    private Servo grabberServo;
-    private Servo grabberServoUp;
+    private final Servo grabberServo;
+    private final Servo grabberServoUp;
     private Servo transferServoSecond;
-    private Servo transferServoFirst;
+    private final Servo transferServoFirst;
 
 
     public Grabber(Robot robot){
