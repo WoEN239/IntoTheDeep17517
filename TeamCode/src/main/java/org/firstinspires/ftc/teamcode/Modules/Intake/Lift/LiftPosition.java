@@ -7,12 +7,12 @@ import com.acmerobotics.dashboard.config.Config;
 public enum LiftPosition {
     UP, DOWN, LOW_AXIS_GET, HIGHEST_AXIS;
 
-    public static int down = 0;
-    public static int up = 0;
-    public static int lowAxisGet = 0;
-    public static int highestAxis = 0;
+    public static double down = 0;
+    public static double up = 0;
+    public static double lowAxisGet = 0;
+    public static double highestAxis = 0;
 
-    public int get(){
+    public double get(){
         switch (this){
             default:
             case UP:
