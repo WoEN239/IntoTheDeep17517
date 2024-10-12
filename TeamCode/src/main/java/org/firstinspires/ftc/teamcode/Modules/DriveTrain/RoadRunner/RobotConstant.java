@@ -2,6 +2,10 @@ package org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner;
 
 import com.acmerobotics.dashboard.config.Config;
 
+/**
+ * Writing by EgorKhvostikov
+ */
+
 @Config
 public class RobotConstant {
     public static double maxAccel = 70;

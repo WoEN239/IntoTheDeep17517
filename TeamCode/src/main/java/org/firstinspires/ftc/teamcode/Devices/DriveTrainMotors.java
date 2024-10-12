@@ -7,6 +7,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.R;
 
+/**
+ * Writing by @MrFrosty1234
+ */
+
 public class DriveTrainMotors {
     HardwareMap hardwareMap;
 

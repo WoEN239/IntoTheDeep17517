@@ -1,5 +1,9 @@
 package org.firstinspires.ftc.teamcode.Math;
 
+/**
+ * Writing by EgorKhvostikov
+ */
+
 public class PidStatus {
     public double kp;
     public double ki;

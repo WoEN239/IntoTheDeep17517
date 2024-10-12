@@ -8,6 +8,11 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Robot;
 
 import java.util.Arrays;
+
+/**
+ * Writing by EgorKhvostikov
+ */
+
 @Config
 public class Filter {
     FilterStatus status;
