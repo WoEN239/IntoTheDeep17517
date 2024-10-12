@@ -18,10 +18,10 @@ public class Auto extends BaseOpMode{
                             () -> robot.getSeconds()>5,
                             () -> robot.getSeconds()>20,
                             new Runnable[]{
-                                    ()->robot.devicePool.leftBackDrive.setPower(0.2),
+                                    ()->robot.devicePool.driveTrainMotors.leftBackDrive.setPower(0.2),
                             },
                             new Runnable[]{
-                                    ()->robot.devicePool.leftBackDrive.setPower(0)
+                                    ()->robot.devicePool.driveTrainMotors.leftBackDrive.setPower(0)
                             }
                     )
             );
