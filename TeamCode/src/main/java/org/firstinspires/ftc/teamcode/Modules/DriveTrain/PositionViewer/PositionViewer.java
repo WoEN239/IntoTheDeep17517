@@ -4,6 +4,10 @@ import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.Listener;
 import org.firstinspires.ftc.teamcode.Robot;
 
+/**
+ * Writing by EgorKhvostikov
+ */
+
 public class PositionViewer implements Listener {
     private Robot robot;
     private final PositionLocalViewer localViewer = new PositionLocalViewer();

@@ -8,6 +8,10 @@ import org.firstinspires.ftc.teamcode.Modules.IModule;
 import org.firstinspires.ftc.teamcode.Modules.Listener;
 import org.firstinspires.ftc.teamcode.Robot;
 
+/**
+ * Writing by EgorKhvostikov
+ */
+
 public class VelocityViewer implements Listener {
     private Robot robot;
     private VelocityLocalViewer localViewer = new VelocityLocalViewer();

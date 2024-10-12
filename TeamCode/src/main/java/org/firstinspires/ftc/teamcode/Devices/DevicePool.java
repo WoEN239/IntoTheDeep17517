@@ -7,6 +7,9 @@ import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Grabber;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.GrabberPosition;
 import org.firstinspires.ftc.teamcode.Robot;
 
+/**
+ * Writing by @MrFrosty1234
+ */
 public class DevicePool {
 
     HardwareMap hardwareMap;

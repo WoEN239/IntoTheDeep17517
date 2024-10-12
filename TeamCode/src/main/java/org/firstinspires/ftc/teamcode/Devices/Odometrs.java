@@ -6,29 +6,33 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import java.util.HashMap;
 
+/**
+ * Writing by @MrFrosty1234
+ */
+
 public class Odometrs {
     HardwareMap hardwareMap;
 
     private HashMap<DcMotorEx,Integer> directionMap = new HashMap();
-    public DcMotorEx odometrLeftY;
-    public DcMotorEx odometrRightY;
-    public DcMotorEx odometrX;
+    public Motor odometrLeftY;
+    public Motor odometrRightY;
+    public Motor odometrX;
 
     public Odometrs(HardwareMap hardwareMap){
         this.hardwareMap = hardwareMap;
 
-        odometrLeftY = hardwareMap.get(DcMotorEx.class, "fake");
-        odometrRightY = hardwareMap.get(DcMotorEx.class, "fake");
-        odometrX = hardwareMap.get(DcMotorEx.class, "fake");
+        odometrLeftY = hardwareMap.get(Motor.class, "fake");
+        odometrRightY = hardwareMap.get(Motor.class, "fake");
+        odometrX = hardwareMap.get(Motor.class, "fake");
     }
 
     public void reset(){
-        odometrX.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        odometrLeftY.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        odometrRightY.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        odometrX.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        odometrLeftY.setMode(DcMotor.RunMode .RUN_WITHOUT_ENCODER);
-        odometrRightY.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        odometrX.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        odometrLeftY.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        odometrRightY.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        odometrX.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        odometrLeftY.dev.setMode(DcMotor.RunMode .RUN_WITHOUT_ENCODER);
+        odometrRightY.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
     public double getVelocity(DcMotorEx odometer){
         return odometer.getVelocity()*directionMap.get(odometer);

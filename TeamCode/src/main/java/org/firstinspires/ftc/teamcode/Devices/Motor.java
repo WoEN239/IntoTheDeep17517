@@ -12,6 +12,10 @@ import org.firstinspires.ftc.teamcode.Math.FilterStatus;
 import org.firstinspires.ftc.teamcode.Math.Pid;
 import org.firstinspires.ftc.teamcode.Math.PidStatus;
 
+/**
+ * Writing by EgorKhvostikov
+ */
+
 @Config
 public class Motor{
     public DcMotorEx dev;

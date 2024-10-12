@@ -3,12 +3,16 @@ import org.firstinspires.ftc.teamcode.Devices.Motor;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Robot;
 
+/**
+ * Writing by EgorKhvostikov
+ */
+
 public class VelocityLocalViewer{
     public void init(Robot robot){
-        velRightBackM = robot.devicePool.rightBackDrive;
-        velLeftBackM  = robot.devicePool.leftBackDrive;
-        velRightForM  = robot.devicePool.rightForwardDrive;
-        velLeftForM   = robot.devicePool.leftForwardDrive;
+        velRightBackM = robot.devicePool.driveTrainMotors.rightBackDrive;
+        velLeftBackM  = robot.devicePool.driveTrainMotors.leftBackDrive;
+        velRightForM  = robot.devicePool.driveTrainMotors.rightForwardDrive;
+        velLeftForM   = robot.devicePool.driveTrainMotors.leftForwardDrive;
     }
     private final Position velocityLocal = new Position(0,0,0);
     public Position getVelocityLocal() {

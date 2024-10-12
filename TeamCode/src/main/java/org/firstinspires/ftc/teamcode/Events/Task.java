@@ -2,6 +2,10 @@ package org.firstinspires.ftc.teamcode.Events;
 
 import java.util.function.Supplier;
 
+/**
+ * Writing by EgorKhvostikov
+ */
+
 public class Task {
     private final Runnable [] run;
     private final Runnable [] end;

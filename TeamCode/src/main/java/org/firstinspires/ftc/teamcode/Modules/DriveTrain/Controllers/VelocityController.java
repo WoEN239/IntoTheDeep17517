@@ -6,6 +6,11 @@ import org.firstinspires.ftc.teamcode.Modules.Controller;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Devices.DriveMotorsMap;
 import org.firstinspires.ftc.teamcode.Modules.IModule;
 import org.firstinspires.ftc.teamcode.Robot;
+
+/**
+ * Writing by EgorKhvostikov
+ */
+
 public class VelocityController implements Controller {
     Robot robot;
     private final Position target = new Position(0,0,0);

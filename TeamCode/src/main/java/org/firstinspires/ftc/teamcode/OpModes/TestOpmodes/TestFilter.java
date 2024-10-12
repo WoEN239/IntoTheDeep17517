@@ -14,12 +14,12 @@ public class TestFilter extends BaseOpMode {
     public static double u = 0;
     public void doing(){
         if(isSin){
-            robot.devicePool.leftBackDrive.setPower(Math.sin(robot.timer.seconds())*u);
+            robot.devicePool.driveTrainMotors.leftBackDrive.setPower(Math.sin(robot.timer.seconds())*u);
         }else {
-            robot.devicePool.leftBackDrive.setPower(u);
+            robot.devicePool.driveTrainMotors.leftBackDrive.setPower(u);
         }
 
-        FtcDashboard.getInstance().getTelemetry().addData("Rev Vel",robot.devicePool.leftBackDrive.getPosition());
+        FtcDashboard.getInstance().getTelemetry().addData("Rev Vel",robot.devicePool.driveTrainMotors.leftBackDrive.getPosition());
         FtcDashboard.getInstance().getTelemetry().addData("u",u);
         FtcDashboard.getInstance().getTelemetry().update();
 

@@ -3,6 +3,10 @@ package org.firstinspires.ftc.teamcode.Devices;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+/**
+ * Writing by @MrFrosty1234
+ */
+
 public class GrabberAndTransferServo {
     HardwareMap hardwareMap;
 

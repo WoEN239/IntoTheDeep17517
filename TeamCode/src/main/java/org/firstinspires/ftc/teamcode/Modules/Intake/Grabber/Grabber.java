@@ -4,6 +4,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Robot;
 
+/**
+ * Writing by @MrFrosty1234
+ */
+
 public class Grabber{
     Robot robot;
 

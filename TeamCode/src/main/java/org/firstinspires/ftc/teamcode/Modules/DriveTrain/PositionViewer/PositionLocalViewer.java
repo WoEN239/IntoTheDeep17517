@@ -4,11 +4,15 @@ import org.firstinspires.ftc.teamcode.Devices.Motor;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Robot;
 
+/**
+ * Writing by EgorKhvostikov
+ */
+
 public class PositionLocalViewer {
     public void init(Robot robot){
-        rightOdometer = robot.devicePool.rightOdometer;
-        leftOdometer = robot.devicePool.leftOdometer;
-        yOdometer = robot.devicePool.yOdometer;
+        rightOdometer = robot.devicePool.odometrs.odometrRightY;
+        leftOdometer = robot.devicePool.odometrs.odometrLeftY;
+        yOdometer = robot.devicePool.odometrs.odometrRightY;
     }
     private final Position positionLocal = new Position(0,0,0);
     private Motor rightOdometer;
