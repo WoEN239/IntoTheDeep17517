@@ -5,6 +5,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.OpenCv.myPipeLine;
 import org.firstinspires.ftc.teamcode.Robot;
 
+/**
+ * Writing by EgorKhvostikov
+ */
+
 public abstract class BaseOpMode extends LinearOpMode {
     protected Robot robot;
     public static boolean isCamera = false;

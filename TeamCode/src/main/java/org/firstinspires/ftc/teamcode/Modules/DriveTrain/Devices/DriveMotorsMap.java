@@ -3,6 +3,10 @@ package org.firstinspires.ftc.teamcode.Modules.DriveTrain.Devices;
 import org.firstinspires.ftc.teamcode.Devices.Motor;
 import org.firstinspires.ftc.teamcode.Robot;
 
+/**
+ * Writing by EgorKhvostikov
+ */
+
 public class DriveMotorsMap {
     Robot robot;
     public Motor rightForwardDrive;
@@ -20,9 +24,9 @@ public class DriveMotorsMap {
 
     public void init(Robot robot){
         this.robot = robot;
-        rightBackDrive    = robot.devicePool.rightBackDrive;
-        rightForwardDrive = robot.devicePool.rightForwardDrive;
-        leftBackDrive     = robot.devicePool.leftBackDrive;
-        leftForwardDrive  = robot.devicePool.leftForwardDrive;
+        rightBackDrive    = robot.devicePool.driveTrainMotors.rightBackDrive;
+        rightForwardDrive = robot.devicePool.driveTrainMotors.rightForwardDrive;
+        leftBackDrive     = robot.devicePool.driveTrainMotors.leftBackDrive;
+        leftForwardDrive  = robot.devicePool.driveTrainMotors.leftForwardDrive;
     }
 }

@@ -5,6 +5,10 @@ import com.qualcomm.robotcore.hardware.AnalogSensor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+/**
+ * Writing by @MrFrosty1234
+ */
+
 public class Sensors {
     HardwareMap hardwareMap;
 

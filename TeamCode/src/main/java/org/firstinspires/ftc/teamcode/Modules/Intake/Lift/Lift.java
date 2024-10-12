@@ -11,6 +11,11 @@ import org.firstinspires.ftc.teamcode.Math.Pid;
 import org.firstinspires.ftc.teamcode.Math.PidStatus;
 import org.firstinspires.ftc.teamcode.Modules.IModule;
 import org.firstinspires.ftc.teamcode.Robot;
+
+/**
+ * Writing by @MrFrosty1234
+ */
+
 public class Lift implements IModule {
     LiftPosition liftPosition;
     Robot robot;

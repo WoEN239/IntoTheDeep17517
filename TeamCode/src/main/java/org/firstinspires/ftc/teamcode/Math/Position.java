@@ -9,6 +9,10 @@ import com.acmerobotics.roadrunner.PoseVelocity2dDual;
 import com.acmerobotics.roadrunner.Time;
 import com.acmerobotics.roadrunner.Vector2d;
 
+/**
+ * Writing by EgorKhvostikov
+ */
+
 public class Position {
     public double x;
     public double y;

@@ -1,5 +1,9 @@
 package org.firstinspires.ftc.teamcode.Math;
 
+/**
+ * Writing by EgorKhvostikov
+ */
+
 public class FilterStatus {
     public  int    medianSize  = 3     ;
     public  double senseUp     = 50    ;

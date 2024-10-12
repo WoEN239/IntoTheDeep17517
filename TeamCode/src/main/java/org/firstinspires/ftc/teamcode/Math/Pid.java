@@ -9,6 +9,10 @@ import org.firstinspires.ftc.teamcode.Robot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Writing by EgorKhvostikov
+ */
+
 public class Pid {
     PidStatus status;
 
