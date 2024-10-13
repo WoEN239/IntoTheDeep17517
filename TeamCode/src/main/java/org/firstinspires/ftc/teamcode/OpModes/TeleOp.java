@@ -1,29 +1,21 @@
 package org.firstinspires.ftc.teamcode.OpModes;
-
 import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.config.Config;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp
-
-/**
- * Writing by EgorKhvostikov and @MrFrosty1234
- */
-
-@Config
 public class TeleOp extends BaseOpMode{
     public static boolean isSin = false ;
     public static double u = 0;
     public void doing(){
         Position target = new Position(rightStickY,rightStickX,leftStickX);
         if(isSin){
-            robot.devicePool.driveTrainMotors.leftBackDrive.dev.setPower(Math.sin(robot.timer.seconds())*u);
+            robot.devicePool.leftBackDrive.dev.setPower(Math.sin(robot.timer.seconds())*u);
         }else {
-            robot.devicePool.driveTrainMotors.leftBackDrive.setPower(u);
+            robot.devicePool.leftBackDrive.setPower(u);
         }
 
 
-        FtcDashboard.getInstance().getTelemetry().addData("vel",robot.devicePool.driveTrainMotors.leftBackDrive.getVelocity());
+        FtcDashboard.getInstance().getTelemetry().addData("vel",robot.devicePool.leftBackDrive.getVelocity());
         FtcDashboard.getInstance().getTelemetry().addData("u",u);
         FtcDashboard.getInstance().getTelemetry().update();
 
