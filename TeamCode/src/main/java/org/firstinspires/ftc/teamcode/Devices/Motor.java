@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.Devices;
 
-import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
@@ -12,22 +10,21 @@ import org.firstinspires.ftc.teamcode.Math.FilterStatus;
 import org.firstinspires.ftc.teamcode.Math.Pid;
 import org.firstinspires.ftc.teamcode.Math.PidStatus;
 
-/**
- * Writing by EgorKhvostikov
- */
-
-@Config
 public class Motor{
     public DcMotorEx dev;
     private double velocity = 0;
     private double position = 0;
 
     private int dir = 1;
-    private final VoltageSensor battery;
+    private VoltageSensor battery;
 
-    public Motor(String name, HardwareMap map) {
+    private String name;
+
+    public void init(String name, HardwareMap map) {
         this.battery = map.voltageSensor.get("Control Hub");
         this.dev = map.get(DcMotorEx.class,name);
+        this.name = name;
+        filter.setName(name);
     }
 
     public void update(){
@@ -40,11 +37,12 @@ public class Motor{
             dir = i;
         }
     }
-    public static PidStatus pidStatus = new PidStatus(0,0,0,0,0,0);
+
+    public PidStatus pidStatus = new PidStatus(0,0,0,0,0,0);
     Pid pid = new Pid(pidStatus);
 
-    public static FilterStatus filterStatus = new FilterStatus(0,0,0,0,0);
-    Filter filter = new Filter(filterStatus);
+    public FilterStatus filterStatus = new FilterStatus(6,150,30,1,0.1,0.3);
+    Filter filter = new Filter().init(filterStatus);
 
     public void setVel(double velTar){
         pid.setPos(velocity);
@@ -59,12 +57,8 @@ public class Motor{
     }
     public void setVoltage(double voltage){
             dev.setPower(dir*((12/battery.getVoltage())*voltage)/12);
-
     }
     private void updatePos(){
-          FtcDashboard.getInstance().getTelemetry().addData("posfdfd"+this.toString(),getPosition());
-          FtcDashboard.getInstance().getTelemetry().update();
-          FtcDashboard.getInstance().getTelemetry().addData("rTime",System.nanoTime());
           position =  dir * dev.getCurrentPosition();
     }
     private void updateVel(){
