@@ -62,8 +62,12 @@ public class LiftListener implements Listener {
         liftPosition = targetPosition;
     }
 
-    public boolean isLiftAtTarget(){
-        return liftAtTarget;
+    public boolean isLiftAtTarget() {
+        if ((targetPosition.get() - getPosition()) < 5 && buttonDown.getState()) {
+            return liftAtTarget = true;
+        }
+        else
+            return liftAtTarget = false;
     }
 
     @Override
