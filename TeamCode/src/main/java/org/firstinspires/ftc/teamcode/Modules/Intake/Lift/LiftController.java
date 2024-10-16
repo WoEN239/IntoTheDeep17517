@@ -82,7 +82,7 @@ public class LiftController implements Controller {
     public void updateLift() {
         pid = new Pid(pidStatus);
 
-        if (liftListener.getPosition() > -10) {
+        if ((liftListener.getPosition() > -10) && !liftListener.buttonDown.getState()) {
             if (liftListener.liftPosition != LiftPosition.DOWN) {
                 power = pid.getU();
             } else {
