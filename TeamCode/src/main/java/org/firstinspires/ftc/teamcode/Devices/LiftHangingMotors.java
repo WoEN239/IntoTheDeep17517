@@ -11,29 +11,29 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class LiftHangingMotors {
     HardwareMap hardwareMap;
 
-    public DcMotorEx liftRightMotor;
-    public DcMotorEx liftLeftMotor;
+    public Motor liftRightMotor;
+    public Motor liftLeftMotor;
 
-    public DcMotorEx hangingMotor;
+    public Motor hangingMotor;
 
     public  LiftHangingMotors (HardwareMap hardwareMap){
         this.hardwareMap = hardwareMap;
 
-        liftLeftMotor = hardwareMap.get(DcMotorEx.class, "liftLeftMotor");
-        liftRightMotor = hardwareMap.get(DcMotorEx.class, "liftRightMotor");
-        hangingMotor = hardwareMap.get(DcMotorEx.class, "hangingMotor");
+        liftLeftMotor = hardwareMap.get(Motor.class, "liftLeftMotor");
+        liftRightMotor = hardwareMap.get(Motor.class, "liftRightMotor");
+        hangingMotor = hardwareMap.get(Motor.class, "hangingMotor");
 
-        liftRightMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        liftRightMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        hangingMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        liftRightMotor.dev.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        liftRightMotor.dev.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        hangingMotor.dev.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        liftLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        liftLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        liftLeftMotor.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        liftLeftMotor.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        liftRightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        liftRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        liftRightMotor.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        liftRightMotor.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        hangingMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        hangingMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        hangingMotor.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        hangingMotor.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 }
