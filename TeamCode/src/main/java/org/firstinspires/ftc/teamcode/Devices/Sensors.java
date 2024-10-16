@@ -22,11 +22,9 @@ public class Sensors {
     public Sensors(HardwareMap hardwareMap){
         this.hardwareMap = hardwareMap;
 
-        downButton = hardwareMap.get(DigitalChannel.class, "downButton");
-
-        leftColorSensor = hardwareMap.get(AnalogInput.class, "leftColorSensor");
-
-        rightColorSensor = hardwareMap.get(AnalogInput.class, "rightColorSensor");
+        downButton = hardwareMap.get(DigitalChannel.class,   "fakeSensorD");
+        leftColorSensor = hardwareMap.get(AnalogInput.class, "fakeSensorA");
+        rightColorSensor = hardwareMap.get(AnalogInput.class,"fakeSensorA");
 
     }
 
