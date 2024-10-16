@@ -86,7 +86,7 @@ public class LiftController implements Controller {
             if (liftListener.liftPosition != LiftPosition.DOWN) {
                 power = pid.getU();
             } else {
-                if(liftListener.liftAtTarget)
+                if(liftListener.buttonDown.getState())
                     power = 0;
                 else
                     power = 1;
