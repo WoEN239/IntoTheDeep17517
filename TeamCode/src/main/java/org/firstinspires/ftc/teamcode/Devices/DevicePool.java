@@ -16,7 +16,6 @@ public class DevicePool {
 
     public GrabberAndTransferServo grabber;
     public DriveTrainMotors driveTrainMotors;
-    public  Odometrs odometrs;
     public Sensors sensors;
     public LiftHangingMotors liftHangingMotors;
 
@@ -25,7 +24,6 @@ public class DevicePool {
 
         grabber = new GrabberAndTransferServo(hardwareMap);
         driveTrainMotors = new DriveTrainMotors(hardwareMap);
-        odometrs = new Odometrs(hardwareMap);
         sensors = new Sensors(hardwareMap);
         liftHangingMotors = new LiftHangingMotors(hardwareMap);
 

@@ -11,6 +11,8 @@ import org.firstinspires.ftc.teamcode.Devices.DevicePool;
 import org.firstinspires.ftc.teamcode.Events.Task;
 import org.firstinspires.ftc.teamcode.Modules.Controller;
 import org.firstinspires.ftc.teamcode.Modules.IModule;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Grabber;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftController;
 import org.firstinspires.ftc.teamcode.Modules.Listener;
 import org.firstinspires.ftc.teamcode.OpModes.BaseOpMode;
 import org.firstinspires.ftc.teamcode.OpenCv.myPipeLine;
@@ -25,6 +27,10 @@ public class Robot extends ModulesList {
     private final ArrayList<Task> taskQueue = new ArrayList<>();
     public ElapsedTime timer = new ElapsedTime();
 
+    public Grabber grabber;
+
+    public LiftController liftController;
+
     public myPipeLine pipeLine = new myPipeLine();
 
     public Robot(LinearOpMode opMode){
@@ -32,6 +38,11 @@ public class Robot extends ModulesList {
         Robot.telemetry = new MultipleTelemetry(FtcDashboard.getInstance().getTelemetry(),opMode.telemetry);
         this.hardwareMap = opMode.hardwareMap;
         devicePool = new DevicePool(hardwareMap);
+        grabber = new Grabber();
+
+        liftController = new LiftController();
+
+
         if(BaseOpMode.isCamera){
             camera.init(this);
         }

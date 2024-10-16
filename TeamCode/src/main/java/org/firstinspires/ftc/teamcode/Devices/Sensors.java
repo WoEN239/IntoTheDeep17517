@@ -12,10 +12,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class Sensors {
     HardwareMap hardwareMap;
 
-    DigitalChannel downButton;
+    public DigitalChannel downButton;
 
-    AnalogInput leftColorSensor;
-    AnalogInput rightColorSensor;
+    public AnalogInput leftColorSensor;
+    public AnalogInput rightColorSensor;
 
 
 
