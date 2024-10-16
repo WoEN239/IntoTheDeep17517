@@ -7,21 +7,24 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 
 import org.firstinspires.ftc.teamcode.Devices.Button;
+import org.firstinspires.ftc.teamcode.Devices.Motor;
 import org.firstinspires.ftc.teamcode.Math.Pid;
 import org.firstinspires.ftc.teamcode.Math.PidStatus;
+import org.firstinspires.ftc.teamcode.Modules.Controller;
 import org.firstinspires.ftc.teamcode.Modules.IModule;
+import org.firstinspires.ftc.teamcode.Modules.Listener;
 import org.firstinspires.ftc.teamcode.Robot;
 
 /**
  * Writing by @MrFrosty1234
  */
 
-public class Lift implements IModule {
+public class Lift implements Controller {
     LiftPosition liftPosition;
     Robot robot;
 
-    DcMotor liftLeftMotor;
-    DcMotor liftRightMotor;
+    Motor liftLeftMotor;
+    Motor liftRightMotor;
 
     public DigitalChannel buttonDown;
 
@@ -35,13 +38,8 @@ public class Lift implements IModule {
 
     private boolean liftAtTarget = true;
 
-    public static double kP = 0;
-    public static double kI = 0;
-    public static double kD = 0;
-    public static double kF = 0;
-    public static double maxI = 0;
 
-    PidStatus pidStatus = new PidStatus(kP, kI, kD, kF, maxI, 0);
+    public PidStatus pidStatus;
     Pid pid = new Pid(pidStatus);
     @Override
     public void init(Robot robot) {
@@ -50,22 +48,22 @@ public class Lift implements IModule {
 
     public Lift() {
         this.robot = new Robot(robot.opMode);
-        liftLeftMotor = robot.devicePool.liftHangingMotors.liftLeftMotor;
-        liftRightMotor = robot.lift.liftRightMotor;
+        liftLeftMotor.dev = robot.devicePool.liftHangingMotors.liftLeftMotor;
+        liftRightMotor.dev = robot.devicePool.liftHangingMotors.liftRightMotor;
 
         voltage = 12;
     }
 
     public void reset() {
-        liftRightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        liftRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        liftRightMotor.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        liftRightMotor.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        liftLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        liftLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        liftLeftMotor.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        liftLeftMotor.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        liftRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        liftRightMotor.dev.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        liftLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        liftLeftMotor.dev.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
    Button down = new Button();
@@ -98,8 +96,8 @@ public class Lift implements IModule {
     }
 
     public double getEnc(){
-        double leftM = liftLeftMotor.getCurrentPosition();
-        double rightM = liftRightMotor.getCurrentPosition();
+        double leftM = liftLeftMotor.dev.getCurrentPosition();
+        double rightM = liftRightMotor.dev.getCurrentPosition();
         return (leftM + rightM) / 2;
     }
 
@@ -111,11 +109,11 @@ public class Lift implements IModule {
     double encErr;
 
     private int getLeftPos(){
-        return liftLeftMotor.getCurrentPosition() - liftLeftOffSet;
+        return liftLeftMotor.dev.getCurrentPosition() - liftLeftOffSet;
     }
 
     private int getRightPos(){
-        return liftRightMotor.getCurrentPosition() - liftRightOffSet;
+        return liftRightMotor.dev.getCurrentPosition() - liftRightOffSet;
     }
 
     private int getPos(){
