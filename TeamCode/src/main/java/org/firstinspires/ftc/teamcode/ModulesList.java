@@ -7,11 +7,11 @@ import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PositionViewer.Position
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RoadRunner;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.VelocityViewer.VelocityViewer;
 import org.firstinspires.ftc.teamcode.Modules.IModule;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.Lift;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftController;
 import org.firstinspires.ftc.teamcode.OpenCv.Camera;
 
 public class ModulesList {
-    public Lift lift = new Lift();
+    public LiftController lift = new LiftController();
     public VelocityController velocityController = new VelocityController();
     public PositionController positionController = new PositionController();
     public PositionViewer positionViewer = new PositionViewer();
