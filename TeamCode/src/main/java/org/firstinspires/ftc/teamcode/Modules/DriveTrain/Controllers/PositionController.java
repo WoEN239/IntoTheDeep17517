@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers;
 import org.firstinspires.ftc.teamcode.Math.Pid;
 import org.firstinspires.ftc.teamcode.Math.PidStatus;
 import org.firstinspires.ftc.teamcode.Math.Position;
+import org.firstinspires.ftc.teamcode.Modules.Controller;
 import org.firstinspires.ftc.teamcode.Modules.IModule;
 import org.firstinspires.ftc.teamcode.Robot;
 
@@ -10,7 +11,7 @@ import org.firstinspires.ftc.teamcode.Robot;
  */
 
 
-public class PositionController implements IModule {
+public class PositionController implements Controller {
     Robot robot;
     private VelocityController controller;
     private Position position = new Position();
@@ -41,7 +42,8 @@ public class PositionController implements IModule {
 
     public void update(){
         Position pidResult = new Position();
-        
+        updatePosition();
+
         pidX.setPos(position.x);
         pidX.setTarget(target.x);
         pidX.update();

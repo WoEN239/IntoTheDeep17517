@@ -19,6 +19,10 @@ public class Pid {
     public Pid(PidStatus status) {
         this.status = status;
     }
+    public String name;
+    public void setName(String n){
+        name = n;
+    }
 
     private double tLast = (double)System.nanoTime()/(double)ElapsedTime.SECOND_IN_NANO;
     private double errLast = 0;
@@ -45,17 +49,19 @@ public class Pid {
     public void update(){
         calc();
         if(status.isTelemetry){
-            Robot.telemetry.addData("P",P);
-            Robot.telemetry.addData("I",I);
-            Robot.telemetry.addData("D",D);
-            Robot.telemetry.addData("F",F);
-            Robot.telemetry.addData("Target",target);
-            Robot.telemetry.addData("position",pos);
-            Robot.telemetry.addData("pidU",u);
+            Robot.telemetry.addData(name+"P",P);
+            Robot.telemetry.addData(name+"I",I);
+            Robot.telemetry.addData(name+"D",D);
+            Robot.telemetry.addData(name+"F",F);
+            Robot.telemetry.addData(name+"Target",target);
+            Robot.telemetry.addData(name+"position",pos);
+            Robot.telemetry.addData(name+"err",err);
+            Robot.telemetry.addData(name+"pidU",u);
         }
     }
+    double err = 0;
     private void calc(){
-        double err = target - pos;
+        err = target - pos;
         double dErr = err - errLast;
         errLast = err;
 

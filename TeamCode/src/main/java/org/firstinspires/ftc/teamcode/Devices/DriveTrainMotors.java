@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.Devices;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -10,22 +12,22 @@ import org.firstinspires.ftc.teamcode.R;
 /**
  * Writing by @MrFrosty1234
  */
-
+@Config
 public class DriveTrainMotors {
     HardwareMap hardwareMap;
 
-    public Motor rightForwardDrive;
-    public Motor rightBackDrive;
-    public Motor leftForwardDrive;
-    public Motor leftBackDrive;
+    public static Motor rightForwardDrive = new Motor();
+    public static Motor rightBackDrive    = new Motor();
+    public static Motor leftForwardDrive  = new Motor();
+    public static Motor leftBackDrive     = new Motor();
 
     public DriveTrainMotors(HardwareMap hardwareMap){
         this.hardwareMap = hardwareMap;
 
-        rightBackDrive = hardwareMap.get(Motor.class, "fake");
-        rightForwardDrive = hardwareMap.get(Motor.class, "fake");
-        leftBackDrive = hardwareMap.get(Motor.class, "fake");
-        leftForwardDrive = hardwareMap.get(Motor.class, "fake");
+        leftBackDrive.init    ("motor", hardwareMap);
+        rightForwardDrive.init ("fakeMotor", hardwareMap);
+        rightBackDrive   .init  ("fakeMotor", hardwareMap);
+        leftForwardDrive .init ("fakeMotor", hardwareMap);
     }
 
     public void reset(){
