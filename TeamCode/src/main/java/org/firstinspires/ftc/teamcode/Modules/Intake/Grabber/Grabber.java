@@ -2,13 +2,15 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.Grabber;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.Modules.Controller;
+import org.firstinspires.ftc.teamcode.Modules.Listener;
 import org.firstinspires.ftc.teamcode.Robot;
 
 /**
  * Writing by @MrFrosty1234
  */
 
-public class Grabber{
+public class Grabber implements Controller {
     Robot robot;
 
     private final Servo grabberServo;
@@ -46,6 +48,12 @@ public class Grabber{
     public void closeUpGrabber(){grabberUpPosition = GrabberUpPosition.FINISH;}
 
     public void openUpGrabber(){grabberUpPosition = GrabberUpPosition.START;}
+
+
+    @Override
+    public void init(Robot robot) {
+
+    }
 
     public void update(){
         grabberServo.setPosition(grabberTarget.get());
