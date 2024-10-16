@@ -54,7 +54,7 @@ public class myPipeLine extends OpenCvPipeline {
         findAprilTag();
         doMask();
         findCentreObject();
-        return binaryMaskUnshaped;
+        return input;
     }
     public void findAprilTag(){
         aprilTagDetections =  aprilTagProcessor.getDetections();
@@ -76,7 +76,6 @@ public class myPipeLine extends OpenCvPipeline {
         }else{
             isObject = false;
         }
-
     }
     public void doMask(){
         Imgproc.cvtColor(frame,hvsMaskBlue,  Imgproc.COLOR_RGBA2BGR);

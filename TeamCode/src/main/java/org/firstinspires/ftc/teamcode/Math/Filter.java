@@ -133,9 +133,6 @@ public class Filter {
         if( abs(detect)>status.senseUp){
             k = status.bigK;
         }
-        Robot.telemetry.addData("k"+name,k);
-        Robot.telemetry.addData("detect"+name,abs(detect));
-
         velocityTrue = velocityTrue + k * (medianVelNow - velocityTrue);
 
     }

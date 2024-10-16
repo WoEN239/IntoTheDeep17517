@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.Math.Filter;
 import org.firstinspires.ftc.teamcode.Math.FilterStatus;
 import org.firstinspires.ftc.teamcode.Math.Pid;
 import org.firstinspires.ftc.teamcode.Math.PidStatus;
+import org.firstinspires.ftc.teamcode.Robot;
 
 public class Motor{
     public DcMotorEx dev;
@@ -25,6 +26,7 @@ public class Motor{
         this.dev = map.get(DcMotorEx.class,name);
         this.name = name;
         filter.setName(name);
+        pid.setName(name);
     }
 
     public void update(){
@@ -56,7 +58,9 @@ public class Motor{
 
     }
     public void setVoltage(double voltage){
-            dev.setPower(dir*((12/battery.getVoltage())*voltage)/12);
+        double u = ((voltage/12.0)*(12.0/battery.getVoltage()));
+        Robot.telemetry.addData(name + "voltage",u);
+        setPower( u );
     }
     private void updatePos(){
           position =  dir * dev.getCurrentPosition();
