@@ -9,15 +9,15 @@ import org.firstinspires.ftc.teamcode.Robot;
 @Config
 
 public class FieldSensors implements Listener {
-   Robot robot;
-    
-   public static double fieldVoltage = 3;
-   
-   public FieldSensorPosition fieldSensorPosition = FieldSensorPosition.NOT_SEEN;
-   
-   AnalogInput leftSensor;
-   AnalogInput rightSensor;
-   
+    Robot robot;
+
+    public static double fieldVoltage = 3;
+
+    public FieldSensorPosition fieldSensorPosition = FieldSensorPosition.NOT_SEEN;
+
+    AnalogInput leftSensor;
+    AnalogInput rightSensor;
+
 
     public void init(Robot robot) {
         this.robot = robot;
@@ -26,34 +26,30 @@ public class FieldSensors implements Listener {
     }
 
 
-     private double getVoltage(AnalogInput sensor){
-         return sensor.getVoltage();
-     }
-    
-    private void updateState(){
-        if(getVoltage(leftSensor) < fieldVoltage && getVoltage(rightSensor) < fieldVoltage){
+    private double getVoltage(AnalogInput sensor) {
+        return sensor.getVoltage();
+    }
+
+    private void updateState() {
+        if (getVoltage(leftSensor) < fieldVoltage && getVoltage(rightSensor) < fieldVoltage) {
             fieldSensorPosition = FieldSensorPosition.ALL_SEEN;
-        }
-        else{
-            if(getVoltage(leftSensor) > fieldVoltage && getVoltage(rightSensor) < fieldVoltage){
+        } else {
+            if (getVoltage(leftSensor) > fieldVoltage && getVoltage(rightSensor) < fieldVoltage) {
                 fieldSensorPosition = FieldSensorPosition.RIGHT_SEE;
-            }
-            else{
-                if(getVoltage(leftSensor) < fieldVoltage && getVoltage(rightSensor) > fieldVoltage){
+            } else {
+                if (getVoltage(leftSensor) < fieldVoltage && getVoltage(rightSensor) > fieldVoltage) {
                     fieldSensorPosition = FieldSensorPosition.LEFT_SEE;
-                }  
-                else{
+                } else {
                     fieldSensorPosition = FieldSensorPosition.NOT_SEEN;
                 }
             }
         }
     }
-    
-    
+
 
     @Override
-    public void read(){
-       updateState(); 
+    public void read() {
+        updateState();
     }
 
 }

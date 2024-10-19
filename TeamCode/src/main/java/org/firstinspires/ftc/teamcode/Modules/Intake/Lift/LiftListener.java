@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.Lift;
 
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 
-import org.firstinspires.ftc.teamcode.Math.Button;
 import org.firstinspires.ftc.teamcode.Devices.Motor;
+import org.firstinspires.ftc.teamcode.Math.Button;
 import org.firstinspires.ftc.teamcode.Modules.Listener;
 import org.firstinspires.ftc.teamcode.Robot;
 
@@ -29,18 +29,22 @@ public class LiftListener implements Listener {
     public double getPosition() {
         return liftPosition;
     }
-    public double getRawPosition(){return  encoderPosition;}
+
+    public double getRawPosition() {
+        return encoderPosition;
+    }
+
     private void updatePosition() {
         encoderPosition = liftMotor.getPosition();
-        boolean isDown =  upBorderButt.update(buttonDown.getState());
-        if(isDown){
-            liftStaticErr =  encoderPosition-LiftPosition.down;
+        boolean isDown = upBorderButt.update(buttonDown.getState());
+        if (isDown) {
+            liftStaticErr = encoderPosition - LiftPosition.down;
         }
-        liftPosition = encoderPosition-liftStaticErr;
+        liftPosition = encoderPosition - liftStaticErr;
     }
 
     @Override
-    public void read(){
+    public void read() {
         updatePosition();
     }
 

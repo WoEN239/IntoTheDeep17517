@@ -7,9 +7,11 @@ package org.firstinspires.ftc.teamcode.Math;
 public class Button {
     private boolean now = false;
     private boolean old = false;
-    public Button(){
+
+    public Button() {
     }
-    public boolean update(boolean button){
+
+    public boolean update(boolean button) {
         now = button;
         boolean indicator = (now != old) && now;
         old = now;

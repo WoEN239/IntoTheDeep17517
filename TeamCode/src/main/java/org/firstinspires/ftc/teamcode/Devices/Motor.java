@@ -1,14 +1,16 @@
 package org.firstinspires.ftc.teamcode.Devices;
+
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
+
 import org.firstinspires.ftc.teamcode.Math.Filter;
 import org.firstinspires.ftc.teamcode.Math.FilterStatus;
 import org.firstinspires.ftc.teamcode.Math.Pid;
 import org.firstinspires.ftc.teamcode.Math.PidStatus;
 import org.firstinspires.ftc.teamcode.Robot;
 
-public class Motor{
+public class Motor {
     public DcMotorEx dev;
     private double velocity = 0;
     private double position = 0;
@@ -20,34 +22,34 @@ public class Motor{
 
     public void init(String name, HardwareMap map) {
         this.battery = map.voltageSensor.get("Control Hub");
-        this.dev = map.get(DcMotorEx.class,name);
+        this.dev = map.get(DcMotorEx.class, name);
         this.name = name;
         filter.setName(name);
-        pidF.setName(name+"F");
-        pidB.setName(name+"B");
+        pidF.setName(name + "F");
+        pidB.setName(name + "B");
     }
 
-    public void update(){
+    public void update() {
         updatePos();
         updateVel();
     }
 
-    public void setDir(int i){
-        if (i == 1 || i ==-1) {
+    public void setDir(int i) {
+        if (i == 1 || i == -1) {
             dir = i;
         }
     }
 
-    public PidStatus pidStatusF = new PidStatus(0,0,0,0,0,0);
+    public PidStatus pidStatusF = new PidStatus(0, 0, 0, 0, 0, 0);
     Pid pidF = new Pid(pidStatusF);
 
-    public PidStatus pidStatusB = new PidStatus(0,0,0,0,0,0);
+    public PidStatus pidStatusB = new PidStatus(0, 0, 0, 0, 0, 0);
     Pid pidB = new Pid(pidStatusB);
 
-    public FilterStatus filterStatus = new FilterStatus(6,150,30,1,0.1,0.3);
+    public FilterStatus filterStatus = new FilterStatus(6, 150, 30, 1, 0.1, 0.3);
     Filter filter = new Filter().init(filterStatus);
 
-    public void setVel(double velTar){
+    public void setVel(double velTar) {
         pidF.setPos(velocity);
         pidF.setTarget(velTar);
         pidF.update();
@@ -58,26 +60,30 @@ public class Motor{
         double uB = pidB.getU();
 
         double u;
-        if(velTar*dir>=0){
+        if (velTar * dir >= 0) {
             u = uF;
-        }else{
+        } else {
             u = uB;
         }
         setVoltage(u);
     }
-    public void setPower(double power){
-            dev.setPower(power * dir);
+
+    public void setPower(double power) {
+        dev.setPower(power * dir);
 
     }
-    public void setVoltage(double voltage){
-        double u = ((voltage/12.0)*(12.0/battery.getVoltage()));
-        Robot.telemetry.addData(name + "voltage",u);
-        setPower( u );
+
+    public void setVoltage(double voltage) {
+        double u = ((voltage / 12.0) * (12.0 / battery.getVoltage()));
+        Robot.telemetry.addData(name + "voltage", u);
+        setPower(u);
     }
-    private void updatePos(){
-          position =  dir * dev.getCurrentPosition();
+
+    private void updatePos() {
+        position = dir * dev.getCurrentPosition();
     }
-    private void updateVel(){
+
+    private void updateVel() {
         filter.setPos(position);
         filter.update();
         velocity = filter.getVelocity();

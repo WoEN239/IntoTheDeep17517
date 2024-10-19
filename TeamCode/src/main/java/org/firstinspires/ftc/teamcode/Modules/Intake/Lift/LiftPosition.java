@@ -13,8 +13,8 @@ public enum LiftPosition {
     public static double highestBasket = 0;
     public static double lowestBasket = 0;
 
-    public double get(){
-        switch (this){
+    public double get() {
+        switch (this) {
             default:
             case DOWN:
                 return down;

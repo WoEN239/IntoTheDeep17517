@@ -7,7 +7,6 @@ import static org.firstinspires.ftc.teamcode.OpModes.TestOpmodes.DeviceTest.Devi
 import static org.firstinspires.ftc.teamcode.OpModes.TestOpmodes.DeviceTest.DeviceType.NONE;
 import static org.firstinspires.ftc.teamcode.OpModes.TestOpmodes.DeviceTest.DeviceType.SERVO;
 
-
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
@@ -37,7 +36,7 @@ import java.util.Arrays;
 
 /**
  * @author oaleksander
- *
+ * <p>
  * Тестер для Hardware девайсов.
  * Поддерживает устройства, указаннные в
  * @see DeviceType
@@ -74,10 +73,10 @@ public class DeviceTest extends LinearOpMode {
     public static double valueToSend = 0;
 
     @Override
-    public void runOpMode(){
+    public void runOpMode() {
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         hardwareMap.getAll(IMU.class).forEach(imu -> imu.initialize(new IMU.Parameters(new RevHubOrientationOnRobot(new Quaternion()))));
-        hardwareMap.getAll(DcMotor.class).forEach(m-> {
+        hardwareMap.getAll(DcMotor.class).forEach(m -> {
             m.setDirection(DcMotorSimple.Direction.FORWARD);
             m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             m.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

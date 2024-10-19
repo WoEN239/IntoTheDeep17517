@@ -25,7 +25,7 @@ public class LiftController implements Controller {
 
     LiftPosition targetPosition = LiftPosition.DOWN;
 
-    public static PidStatus pidStatus = new PidStatus(0,0,0,0,0,0);
+    public static PidStatus pidStatus = new PidStatus(0, 0, 0, 0, 0, 0);
     Pid pid = new Pid(pidStatus);
     public static double gravity = 0.1;
 
@@ -61,14 +61,15 @@ public class LiftController implements Controller {
     }
 
     private boolean isAtTarget() {
-        return abs(liftListener.getPosition() - targetPosition.get())>5;
+        return abs(liftListener.getPosition() - targetPosition.get()) > 5;
     }
+
     public void updateLift() {
         if ((liftListener.getPosition() > -10) && !liftListener.buttonDown.getState()) {
             if (!isAtTarget()) {
                 powerToSet = pid.getU();
             } else {
-                if(liftListener.buttonDown.getState())
+                if (liftListener.buttonDown.getState())
                     powerToSet = 0;
                 else
                     powerToSet = gravity;

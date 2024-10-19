@@ -22,11 +22,11 @@ public class DriveMotorsMap {
 
     }
 
-    public void init(Robot robot){
+    public void init(Robot robot) {
         this.robot = robot;
-        rightBackDrive    = robot.devicePool.driveTrainMotors.rightBackDrive;
+        rightBackDrive = robot.devicePool.driveTrainMotors.rightBackDrive;
         rightForwardDrive = robot.devicePool.driveTrainMotors.rightForwardDrive;
-        leftBackDrive     = robot.devicePool.driveTrainMotors.leftBackDrive;
-        leftForwardDrive  = robot.devicePool.driveTrainMotors.leftForwardDrive;
+        leftBackDrive = robot.devicePool.driveTrainMotors.leftBackDrive;
+        leftForwardDrive = robot.devicePool.driveTrainMotors.leftForwardDrive;
     }
 }

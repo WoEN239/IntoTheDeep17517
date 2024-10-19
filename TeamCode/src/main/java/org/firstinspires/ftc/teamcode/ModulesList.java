@@ -30,8 +30,8 @@ public class ModulesList {
     public LiftController liftController = new LiftController();
 
     protected IModule[] modules = new IModule[]{
-            roadRunner,velocityController,imu,velocityViewer,positionViewer,
-            positionController,liftListener,grabber,liftController,
+            roadRunner, velocityController, imu, velocityViewer, positionViewer,
+            positionController, liftListener, grabber, liftController,
             fieldSensors
     };
 
