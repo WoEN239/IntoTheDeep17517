@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.Events.Task;
 import org.firstinspires.ftc.teamcode.Modules.Controller;
 import org.firstinspires.ftc.teamcode.Modules.IModule;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Grabber;
+import org.firstinspires.ftc.teamcode.Modules.Intake.GrabberStateMachine;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftController;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftListener;
 import org.firstinspires.ftc.teamcode.Modules.Listener;
@@ -20,35 +21,27 @@ import org.firstinspires.ftc.teamcode.OpenCv.myPipeLine;
 import java.util.ArrayList;
 
 public class Robot extends ModulesList {
-    public  LinearOpMode opMode;
+    public LinearOpMode opMode;
     public DevicePool devicePool;
     public HardwareMap hardwareMap;
-    public static Telemetry telemetry = FtcDashboard.getInstance().getTelemetry();
-
-    private final ArrayList<Task> taskQueue = new ArrayList<>();
-    public ElapsedTime timer = new ElapsedTime();
-
-    public Grabber grabber;
-
-    public LiftController liftController;
-    public LiftListener liftListener;
-
     public myPipeLine pipeLine = new myPipeLine();
+    public GrabberStateMachine grabberStateMachine = new GrabberStateMachine();
 
+
+    public static Telemetry telemetry = FtcDashboard.getInstance().getTelemetry();
+    public ElapsedTime timer = new ElapsedTime();
+    private final ArrayList<Task> taskQueue = new ArrayList<>();
     public Robot(LinearOpMode opMode){
         this.opMode = opMode;
-        Robot.telemetry = new MultipleTelemetry(FtcDashboard.getInstance().getTelemetry(),opMode.telemetry);
+        this.devicePool = new DevicePool(hardwareMap);
         this.hardwareMap = opMode.hardwareMap;
-        devicePool = new DevicePool(hardwareMap);
-        grabber = new Grabber();
-        liftListener = new LiftListener();
+        Robot.telemetry = new MultipleTelemetry(FtcDashboard.getInstance().getTelemetry(),opMode.telemetry);
 
-        liftController = new LiftController();
-
-
+        grabberStateMachine.init(this);
         if(BaseOpMode.isCamera){
             camera.init(this);
         }
+
     }
     public void addToQueue(Task task){
         taskQueue.add(task);

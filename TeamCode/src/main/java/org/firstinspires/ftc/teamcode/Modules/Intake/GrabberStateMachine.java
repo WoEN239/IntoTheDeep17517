@@ -2,19 +2,22 @@ package org.firstinspires.ftc.teamcode.Modules.Intake;
 
 
 import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Grabber;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftController;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftListener;
 import org.firstinspires.ftc.teamcode.Robot;
 
-public class FinalStateMachine {
+public class GrabberStateMachine {
 
     Robot robot;
     Grabber grabber;
-    LiftListener lift;
+    LiftController liftController;
+    LiftListener   liftListener;
 
-    public FinalStateMachine(Robot robot){
+    public void init(Robot robot){
         this.robot = robot;
         grabber = robot.grabber;
-        lift = robot.liftListener;
+        liftController = robot.liftController;
+        liftListener = robot.liftListener;
     }
 
     State state = State.TO_DOWN;
@@ -27,7 +30,7 @@ public class FinalStateMachine {
         this.state = state;
     }
 
-    private boolean isOn = false;
+    private boolean isOn = true;
 
     public void on() {
         isOn = true;
@@ -38,55 +41,55 @@ public class FinalStateMachine {
     }
 
 
-
     public void update(){
         if(isOn){
             switch (state){
                 case DROP_SIMPLES:
-                    if(lift.getPosition() > 200) {
+                    if(liftListener.getPosition() > 200) {
                         grabber.transferToGrab();
                         grabber.openSimpleGrabber();
                         grabber.openUpGrabber();
                     }
+                    setState(State.TO_DOWN);
                     break;
                 case TO_HIGH_BASKET:
                     grabber.transferToNormal();
                     grabber.closeSimpleGrabber();
                     grabber.closeUpGrabber();
-                    lift.setHighBasket();
+                    liftController.setHighBasket();
                     break;
                 case TO_LOW_BASKET:
                     grabber.transferToNormal();
                     grabber.closeSimpleGrabber();
                     grabber.closeUpGrabber();
-                    lift.setLowBasket();
+                    liftController.setLowBasket();
                     break;
                 case TO_LOW_AXIS:
                     grabber.transferToNormal();
                     grabber.closeSimpleGrabber();
                     grabber.closeUpGrabber();
-                    lift.setLowAxis();
+                    liftController.setLowAxis();
                     break;
                 case TO_HIGH_AXIS:
                     grabber.transferToNormal();
                     grabber.closeSimpleGrabber();
                     grabber.closeUpGrabber();
-                    lift.setHighAxis();
+                    liftController.setHighAxis();
                     break;
                 case GRAB:
                     grabber.transferToGrab();
                     grabber.openSimpleGrabber();
                     grabber.openUpGrabber();
-                    lift.setDownPos();
+                    liftController.setDownPos();
                     break;
                 case TO_DOWN:
-                    lift.setDownPos();
+                    liftController.setDownPos();
                     break;
                 case RIDE:
                     grabber.transferToNormal();
                     grabber.closeSimpleGrabber();
                     grabber.closeUpGrabber();
-                    lift.setDownPos();
+                    liftController.setDownPos();
                     break;
             }
         }

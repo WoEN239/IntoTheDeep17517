@@ -2,11 +2,8 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.Lift;
 
 import static java.lang.Math.abs;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.acmerobotics.dashboard.config.Config;
 
-import org.firstinspires.ftc.teamcode.Devices.Button;
 import org.firstinspires.ftc.teamcode.Devices.Motor;
 import org.firstinspires.ftc.teamcode.Math.Pid;
 import org.firstinspires.ftc.teamcode.Math.PidStatus;
@@ -16,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Robot;
 /**
  * Writing by @MrFrosty1234
  */
-
+@Config
 public class LiftController implements Controller {
     LiftPosition liftPosition;
     Robot robot;
@@ -24,46 +21,31 @@ public class LiftController implements Controller {
     Motor liftLeftMotor;
     Motor liftRightMotor;
 
-    LiftListener liftListener = new LiftListener();
+    LiftListener liftListener;
 
+    LiftPosition targetPosition = LiftPosition.DOWN;
 
-    private double voltage;
-
-    public PidStatus pidStatus;
+    public static PidStatus pidStatus = new PidStatus(0,0,0,0,0,0);
     Pid pid = new Pid(pidStatus);
+    public static double gravity = 0.1;
 
     @Override
     public void init(Robot robot) {
-        this.robot = new Robot(robot.opMode);
-
-        liftListener.init(robot);
+        this.robot = robot;
+        liftListener = robot.liftListener;
 
         liftLeftMotor = robot.devicePool.liftHangingMotors.liftLeftMotor;
         liftRightMotor = robot.devicePool.liftHangingMotors.liftRightMotor;
 
-        voltage = 12;
     }
 
-    public void reset() {
-        liftRightMotor.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        liftRightMotor.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        liftLeftMotor.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        liftLeftMotor.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        liftRightMotor.dev.setDirection(DcMotorSimple.Direction.FORWARD);
-
-        liftLeftMotor.dev.setDirection(DcMotorSimple.Direction.REVERSE);
+    public void setPower(double powerToSet) {
+        liftLeftMotor.setVoltage(powerToSet);
+        liftRightMotor.setVoltage(powerToSet);
     }
 
 
-    public void setPower(double power) {
-        liftLeftMotor.setPower(power);
-        liftRightMotor.setPower(power);
-    }
-
-
-    private double power = 0;
+    private double powerToSet = 0;
 
     private boolean isManual = true;
 
@@ -74,31 +56,54 @@ public class LiftController implements Controller {
         manPower = power;
     }
 
-    private void auto() {
+    public void auto() {
         isManual = false;
     }
 
-
+    private boolean isAtTarget() {
+        return abs(liftListener.getPosition() - targetPosition.get())>5;
+    }
     public void updateLift() {
-        pid = new Pid(pidStatus);
-
         if ((liftListener.getPosition() > -10) && !liftListener.buttonDown.getState()) {
-            if (liftListener.liftPosition != LiftPosition.DOWN) {
-                power = pid.getU();
+            if (!isAtTarget()) {
+                powerToSet = pid.getU();
             } else {
                 if(liftListener.buttonDown.getState())
-                    power = 0;
+                    powerToSet = 0;
                 else
-                    power = 1;
+                    powerToSet = gravity;
             }
         } else {
-            power = 0.1;
+            powerToSet = 0.1;
         }
         if (isManual) {
-            setPower(manPower);
-        } else {
-            setPower(power);
+            powerToSet = manPower;
         }
+    }
+
+    @Override
+    public void update() {
+        setPower(powerToSet);
+    }
+
+    public void setDownPos() {
+        targetPosition = LiftPosition.DOWN;
+    }
+
+    public void setLowAxis() {
+        targetPosition = LiftPosition.LOW_AXIS_GET;
+    }
+
+    public void setHighAxis() {
+        targetPosition = LiftPosition.HIGHEST_AXIS;
+    }
+
+    public void setLowBasket() {
+        targetPosition = LiftPosition.LOWEST_BASKET;
+    }
+
+    public void setHighBasket() {
+        targetPosition = LiftPosition.HIGHEST_BASKET;
     }
 
 }
