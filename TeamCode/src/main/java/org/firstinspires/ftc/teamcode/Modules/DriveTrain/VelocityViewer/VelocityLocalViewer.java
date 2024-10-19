@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain.VelocityViewer;
 
+import org.firstinspires.ftc.teamcode.Devices.DriveTrainMotors;
 import org.firstinspires.ftc.teamcode.Devices.Motor;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Robot;
@@ -10,10 +11,10 @@ import org.firstinspires.ftc.teamcode.Robot;
 
 public class VelocityLocalViewer {
     public void init(Robot robot) {
-        velRightBackM = robot.devicePool.driveTrainMotors.rightBackDrive;
-        velLeftBackM = robot.devicePool.driveTrainMotors.leftBackDrive;
-        velRightForM = robot.devicePool.driveTrainMotors.rightForwardDrive;
-        velLeftForM = robot.devicePool.driveTrainMotors.leftForwardDrive;
+        velRightBackM = DriveTrainMotors.rightBackDrive;
+        velLeftBackM = DriveTrainMotors.leftBackDrive;
+        velRightForM = DriveTrainMotors.rightForwardDrive;
+        velLeftForM = DriveTrainMotors.leftForwardDrive;
     }
 
     private final Position velocityLocal = new Position(0, 0, 0);

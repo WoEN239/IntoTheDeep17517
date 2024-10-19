@@ -28,7 +28,7 @@ public class Task {
                 for (Runnable i : run) {
                     i.run();
                 }
-                ;
+
             } else {
                 if (firstEnd) {
                     for (Runnable i : end) {
