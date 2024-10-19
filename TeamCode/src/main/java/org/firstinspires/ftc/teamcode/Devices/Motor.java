@@ -1,10 +1,7 @@
 package org.firstinspires.ftc.teamcode.Devices;
-
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
-
-
 import org.firstinspires.ftc.teamcode.Math.Filter;
 import org.firstinspires.ftc.teamcode.Math.FilterStatus;
 import org.firstinspires.ftc.teamcode.Math.Pid;
@@ -26,7 +23,8 @@ public class Motor{
         this.dev = map.get(DcMotorEx.class,name);
         this.name = name;
         filter.setName(name);
-        pid.setName(name);
+        pidF.setName(name+"F");
+        pidB.setName(name+"B");
     }
 
     public void update(){
@@ -40,17 +38,31 @@ public class Motor{
         }
     }
 
-    public PidStatus pidStatus = new PidStatus(0,0,0,0,0,0);
-    Pid pid = new Pid(pidStatus);
+    public PidStatus pidStatusF = new PidStatus(0,0,0,0,0,0);
+    Pid pidF = new Pid(pidStatusF);
+
+    public PidStatus pidStatusB = new PidStatus(0,0,0,0,0,0);
+    Pid pidB = new Pid(pidStatusB);
 
     public FilterStatus filterStatus = new FilterStatus(6,150,30,1,0.1,0.3);
     Filter filter = new Filter().init(filterStatus);
 
     public void setVel(double velTar){
-        pid.setPos(velocity);
-        pid.setTarget(velTar);
-        pid.update();
-        double u = pid.getU();
+        pidF.setPos(velocity);
+        pidF.setTarget(velTar);
+        pidF.update();
+        double uF = pidF.getU();
+        pidB.setPos(velocity);
+        pidB.setTarget(velTar);
+        pidB.update();
+        double uB = pidB.getU();
+
+        double u;
+        if(velTar*dir>=0){
+            u = uF;
+        }else{
+            u = uB;
+        }
         setVoltage(u);
     }
     public void setPower(double power){
