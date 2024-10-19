@@ -13,10 +13,10 @@ public enum TransferPosition {
     GRAB, NORMAL;
 
     public static double grab = 1;
-    private static double normal =0 ;
+    private static double normal = 0;
 
-    public double get(){
-        switch (this){
+    public double get() {
+        switch (this) {
             default:
             case GRAB:
                 return grab;

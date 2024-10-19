@@ -15,7 +15,7 @@ public class DevicePool {
     public Sensors sensors;
     public LiftHangingMotors liftHangingMotors;
 
-    public  DevicePool(HardwareMap hardwareMap){
+    public DevicePool(HardwareMap hardwareMap) {
         this.hardwareMap = hardwareMap;
         grabber = new GrabberAndTransferServo(hardwareMap);
         driveTrainMotors = new DriveTrainMotors(hardwareMap);

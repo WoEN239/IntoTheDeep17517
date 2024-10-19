@@ -11,13 +11,11 @@ import org.firstinspires.ftc.teamcode.Devices.DevicePool;
 import org.firstinspires.ftc.teamcode.Events.Task;
 import org.firstinspires.ftc.teamcode.Modules.Controller;
 import org.firstinspires.ftc.teamcode.Modules.IModule;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Grabber;
 import org.firstinspires.ftc.teamcode.Modules.Intake.GrabberStateMachine;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftController;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftListener;
 import org.firstinspires.ftc.teamcode.Modules.Listener;
 import org.firstinspires.ftc.teamcode.OpModes.BaseOpMode;
 import org.firstinspires.ftc.teamcode.OpenCv.myPipeLine;
+
 import java.util.ArrayList;
 
 public class Robot extends ModulesList {
@@ -31,56 +29,62 @@ public class Robot extends ModulesList {
     public static Telemetry telemetry = FtcDashboard.getInstance().getTelemetry();
     public ElapsedTime timer = new ElapsedTime();
     private final ArrayList<Task> taskQueue = new ArrayList<>();
-    public Robot(LinearOpMode opMode){
+
+    public Robot(LinearOpMode opMode) {
         this.opMode = opMode;
         this.devicePool = new DevicePool(hardwareMap);
         this.hardwareMap = opMode.hardwareMap;
-        Robot.telemetry = new MultipleTelemetry(FtcDashboard.getInstance().getTelemetry(),opMode.telemetry);
+        Robot.telemetry = new MultipleTelemetry(FtcDashboard.getInstance().getTelemetry(), opMode.telemetry);
 
         grabberStateMachine.init(this);
-        if(BaseOpMode.isCamera){
+        if (BaseOpMode.isCamera) {
             camera.init(this);
         }
 
     }
-    public void addToQueue(Task task){
+
+    public void addToQueue(Task task) {
         taskQueue.add(task);
     }
-    public Task getTask(){
+
+    public Task getTask() {
         return taskQueue.get(0);
     }
-    public void init(){
-        for (IModule i:modules
+
+    public void init() {
+        for (IModule i : modules
         ) {
             i.init(this);
         }
     }
-    public void update(){
-        for (IModule i:modules
+
+    public void update() {
+        for (IModule i : modules
         ) {
-            if(i instanceof Listener){
+            if (i instanceof Listener) {
                 i.read();
             }
         }
-        for (IModule i:modules
+        for (IModule i : modules
         ) {
-            if(i instanceof Controller){
+            if (i instanceof Controller) {
                 i.update();
             }
         }
         telemetry.update();
     }
-    public void updateTasks(){
+
+    public void updateTasks() {
         taskQueue.forEach(Task::run);
     }
 
-    public double getSeconds(){
+    public double getSeconds() {
         return timer.seconds();
     }
 
-    public enum TEAM
-    {
-        BLUE,RED
+    public enum TEAM {
+        BLUE, RED
     }
+
     public static TEAM myTEAM = TEAM.BLUE;
 }

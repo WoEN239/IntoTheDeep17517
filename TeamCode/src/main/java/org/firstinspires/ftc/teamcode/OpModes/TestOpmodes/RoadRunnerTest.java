@@ -9,19 +9,19 @@ import org.firstinspires.ftc.teamcode.OpModes.BaseOpMode;
 @Autonomous(group = "Test")
 public class RoadRunnerTest extends BaseOpMode {
     @Override
-    public void doing(){
+    public void doing() {
         robot.addToQueue(new Task(
-                ()->true,
-                ()->false,
+                () -> true,
+                () -> false,
                 new Runnable[]{
-                ()-> robot.roadRunner.moveToTrajectory(
-                     robot.roadRunner.builder()
-                             .lineToX(10)
-                             .build()
-                )
+                        () -> robot.roadRunner.moveToTrajectory(
+                                robot.roadRunner.builder()
+                                        .lineToX(10)
+                                        .build()
+                        )
                 },
                 new Runnable[]{
-                ()-> robot.velocityController.move(new Position())
+                        () -> robot.velocityController.move(new Position())
                 }
         ));
     }

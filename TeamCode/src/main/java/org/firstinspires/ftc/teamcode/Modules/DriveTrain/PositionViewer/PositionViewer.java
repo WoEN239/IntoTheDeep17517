@@ -13,12 +13,13 @@ public class PositionViewer implements Listener {
     private final PositionLocalViewer localViewer = new PositionLocalViewer();
 
     @Override
-    public void init(Robot robot){
+    public void init(Robot robot) {
         localViewer.init(robot);
         this.robot = robot;
     }
 
-    private final Position positionGlobal = new Position(0,0,0);
+    private final Position positionGlobal = new Position(0, 0, 0);
+
     public Position getPositionGlobal() {
         return positionGlobal;
     }
@@ -27,13 +28,14 @@ public class PositionViewer implements Listener {
         return localViewer;
     }
 
-    private void calcGlobalPosition(){
+    private void calcGlobalPosition() {
         positionGlobal.h = robot.imu.getAngle();
         localViewer.deltaPosition.rotateIt(positionGlobal.h);
         positionGlobal.plus(localViewer.deltaPosition);
     }
+
     @Override
-    public void read(){
+    public void read() {
         localViewer.update();
         calcGlobalPosition();
     }
