@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain.PositionViewer;
 
+import org.firstinspires.ftc.teamcode.Devices.DriveTrainMotors;
 import org.firstinspires.ftc.teamcode.Devices.Motor;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Robot;
@@ -10,9 +11,9 @@ import org.firstinspires.ftc.teamcode.Robot;
 
 public class PositionLocalViewer {
     public void init(Robot robot) {
-        rightOdometer = robot.devicePool.driveTrainMotors.rightBackDrive;
-        leftOdometer = robot.devicePool.driveTrainMotors.rightBackDrive;
-        yOdometer = robot.devicePool.driveTrainMotors.rightBackDrive;
+        rightOdometer = DriveTrainMotors.rightOdometer;
+        leftOdometer = DriveTrainMotors.leftOdometer;
+        yOdometer = DriveTrainMotors.yOdometer;;
     }
 
     private final Position positionLocal = new Position(0, 0, 0);

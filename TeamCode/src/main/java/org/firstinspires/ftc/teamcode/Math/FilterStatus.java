@@ -5,12 +5,12 @@ package org.firstinspires.ftc.teamcode.Math;
  */
 
 public class FilterStatus {
-    public int medianSize = 3;
-    public double senseUp = 50;
-    public double senseDown = 10;
-    public double bigK = 0.4;
-    public double smallK = 0.0005;
-    public double centreK = 0.0005;
+    public int medianSize;
+    public double senseUp;
+    public double senseDown;
+    public double bigK;
+    public double smallK;
+    public double centreK;
     public boolean isTelemetry = false;
 
     public void setTelemetry(boolean telemetry) {
