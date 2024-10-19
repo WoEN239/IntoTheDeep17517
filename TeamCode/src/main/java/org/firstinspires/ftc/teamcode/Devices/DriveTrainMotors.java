@@ -24,9 +24,9 @@ public class DriveTrainMotors {
     public DriveTrainMotors(HardwareMap hardwareMap){
         this.hardwareMap = hardwareMap;
 
-        leftBackDrive.init    ("motor", hardwareMap);
+        leftBackDrive     .init("motor", hardwareMap);
         rightForwardDrive.init ("fakeMotor", hardwareMap);
-        rightBackDrive   .init  ("fakeMotor", hardwareMap);
+        rightBackDrive   .init ("fakeMotor", hardwareMap);
         leftForwardDrive .init ("fakeMotor", hardwareMap);
     }
 
