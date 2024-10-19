@@ -33,28 +33,25 @@ public class LiftListener implements Listener {
         return liftLeftMotor.dev.getCurrentPosition();
     }
 
-    public LiftPosition setDownPos() {
-        return targetPosition = LiftPosition.DOWN;
+    public void setDownPos() {
+        targetPosition = LiftPosition.DOWN;
     }
 
-    public LiftPosition setUpPos() {
-        return targetPosition = LiftPosition.UP;
+
+    public void setLowAxis() {
+        targetPosition = LiftPosition.LOW_AXIS_GET;
     }
 
-    public LiftPosition setLowAxisPos() {
-        return targetPosition = LiftPosition.LOW_AXIS_GET;
+    public void setHighAxis() {
+        targetPosition = LiftPosition.HIGHEST_AXIS;
     }
 
-    public LiftPosition setHighAxis() {
-        return targetPosition = LiftPosition.HIGHEST_AXIS;
+    public void setLowBasket() {
+        targetPosition = LiftPosition.LOWEST_BASKET;
     }
 
-    public LiftPosition setLowBasket() {
-        return targetPosition = LiftPosition.LOWEST_BASKET;
-    }
-
-    public LiftPosition setHighBasket() {
-        return targetPosition = LiftPosition.HIGHEST_BASKET;
+    public void setHighBasket() {
+        targetPosition = LiftPosition.HIGHEST_BASKET;
     }
 
 

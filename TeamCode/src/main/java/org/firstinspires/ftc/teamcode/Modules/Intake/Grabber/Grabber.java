@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.Grabber;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Modules.Controller;
-import org.firstinspires.ftc.teamcode.Modules.Listener;
 import org.firstinspires.ftc.teamcode.Robot;
 
 /**
@@ -35,11 +34,11 @@ public class Grabber implements Controller {
         return transferPosition;
     }
 
-    public void close() {
+    public void closeSimpleGrabber() {
         grabberTarget = GrabberPosition.CLOSE;
     }
 
-    public void open() {
+    public void openSimpleGrabber() {
         grabberTarget = GrabberPosition.OPEN;
     }
 

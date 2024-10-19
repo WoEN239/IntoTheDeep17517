@@ -13,6 +13,7 @@ import org.firstinspires.ftc.teamcode.Modules.Controller;
 import org.firstinspires.ftc.teamcode.Modules.IModule;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Grabber;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftController;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftListener;
 import org.firstinspires.ftc.teamcode.Modules.Listener;
 import org.firstinspires.ftc.teamcode.OpModes.BaseOpMode;
 import org.firstinspires.ftc.teamcode.OpenCv.myPipeLine;
@@ -30,6 +31,7 @@ public class Robot extends ModulesList {
     public Grabber grabber;
 
     public LiftController liftController;
+    public LiftListener liftListener;
 
     public myPipeLine pipeLine = new myPipeLine();
 
@@ -39,6 +41,7 @@ public class Robot extends ModulesList {
         this.hardwareMap = opMode.hardwareMap;
         devicePool = new DevicePool(hardwareMap);
         grabber = new Grabber();
+        liftListener = new LiftListener();
 
         liftController = new LiftController();
 
