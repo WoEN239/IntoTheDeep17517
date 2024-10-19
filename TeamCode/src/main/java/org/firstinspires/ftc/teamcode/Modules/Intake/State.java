@@ -1,5 +1,5 @@
 package org.firstinspires.ftc.teamcode.Modules.Intake;
 
 public enum State {
-    TO_DOWN,TO_UP, TO_HIGH_BASKET, TO_LOW_BASKET, TO_LOW_AXIS, TO_HIGH_AXIS, HANGING;
+    TO_DOWN, TO_HIGH_BASKET, TO_LOW_BASKET, TO_LOW_AXIS, TO_HIGH_AXIS, HANGING, DROP_SIMPLES, RIDE, GRAB;
 }
