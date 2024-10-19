@@ -11,13 +11,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Sensors {
     HardwareMap hardwareMap;
-
     public DigitalChannel downButton;
-
     public AnalogInput leftColorSensor;
     public AnalogInput rightColorSensor;
-
-
 
     public Sensors(HardwareMap hardwareMap){
         this.hardwareMap = hardwareMap;

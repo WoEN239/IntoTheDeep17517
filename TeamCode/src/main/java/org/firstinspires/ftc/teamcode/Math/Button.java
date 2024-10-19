@@ -1,6 +1,4 @@
-package org.firstinspires.ftc.teamcode.Devices;
-
-import com.qualcomm.robotcore.hardware.Gamepad;
+package org.firstinspires.ftc.teamcode.Math;
 
 /**
  * Writing by EgorKhvostikov

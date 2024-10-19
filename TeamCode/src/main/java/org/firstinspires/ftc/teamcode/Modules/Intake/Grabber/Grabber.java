@@ -54,9 +54,7 @@ public class Grabber implements Controller {
         grabberUpPosition = GrabberUpPosition.FINISH;
     }
 
-    public void openUpGrabber() {
-        grabberUpPosition = GrabberUpPosition.START;
-    }
+    public void openUpGrabber() {grabberUpPosition = GrabberUpPosition.START;}
 
 
     @Override

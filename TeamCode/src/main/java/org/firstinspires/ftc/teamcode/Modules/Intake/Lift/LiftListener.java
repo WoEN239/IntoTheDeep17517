@@ -1,10 +1,8 @@
 package org.firstinspires.ftc.teamcode.Modules.Intake.Lift;
 
-import static java.lang.Math.abs;
-
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 
-import org.firstinspires.ftc.teamcode.Devices.Button;
+import org.firstinspires.ftc.teamcode.Math.Button;
 import org.firstinspires.ftc.teamcode.Devices.Motor;
 import org.firstinspires.ftc.teamcode.Modules.Listener;
 import org.firstinspires.ftc.teamcode.Robot;
@@ -14,61 +12,35 @@ public class LiftListener implements Listener {
     Robot robot;
 
     DigitalChannel buttonDown;
-    Motor liftLeftMotor;
+    Button upBorderButt = new Button();
+    Motor liftMotor;
 
-    public LiftPosition targetPosition = LiftPosition.DOWN;
-    public boolean liftAtTarget = false;
-    public LiftPosition liftPosition;
-
+    private double liftPosition = 0;
+    private double liftStaticErr = 0;
+    private double encoderPosition = 0;
 
     @Override
     public void init(Robot robot) {
         this.robot = robot;
         buttonDown = robot.devicePool.sensors.downButton;
-        liftLeftMotor = robot.devicePool.liftHangingMotors.liftLeftMotor;
-        targetPosition = LiftPosition.DOWN;
+        liftMotor = robot.devicePool.liftHangingMotors.liftLeftMotor;
     }
 
     public double getPosition() {
-        return liftLeftMotor.dev.getCurrentPosition();
+        return liftPosition;
     }
-
-    public void setDownPos() {
-        targetPosition = LiftPosition.DOWN;
-    }
-
-
-    public void setLowAxis() {
-        targetPosition = LiftPosition.LOW_AXIS_GET;
-    }
-
-    public void setHighAxis() {
-        targetPosition = LiftPosition.HIGHEST_AXIS;
-    }
-
-    public void setLowBasket() {
-        targetPosition = LiftPosition.LOWEST_BASKET;
-    }
-
-    public void setHighBasket() {
-        targetPosition = LiftPosition.HIGHEST_BASKET;
-    }
-
-
-    public void updatePosition() {
-        liftPosition = targetPosition;
-    }
-
-    public boolean isLiftAtTarget() {
-        if ((targetPosition.get() - getPosition()) < 5 && buttonDown.getState()) {
-            return liftAtTarget = true;
+    public double getRawPosition(){return  encoderPosition;}
+    private void updatePosition() {
+        encoderPosition = liftMotor.getPosition();
+        boolean isDown =  upBorderButt.update(buttonDown.getState());
+        if(isDown){
+            liftStaticErr =  encoderPosition-LiftPosition.down;
         }
-        else
-            return liftAtTarget = false;
+        liftPosition = encoderPosition-liftStaticErr;
     }
 
     @Override
-    public void read() {
+    public void read(){
         updatePosition();
     }
 
