@@ -16,6 +16,9 @@ public class DriveTrainMotors {
     public static Motor rightBackDrive = new Motor();
     public static Motor leftForwardDrive = new Motor();
     public static Motor leftBackDrive = new Motor();
+    public static Motor yOdometer = new Motor();
+    public static Motor rightOdometer = new Motor();
+    public static Motor leftOdometer = new Motor();
 
     public DriveTrainMotors(HardwareMap hardwareMap) {
         this.hardwareMap = hardwareMap;
@@ -24,6 +27,10 @@ public class DriveTrainMotors {
         rightForwardDrive.init("fakeMotor", hardwareMap);
         rightBackDrive.init("fakeMotor", hardwareMap);
         leftForwardDrive.init("fakeMotor", hardwareMap);
+        yOdometer.init("fakeMotor", hardwareMap);
+        leftOdometer.init("fakeMotor", hardwareMap);
+        rightOdometer.init("fakeMotor", hardwareMap);
+
     }
 
     public void reset() {
