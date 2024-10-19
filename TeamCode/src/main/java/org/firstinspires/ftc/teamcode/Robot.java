@@ -40,7 +40,6 @@ public class Robot extends ModulesList {
         if (BaseOpMode.isCamera) {
             camera.init(this);
         }
-
     }
 
     public void addToQueue(Task task) {
@@ -60,17 +59,16 @@ public class Robot extends ModulesList {
 
     public void update() {
         for (IModule i : modules
-        ) {
-            if (i instanceof Listener) {
-                i.read();
-            }
+        )
+        {
+            i.read();
         }
         for (IModule i : modules
-        ) {
-            if (i instanceof Controller) {
-                i.update();
-            }
+        )
+        {
+            i.update();
         }
+        grabberStateMachine.update();
         telemetry.update();
     }
 
