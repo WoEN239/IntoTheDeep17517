@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers;
+
 import org.firstinspires.ftc.teamcode.Math.Pid;
 import org.firstinspires.ftc.teamcode.Math.PidStatus;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.Controller;
-import org.firstinspires.ftc.teamcode.Modules.IModule;
 import org.firstinspires.ftc.teamcode.Robot;
 
 /**
@@ -17,30 +17,33 @@ public class PositionController implements Controller {
     private Position position = new Position();
     private Position target = new Position();
     public static boolean isUpdate = false;
+
     @Override
-    public void init(Robot robot){
+    public void init(Robot robot) {
         this.robot = robot;
         controller = robot.velocityController;
     }
-    private void updatePosition(){
+
+    private void updatePosition() {
         position = robot.positionViewer.getLocalViewer().getPositionLocal();
     }
-    public void move(Position target){
+
+    public void move(Position target) {
         this.target = target;
         isUpdate = true;
         update();
     }
 
-    public static PidStatus pidStatusY = new PidStatus(0,0,0,0,0,0);
+    public static PidStatus pidStatusY = new PidStatus(0, 0, 0, 0, 0, 0);
     Pid pidY = new Pid(pidStatusY);
-    
-    public static PidStatus pidStatusX = new PidStatus(0,0,0,0,0,0);
+
+    public static PidStatus pidStatusX = new PidStatus(0, 0, 0, 0, 0, 0);
     Pid pidX = new Pid(pidStatusX);
-    
-    public static PidStatus pidStatusH = new PidStatus(0,0,0,0,0,0);
+
+    public static PidStatus pidStatusH = new PidStatus(0, 0, 0, 0, 0, 0);
     Pid pidH = new Pid(pidStatusH);
 
-    public void update(){
+    public void update() {
         Position pidResult = new Position();
         updatePosition();
 
@@ -58,7 +61,7 @@ public class PositionController implements Controller {
         pidH.setTarget(target.h);
         pidH.update();
         pidResult.h = pidH.getU();
-        if(isUpdate) {
+        if (isUpdate) {
             VelocityController.isUpdate = true;
             controller.move(pidResult);
         }

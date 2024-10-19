@@ -1,6 +1,12 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner;
 
-import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.*;
+import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.maxAccel;
+import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.maxAngSpeed;
+import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.maxLinSpeed;
+import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.minAccel;
+import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.trackWidth;
+import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.wheelDiameter;
+import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.xMultiplier;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.AccelConstraint;
@@ -37,46 +43,50 @@ import java.util.List;
 public class RoadRunner implements IModule {
     Robot robot;
     ElapsedTime timer = new ElapsedTime();
+
     @Override
-    public void init(Robot robot){
+    public void init(Robot robot) {
         this.robot = robot;
     }
-    private final MecanumKinematics kinematics = new MecanumKinematics(trackWidth,xMultiplier,wheelDiameter);
-    public final VelConstraint velConstraint  = new MinVelConstraint(Arrays.asList(
-            kinematics. new WheelVelConstraint(maxLinSpeed),
-                        new AngularVelConstraint(maxAngSpeed)
+
+    private final MecanumKinematics kinematics = new MecanumKinematics(trackWidth, xMultiplier, wheelDiameter);
+    public final VelConstraint velConstraint = new MinVelConstraint(Arrays.asList(
+            kinematics.new WheelVelConstraint(maxLinSpeed),
+            new AngularVelConstraint(maxAngSpeed)
     ));
     public static double kpSlide = 0;
     public static double kpTurn = 0;
     public static double kpForward = 0;
-    public final AccelConstraint accelConstraint = new ProfileAccelConstraint(minAccel,maxAccel);
-    public final HolonomicController holonomicController = new HolonomicController(kpForward,kpSlide,kpTurn);
+    public final AccelConstraint accelConstraint = new ProfileAccelConstraint(minAccel, maxAccel);
+    public final HolonomicController holonomicController = new HolonomicController(kpForward, kpSlide, kpTurn);
     public List<Trajectory> trajectories;
-    public void moveToTrajectory(List<Trajectory> trajectories){
+
+    public void moveToTrajectory(List<Trajectory> trajectories) {
         this.trajectories = trajectories;
         timer.reset();
         move();
     }
-    public TrajectoryBuilder builder(){
+
+    public TrajectoryBuilder builder() {
         return new TrajectoryBuilder(new TrajectoryBuilderParams(1e-6,
-                new ProfileParams(1e-6,1e-6,1e-6)),
+                new ProfileParams(1e-6, 1e-6, 1e-6)),
                 robot.positionViewer.getPositionGlobal().toRRPose(),
-      0,velConstraint,accelConstraint
-                                    );
+                0, velConstraint, accelConstraint
+        );
     }
 
-    private void move(){
-        Pose2d         pose     = robot.positionViewer.getPositionGlobal().toRRPose();
+    private void move() {
+        Pose2d pose = robot.positionViewer.getPositionGlobal().toRRPose();
         PoseVelocity2d velocity = robot.velocityViewer.getLocalViewer().getVelocityLocal().toRRVelocity();
-        if(!trajectories.isEmpty()){
+        if (!trajectories.isEmpty()) {
             Trajectory trajectoryNow = trajectories.get(0);
             TimeTrajectory timeTrajectory = new TimeTrajectory(trajectoryNow);
             double duration = timeTrajectory.duration;
             Pose2dDual<Time> target = timeTrajectory.get(timer.seconds());
-            PoseVelocity2dDual<Time> velTarget = holonomicController.compute(target,pose,velocity);
+            PoseVelocity2dDual<Time> velTarget = holonomicController.compute(target, pose, velocity);
             robot.velocityController.move(Position.fromRRVelocity(velTarget));
 
-            if(timer.seconds()>duration){
+            if (timer.seconds() > duration) {
                 timer.reset();
                 trajectories.remove(0);
             }

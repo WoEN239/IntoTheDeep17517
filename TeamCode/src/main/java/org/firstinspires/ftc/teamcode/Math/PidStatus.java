@@ -26,7 +26,7 @@ public class PidStatus {
         this.zeroBorder = zeroBorder;
     }
 
-    public void copyFrom(PidStatus status){
+    public void copyFrom(PidStatus status) {
         this.kp = status.kp;
         this.ki = status.ki;
         this.kd = status.kd;

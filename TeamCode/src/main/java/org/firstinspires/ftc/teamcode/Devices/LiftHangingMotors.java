@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Devices;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 /**
@@ -16,7 +15,7 @@ public class LiftHangingMotors {
 
     public Motor hangingMotor;
 
-    public  LiftHangingMotors (HardwareMap hardwareMap){
+    public LiftHangingMotors(HardwareMap hardwareMap) {
         this.hardwareMap = hardwareMap;
 
         liftLeftMotor.init("fake", hardwareMap);

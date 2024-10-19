@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Devices;
 
 import com.qualcomm.robotcore.hardware.AnalogInput;
-import com.qualcomm.robotcore.hardware.AnalogSensor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -15,16 +14,16 @@ public class Sensors {
     public AnalogInput leftColorSensor;
     public AnalogInput rightColorSensor;
 
-    public Sensors(HardwareMap hardwareMap){
+    public Sensors(HardwareMap hardwareMap) {
         this.hardwareMap = hardwareMap;
 
-        downButton = hardwareMap.get(DigitalChannel.class,   "fakeSensorD");
+        downButton = hardwareMap.get(DigitalChannel.class, "fakeSensorD");
         leftColorSensor = hardwareMap.get(AnalogInput.class, "fakeSensorA");
-        rightColorSensor = hardwareMap.get(AnalogInput.class,"fakeSensorA");
+        rightColorSensor = hardwareMap.get(AnalogInput.class, "fakeSensorA");
 
     }
 
-    public void reset(){
+    public void reset() {
         downButton.setMode(DigitalChannel.Mode.INPUT);
     }
 

@@ -11,9 +11,9 @@ public class GrabberStateMachine {
     Robot robot;
     Grabber grabber;
     LiftController liftController;
-    LiftListener   liftListener;
+    LiftListener liftListener;
 
-    public void init(Robot robot){
+    public void init(Robot robot) {
         this.robot = robot;
         grabber = robot.grabber;
         liftController = robot.liftController;
@@ -22,11 +22,11 @@ public class GrabberStateMachine {
 
     State state = State.TO_DOWN;
 
-    public State getState(){
+    public State getState() {
         return state;
     }
 
-    public void setState(State state){
+    public void setState(State state) {
         this.state = state;
     }
 
@@ -36,16 +36,16 @@ public class GrabberStateMachine {
         isOn = true;
     }
 
-    public void off(){
+    public void off() {
         isOn = false;
     }
 
 
-    public void update(){
-        if(isOn){
-            switch (state){
+    public void update() {
+        if (isOn) {
+            switch (state) {
                 case DROP_SIMPLES:
-                    if(liftListener.getPosition() > 200) {
+                    if (liftListener.getPosition() > 200) {
                         grabber.transferToGrab();
                         grabber.openSimpleGrabber();
                         grabber.openUpGrabber();
