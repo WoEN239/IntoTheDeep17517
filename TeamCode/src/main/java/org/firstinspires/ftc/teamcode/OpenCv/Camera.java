@@ -12,8 +12,8 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 public class Camera {
     public OpenCvWebcam camera;
-    public static int WIDTH = 640;
-    public static int HEIGHT = 480;
+    public static int WIDTH = 800;
+    public static int HEIGHT = 448;
 
     public void init(Robot robot) {
         int cameraMonitorViewId = robot.hardwareMap.appContext.getResources()

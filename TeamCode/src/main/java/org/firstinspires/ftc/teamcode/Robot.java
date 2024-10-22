@@ -9,12 +9,10 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Devices.DevicePool;
 import org.firstinspires.ftc.teamcode.Events.Task;
-import org.firstinspires.ftc.teamcode.Modules.Controller;
 import org.firstinspires.ftc.teamcode.Modules.IModule;
 import org.firstinspires.ftc.teamcode.Modules.Intake.GrabberStateMachine;
-import org.firstinspires.ftc.teamcode.Modules.Listener;
 import org.firstinspires.ftc.teamcode.OpModes.BaseOpMode;
-import org.firstinspires.ftc.teamcode.OpenCv.myPipeLine;
+import org.firstinspires.ftc.teamcode.OpenCv.SimplesAndTagsDetectPipeline;
 
 import java.util.ArrayList;
 
@@ -22,7 +20,7 @@ public class Robot extends ModulesList {
     public LinearOpMode opMode;
     public DevicePool devicePool;
     public HardwareMap hardwareMap;
-    public myPipeLine pipeLine = new myPipeLine();
+    public SimplesAndTagsDetectPipeline pipeLine = new SimplesAndTagsDetectPipeline();
     public GrabberStateMachine grabberStateMachine = new GrabberStateMachine();
 
 
@@ -80,9 +78,6 @@ public class Robot extends ModulesList {
         return timer.seconds();
     }
 
-    public enum TEAM {
-        BLUE, RED
-    }
 
-    public static TEAM myTEAM = TEAM.BLUE;
+    public static TEAM myTeam = TEAM.BLUE;
 }

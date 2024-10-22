@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 @Config
 
-public class myPipeLine extends OpenCvPipeline {
+public class SimplesAndTagsDetectPipeline extends OpenCvPipeline {
 
 
     public Mat frame = new Mat();
@@ -101,7 +101,7 @@ public class myPipeLine extends OpenCvPipeline {
         Core.inRange(hvsMaskYellow, hvsMinYellow.toScalar(),
                 hvsMaxYellow.toScalar(),
                 binaryMaskYellow);
-        if (Robot.myTEAM == Robot.TEAM.BLUE) {
+        if (Robot.myTeam == Robot.TEAM.BLUE) {
             Core.bitwise_or(binaryMaskBlue, binaryMaskYellow, binaryMaskUnshaped);
         } else {
             Core.bitwise_or(binaryMaskRed, binaryMaskYellow, binaryMaskUnshaped);

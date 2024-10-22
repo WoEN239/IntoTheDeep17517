@@ -7,7 +7,6 @@ import com.acmerobotics.dashboard.config.Config;
  */
 
 @Config
-
 public enum TransferPosition {
 
     GRAB, NORMAL;
