@@ -10,8 +10,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
  */
 @Config
 public class DriveTrainMotors {
-    HardwareMap hardwareMap;
-
     public static Motor rightForwardDrive = new Motor();
     public static Motor rightBackDrive = new Motor();
     public static Motor leftForwardDrive = new Motor();
@@ -21,7 +19,6 @@ public class DriveTrainMotors {
     public static Motor leftOdometer = new Motor();
 
     public DriveTrainMotors(HardwareMap hardwareMap) {
-        this.hardwareMap = hardwareMap;
 
         leftBackDrive.init("motor", hardwareMap);
         rightForwardDrive.init("fakeMotor", hardwareMap);
@@ -30,15 +27,15 @@ public class DriveTrainMotors {
         yOdometer.init("fakeMotor", hardwareMap);
         leftOdometer.init("fakeMotor", hardwareMap);
         rightOdometer.init("fakeMotor", hardwareMap);
-
+        reset();
     }
 
     public void reset() {
         leftBackDrive.dev.setDirection(DcMotorSimple.Direction.FORWARD);
         leftForwardDrive.dev.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        rightBackDrive.dev.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightForwardDrive.dev.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightBackDrive.dev.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightForwardDrive.dev.setDirection(DcMotorSimple.Direction.FORWARD);
 
         leftBackDrive.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftBackDrive.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

@@ -10,17 +10,16 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class LiftHangingMotors {
     HardwareMap hardwareMap;
 
-    public Motor liftRightMotor;
-    public Motor liftLeftMotor;
-
-    public Motor hangingMotor;
+    public static Motor liftRightMotor = new Motor();
+    public static Motor liftLeftMotor  = new Motor();
+    public static Motor hangingMotor   = new Motor();
 
     public LiftHangingMotors(HardwareMap hardwareMap) {
         this.hardwareMap = hardwareMap;
 
-        liftLeftMotor.init("fake", hardwareMap);
-        liftRightMotor.init("fake", hardwareMap);
-        hangingMotor.init("fake", hardwareMap);
+        liftLeftMotor.init("fakeMotor", hardwareMap);
+        liftRightMotor.init("fakeMotor", hardwareMap);
+        hangingMotor.init("fakeMotor", hardwareMap);
 
         liftRightMotor.dev.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         liftRightMotor.dev.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
  */
 public class DevicePool {
 
-    HardwareMap hardwareMap;
 
     public GrabberAndTransferServo grabber;
     public DriveTrainMotors driveTrainMotors;
@@ -16,7 +15,6 @@ public class DevicePool {
     public LiftHangingMotors liftHangingMotors;
 
     public DevicePool(HardwareMap hardwareMap) {
-        this.hardwareMap = hardwareMap;
         grabber = new GrabberAndTransferServo(hardwareMap);
         driveTrainMotors = new DriveTrainMotors(hardwareMap);
         sensors = new Sensors(hardwareMap);

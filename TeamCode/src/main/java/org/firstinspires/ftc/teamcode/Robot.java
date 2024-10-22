@@ -30,8 +30,8 @@ public class Robot extends ModulesList {
 
     public Robot(LinearOpMode opMode) {
         this.opMode = opMode;
-        this.devicePool = new DevicePool(hardwareMap);
         this.hardwareMap = opMode.hardwareMap;
+        this.devicePool = new DevicePool(hardwareMap);
         Robot.telemetry = new MultipleTelemetry(FtcDashboard.getInstance().getTelemetry(), opMode.telemetry);
 
         grabberStateMachine.init(this);
