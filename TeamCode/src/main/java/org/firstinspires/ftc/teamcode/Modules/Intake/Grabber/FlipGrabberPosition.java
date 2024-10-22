@@ -8,7 +8,7 @@ import com.acmerobotics.dashboard.config.Config;
 
 @Config
 
-public enum GrabberUpPosition {
+public enum FlipGrabberPosition {
     START, FINISH;
     public static double start = 1;
     public static double stop = 0;

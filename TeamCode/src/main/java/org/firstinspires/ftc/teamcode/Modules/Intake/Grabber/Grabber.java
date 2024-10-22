@@ -13,20 +13,20 @@ public class Grabber implements Controller {
     Robot robot;
 
     private Servo grabberServo;
-    private Servo grabberServoUp;
+    private Servo flipServo;
     private Servo transferServoSecond;
     private Servo transferServoFirst;
 
 
     private GrabberPosition grabberTarget = GrabberPosition.OPEN;
-    private GrabberUpPosition grabberUpPosition = GrabberUpPosition.FINISH;
+    private FlipGrabberPosition grabberUpPosition = FlipGrabberPosition.FINISH;
     private TransferPosition transferPosition = TransferPosition.NORMAL;
 
     public GrabberPosition getGrabberTarget() {
         return grabberTarget;
     }
 
-    public GrabberUpPosition getGrabberUpPosition() {
+    public FlipGrabberPosition getFlipServoPos() {
         return grabberUpPosition;
     }
 
@@ -50,27 +50,27 @@ public class Grabber implements Controller {
         transferPosition = TransferPosition.NORMAL;
     }
 
-    public void closeUpGrabber() {
-        grabberUpPosition = GrabberUpPosition.FINISH;
+    public void closeFlipServo() {
+        grabberUpPosition = FlipGrabberPosition.FINISH;
     }
 
-    public void openUpGrabber() {
-        grabberUpPosition = GrabberUpPosition.START;
+    public void openFlipServo() {
+        grabberUpPosition = FlipGrabberPosition.START;
     }
 
 
     @Override
     public void init(Robot robot) {
         this.robot = robot;
-        grabberServoUp = robot.devicePool.grabber.grabberServoUp;
+        flipServo = robot.devicePool.grabber.flipServo;
         grabberServo = robot.devicePool.grabber.grabberServo;
-        transferServoFirst = robot.devicePool.grabber.transferServoFirst;
+        transferServoFirst = robot.devicePool.grabber.transferServo;
         transferServoSecond = robot.devicePool.grabber.transferServoSecond;
     }
 
     public void update() {
         grabberServo.setPosition(grabberTarget.get());
-        grabberServoUp.setPosition(grabberUpPosition.get());
+        flipServo.setPosition(grabberUpPosition.get());
         transferServoFirst.setPosition(transferPosition.get());
     }
 
