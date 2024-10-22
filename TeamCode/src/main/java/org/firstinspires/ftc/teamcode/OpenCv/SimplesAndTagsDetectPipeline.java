@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.OpenCv;
 import com.acmerobotics.dashboard.config.Config;
 
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.TEAM;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import org.opencv.core.Core;
@@ -101,7 +102,7 @@ public class SimplesAndTagsDetectPipeline extends OpenCvPipeline {
         Core.inRange(hvsMaskYellow, hvsMinYellow.toScalar(),
                 hvsMaxYellow.toScalar(),
                 binaryMaskYellow);
-        if (Robot.myTeam == Robot.TEAM.BLUE) {
+        if (Robot.myTeam == TEAM.BLUE) {
             Core.bitwise_or(binaryMaskBlue, binaryMaskYellow, binaryMaskUnshaped);
         } else {
             Core.bitwise_or(binaryMaskRed, binaryMaskYellow, binaryMaskUnshaped);
