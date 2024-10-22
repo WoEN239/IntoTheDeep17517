@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.Devices;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 
@@ -23,6 +25,8 @@ public class Motor {
     public void init(String name, HardwareMap map) {
         this.battery = map.voltageSensor.get("Control Hub");
         this.dev = map.get(DcMotorEx.class, name);
+        dev.setDirection(DcMotorSimple.Direction.FORWARD);
+        dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         this.name = name;
         filter.setName(name);
         pidF.setName(name + "F");
@@ -65,7 +69,7 @@ public class Motor {
         } else {
             u = uB;
         }
-        setVoltage(u);
+        setVoltage(u*dir);
     }
 
     public void setPower(double power) {

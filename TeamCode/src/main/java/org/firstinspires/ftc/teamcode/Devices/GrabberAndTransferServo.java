@@ -8,20 +8,17 @@ import com.qualcomm.robotcore.hardware.Servo;
  */
 
 public class GrabberAndTransferServo {
-    HardwareMap hardwareMap;
 
-    public Servo grabberServo;
-    public Servo flipServo;
-
-    public Servo transferServo;
-    public Servo transferServoSecond;
+    public static Servo grabberServo       ;
+    public static Servo grabberServoUp     ;
+    public static Servo transferServoFirst ;
+    public static Servo transferServoSecond;
 
 
     public GrabberAndTransferServo(HardwareMap hardwareMap) {
-        this.hardwareMap = hardwareMap;
         grabberServo = hardwareMap.get(Servo.class, "fakeServo");
-        transferServo = hardwareMap.get(Servo.class, "fakeServo");
+        transferServoFirst = hardwareMap.get(Servo.class, "fakeServo");
         transferServoSecond = hardwareMap.get(Servo.class, "fakeServo");
-        flipServo = hardwareMap.get(Servo.class, "fakeServo");
+        grabberServoUp = hardwareMap.get(Servo.class, "fakeServo");
     }
 }
