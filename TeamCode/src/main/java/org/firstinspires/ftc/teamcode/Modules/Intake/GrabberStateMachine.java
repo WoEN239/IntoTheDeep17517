@@ -20,13 +20,13 @@ public class GrabberStateMachine {
         liftListener = robot.liftListener;
     }
 
-    State state = State.TO_DOWN;
+    IntakeState state = IntakeState.TO_DOWN;
 
-    public State getState() {
+    public IntakeState getState() {
         return state;
     }
 
-    public void setState(State state) {
+    public void setState(IntakeState state) {
         this.state = state;
     }
 
@@ -42,56 +42,57 @@ public class GrabberStateMachine {
 
 
     public void update() {
-        if (isOn) {
-            switch (state) {
-                case DROP_SIMPLES:
-                    if (liftListener.getPosition() > 200) {
-                        grabber.transferToGrab();
-                        grabber.openSimpleGrabber();
-                        grabber.openUpGrabber();
-                    }
-                    setState(State.TO_DOWN);
-                    break;
-                case TO_HIGH_BASKET:
-                    grabber.transferToNormal();
-                    grabber.closeSimpleGrabber();
-                    grabber.closeUpGrabber();
-                    liftController.setHighBasket();
-                    break;
-                case TO_LOW_BASKET:
-                    grabber.transferToNormal();
-                    grabber.closeSimpleGrabber();
-                    grabber.closeUpGrabber();
-                    liftController.setLowBasket();
-                    break;
-                case TO_LOW_AXIS:
-                    grabber.transferToNormal();
-                    grabber.closeSimpleGrabber();
-                    grabber.closeUpGrabber();
-                    liftController.setLowAxis();
-                    break;
-                case TO_HIGH_AXIS:
-                    grabber.transferToNormal();
-                    grabber.closeSimpleGrabber();
-                    grabber.closeUpGrabber();
-                    liftController.setHighAxis();
-                    break;
-                case GRAB:
+        if (!isOn) {
+            return;
+        }
+        switch (state) {
+            case DROP_SIMPLES:
+                if (liftListener.getPosition() > 200) {
                     grabber.transferToGrab();
                     grabber.openSimpleGrabber();
-                    grabber.openUpGrabber();
-                    liftController.setDownPos();
-                    break;
-                case TO_DOWN:
-                    liftController.setDownPos();
-                    break;
-                case RIDE:
-                    grabber.transferToNormal();
-                    grabber.closeSimpleGrabber();
-                    grabber.closeUpGrabber();
-                    liftController.setDownPos();
-                    break;
-            }
+                    grabber.openFlipServo();
+                }
+                setState(IntakeState.TO_DOWN);
+                break;
+            case TO_HIGH_BASKET:
+                grabber.transferToNormal();
+                grabber.closeSimpleGrabber();
+                grabber.closeFlipServo();
+                liftController.setHighBasket();
+                break;
+            case TO_LOW_BASKET:
+                grabber.transferToNormal();
+                grabber.closeSimpleGrabber();
+                grabber.closeFlipServo();
+                liftController.setLowBasket();
+                break;
+            case TO_LOW_AXIS:
+                grabber.transferToNormal();
+                grabber.closeSimpleGrabber();
+                grabber.closeFlipServo();
+                liftController.setLowAxis();
+                break;
+            case TO_HIGH_AXIS:
+                grabber.transferToNormal();
+                grabber.closeSimpleGrabber();
+                grabber.closeFlipServo();
+                liftController.setHighAxis();
+                break;
+            case GRAB:
+                grabber.transferToGrab();
+                grabber.openSimpleGrabber();
+                grabber.openFlipServo();
+                liftController.setDownPos();
+                break;
+            case TO_DOWN:
+                liftController.setDownPos();
+                break;
+            case RIDE:
+                grabber.transferToNormal();
+                grabber.closeSimpleGrabber();
+                grabber.closeFlipServo();
+                liftController.setDownPos();
+                break;
         }
     }
 }

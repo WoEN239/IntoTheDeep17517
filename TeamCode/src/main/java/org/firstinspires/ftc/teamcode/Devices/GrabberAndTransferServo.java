@@ -11,17 +11,17 @@ public class GrabberAndTransferServo {
     HardwareMap hardwareMap;
 
     public Servo grabberServo;
-    public Servo grabberServoUp;
+    public Servo flipServo;
 
-    public Servo transferServoFirst;
+    public Servo transferServo;
     public Servo transferServoSecond;
 
 
     public GrabberAndTransferServo(HardwareMap hardwareMap) {
         this.hardwareMap = hardwareMap;
         grabberServo = hardwareMap.get(Servo.class, "fakeServo");
-        transferServoFirst = hardwareMap.get(Servo.class, "fakeServo");
+        transferServo = hardwareMap.get(Servo.class, "fakeServo");
         transferServoSecond = hardwareMap.get(Servo.class, "fakeServo");
-        grabberServoUp = hardwareMap.get(Servo.class, "fakeServo");
+        flipServo = hardwareMap.get(Servo.class, "fakeServo");
     }
 }

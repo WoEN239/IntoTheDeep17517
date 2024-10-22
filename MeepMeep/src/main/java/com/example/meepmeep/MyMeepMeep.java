@@ -18,17 +18,30 @@ public class MyMeepMeep {
         meepMeep.setAxesInterval(1000);
 
         RoadRunnerBotEntity myBot = new RoadRunnerBotEntity(meepMeep,
-                new Constraints(600,600,3.14,3.14,300),
-                300,300,
-                new Pose2d(-1650,1710,0),
-                meepMeep.getColorManager().getTheme(),1, DriveTrainType.MECANUM,false
+                new Constraints(600, 600, 3.14, 3.14, 300),
+                300, 300,
+                new Pose2d(-1650, 1710, 0),
+                meepMeep.getColorManager().getTheme(), 1, DriveTrainType.MECANUM, false
         );
 
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-60, 60, 0))
-                .splineTo(new Pose2d(0, 0, Math.toRadians(90)).component1(), 0)
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-1000, 1600, Math.toRadians(270)))
+                .strafeToLinearHeading(new Vector2d(1200, 1600), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(1100, 700), Math.toRadians(270))
+                .endTrajectory()
+                .splineToConstantHeading(new Vector2d(1200, 1600), Math.toRadians(90))
+                .endTrajectory()
+                .splineToConstantHeading(new Vector2d(1300, 700), Math.toRadians(270))
+                .endTrajectory()
+                .splineToConstantHeading(new Vector2d(1200, 1600), Math.toRadians(90))
+                .endTrajectory()
+                .splineToConstantHeading(new Vector2d(1600, 700), Math.toRadians(270))
+                .endTrajectory()
+                .strafeToConstantHeading(new Vector2d(1200, 1600))
+                .endTrajectory()
+                .splineToLinearHeading(new Pose2d(0, 900, Math.toRadians(270)), Math.toRadians(180))
                 .build());
 
-        meepMeep.setBackground(MeepMeep.Background.FIELD_INTO_THE_DEEP_OFFICIAL)
+        meepMeep.setBackground(MeepMeep.Background.FIELD_INTO_THE_DEEP_JUICE_DARK)
                 .setDarkMode(true)
                 .setBackgroundAlpha(0.95f)
                 .addEntity(myBot)
