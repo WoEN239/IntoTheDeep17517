@@ -79,5 +79,5 @@ public class Robot extends ModulesList {
     }
 
 
-    public static TEAM myTeam = TEAM.BLUE;
+    public static TEAM myTeaчёm = TEAM.BLUE;
 }
