@@ -2,10 +2,13 @@ package org.firstinspires.ftc.teamcode.Modules.DriveTrain.Devices;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.Modules.Listener;
 import org.firstinspires.ftc.teamcode.Robot;
+
+import java.lang.annotation.ElementType;
 
 /**
  * Writing by EgorKhvostikov
@@ -15,7 +18,7 @@ public class Gyro implements Listener {
     private IMU imu;
     private double angle;
     private double speed;
-
+    private ElapsedTime timer = new ElapsedTime();
     @Override
     public void init(Robot robot) {
         imu = robot.hardwareMap.get(IMU.class, "imu");
@@ -32,8 +35,11 @@ public class Gyro implements Listener {
 
     @Override
     public void read() {
-        angle = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
-        speed = imu.getRobotAngularVelocity(AngleUnit.RADIANS).xRotationRate;
+        if(timer.seconds()>0.05) {
+            angle = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+            speed = imu.getRobotAngularVelocity(AngleUnit.RADIANS).xRotationRate;
+            timer.reset();
+        }
     }
 
     public double getAngle() {

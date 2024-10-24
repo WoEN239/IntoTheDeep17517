@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.Grabber;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.Devices.GrabberAndTransferServo;
 import org.firstinspires.ftc.teamcode.Modules.Controller;
 import org.firstinspires.ftc.teamcode.Robot;
 
@@ -15,7 +16,7 @@ public class Grabber implements Controller {
     private Servo grabberServo;
     private Servo flipServo;
     private Servo transferServoSecond;
-    private Servo transferServoFirst;
+    private Servo transferServo;
 
 
     private GrabberPosition grabberTarget = GrabberPosition.OPEN;
@@ -62,16 +63,16 @@ public class Grabber implements Controller {
     @Override
     public void init(Robot robot) {
         this.robot = robot;
-        flipServo = robot.devicePool.grabber.flipServo;
-        grabberServo = robot.devicePool.grabber.grabberServo;
-        transferServoFirst = robot.devicePool.grabber.transferServo;
-        transferServoSecond = robot.devicePool.grabber.transferServoSecond;
+        flipServo = GrabberAndTransferServo.flipServo;
+        grabberServo = GrabberAndTransferServo.grabberServo;
+        transferServo = GrabberAndTransferServo.transferServo;
+        transferServoSecond = GrabberAndTransferServo.transferServoSecond;
     }
 
     public void update() {
         grabberServo.setPosition(grabberTarget.get());
         flipServo.setPosition(grabberUpPosition.get());
-        transferServoFirst.setPosition(transferPosition.get());
+        transferServo.setPosition(transferPosition.get());
     }
 
 

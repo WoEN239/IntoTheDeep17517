@@ -58,10 +58,8 @@ public class Filter {
     }
 
     private void calcNewVel() {
-        double tNow = timer.seconds();
-        double dt = tNow - tOld;
-        tOld = tNow;
-
+        double dt = timer.seconds();
+        timer.reset();
         double dp = posNew - posOld;
         posOld = posNew;
 

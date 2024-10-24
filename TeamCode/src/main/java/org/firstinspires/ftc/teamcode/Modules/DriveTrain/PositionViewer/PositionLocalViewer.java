@@ -38,7 +38,6 @@ public class PositionLocalViewer {
         positionLocal.h = h;
     }
 
-
     public void update() {
         calcLocalPosition();
     }
