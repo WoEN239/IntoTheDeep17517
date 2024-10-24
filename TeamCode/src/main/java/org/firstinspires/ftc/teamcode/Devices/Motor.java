@@ -17,7 +17,7 @@ public class Motor {
     private double velocity = 0;
     private double position = 0;
 
-    private int dir = 1;
+    private MOTOR_DIRECTION dir = MOTOR_DIRECTION.FORWARD;
     private VoltageSensor battery;
 
     private String name;
@@ -38,10 +38,8 @@ public class Motor {
         updateVel();
     }
 
-    public void setDir(int i) {
-        if (i == 1 || i == -1) {
-            dir = i;
-        }
+    public void setDir(MOTOR_DIRECTION d) {
+        dir = d;
     }
 
     public PidStatus pidStatusF = new PidStatus(0, 0, 0, 0, 0, 0);
@@ -64,27 +62,27 @@ public class Motor {
         double uB = pidB.getU();
 
         double u;
-        if (velTar * dir >= 0) {
+        if (velTar * dir.dir >= 0) {
             u = uF;
         } else {
             u = uB;
         }
-        setVoltage(u*dir);
+        setVoltage(u*dir.dir);
     }
 
     public void setPower(double power) {
-        dev.setPower(power * dir);
+        dev.setPower(power * dir.dir);
 
     }
 
     public void setVoltage(double voltage) {
-        double u = ((voltage / 12.0) * (12.0 / battery.getVoltage()));
+        double u = ((voltage ) * (battery.getVoltage()));
         Robot.telemetry.addData(name + "voltage", u);
         setPower(u);
     }
 
     private void updatePos() {
-        position = dir * dev.getCurrentPosition();
+        position = dir.dir * dev.getCurrentPosition();
     }
 
     private void updateVel() {
