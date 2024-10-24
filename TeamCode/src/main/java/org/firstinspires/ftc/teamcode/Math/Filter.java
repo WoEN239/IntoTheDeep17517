@@ -18,17 +18,18 @@ public class Filter {
         name = n;
     }
 
+    ArrayExtra<Double> reads;
     public Filter init(FilterStatus status) {
         this.status = status;
-        reads = new double[1];
+        reads = new ArrayExtra<>(new Double [] {0.0});
         return this;
     }
 
     public void update() {
         if (status.medianSize > 0) {
-            double[] nReads = new double[status.medianSize];
-            System.arraycopy(reads, 0, nReads, 0, reads.length - 1);
-            reads = nReads;
+            Double[] nReads = new Double[status.medianSize];
+            System.arraycopy(reads.arr, 0, nReads, 0, reads.arr.length - 1);
+            reads =  new ArrayExtra<>(nReads);
         }
 
         calcNewVel();
@@ -46,11 +47,9 @@ public class Filter {
 
     private double posOld = 0;
     private double posNew = 0;
-    private double tOld = 0;
     private double velMathNew = 0;
     private double medianVelNow = 0;
     private double medianVelOld = 0;
-    private double[] reads;
     ElapsedTime timer = new ElapsedTime();
 
     public void setPos(double posNew) {
@@ -67,29 +66,26 @@ public class Filter {
     }
 
     private void updateReads() {
-        reads[reads.length - 1] = velMathNew;
-        for (int i = 0; i < reads.length - 1; i++) {
-            reads[i] = reads[(i + 1)];
-        }
+        reads.updateLikeBuffer(velMathNew);
     }
 
     private void updateTelemetry() {
         Robot.telemetry.addData("Median vel " + name, medianVelNow);
-        Robot.telemetry.addData("Math vel " + name, reads[reads.length - 1]);
+        Robot.telemetry.addData("Math vel " + name, reads.arr[reads.arr.length - 1]);
         Robot.telemetry.addData("Velocity " + name, velocityTrue);
         Robot.telemetry.addData("time " + name, System.nanoTime());
-        Robot.telemetry.addData("medianSize " + name, reads.length);
-        Robot.telemetry.addData("reads " + name, Arrays.toString(reads));
+        Robot.telemetry.addData("medianSize " + name, reads.arr.length);
+        Robot.telemetry.addData("reads " + name, Arrays.toString(reads.arr));
     }
 
     private void calcMedian() {
-        double[] sortReads = reads.clone();
+        Double[] sortReads = reads.arr.clone();
         for (int i = 0; i < sortReads.length; i++) {
             double abs = abs(sortReads[i]);
             sortReads[i] = abs;
         }
         Arrays.sort(sortReads);
-        double[] filterReads = reads.clone();
+        Double[] filterReads = reads.arr.clone();
         boolean isMin = false;
         boolean isMax = false;
 
@@ -103,7 +99,7 @@ public class Filter {
                 isMax = true;
             }
         }
-        if (reads.length > 4) {
+        if (reads.arr.length > 4) {
             double[] noZeroReads = new double[4];
             int count = 0;
             for (double i : filterReads) {
@@ -119,13 +115,10 @@ public class Filter {
         //this.medianVelNow = sortReads[(sortReads.length)  / 2];
     }
 
-    double[] dvBuffer = new double[5];
+    ArrayExtra<Double> dvBuffer = new ArrayExtra<>(new Double[5]);
 
     private void updateDvBuffer(double val) {
-        dvBuffer[dvBuffer.length - 1] = abs(val);
-        for (int i = 0; i < dvBuffer.length - 1; i++) {
-            dvBuffer[i] = dvBuffer[(i + 1)];
-        }
+        dvBuffer.updateLikeBuffer(val);
     }
 
     private void calcVel() {
@@ -133,7 +126,7 @@ public class Filter {
         double dv = medianVelNow - medianVelOld;
         medianVelOld = velocityTrue;
         updateDvBuffer(dv);
-        double[] sortBuffer = dvBuffer;
+        Double[] sortBuffer = dvBuffer.arr;
         Arrays.sort(sortBuffer);
         double detect = sortBuffer[sortBuffer.length - 1];
 
