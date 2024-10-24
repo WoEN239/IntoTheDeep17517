@@ -40,11 +40,13 @@ public class Position {
     public void minus(Position pos) {
         x -= pos.x;
         y -= pos.y;
+        h -= pos.h;
     }
 
     public void plus(Position pos) {
         x += pos.x;
         y += pos.y;
+        h += pos.h;
     }
 
 
