@@ -38,10 +38,10 @@ public class DriveTrainMotors {
     public static void reset(){
         resetEncoders();
 
-        leftBackDrive    .setDir(MOTOR_DIRECTION.BACK);
-        leftForwardDrive .setDir(MOTOR_DIRECTION.BACK);
-        rightBackDrive   .setDir(MOTOR_DIRECTION.FORWARD);
-        rightForwardDrive.setDir(MOTOR_DIRECTION.FORWARD);
+        leftBackDrive    .setDir(MotorDirection.BACK);
+        leftForwardDrive .setDir(MotorDirection.BACK);
+        rightBackDrive   .setDir(MotorDirection.FORWARD);
+        rightForwardDrive.setDir(MotorDirection.FORWARD);
 
         leftBackDrive.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftBackDrive.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
