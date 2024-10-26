@@ -28,6 +28,11 @@ public abstract class BaseOpMode extends LinearOpMode {
         }
         waitForStart();
         while (opModeIsActive()) {
+            rightStickX = gamepad1.right_stick_x;
+            rightStickY = gamepad1.right_stick_y;
+            leftStickX = gamepad1.left_stick_x;
+            leftStickY = gamepad1.left_stick_y;
+
             if (firstStart) {
                 robot.timer.reset();
                 firstStart = false;
@@ -36,10 +41,6 @@ public abstract class BaseOpMode extends LinearOpMode {
             robot.updateTasks();
             robot.update();
         }
-        rightStickX = gamepad1.right_stick_x;
-        rightStickY = gamepad1.right_stick_y;
-        leftStickX = gamepad1.left_stick_x;
-        leftStickY = gamepad1.left_stick_y;
     }
 
     protected double rightStickX;

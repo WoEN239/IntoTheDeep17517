@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -18,11 +19,9 @@ import java.util.ArrayList;
 
 public class Robot extends ModulesList {
     public LinearOpMode opMode;
-    public DevicePool devicePool;
     public HardwareMap hardwareMap;
     public SimplesAndTagsDetectPipeline pipeLine = new SimplesAndTagsDetectPipeline();
     public GrabberStateMachine grabberStateMachine = new GrabberStateMachine();
-
 
     public static Telemetry telemetry = FtcDashboard.getInstance().getTelemetry();
     public ElapsedTime timer = new ElapsedTime();
@@ -33,7 +32,7 @@ public class Robot extends ModulesList {
     public Robot(LinearOpMode opMode) {
         this.opMode = opMode;
         this.hardwareMap = opMode.hardwareMap;
-        this.devicePool = new DevicePool(hardwareMap);
+        DevicePool.init(hardwareMap);
         Robot.telemetry = new MultipleTelemetry(FtcDashboard.getInstance().getTelemetry(), opMode.telemetry);
 
         grabberStateMachine.init(this);

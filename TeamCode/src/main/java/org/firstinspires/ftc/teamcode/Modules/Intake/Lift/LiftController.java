@@ -4,6 +4,7 @@ import static java.lang.Math.abs;
 
 import com.acmerobotics.dashboard.config.Config;
 
+import org.firstinspires.ftc.teamcode.Devices.LiftHangingMotors;
 import org.firstinspires.ftc.teamcode.Devices.Motor;
 import org.firstinspires.ftc.teamcode.Math.Pid;
 import org.firstinspires.ftc.teamcode.Math.PidStatus;
@@ -34,9 +35,8 @@ public class LiftController implements Controller {
         this.robot = robot;
         liftListener = robot.liftListener;
 
-        liftLeftMotor = robot.devicePool.liftHangingMotors.liftLeftMotor;
-        liftRightMotor = robot.devicePool.liftHangingMotors.liftRightMotor;
-
+        liftLeftMotor = LiftHangingMotors.liftLeftMotor;
+        liftRightMotor= LiftHangingMotors.liftRightMotor;
     }
 
     public void setPower(double powerToSet) {

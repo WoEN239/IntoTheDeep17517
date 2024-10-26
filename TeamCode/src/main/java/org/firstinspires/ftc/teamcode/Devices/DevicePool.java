@@ -1,24 +1,18 @@
 package org.firstinspires.ftc.teamcode.Devices;
 
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-/**
- * Writing by @MrFrosty1234
- */
+/*
+  Writing by @MrFrosty1234
+*/
 public class DevicePool {
-
-
-    public GrabberAndTransferServo grabber;
-    public DriveTrainMotors driveTrainMotors;
-    public Sensors sensors;
-    public LiftHangingMotors liftHangingMotors;
-
-    public DevicePool(HardwareMap hardwareMap) {
-        grabber = new GrabberAndTransferServo(hardwareMap);
-        driveTrainMotors = new DriveTrainMotors(hardwareMap);
-        sensors = new Sensors(hardwareMap);
-        liftHangingMotors = new LiftHangingMotors(hardwareMap);
+    public static void init (HardwareMap hardwareMap) {
+        GrabberAndTransferServo.init(hardwareMap);
+        DriveTrainMotors.init(hardwareMap);
+        Sensors.init(hardwareMap);
+        LiftHangingMotors.init(hardwareMap);
 
     }
 }
