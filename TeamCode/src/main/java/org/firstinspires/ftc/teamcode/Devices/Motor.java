@@ -42,10 +42,10 @@ public class Motor {
         dir = d;
     }
 
-    public PidStatus pidStatusF = new PidStatus(0, 0, 0, 0, 0, 0);
+    public PidStatus pidStatusF = new PidStatus(0, 0, 0, 0.005, 0, 0);
     Pid pidF = new Pid(pidStatusF);
 
-    public PidStatus pidStatusB = new PidStatus(0, 0, 0, 0, 0, 0);
+    public PidStatus pidStatusB = new PidStatus(0, 0, 0, 0.005, 0, 0);
     Pid pidB = new Pid(pidStatusB);
 
     public FilterStatus filterStatus = new FilterStatus(6, 150, 30, 1, 0.1, 0.3);
