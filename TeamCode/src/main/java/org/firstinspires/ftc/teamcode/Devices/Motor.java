@@ -16,7 +16,7 @@ public class Motor {
     private double velocity = 0;
     private double position = 0;
 
-    private MOTOR_DIRECTION dir = MOTOR_DIRECTION.FORWARD;
+    private MotorDirection dir = MotorDirection.FORWARD;
     private VoltageSensor battery;
 
     private String name;
@@ -37,7 +37,7 @@ public class Motor {
         updateVel();
     }
 
-    public void setDir(MOTOR_DIRECTION d) {
+    public void setDir(MotorDirection d) {
         dir = d;
     }
 
