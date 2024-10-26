@@ -22,7 +22,7 @@ public class LiftHangingMotors {
         hangingMotor.init("fakeMotor", hardwareMap);
 
         liftRightMotor.dev.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        liftRightMotor.dev.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        liftLeftMotor.dev.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         hangingMotor.dev.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         liftLeftMotor.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
