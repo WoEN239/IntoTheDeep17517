@@ -28,6 +28,8 @@ public class Robot extends ModulesList {
     public ElapsedTime timer = new ElapsedTime();
     private final ArrayList<Task> taskQueue = new ArrayList<>();
 
+    public static double voltage;
+
     public Robot(LinearOpMode opMode) {
         this.opMode = opMode;
         this.hardwareMap = opMode.hardwareMap;
@@ -79,5 +81,5 @@ public class Robot extends ModulesList {
     }
 
 
-    public static TEAM myTeam = TEAM.BLUE;
+    public static Team myTeam = Team.BLUE;
 }

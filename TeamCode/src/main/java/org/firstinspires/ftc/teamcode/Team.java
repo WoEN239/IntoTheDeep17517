@@ -1,5 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-public enum TEAM {
+public enum Team {
     BLUE, RED
 }

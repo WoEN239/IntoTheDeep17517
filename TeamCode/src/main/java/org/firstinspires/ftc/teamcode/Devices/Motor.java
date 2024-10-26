@@ -17,13 +17,11 @@ public class Motor {
     private double velocity = 0;
     private double position = 0;
 
-    private MOTOR_DIRECTION dir = MOTOR_DIRECTION.FORWARD;
-    private VoltageSensor battery;
+    private MotorDirection dir = MotorDirection.FORWARD;
 
     private String name;
 
     public void init(String name, HardwareMap map) {
-        this.battery = map.voltageSensor.get("Control Hub");
         this.dev = map.get(DcMotorEx.class, name);
         dev.setDirection(DcMotorSimple.Direction.FORWARD);
         dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -38,7 +36,7 @@ public class Motor {
         updateVel();
     }
 
-    public void setDir(MOTOR_DIRECTION d) {
+    public void setDir(MotorDirection d) {
         dir = d;
     }
 
@@ -76,7 +74,7 @@ public class Motor {
     }
 
     public void setVoltage(double voltage) {
-        double u = ((voltage ) * (battery.getVoltage()));
+        double u = ((voltage ) * (Robot.voltage));
         Robot.telemetry.addData(name + "voltage", u);
         setPower(u);
     }

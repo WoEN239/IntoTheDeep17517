@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import org.firstinspires.ftc.teamcode.Devices.Battery;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.PositionController;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.VelocityController;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Devices.Gyro;
@@ -22,6 +23,8 @@ public class ModulesList {
     public Gyro imu = new Gyro();
     public FieldSensors fieldSensors = new FieldSensors();
 
+    public Battery battery = new Battery();
+
     public RoadRunner roadRunner = new RoadRunner();
     public Camera camera = new Camera();
 
@@ -32,7 +35,7 @@ public class ModulesList {
     protected IModule[] modules = new IModule[]{
             roadRunner, velocityController, imu, velocityViewer, positionViewer,
             positionController, liftListener, grabber, liftController,
-            fieldSensors
+            fieldSensors, battery
     };
 
 }
