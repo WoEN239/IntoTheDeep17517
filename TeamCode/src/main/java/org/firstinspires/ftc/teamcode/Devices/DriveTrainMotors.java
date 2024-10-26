@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.Math.Pid;
 import org.firstinspires.ftc.teamcode.Math.PidStatus;
 
-/**
- * Writing by @MrFrosty1234
+/*
+ *Writing by @MrFrosty1234
  */
 @Config
 public class DriveTrainMotors {
@@ -21,7 +21,7 @@ public class DriveTrainMotors {
     public static Motor rightOdometer = new Motor();
     public static Motor leftOdometer = new Motor();
 
-    public DriveTrainMotors(HardwareMap hardwareMap) {
+    public static void init(HardwareMap hardwareMap) {
 
         leftBackDrive    .init("motorLB", hardwareMap);
         rightForwardDrive.init("motorRF", hardwareMap);
@@ -32,15 +32,16 @@ public class DriveTrainMotors {
         leftOdometer.init("fakeMotor", hardwareMap);
         rightOdometer.init("fakeMotor", hardwareMap);
         reset();
-        initPid();
+        //initPid();
     }
 
-    public void reset() {
-        leftBackDrive    .dev.setDirection(DcMotorSimple.Direction.FORWARD);
-        leftForwardDrive .dev.setDirection(DcMotorSimple.Direction.FORWARD);
+    public static void reset(){
+        resetEncoders();
 
-        rightBackDrive   .dev.setDirection(DcMotorSimple.Direction.FORWARD);
-        rightForwardDrive.dev.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftBackDrive    .setDir(MOTOR_DIRECTION.BACK);
+        leftForwardDrive .setDir(MOTOR_DIRECTION.BACK);
+        rightBackDrive   .setDir(MOTOR_DIRECTION.FORWARD);
+        rightForwardDrive.setDir(MOTOR_DIRECTION.FORWARD);
 
         leftBackDrive.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftBackDrive.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -54,20 +55,19 @@ public class DriveTrainMotors {
         rightForwardDrive.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightForwardDrive.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        resetEncoders();
     }
     private void initPid(){
-        leftBackDrive.pidF =   new Pid(new PidStatus(0,0,0,0.005,0,0));
-        leftBackDrive.pidF =   new Pid(new PidStatus(0,0,0,0.005,0,0));
-        leftBackDrive.pidF =   new Pid(new PidStatus(0,0,0,0.005,0,0));
-        leftBackDrive.pidF =   new Pid(new PidStatus(0,0,0,0.005,0,0));
-        leftBackDrive.pidB   = new Pid(new PidStatus(0,0,0,0.005,0,0));
-        leftForwardDrive.pidB= new Pid(new PidStatus(0,0,0,0.005,0,0));
-        rightBackDrive.pidB =  new Pid(new PidStatus(0,0,0,0.005,0,0));
+        leftBackDrive.pidF    =new Pid(new PidStatus(0,0,0,0.005,0,0));
+        leftBackDrive.pidF    =new Pid(new PidStatus(0,0,0,0.005,0,0));
+        leftBackDrive.pidF    =new Pid(new PidStatus(0,0,0,0.005,0,0));
+        leftBackDrive.pidF    =new Pid(new PidStatus(0,0,0,0.005,0,0));
+        leftBackDrive.pidB    =new Pid(new PidStatus(0,0,0,0.005,0,0));
+        leftForwardDrive.pidB =new Pid(new PidStatus(0,0,0,0.005,0,0));
+        rightBackDrive.pidB   =new Pid(new PidStatus(0,0,0,0.005,0,0));
         rightForwardDrive.pidB=new Pid(new PidStatus(0,0,0,0.005,0,0));
 
     }
-    public void resetEncoders() {
+    public static void resetEncoders() {
         leftBackDrive.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftForwardDrive.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightBackDrive.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

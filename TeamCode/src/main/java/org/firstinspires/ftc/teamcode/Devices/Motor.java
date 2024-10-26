@@ -10,25 +10,26 @@ import org.firstinspires.ftc.teamcode.Math.Filter;
 import org.firstinspires.ftc.teamcode.Math.FilterStatus;
 import org.firstinspires.ftc.teamcode.Math.Pid;
 import org.firstinspires.ftc.teamcode.Math.PidStatus;
-import org.firstinspires.ftc.teamcode.Robot;
 
 public class Motor {
     public DcMotorEx dev;
     private double velocity = 0;
     private double position = 0;
 
-    private MotorDirection dir = MotorDirection.FORWARD;
+    private MOTOR_DIRECTION dir = MOTOR_DIRECTION.FORWARD;
+    private VoltageSensor battery;
 
     private String name;
 
     public void init(String name, HardwareMap map) {
+        this.battery = map.voltageSensor.get("Control Hub");
         this.dev = map.get(DcMotorEx.class, name);
         dev.setDirection(DcMotorSimple.Direction.FORWARD);
         dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         this.name = name;
         filter.setName(name);
-        pidF.setName(name + "F");
-        pidB.setName(name + "B");
+        pidF.setName(name + " F");
+        pidB.setName(name + " B");
     }
 
     public void update() {
@@ -36,7 +37,7 @@ public class Motor {
         updateVel();
     }
 
-    public void setDir(MotorDirection d) {
+    public void setDir(MOTOR_DIRECTION d) {
         dir = d;
     }
 
@@ -65,17 +66,15 @@ public class Motor {
         } else {
             u = uB;
         }
-        setVoltage(u*dir.dir);
+        setVoltage(u);
     }
 
     public void setPower(double power) {
         dev.setPower(power * dir.dir);
-
     }
 
     public void setVoltage(double voltage) {
-        double u = ((voltage ) * (Robot.voltage));
-        Robot.telemetry.addData(name + "voltage", u);
+        double u = ((voltage ) / (battery.getVoltage()));;
         setPower(u);
     }
 

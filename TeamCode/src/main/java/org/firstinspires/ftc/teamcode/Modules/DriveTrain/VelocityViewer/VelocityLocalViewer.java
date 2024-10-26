@@ -11,10 +11,10 @@ import org.firstinspires.ftc.teamcode.Robot;
 
 public class VelocityLocalViewer {
     public void init(Robot robot) {
-        velRightBackM = DriveTrainMotors.rightBackDrive;
-        velLeftBackM = DriveTrainMotors.leftBackDrive;
-        velRightForM = DriveTrainMotors.rightForwardDrive;
-        velLeftForM = DriveTrainMotors.leftForwardDrive;
+        velRightBackM = DriveTrainMotors.rightBackDrive   ;
+        velLeftBackM  = DriveTrainMotors.leftBackDrive    ;
+        velRightForM  = DriveTrainMotors.rightForwardDrive;
+        velLeftForM   = DriveTrainMotors.leftForwardDrive ;
     }
 
     private final Position velocityLocal = new Position(0, 0, 0);

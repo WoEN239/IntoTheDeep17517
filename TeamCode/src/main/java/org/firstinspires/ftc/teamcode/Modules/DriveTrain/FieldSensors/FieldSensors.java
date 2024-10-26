@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Modules.DriveTrain.FieldSensors;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.AnalogInput;
 
+import org.firstinspires.ftc.teamcode.Devices.Sensors;
 import org.firstinspires.ftc.teamcode.Modules.Listener;
 import org.firstinspires.ftc.teamcode.Robot;
 
@@ -20,8 +21,8 @@ public class FieldSensors implements Listener {
 
     public void init(Robot robot) {
         this.robot = robot;
-        leftSensor = robot.devicePool.sensors.leftColorSensor;
-        rightSensor = robot.devicePool.sensors.rightColorSensor;
+        leftSensor  = Sensors.leftColorSensor;
+        rightSensor = Sensors.rightColorSensor;
     }
 
     private double getVoltage(AnalogInput sensor) {

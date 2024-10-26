@@ -4,7 +4,9 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.Devices.DriveTrainMotors;
 import org.firstinspires.ftc.teamcode.OpModes.BaseOpMode;
+import org.firstinspires.ftc.teamcode.Robot;
 
 @Config
 @TeleOp
@@ -15,11 +17,11 @@ public class TestFilter extends BaseOpMode {
 
     public void doing() {
         if (isSin) {
-            robot.devicePool.driveTrainMotors.leftBackDrive.setPower(Math.sin(robot.timer.seconds() / Math.PI * u) * a);
+            DriveTrainMotors.leftBackDrive.setPower(Math.sin(robot.timer.seconds() / Math.PI * u) * a);
         } else {
-            robot.devicePool.driveTrainMotors.leftBackDrive.setPower(u);
+            DriveTrainMotors.leftBackDrive.setPower(u);
         }
-        FtcDashboard.getInstance().getTelemetry().addData("Rev Vel", robot.devicePool.driveTrainMotors.leftBackDrive.dev.getVelocity());
+        FtcDashboard.getInstance().getTelemetry().addData("Rev Vel", DriveTrainMotors.leftBackDrive.dev.getVelocity());
         FtcDashboard.getInstance().getTelemetry().addData("u", u);
         FtcDashboard.getInstance().getTelemetry().update();
 

@@ -31,7 +31,6 @@ public class PositionController implements Controller {
     public void move(Position target) {
         this.target = target;
         isUpdate = true;
-        update();
     }
 
     public static PidStatus pidStatusY = new PidStatus(0, 0, 0, 0, 0, 0);

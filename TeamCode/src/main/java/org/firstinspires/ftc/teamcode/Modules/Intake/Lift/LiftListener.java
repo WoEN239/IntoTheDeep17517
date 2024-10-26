@@ -2,7 +2,9 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.Lift;
 
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 
+import org.firstinspires.ftc.teamcode.Devices.LiftHangingMotors;
 import org.firstinspires.ftc.teamcode.Devices.Motor;
+import org.firstinspires.ftc.teamcode.Devices.Sensors;
 import org.firstinspires.ftc.teamcode.Math.Button;
 import org.firstinspires.ftc.teamcode.Modules.Listener;
 import org.firstinspires.ftc.teamcode.Robot;
@@ -22,8 +24,8 @@ public class LiftListener implements Listener {
     @Override
     public void init(Robot robot) {
         this.robot = robot;
-        buttonDown = robot.devicePool.sensors.downButton;
-        liftMotor = robot.devicePool.liftHangingMotors.liftLeftMotor;
+        buttonDown = Sensors.downButton;
+        liftMotor  = LiftHangingMotors.liftLeftMotor;
     }
 
     public double getPosition() {
