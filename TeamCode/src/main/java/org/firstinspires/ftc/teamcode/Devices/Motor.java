@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.Math.Filter;
 import org.firstinspires.ftc.teamcode.Math.FilterStatus;
 import org.firstinspires.ftc.teamcode.Math.Pid;
 import org.firstinspires.ftc.teamcode.Math.PidStatus;
+import org.firstinspires.ftc.teamcode.Robot;
 
 public class Motor {
     public DcMotorEx dev;
@@ -17,12 +18,10 @@ public class Motor {
     private double position = 0;
 
     private MotorDirection dir = MotorDirection.FORWARD;
-    private VoltageSensor battery;
 
     private String name;
 
     public void init(String name, HardwareMap map) {
-        this.battery = map.voltageSensor.get("Control Hub");
         this.dev = map.get(DcMotorEx.class, name);
         dev.setDirection(DcMotorSimple.Direction.FORWARD);
         dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -74,7 +73,7 @@ public class Motor {
     }
 
     public void setVoltage(double voltage) {
-        double u = ((voltage ) / (battery.getVoltage()));;
+        double u = ((voltage ) / (Robot.voltage));;
         setPower(u);
     }
 

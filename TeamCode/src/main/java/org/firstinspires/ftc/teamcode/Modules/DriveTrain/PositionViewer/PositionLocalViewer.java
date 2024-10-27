@@ -1,8 +1,13 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain.PositionViewer;
 
+import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.ANGLE_PER_TIK;
+
+import static java.lang.Math.abs;
+
 import org.firstinspires.ftc.teamcode.Devices.DriveTrainMotors;
 import org.firstinspires.ftc.teamcode.Devices.Motor;
 import org.firstinspires.ftc.teamcode.Math.Position;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Devices.Gyro;
 import org.firstinspires.ftc.teamcode.Robot;
 
 /**
@@ -10,10 +15,12 @@ import org.firstinspires.ftc.teamcode.Robot;
  */
 
 public class PositionLocalViewer {
+    Gyro gyro;
     public void init(Robot robot) {
         rightOdometer= DriveTrainMotors.rightOdometer;
         leftOdometer = DriveTrainMotors.leftOdometer;
         yOdometer    = DriveTrainMotors.yOdometer;;
+        gyro = robot.imu;
     }
 
     private final Position positionLocal = new Position(0, 0, 0);
@@ -27,12 +34,25 @@ public class PositionLocalViewer {
 
     public Position deltaPosition;
 
+    private double staticAngleError = 0;
+    private double angleErrorSensitivity = 10;
     private void calcLocalPosition() {
         double x = yOdometer.dev.getCurrentPosition();
+
         double y = (rightOdometer.dev.getCurrentPosition() + leftOdometer.dev.getCurrentPosition()) / 2.0;
-        double h = (rightOdometer.dev.getCurrentPosition() - leftOdometer.dev.getCurrentPosition()) / 2.0;
+
+        double hClean = ANGLE_PER_TIK * ((rightOdometer.dev.getCurrentPosition() - leftOdometer.dev.getCurrentPosition()) / 2.0);
+        double hGyro = gyro.getAngle();
+        if (gyro.isNewValue()){
+            if(abs(hGyro-hClean)> angleErrorSensitivity){
+                staticAngleError = hClean-hGyro;
+            }
+        }
+        double h = hClean - staticAngleError;
+
         deltaPosition = new Position(x, y, h);
         deltaPosition.minus(positionLocal);
+
         positionLocal.y = y;
         positionLocal.x = x;
         positionLocal.h = h;
@@ -41,4 +61,5 @@ public class PositionLocalViewer {
     public void update() {
         calcLocalPosition();
     }
+
 }

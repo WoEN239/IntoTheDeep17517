@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.acmerobotics.dashboard.config.Config;
-
-import org.firstinspires.ftc.teamcode.Devices.DevicePool;
+import org.firstinspires.ftc.teamcode.Devices.Battery;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.PositionController;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.VelocityController;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Devices.Gyro;
@@ -33,10 +31,11 @@ public class ModulesList {
     public LiftListener liftListener = new LiftListener();
     public LiftController liftController = new LiftController();
 
+    public Battery battery = new Battery();
     protected IModule[] modules = new IModule[]{
             roadRunner, velocityController, imu, velocityViewer, positionViewer,
             positionController, liftListener, grabber, liftController,
-            fieldSensors
+            fieldSensors,battery
     };
 
 }

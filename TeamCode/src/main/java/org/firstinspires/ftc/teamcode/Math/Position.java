@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.Math;
 
-import static java.lang.Math.PI;
 import static java.lang.Math.abs;
 import static java.lang.Math.cos;
 import static java.lang.Math.signum;
@@ -43,20 +42,19 @@ public class Position {
     public void minus(Position pos) {
         x -= pos.x;
         y -= pos.y;
-        h -= normalayzeAngle(pos.h);
+        h -= normalizeAngle(pos.h);
     }
 
     public void plus(Position pos) {
         x += pos.x;
         y += pos.y;
-        h += normalayzeAngle(pos.h);
+        h += normalizeAngle(pos.h);
     }
 
-    public static double normalayzeAngle(double error){
+    public static double normalizeAngle(double error){
         while (abs(error)>180) error-=360*signum(error);
         return error;
     }
-
 
 
     public Pose2d toRRPose() {

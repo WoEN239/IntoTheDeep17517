@@ -30,4 +30,6 @@ public class RobotConstant {
     public static double GEAR_RATIO = 1;
     public static double TRACK_WIDTH = 1;
 
+    public static double ANGLE_PER_TIK = 100;//TODO
+
 }
