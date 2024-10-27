@@ -55,7 +55,12 @@ public class Position {
         while (abs(error)>180) error-=360*signum(error);
         return error;
     }
+    public void copyFrom(Position p){
+        this.x = p.x;
+        this.h = p.h;
+        this.y = p.y;
 
+    }
 
     public Pose2d toRRPose() {
         return new Pose2d(x, y, h);

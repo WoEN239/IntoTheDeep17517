@@ -32,7 +32,7 @@ public class PositionLocalViewer {
         return positionLocal;
     }
 
-    public Position deltaPosition;
+    public Position deltaPositionLocal;
 
     private double staticAngleError = 0;
     private double angleErrorSensitivity = 10;
@@ -54,8 +54,8 @@ public class PositionLocalViewer {
         double yFix = h*yErrPerAngle;
         double y = yOdometer.getPosition() - yFix;
 
-        deltaPosition = new Position(x, y, h);
-        deltaPosition.minus(positionLocal);
+        deltaPositionLocal = new Position(x, y, h);
+        deltaPositionLocal.minus(positionLocal);
 
         positionLocal.y = y;
         positionLocal.x = x;
