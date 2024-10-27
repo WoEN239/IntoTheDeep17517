@@ -42,13 +42,15 @@ public class Position {
     public void minus(Position pos) {
         x -= pos.x;
         y -= pos.y;
-        h -= normalizeAngle(pos.h);
+        h -= pos.h;
+        h = normalizeAngle(h);
     }
 
     public void plus(Position pos) {
         x += pos.x;
         y += pos.y;
-        h += normalizeAngle(pos.h);
+        h += pos.h;
+        h = normalizeAngle(h);
     }
 
     public static double normalizeAngle(double error){
