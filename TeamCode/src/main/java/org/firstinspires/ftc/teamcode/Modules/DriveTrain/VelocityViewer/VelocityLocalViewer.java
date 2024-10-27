@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain.VelocityViewer;
 
+import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.ANGLE_PER_TIK;
+
 import org.firstinspires.ftc.teamcode.Devices.DriveTrainMotors;
 import org.firstinspires.ftc.teamcode.Devices.Motor;
 import org.firstinspires.ftc.teamcode.Math.Position;
@@ -11,10 +13,9 @@ import org.firstinspires.ftc.teamcode.Robot;
 
 public class VelocityLocalViewer {
     public void init(Robot robot) {
-        velRightBackM = DriveTrainMotors.rightBackDrive   ;
-        velLeftBackM  = DriveTrainMotors.leftBackDrive    ;
-        velRightForM  = DriveTrainMotors.rightForwardDrive;
-        velLeftForM   = DriveTrainMotors.leftForwardDrive ;
+        rightOdometer= DriveTrainMotors.rightOdometer;
+        leftOdometer = DriveTrainMotors.leftOdometer;
+        yOdometer    = DriveTrainMotors.yOdometer;;
     }
 
     private final Position velocityLocal = new Position(0, 0, 0);
@@ -23,17 +24,15 @@ public class VelocityLocalViewer {
         return velocityLocal;
     }
 
-    private Motor velRightBackM;
-    private Motor velLeftForM;
-    private Motor velRightForM;
-    private Motor velLeftBackM;
-
+    private Motor rightOdometer;
+    private Motor leftOdometer;
+    private Motor yOdometer;
     public Position deltaVel;
 
     private void calcLocalVelocity() {
-        double x = (velRightBackM.getVelocity() + velRightForM.getVelocity() + velLeftBackM.getVelocity() + velLeftForM.getVelocity()) / 4.0;
-        double y = (velRightBackM.getVelocity() - velRightForM.getVelocity() - velLeftBackM.getVelocity() + velLeftForM.getVelocity()) / 4.0;
-        double h = (-velRightBackM.getVelocity() - velRightForM.getVelocity() + velLeftBackM.getVelocity() + velLeftForM.getVelocity()) / 4.0;
+        double x = (rightOdometer.getVelocity() + leftOdometer.getVelocity()) / 2.0;
+        double y = yOdometer.getVelocity();
+        double h = ANGLE_PER_TIK*((rightOdometer.getVelocity() + leftOdometer.getVelocity()) / 2.0);
         deltaVel = new Position(x, y, h);
         deltaVel.minus(velocityLocal);
         velocityLocal.x = x;
