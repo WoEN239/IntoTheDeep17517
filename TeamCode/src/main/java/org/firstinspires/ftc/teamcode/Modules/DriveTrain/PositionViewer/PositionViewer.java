@@ -9,13 +9,11 @@ import org.firstinspires.ftc.teamcode.Robot;
  */
 
 public class PositionViewer implements Listener {
-    private Robot robot;
     private final PositionLocalViewer localViewer = new PositionLocalViewer();
 
     @Override
     public void init(Robot robot) {
         localViewer.init(robot);
-        this.robot = robot;
     }
 
     private final Position positionGlobal = new Position(0, 0, 0);
@@ -29,7 +27,7 @@ public class PositionViewer implements Listener {
     }
 
     private void calcGlobalPosition() {
-        positionGlobal.h = robot.imu.getAngle();
+        positionGlobal.h = localViewer.getPositionLocal().h;
         localViewer.deltaPosition.rotateIt(positionGlobal.h);
         positionGlobal.plus(localViewer.deltaPosition);
     }

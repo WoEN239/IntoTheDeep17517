@@ -27,7 +27,7 @@ public class Robot extends ModulesList {
     public ElapsedTime timer = new ElapsedTime();
     private final ArrayList<Task> taskQueue = new ArrayList<>();
 
-    public static double voltage;
+    public static double voltage = 12;
 
     public Robot(LinearOpMode opMode) {
         this.opMode = opMode;
