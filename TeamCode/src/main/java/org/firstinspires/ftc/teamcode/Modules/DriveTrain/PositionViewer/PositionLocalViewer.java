@@ -36,10 +36,11 @@ public class PositionLocalViewer {
 
     private double staticAngleError = 0;
     private double angleErrorSensitivity = 10;
+    private double yErrPerAngle = 1;//TODO
     private void calcLocalPosition() {
-        double x = yOdometer.dev.getCurrentPosition();
 
-        double y = (rightOdometer.dev.getCurrentPosition() + leftOdometer.dev.getCurrentPosition()) / 2.0;
+
+        double x = (rightOdometer.dev.getCurrentPosition() + leftOdometer.dev.getCurrentPosition()) / 2.0;
 
         double hClean = ANGLE_PER_TIK * ((rightOdometer.dev.getCurrentPosition() - leftOdometer.dev.getCurrentPosition()) / 2.0);
         double hGyro = gyro.getAngle();
@@ -49,6 +50,9 @@ public class PositionLocalViewer {
             }
         }
         double h = hClean - staticAngleError;
+
+        double yFix = h*yErrPerAngle;
+        double y = yOdometer.dev.getCurrentPosition() - yFix;
 
         deltaPosition = new Position(x, y, h);
         deltaPosition.minus(positionLocal);
