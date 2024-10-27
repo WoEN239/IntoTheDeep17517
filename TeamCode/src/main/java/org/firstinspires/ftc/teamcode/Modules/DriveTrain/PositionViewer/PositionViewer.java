@@ -28,8 +28,10 @@ public class PositionViewer implements Listener {
 
     private void calcGlobalPosition() {
         positionGlobal.h = localViewer.getPositionLocal().h;
-        localViewer.deltaPosition.rotateIt(positionGlobal.h);
-        positionGlobal.plus(localViewer.deltaPosition);
+        Position dp = new Position();
+        dp.copyFrom(localViewer.deltaPositionLocal);
+        dp.rotateIt(positionGlobal.h);
+        positionGlobal.plus(dp);
     }
 
     @Override

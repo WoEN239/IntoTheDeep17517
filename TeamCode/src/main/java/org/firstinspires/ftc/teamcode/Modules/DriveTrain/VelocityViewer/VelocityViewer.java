@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Robot;
 
 public class VelocityViewer implements Listener {
     private Robot robot;
-    private VelocityLocalViewer localViewer = new VelocityLocalViewer();
+    private final VelocityLocalViewer localViewer = new VelocityLocalViewer();
 
     public void init(Robot robot) {
         this.robot = robot;
@@ -28,9 +28,8 @@ public class VelocityViewer implements Listener {
     }
 
     private void calcGlobalVelocity() {
-        velocityGlobal.h = robot.imu.getSpeed();
-        localViewer.deltaVel.rotateIt(robot.imu.getAngle());
-        velocityGlobal.plus(localViewer.deltaVel);
+        velocityGlobal.copyFrom(localViewer.getVelocityLocal());
+        velocityGlobal.rotateIt(robot.positionViewer.getPositionGlobal().h);
     }
 
     @Override
