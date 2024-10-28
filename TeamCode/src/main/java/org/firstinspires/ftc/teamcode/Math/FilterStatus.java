@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.Math;
 
-/**
- * Writing by EgorKhvostikov
- */
+/*
+ *Writing by EgorKhvostikov
+*/
 
 public class FilterStatus {
     public int medianSize;

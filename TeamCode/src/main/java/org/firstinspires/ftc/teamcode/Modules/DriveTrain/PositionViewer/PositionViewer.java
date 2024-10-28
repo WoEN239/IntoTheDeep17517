@@ -4,13 +4,12 @@ import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.Listener;
 import org.firstinspires.ftc.teamcode.Robot;
 
-/**
- * Writing by EgorKhvostikov
- */
+/*
+ Writing by EgorKhvostikov
+*/
 
 public class PositionViewer implements Listener {
     private final PositionLocalViewer localViewer = new PositionLocalViewer();
-
     @Override
     public void init(Robot robot) {
         localViewer.init(robot);

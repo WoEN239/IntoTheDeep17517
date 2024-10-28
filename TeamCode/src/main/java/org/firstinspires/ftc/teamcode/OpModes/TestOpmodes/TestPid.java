@@ -13,12 +13,12 @@ public class TestPid extends BaseOpMode {
     public static boolean isSin = false;
     public static double u = 0;
     public static double a = 0;
-
     public void doing() {
+        DriveTrainMotors.rightForwardDrive.pidStatusB.setTelemetry(true);
         if (isSin) {
-            DriveTrainMotors.leftBackDrive.setVel(Math.sin(robot.timer.seconds() / Math.PI * u) * a);
+            DriveTrainMotors.rightForwardDrive.setVel(Math.sin(robot.timer.seconds() / Math.PI * u) * a);
         } else {
-            DriveTrainMotors.leftBackDrive.setVel(u);
+            DriveTrainMotors.rightForwardDrive.setVel(u);
         }
     }
 }

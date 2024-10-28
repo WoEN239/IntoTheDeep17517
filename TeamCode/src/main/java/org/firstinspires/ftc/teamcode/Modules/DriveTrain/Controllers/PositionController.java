@@ -33,13 +33,13 @@ public class PositionController implements Controller {
         isUpdate = true;
     }
 
-    public static PidStatus pidStatusY = new PidStatus(0, 0, 0, 0, 0, 0);
+    public static PidStatus pidStatusY = new PidStatus(0, 0, 0, 0,0,0,0, 0, 0);
     Pid pidY = new Pid(pidStatusY);
 
-    public static PidStatus pidStatusX = new PidStatus(0, 0, 0, 0, 0, 0);
+    public static PidStatus pidStatusX = new PidStatus(0, 0, 0, 0,0,0,0, 0, 0);
     Pid pidX = new Pid(pidStatusX);
 
-    public static PidStatus pidStatusH = new PidStatus(0, 0, 0, 0, 0, 0);
+    public static PidStatus pidStatusH = new PidStatus(0, 0, 0, 0,0,0,0, 0, 0);
     Pid pidH = new Pid(pidStatusH);
 
     public void update() {

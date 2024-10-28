@@ -67,7 +67,6 @@ public class Pid {
         double dErr = err - errLast;
         errLast = err;
 
-
         double tNow = (double) System.nanoTime() / (double) ElapsedTime.SECOND_IN_NANO;
         double dt = tNow - tLast;
         tLast = tNow;
@@ -75,7 +74,12 @@ public class Pid {
         P = status.kp * err;
         I += status.ki * err * dt;
         D = status.kd * dErr / dt;
-        F = target*status.kf;
+        F = status.kf0+
+            status.kf1*target+
+            status.kf2*target*target+
+            status.kf3*target*target*target
+        ;
+
         if (abs(I) > status.maxI) {
             I = status.maxI * signum(I);
         }
