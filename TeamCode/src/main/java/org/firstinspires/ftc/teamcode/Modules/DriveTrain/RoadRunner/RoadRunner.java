@@ -22,6 +22,7 @@ import com.acmerobotics.roadrunner.ProfileAccelConstraint;
 import com.acmerobotics.roadrunner.ProfileParams;
 import com.acmerobotics.roadrunner.Time;
 import com.acmerobotics.roadrunner.TimeTrajectory;
+import com.acmerobotics.roadrunner.TimeTurn;
 import com.acmerobotics.roadrunner.Trajectory;
 import com.acmerobotics.roadrunner.TrajectoryBuilder;
 import com.acmerobotics.roadrunner.TrajectoryBuilderParams;
@@ -60,6 +61,7 @@ public class RoadRunner implements IModule {
     public final AccelConstraint accelConstraint = new ProfileAccelConstraint(minAccel, maxAccel);
     public final HolonomicController holonomicController = new HolonomicController(kpForward, kpSlide, kpTurn);
     public List<Trajectory> trajectories;
+    public List<TimeTurn>   turns;
 
     public void moveToTrajectory(List<Trajectory> trajectories) {
         this.trajectories = trajectories;
@@ -74,10 +76,14 @@ public class RoadRunner implements IModule {
                 0, velConstraint, accelConstraint
         );
     }
+    public void turn(List<TimeTurn> t){
+        turns = t;
+    }
 
     private void move() {
         Pose2d pose = robot.positionViewer.getPositionGlobal().toRRPose();
         PoseVelocity2d velocity = robot.velocityViewer.getLocalViewer().getVelocityLocal().toRRVelocity();
+
         if (!trajectories.isEmpty()) {
             Trajectory trajectoryNow = trajectories.get(0);
             TimeTrajectory timeTrajectory = new TimeTrajectory(trajectoryNow);
@@ -86,6 +92,16 @@ public class RoadRunner implements IModule {
             PoseVelocity2dDual<Time> velTarget = holonomicController.compute(target, pose, velocity);
             robot.velocityController.move(Position.fromRRVelocity(velTarget));
 
+            if (timer.seconds() > duration) {
+                timer.reset();
+                trajectories.remove(0);
+            }
+        } else if (!turns.isEmpty()) {
+            TimeTurn turnNow = turns.get(0);
+            double duration = turnNow.duration;
+            Pose2dDual<Time> target = turnNow.get(timer.seconds());
+            PoseVelocity2dDual<Time> velTarget = holonomicController.compute(target, pose, velocity);
+            robot.velocityController.move(Position.fromRRVelocity(velTarget));
             if (timer.seconds() > duration) {
                 timer.reset();
                 trajectories.remove(0);
