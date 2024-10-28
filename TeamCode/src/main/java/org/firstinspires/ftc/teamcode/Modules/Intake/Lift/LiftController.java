@@ -26,7 +26,7 @@ public class LiftController implements Controller {
 
     LiftPosition targetPosition = LiftPosition.DOWN;
 
-    public static PidStatus pidStatus = new PidStatus(0, 0, 0, 0, 0, 0);
+    public static PidStatus pidStatus = new PidStatus(0, 0, 0, 0,0,0,0, 0, 0);
     Pid pid = new Pid(pidStatus);
     public static double gravity = 0.1;
 

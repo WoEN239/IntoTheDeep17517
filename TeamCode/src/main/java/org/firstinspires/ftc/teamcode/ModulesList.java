@@ -33,8 +33,8 @@ public class ModulesList {
 
     public Battery battery = new Battery();
     protected IModule[] modules = new IModule[]{
-            roadRunner, velocityController, imu, velocityViewer, positionViewer,
-            positionController, liftListener, grabber, liftController,
+            roadRunner, imu, velocityViewer, positionViewer,
+            positionController,velocityController, liftListener, grabber, liftController,
             fieldSensors,battery
     };
 

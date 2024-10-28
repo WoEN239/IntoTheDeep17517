@@ -34,10 +34,10 @@ public class VelocityController implements Controller {
     public void update() {
         motorsMap.update();
         if (isUpdate) {
-            motorsMap.rightBackDrive.setVel   (target.x + target.y + target.h);
-            motorsMap.rightForwardDrive.setVel(target.x - target.y + target.h);
-            motorsMap.leftBackDrive.setVel    (target.x - target.y - target.h);
-            motorsMap.leftForwardDrive.setVel (target.x + target.y - target.h);
+            motorsMap.rightBackDrive.setVel   (target.x + target.y - target.h);
+            motorsMap.rightForwardDrive.setVel(target.x - target.y - target.h);
+            motorsMap.leftBackDrive.setVel    (target.x - target.y + target.h);
+            motorsMap.leftForwardDrive.setVel (target.x + target.y + target.h);
         }
     }
 }
