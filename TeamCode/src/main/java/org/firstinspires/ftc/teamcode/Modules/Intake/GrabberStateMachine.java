@@ -93,6 +93,10 @@ public class GrabberStateMachine {
                 grabber.closeFlipServo();
                 liftController.setDownPos();
                 break;
+            case PERPENDICULAR:
+                grabber.perpendicularRotatePos();
+            case NORMAL_ROTATE:
+                grabber.normalRotatePos();
         }
     }
 }

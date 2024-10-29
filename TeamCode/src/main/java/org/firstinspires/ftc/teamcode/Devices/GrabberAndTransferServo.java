@@ -12,13 +12,13 @@ public class GrabberAndTransferServo {
     public static Servo grabberServo       ;
     public static Servo flipServo          ;
     public static Servo transferServo      ;
-    public static Servo transferServoSecond;
+    public static Servo rotateServo        ;
 
 
     public static void init(HardwareMap hardwareMap) {
         grabberServo = hardwareMap.get(Servo.class, "fakeServo");
         transferServo = hardwareMap.get(Servo.class, "fakeServo");
-        transferServoSecond = hardwareMap.get(Servo.class, "fakeServo");
         flipServo = hardwareMap.get(Servo.class, "fakeServo");
+        rotateServo = hardwareMap.get(Servo.class, "fakeServo");
     }
 }
