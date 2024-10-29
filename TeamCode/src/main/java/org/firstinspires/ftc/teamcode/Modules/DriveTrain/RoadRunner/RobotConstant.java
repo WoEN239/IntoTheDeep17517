@@ -17,7 +17,7 @@ public class RobotConstant {
     public static double trackWidth = 0;
     public static double wheelDiameter = 0;
 
-    public static double xMultiplier = 0;
+    public static double yMultiplier = 1.25;
 
     public static double kPForward = 5;
     public static double kPSide = 5;
@@ -31,5 +31,8 @@ public class RobotConstant {
     public static double TRACK_WIDTH = 1;
 
     public static double ANGLE_PER_TIK = 100;//TODO
+    public static double SM_PER_TIK    = 100;//TODO
+
+
 
 }

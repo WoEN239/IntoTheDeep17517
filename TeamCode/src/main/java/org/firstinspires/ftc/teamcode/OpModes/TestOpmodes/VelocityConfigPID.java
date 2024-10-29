@@ -24,8 +24,8 @@ public class VelocityConfigPID extends BaseOpMode {
                 (DriveTrainMotors.leftBackDrive.getVelocity()+DriveTrainMotors.leftForwardDrive.getVelocity()+
                  DriveTrainMotors.rightForwardDrive.getVelocity()+DriveTrainMotors.rightBackDrive.getVelocity())/4.0,
 
-                (DriveTrainMotors.leftBackDrive.getVelocity()-DriveTrainMotors.leftForwardDrive.getVelocity()+
-                 DriveTrainMotors.rightForwardDrive.getVelocity()-DriveTrainMotors.rightBackDrive.getVelocity())/4.0,
+                (-DriveTrainMotors.leftBackDrive.getVelocity()+DriveTrainMotors.leftForwardDrive.getVelocity()+
+                 -DriveTrainMotors.rightForwardDrive.getVelocity()+DriveTrainMotors.rightBackDrive.getVelocity())/4.0,
 
                 (DriveTrainMotors.leftBackDrive.getVelocity()+DriveTrainMotors.leftForwardDrive.getVelocity()+
                  -DriveTrainMotors.rightForwardDrive.getVelocity()-DriveTrainMotors.rightBackDrive.getVelocity())/4.0
