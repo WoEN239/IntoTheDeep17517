@@ -6,7 +6,7 @@ import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.Robot
 import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.minAccel;
 import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.trackWidth;
 import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.wheelDiameter;
-import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.xMultiplier;
+import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.yMultiplier;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.AccelConstraint;
@@ -50,7 +50,7 @@ public class RoadRunner implements IModule {
         this.robot = robot;
     }
 
-    private final MecanumKinematics kinematics = new MecanumKinematics(trackWidth, xMultiplier, wheelDiameter);
+    private final MecanumKinematics kinematics = new MecanumKinematics(trackWidth, yMultiplier, wheelDiameter);
     public final VelConstraint velConstraint = new MinVelConstraint(Arrays.asList(
             kinematics.new WheelVelConstraint(maxLinSpeed),
             new AngularVelConstraint(maxAngSpeed)
