@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Devices.GrabberAndTransferServo;
 import org.firstinspires.ftc.teamcode.Modules.Controller;
+import org.firstinspires.ftc.teamcode.R;
 import org.firstinspires.ftc.teamcode.Robot;
 
 /**
@@ -15,13 +16,14 @@ public class Grabber implements Controller {
 
     private Servo grabberServo;
     private Servo flipServo;
-    private Servo transferServoSecond;
+    private Servo rotateServo;
     private Servo transferServo;
 
 
     private GrabberPosition grabberTarget = GrabberPosition.OPEN;
     private FlipGrabberPosition grabberUpPosition = FlipGrabberPosition.FINISH;
     private TransferPosition transferPosition = TransferPosition.NORMAL;
+    private RotateServoPosition rotateServoPosition = RotateServoPosition.NORMAL;
 
     public GrabberPosition getGrabberTarget() {
         return grabberTarget;
@@ -34,6 +36,8 @@ public class Grabber implements Controller {
     public TransferPosition getTransferPosition() {
         return transferPosition;
     }
+
+    public RotateServoPosition getRotateServoPosition(){return  rotateServoPosition;}
 
     public void closeSimpleGrabber() {
         grabberTarget = GrabberPosition.CLOSE;
@@ -59,6 +63,10 @@ public class Grabber implements Controller {
         grabberUpPosition = FlipGrabberPosition.START;
     }
 
+    public void normalRotatePos(){rotateServoPosition = RotateServoPosition.NORMAL;}
+
+    public void perpendicularRotatePos(){rotateServoPosition = RotateServoPosition.PERPENDICULAR;}
+
 
     @Override
     public void init(Robot robot) {
@@ -66,7 +74,7 @@ public class Grabber implements Controller {
         flipServo = GrabberAndTransferServo.flipServo;
         grabberServo = GrabberAndTransferServo.grabberServo;
         transferServo = GrabberAndTransferServo.transferServo;
-        transferServoSecond = GrabberAndTransferServo.transferServoSecond;
+        rotateServo = GrabberAndTransferServo.rotateServo;
     }
 
     public void update() {

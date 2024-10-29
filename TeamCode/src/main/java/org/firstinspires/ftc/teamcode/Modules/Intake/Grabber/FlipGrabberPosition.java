@@ -10,8 +10,8 @@ import com.acmerobotics.dashboard.config.Config;
 
 public enum FlipGrabberPosition {
     START, FINISH;
-    public static double start = 1;
-    public static double stop = 0;
+    public static double start = 0.15;
+    public static double finish = 0.53;
 
     public double get() {
         switch (this) {
@@ -19,7 +19,7 @@ public enum FlipGrabberPosition {
             case START:
                 return start;
             case FINISH:
-                return stop;
+                return finish;
         }
     }
 }
