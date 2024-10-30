@@ -28,9 +28,9 @@ public class DriveTrainMotors {
         rightBackDrive   .init("motorRB", hardwareMap);
         leftForwardDrive .init("motorLF", hardwareMap);
 
-        yOdometer.init("fakeMotor", hardwareMap);
-        leftOdometer.init("fakeMotor", hardwareMap);
-        rightOdometer.init("fakeMotor", hardwareMap);
+        yOdometer.init("yOdometer", hardwareMap);
+        leftOdometer.init("leftOdometer", hardwareMap);
+        rightOdometer.init("liftRightMotor", hardwareMap);
         reset();
         initPid();
     }

@@ -24,7 +24,7 @@ public class LiftListener implements Listener {
     @Override
     public void init(Robot robot) {
         this.robot = robot;
-        buttonDown = Sensors.downButton;
+        buttonDown = Sensors.downLeftButton;
         liftMotor  = LiftHangingMotors.liftLeftMotor;
     }
 

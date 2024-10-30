@@ -16,9 +16,9 @@ public class GrabberAndTransferServo {
 
 
     public static void init(HardwareMap hardwareMap) {
-        grabberServo = hardwareMap.get(Servo.class, "fakeServo");
-        transferServo = hardwareMap.get(Servo.class, "fakeServo");
-        flipServo = hardwareMap.get(Servo.class, "fakeServo");
-        rotateServo = hardwareMap.get(Servo.class, "fakeServo");
+        grabberServo = hardwareMap.get(Servo.class, "grabberServo");
+        transferServo = hardwareMap.get(Servo.class, "transferServo");
+        flipServo = hardwareMap.get(Servo.class, "flipServo");
+        rotateServo = hardwareMap.get(Servo.class, "rotateServo");
     }
 }
