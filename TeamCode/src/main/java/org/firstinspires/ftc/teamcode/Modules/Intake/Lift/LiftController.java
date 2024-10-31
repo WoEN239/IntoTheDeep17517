@@ -26,9 +26,13 @@ public class LiftController implements Controller {
 
     LiftPosition targetPosition = LiftPosition.DOWN;
 
-    public static PidStatus pidStatus = new PidStatus(0, 0, 0, 0,0,0,0, 0, 0);
+    public static PidStatus pidStatus = new PidStatus(0, 0, 0, 0, 0, 0, 0, 0, 0);
     Pid pid = new Pid(pidStatus);
+
+    public static PidStatus pidStatusSync = new PidStatus(0, 0, 0, 0, 0, 0, 0, 0, 0);
+    Pid pidSync = new Pid(pidStatusSync);
     public static double gravity = 0.1;
+
 
     @Override
     public void init(Robot robot) {
@@ -36,12 +40,12 @@ public class LiftController implements Controller {
         liftListener = robot.liftListener;
 
         liftLeftMotor = LiftHangingMotors.liftLeftMotor;
-        liftRightMotor= LiftHangingMotors.liftRightMotor;
+        liftRightMotor = LiftHangingMotors.liftRightMotor;
     }
 
-    public void setPower(double powerToSet) {
-        liftLeftMotor.setVoltage(powerToSet);
-        liftRightMotor.setVoltage(powerToSet);
+    public void setPower() {
+        liftLeftMotor.setPower(powerToMotor - uSync);
+        liftRightMotor.setPower(powerToMotor + uSync);
     }
 
 
@@ -64,27 +68,40 @@ public class LiftController implements Controller {
         return abs(liftListener.getPosition() - targetPosition.get()) > 5;
     }
 
+    private double err = targetPosition.get() - liftListener.getPosition();
+
+    double powerToMotor = 0;
+
+    double uSync = 0;
+
     public void updateLift() {
-        if ((liftListener.getPosition() > -10) && !liftListener.buttonDown.getState()) {
+        if ((liftListener.getPosition() > -10) && !liftListener.leftButtonDown.getState() && !liftListener.rightButtonDown.getState()) {
             if (!isAtTarget()) {
-                powerToSet = pid.getU();
+                pid.setTarget(targetPosition.get());
+                pid.setPos(liftListener.getPosition());
+                pid.update();
+                powerToMotor = pid.getU();
+
+                pidSync.setTarget(0);
+                pid.setPos(liftListener.errSync);
+                pid.update();
+                uSync = pid.getU();
             } else {
-                if (liftListener.buttonDown.getState())
-                    powerToSet = 0;
-                else
-                    powerToSet = gravity;
+                if (liftListener.rightButtonDown.getState() && liftListener.leftButtonDown.getState()) {
+                    powerToMotor = 0;
+                    uSync = 0;
+                }
+                else {
+                    powerToMotor = gravity;
+                    uSync = 0;
+                }
             }
-        } else {
-            powerToSet = 0.1;
-        }
-        if (isManual) {
-            powerToSet = manPower;
         }
     }
 
     @Override
     public void update() {
-        setPower(powerToSet);
+      setPower();
     }
 
     public void setDownPos() {
