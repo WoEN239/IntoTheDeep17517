@@ -18,15 +18,13 @@ public class LiftHangingMotors {
 
         liftLeftMotor.init("liftLeftMotor", hardwareMap);
         liftRightMotor.init("liftRightMotor", hardwareMap);
-       // hangingMotor.init("fakeMotor", hardwareMap);
 
 
-        liftLeftMotor.dev.setDirection(DcMotorSimple.Direction.REVERSE);
-        liftRightMotor.dev.setDirection(DcMotorSimple.Direction.FORWARD);
+        liftLeftMotor .setDir(MotorDirection.FORWARD);
+        liftRightMotor.setDir(MotorDirection.BACK);
 
-        liftRightMotor.dev.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        liftLeftMotor.dev.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //  hangingMotor.dev.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        liftRightMotor.dev.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        liftLeftMotor.dev.setZeroPowerBehavior (DcMotor.ZeroPowerBehavior.FLOAT);
 
         liftLeftMotor.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         liftLeftMotor.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -34,7 +32,7 @@ public class LiftHangingMotors {
         liftRightMotor.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         liftRightMotor.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        //hangingMotor.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //hangingMotor.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+
     }
 }
