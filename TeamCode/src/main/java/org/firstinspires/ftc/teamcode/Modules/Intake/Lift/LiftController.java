@@ -83,17 +83,22 @@ public class LiftController implements Controller {
                 powerToMotor = pid.getU();
 
                 pidSync.setTarget(0);
-                pid.setPos(liftListener.errSync);
-                pid.update();
-                uSync = pid.getU();
+                pidSync.setPos(-liftListener.errSync);
+                pidSync.update();
+                uSync = pidSync.getU();
             } else {
-                if (liftListener.rightButtonDown.getState() && liftListener.leftButtonDown.getState()) {
+                if (liftListener.rightButtonDown.getState()) {
                     powerToMotor = 0;
                     uSync = 0;
-                }
-                else {
-                    powerToMotor = gravity;
-                    uSync = 0;
+                } else {
+                    if (liftListener.leftButtonDown.getState()) {
+                        powerToMotor = 0;
+                        uSync = 0;
+                    } else {
+                        powerToMotor = gravity;
+                        uSync = 0;
+                    }
+
                 }
             }
         }
@@ -101,7 +106,7 @@ public class LiftController implements Controller {
 
     @Override
     public void update() {
-      setPower();
+        setPower();
     }
 
     public void setDownPos() {
