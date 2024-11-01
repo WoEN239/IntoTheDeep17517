@@ -20,7 +20,8 @@ public class LiftListener implements Listener {
     Motor liftRightMotor;
 
     private double liftPosition = 0;
-    private double liftStaticErr = 0;
+    private double liftStaticErrLeft = 0;
+    private double liftStaticErrRight = 0;
     private double encoderPosition = 0;
 
     public double errSync = 0;
@@ -43,17 +44,19 @@ public class LiftListener implements Listener {
     }
 
     public double position(){
-        return (liftRightMotor.getPosition() + liftLeftMotor.getPosition()) / 2;
+        return (liftRightMotor.getPosition() + liftLeftMotor.getPosition()) / 2.0;
     }
 
     private void updatePosition() {
         encoderPosition = position();
-        boolean isDown = upBorderButt.update(leftButtonDown.getState() && rightButtonDown.getState());
-        if (isDown) {
-            liftStaticErr = encoderPosition - LiftPosition.down;
-        }
-        liftPosition = encoderPosition - liftStaticErr;
-        errSync = liftLeftMotor.getPosition() - liftRightMotor.getPosition();
+        boolean isDownLeft = upBorderButt.update(leftButtonDown.getState());
+        boolean isDownRight = upBorderButt.update(rightButtonDown.getState());
+        if (isDownLeft)
+            liftStaticErrLeft = encoderPosition - LiftPosition.down;
+        if(isDownRight)
+            liftStaticErrRight = encoderPosition - LiftPosition.down;
+        liftPosition = encoderPosition - liftStaticErrLeft;
+        errSync = (liftLeftMotor.getPosition() - liftStaticErrLeft) - (liftRightMotor.getPosition() - liftStaticErrRight);
     }
 
     @Override
