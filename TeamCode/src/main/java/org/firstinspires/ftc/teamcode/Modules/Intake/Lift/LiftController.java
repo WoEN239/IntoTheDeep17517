@@ -47,8 +47,9 @@ public class LiftController implements Controller {
     }
 
     public void setPower() {
-        liftLeftMotor.setPower(powerToLeftMotor - uSync);
-        liftRightMotor.setPower(powerToRightMotor + uSync);
+        updateLift();
+        liftLeftMotor.setVoltage(powerToLeftMotor - uSync);
+        liftRightMotor.setVoltage(powerToRightMotor + uSync);
     }
 
 
@@ -63,21 +64,19 @@ public class LiftController implements Controller {
     double uSync = 0;
 
     public void updateLift() {
-        if (!isAtTarget()) {
-            if(targetPosition != LiftPosition.DOWN) {
-                pid.setTarget(targetPosition.get());
-                pid.setPos(liftListener.getPosition());
-                pid.update();
-                powerToLeftMotor = powerToRightMotor = pid.getU();
+        if (targetPosition != LiftPosition.DOWN) {
+            pid.setTarget(targetPosition.get());
+            pid.setPos(liftListener.getPosition());
+            pid.update();
+            powerToLeftMotor = powerToRightMotor = pid.getU();
 
-                powerToLeftMotor = Range.clip(powerToLeftMotor, -1,1);
-                powerToRightMotor = Range.clip(powerToRightMotor, -1,1);
+            powerToLeftMotor = Range.clip(powerToLeftMotor, -1, 1);
+            powerToRightMotor = Range.clip(powerToRightMotor, -1, 1);
 
-                pidSync.setTarget(0);
-                pidSync.setPos(-liftListener.errSync);
-                pidSync.update();
-                uSync = pidSync.getU();
-            }
+            pidSync.setTarget(0);
+            pidSync.setPos(-liftListener.errSync);
+            pidSync.update();
+            uSync = pidSync.getU();
         } else {
             if (liftListener.rightButtonDown.getState()) {
                 powerToRightMotor = 0;
@@ -87,18 +86,17 @@ public class LiftController implements Controller {
                 powerToLeftMotor = 0;
                 uSync = 0;
             }
-            if (isAtTarget() && (!liftListener.rightButtonDown.getState() && !liftListener.leftButtonDown.getState())){
+            if (isAtTarget() && (!liftListener.rightButtonDown.getState() && !liftListener.leftButtonDown.getState())) {
                 uSync = 0;
                 powerToLeftMotor = powerToRightMotor = gravity;
             }
+            pidSync.update();
+            pid.update();
         }
-        pidSync.update();
-        pid.update();
     }
 
     @Override
     public void update() {
-        updateLift();
         setPower();
     }
 
