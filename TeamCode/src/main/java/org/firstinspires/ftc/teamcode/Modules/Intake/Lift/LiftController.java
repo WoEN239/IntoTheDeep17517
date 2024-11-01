@@ -72,27 +72,25 @@ public class LiftController implements Controller {
 
             powerToLeftMotor = Range.clip(powerToLeftMotor, -1, 1);
             powerToRightMotor = Range.clip(powerToRightMotor, -1, 1);
-
-            pidSync.setTarget(0);
-            pidSync.setPos(-liftListener.errSync);
-            pidSync.update();
-            uSync = pidSync.getU();
         } else {
             if (liftListener.rightButtonDown.getState()) {
-                powerToRightMotor = 0;
+                powerToRightMotor = gravity;
                 uSync = 0;
             }
             if (liftListener.leftButtonDown.getState()) {
-                powerToLeftMotor = 0;
+                powerToLeftMotor = gravity;
                 uSync = 0;
             }
             if (isAtTarget() && (!liftListener.rightButtonDown.getState() && !liftListener.leftButtonDown.getState())) {
                 uSync = 0;
                 powerToLeftMotor = powerToRightMotor = gravity;
             }
-            pidSync.update();
-            pid.update();
         }
+        pidSync.setTarget(0);
+        pidSync.setPos(-liftListener.errSync);
+        pidSync.update();
+        uSync = pidSync.getU();
+        pid.update();
     }
 
     @Override
