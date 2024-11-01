@@ -48,9 +48,9 @@ public class GrabberStateMachine {
         switch (state) {
             case DROP_SIMPLES:
                 if (liftListener.getPosition() > 200) {
-                    grabber.transferToGrab();
+                    grabber.transferToNormal();
                     grabber.openSimpleGrabber();
-                    grabber.openFlipServo();
+                    grabber.closeFlipServo();
                 }
                 setState(IntakeState.TO_DOWN);
                 break;
