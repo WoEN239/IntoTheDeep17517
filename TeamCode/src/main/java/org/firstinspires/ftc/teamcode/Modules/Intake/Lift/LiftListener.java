@@ -39,9 +39,6 @@ public class LiftListener implements Listener {
         return liftPosition;
     }
 
-    public double getRawPosition() {
-        return encoderPosition;
-    }
 
     public double position(){
         return (liftRightMotor.getPosition() + liftLeftMotor.getPosition()) / 2.0;
@@ -52,9 +49,9 @@ public class LiftListener implements Listener {
         boolean isDownLeft = upBorderButt.update(leftButtonDown.getState());
         boolean isDownRight = upBorderButt.update(rightButtonDown.getState());
         if (isDownLeft)
-            liftStaticErrLeft = encoderPosition - LiftPosition.down;
+            liftStaticErrLeft = liftLeftMotor.getPosition() - LiftPosition.down;
         if(isDownRight)
-            liftStaticErrRight = encoderPosition - LiftPosition.down;
+            liftStaticErrRight = liftRightMotor.getPosition() - LiftPosition.down;
         liftPosition = encoderPosition - liftStaticErrLeft;
         errSync = (liftLeftMotor.getPosition() - liftStaticErrLeft) - (liftRightMotor.getPosition() - liftStaticErrRight);
     }
