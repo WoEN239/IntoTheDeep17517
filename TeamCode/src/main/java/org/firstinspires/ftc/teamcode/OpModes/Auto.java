@@ -4,14 +4,13 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Devices.DriveTrainMotors;
 import org.firstinspires.ftc.teamcode.Events.Task;
-import org.firstinspires.ftc.teamcode.Robot;
 
 /**
  * Writing by EgorKhvostikov and @MrFrosty1234
  */
 
 @Autonomous
-public class Auto extends BaseOpMode {
+public class Auto extends BaseMode {
     @Override
     public void doing() {
         robot.addToQueue(new Task(

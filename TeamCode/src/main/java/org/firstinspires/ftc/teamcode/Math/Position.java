@@ -63,7 +63,6 @@ public class Position {
         this.y = p.y;
 
     }
-
     public Pose2d toRRPose() {
         return new Pose2d(x, y, h);
     }
@@ -74,5 +73,10 @@ public class Position {
 
     public static Position fromRRVelocity(PoseVelocity2dDual<Time> p) {
         return new Position(p.linearVel.x.value(), p.linearVel.y.value(), p.angVel.value());
+    }
+    public Position linearMultiply(double k) {
+        this.x = x*k;
+        this.y = y*k;
+        return this;
     }
 }

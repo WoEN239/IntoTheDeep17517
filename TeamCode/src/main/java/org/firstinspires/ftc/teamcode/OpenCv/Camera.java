@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.OpenCv;
 import com.acmerobotics.dashboard.FtcDashboard;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.OpModes.BaseOpMode;
+import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -26,7 +26,7 @@ public class Camera {
             @Override
             public void onOpened() {
                 Robot.telemetry.addLine("camera successful init");
-                if (BaseOpMode.isCamera) {
+                if (BaseMode.isCamera) {
                     startStream();
                 }
             }

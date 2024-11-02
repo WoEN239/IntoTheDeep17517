@@ -10,7 +10,7 @@ import com.acmerobotics.dashboard.config.Config;
 
 public enum GrabberPosition {
     OPEN, CLOSE;
-    public static double open = 0.17;
+    public static double open = 0.14;
     public static double close = 0;
 
     public double get() {

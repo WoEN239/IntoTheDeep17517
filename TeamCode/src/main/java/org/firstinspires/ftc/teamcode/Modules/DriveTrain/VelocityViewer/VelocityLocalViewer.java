@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain.VelocityViewer;
 
-import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.ANGLE_PER_TIK;
+import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.TIK_PER_ANGLE;
 
 import org.firstinspires.ftc.teamcode.Devices.DriveTrainMotors;
 import org.firstinspires.ftc.teamcode.Devices.Motor;
@@ -32,7 +32,7 @@ public class VelocityLocalViewer {
     private void calcLocalVelocity() {
         double x = (rightOdometer.getVelocity() + leftOdometer.getVelocity()) / 2.0;
         double y = yOdometer.getVelocity();
-        double h = ANGLE_PER_TIK*((rightOdometer.getVelocity() + leftOdometer.getVelocity()) / 2.0);
+        double h = TIK_PER_ANGLE *((rightOdometer.getVelocity() + leftOdometer.getVelocity()) / 2.0);
         deltaVel = new Position(x, y, h);
         deltaVel.minus(velocityLocal);
         velocityLocal.x = x;

@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner;
 
+import static java.lang.Math.PI;
+
 import com.acmerobotics.dashboard.config.Config;
 
 /**
@@ -30,8 +32,17 @@ public class RobotConstant {
     public static double GEAR_RATIO = 1;
     public static double TRACK_WIDTH = 1;
 
-    public static double ANGLE_PER_TIK = 100;//TODO
-    public static double SM_PER_TIK    = 100;//TODO
+    public static double encoderConstant = 480;
+    public static double transmission    = 1.26d;
+    public static double lightOfWheel    = 9.6d*PI;
+
+    public static double TIK_PER_ANGLE = 97.09166;//TODO
+    public static double ENC_TIK_PER_SM = (transmission*encoderConstant)/lightOfWheel;
+
+    public static double odometerConstant = 8192;
+    public static double lightOfOdometer = 4.8d*PI;
+
+
 
 
 

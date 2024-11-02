@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.Robot;
  * Writing by EgorKhvostikov
  */
 
-public abstract class BaseOpMode extends LinearOpMode {
+public abstract class BaseMode extends LinearOpMode {
     protected Robot robot;
     public static boolean isCamera = false;
 

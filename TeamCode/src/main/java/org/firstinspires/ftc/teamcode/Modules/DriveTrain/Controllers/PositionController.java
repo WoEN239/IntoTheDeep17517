@@ -62,7 +62,7 @@ public class PositionController implements Controller {
         pidResult.h = pidH.getU();
         if (isUpdate) {
             VelocityController.isUpdate = true;
-            controller.move(pidResult);
+            controller.moveReal(pidResult);
         }
     }
 }

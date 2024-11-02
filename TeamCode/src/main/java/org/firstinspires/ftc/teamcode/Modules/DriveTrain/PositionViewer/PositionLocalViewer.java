@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain.PositionViewer;
 
-import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.ANGLE_PER_TIK;
+import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.TIK_PER_ANGLE;
+import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.lightOfOdometer;
+import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.odometerConstant;
 
 import static java.lang.Math.abs;
 
@@ -10,20 +12,26 @@ import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Devices.Gyro;
 import org.firstinspires.ftc.teamcode.Robot;
 
-/**
- * Writing by EgorKhvostikov
- */
+/*
+ Writing by EgorKhvostikov
+*/
 
 public class PositionLocalViewer {
     Gyro gyro;
     public void init(Robot robot) {
         rightOdometer= DriveTrainMotors.rightOdometer;
         leftOdometer = DriveTrainMotors.leftOdometer;
-        yOdometer    = DriveTrainMotors.yOdometer;;
+        yOdometer    = DriveTrainMotors.yOdometer;
         gyro = robot.imu;
     }
-
+    private void deviceUpdate(){
+        DriveTrainMotors.rightOdometer.update();
+        DriveTrainMotors.leftOdometer .update();
+        DriveTrainMotors.yOdometer    .update();
+    }
     private final Position positionLocal = new Position(0, 0, 0);
+    private Position positionRealLocal = new Position(0, 0, 0);
+
     private Motor rightOdometer;
     private Motor leftOdometer;
     private Motor yOdometer;
@@ -31,28 +39,31 @@ public class PositionLocalViewer {
     public Position getPositionLocal() {
         return positionLocal;
     }
-
+    public Position getPositionRealLocal() {
+        return positionRealLocal;
+    }
     public Position deltaPositionLocal;
 
     private double staticAngleError = 0;
-    private double angleErrorSensitivity = 10;
-    private double yErrPerAngle = 1;//TODO
+    private double angleErrorSensitivity = 7;
+    private double yErrPerAngle = 150.29;//TODO
     private void calcLocalPosition() {
-
-
         double x = (rightOdometer.getPosition() + leftOdometer.getPosition()) / 2.0;
+        double hClean =((rightOdometer.getPosition() - leftOdometer.getPosition()) / 2.0)/TIK_PER_ANGLE;
+        double yFix = hClean*yErrPerAngle;
 
-        double hClean = ANGLE_PER_TIK * ((rightOdometer.getPosition() - leftOdometer.getPosition()) / 2.0);
+        hClean = Position.normalizeAngle(hClean);
         double hGyro = gyro.getAngle();
         if (gyro.isNewValue()){
             if(abs(hGyro-hClean)> angleErrorSensitivity){
                 staticAngleError = hClean-hGyro;
             }
         }
-        double h = hClean - staticAngleError;
 
-        double yFix = h*yErrPerAngle;
-        double y = yOdometer.getPosition() - yFix;
+        double h = hClean - staticAngleError;
+        h = Position.normalizeAngle(h);
+
+        double y = yOdometer.getPosition() + yFix;
 
         deltaPositionLocal = new Position(x, y, h);
         deltaPositionLocal.minus(positionLocal);
@@ -60,10 +71,15 @@ public class PositionLocalViewer {
         positionLocal.y = y;
         positionLocal.x = x;
         positionLocal.h = h;
+
+        positionRealLocal = positionLocal;
+        positionRealLocal.linearMultiply(lightOfOdometer/odometerConstant);
     }
 
     public void update() {
+        deviceUpdate();
         calcLocalPosition();
     }
+
 
 }

@@ -29,8 +29,8 @@ public class DriveTrainMotors {
         leftForwardDrive .init("motorLF", hardwareMap);
 
         yOdometer.init("yOdometer", hardwareMap);
-        leftOdometer.init("leftOdometer", hardwareMap);
-        rightOdometer.init("liftRightMotor", hardwareMap);
+        leftOdometer.init("motorLB", hardwareMap);
+        rightOdometer.init("rightOdometer", hardwareMap);
         reset();
         initPid();
     }
@@ -40,6 +40,9 @@ public class DriveTrainMotors {
         leftForwardDrive .setDir(MotorDirection.BACK);
         rightBackDrive   .setDir(MotorDirection.FORWARD);
         rightForwardDrive.setDir(MotorDirection.FORWARD);
+
+        rightOdometer.setDir(MotorDirection.FORWARD);
+        leftOdometer .setDir(MotorDirection.BACK);
 
         leftBackDrive.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftBackDrive.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

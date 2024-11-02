@@ -2,10 +2,10 @@ package org.firstinspires.ftc.teamcode.OpModes.TestOpmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.OpModes.BaseOpMode;
+import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 
 @Autonomous(group = "Test")
-public class HvsMaskConfig extends BaseOpMode {
+public class HvsMaskConfig extends BaseMode {
     static {
         isCamera = true;
     }

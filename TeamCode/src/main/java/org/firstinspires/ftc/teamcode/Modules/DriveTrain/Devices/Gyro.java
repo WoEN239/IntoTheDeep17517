@@ -36,8 +36,8 @@ public class Gyro implements Listener {
     @Override
     public void read() {
         if(timer.seconds()>0.05) {
-            angle = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
-            speed = imu.getRobotAngularVelocity(AngleUnit.RADIANS).zRotationRate;
+            angle = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+            speed = imu.getRobotAngularVelocity(AngleUnit.DEGREES).zRotationRate;
             timer.reset();
             isNewValue = true;
         }else{

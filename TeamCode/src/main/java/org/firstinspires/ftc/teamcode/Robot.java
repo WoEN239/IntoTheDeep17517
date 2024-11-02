@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -12,7 +11,7 @@ import org.firstinspires.ftc.teamcode.Devices.DevicePool;
 import org.firstinspires.ftc.teamcode.Events.Task;
 import org.firstinspires.ftc.teamcode.Modules.IModule;
 import org.firstinspires.ftc.teamcode.Modules.Intake.GrabberStateMachine;
-import org.firstinspires.ftc.teamcode.OpModes.BaseOpMode;
+import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 import org.firstinspires.ftc.teamcode.OpenCv.SimplesAndTagsDetectPipeline;
 
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ public class Robot extends ModulesList {
         Robot.telemetry = new MultipleTelemetry(FtcDashboard.getInstance().getTelemetry(), opMode.telemetry);
 
         grabberStateMachine.init(this);
-        if (BaseOpMode.isCamera) {
+        if (BaseMode.isCamera) {
             camera.init(this);
         }
     }
