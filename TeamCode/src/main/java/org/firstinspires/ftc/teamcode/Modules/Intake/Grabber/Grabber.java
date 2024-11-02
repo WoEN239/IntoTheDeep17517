@@ -63,6 +63,8 @@ public class Grabber implements Controller {
         grabberUpPosition = FlipGrabberPosition.START;
     }
 
+    public void toAxisAngleFLipServo(){grabberUpPosition = FlipGrabberPosition.AXIS;}
+
     public void normalRotatePos(){rotateServoPosition = RotateServoPosition.NORMAL;}
 
     public void perpendicularRotatePos(){rotateServoPosition = RotateServoPosition.PERPENDICULAR;}

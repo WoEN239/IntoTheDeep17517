@@ -20,7 +20,7 @@ public class LiftHangingMotors {
         liftRightMotor.init("liftRightMotor", hardwareMap);
 
 
-        liftLeftMotor .setDir(MotorDirection.FORWARD);
+        liftLeftMotor .setDir(MotorDirection.BACK);
         liftRightMotor.setDir(MotorDirection.BACK);
 
         liftRightMotor.dev.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);

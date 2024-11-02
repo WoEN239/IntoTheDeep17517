@@ -6,8 +6,8 @@ import com.acmerobotics.dashboard.config.Config;
 public enum RotateServoPosition {
     NORMAL, PERPENDICULAR;
 
-    public static double normal = 0.5;
-    public static double perpendicular = 0.15;
+    public static double normal = 0.21;
+    public static double perpendicular = 0.59;
 
     public double get() {
         switch (this) {

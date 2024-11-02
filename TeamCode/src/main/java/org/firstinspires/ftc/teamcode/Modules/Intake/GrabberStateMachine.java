@@ -69,13 +69,13 @@ public class GrabberStateMachine {
             case TO_LOW_AXIS:
                 grabber.transferToNormal();
                 grabber.closeSimpleGrabber();
-                grabber.closeFlipServo();
+                grabber.toAxisAngleFLipServo();
                 liftController.setLowAxis();
                 break;
             case TO_HIGH_AXIS:
                 grabber.transferToNormal();
                 grabber.closeSimpleGrabber();
-                grabber.closeFlipServo();
+                grabber.toAxisAngleFLipServo();
                 liftController.setHighAxis();
                 break;
             case GRAB:
