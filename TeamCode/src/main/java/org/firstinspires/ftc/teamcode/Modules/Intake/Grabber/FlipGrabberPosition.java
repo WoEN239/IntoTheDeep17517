@@ -9,20 +9,20 @@ import com.acmerobotics.dashboard.config.Config;
 @Config
 
 public enum FlipGrabberPosition {
-    START, FINISH, AXIS;
-    public static double start = 0.15;
-    public static double finish = 0.53;
-    public static double axisPos = 0.33;
+    UP, DOWN, MOVE;
+    public static double down = 0.15;
+    public static double up = 0.53;
+    public static double move = 0.33;
 
     public double get() {
         switch (this) {
             default:
-            case START:
-                return start;
-            case FINISH:
-                return finish;
-            case AXIS:
-                return axisPos;
+            case UP:
+                return down;
+            case DOWN:
+                return up;
+            case MOVE:
+                return move;
         }
     }
 }

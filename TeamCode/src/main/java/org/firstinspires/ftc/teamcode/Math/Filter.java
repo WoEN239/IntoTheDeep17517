@@ -28,11 +28,6 @@ public class Filter {
 
     public void update() {
         if(isInit) {
-//            if (status.medianSize > 0) {
-//                Double[] nReads = new Double[status.medianSize];
-//                System.arraycopy(reads.arr, 0, nReads, 0, reads.arr.length - 1);
-//                reads = new ArrayExtra<>(nReads);
-//            }
             calcNewVel();
             updateReads();
             calcMedian();
@@ -115,7 +110,6 @@ public class Filter {
                     noZeroReads[2] * 3.5 + noZeroReads[3] * 4
             ) / 11.5;
         }
-        //this.medianVelNow = sortReads[(sortReads.length)  / 2];
     }
 
     double[] dvBuffer = new double[5];
@@ -141,6 +135,5 @@ public class Filter {
             k = status.bigK;
         }
         velocityTrue = velocityTrue + k * (medianVelNow - velocityTrue);
-
     }
 }

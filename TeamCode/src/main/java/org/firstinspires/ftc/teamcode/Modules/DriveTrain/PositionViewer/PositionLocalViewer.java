@@ -46,7 +46,7 @@ public class PositionLocalViewer {
 
     private double staticAngleError = 0;
     private double angleErrorSensitivity = 7;
-    private double yErrPerAngle = 150.29;//TODO
+    private double yErrPerAngle = 150.29;
     private void calcLocalPosition() {
         double x = (rightOdometer.getPosition() + leftOdometer.getPosition()) / 2.0;
         double hClean =((rightOdometer.getPosition() - leftOdometer.getPosition()) / 2.0)/TIK_PER_ANGLE;

@@ -73,8 +73,7 @@ public class Motor {
     }
 
     public void setVoltage(double voltage) {
-        double u = ((voltage ) / (Robot.voltage));;
-        Robot.telemetry.addData("Voltage motor " + name, u);
+        double u = ((voltage ) / (Robot.voltage));
         setPower(u);
     }
 

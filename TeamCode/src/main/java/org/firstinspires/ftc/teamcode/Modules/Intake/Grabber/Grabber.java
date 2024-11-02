@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Devices.GrabberAndTransferServo;
 import org.firstinspires.ftc.teamcode.Modules.Controller;
-import org.firstinspires.ftc.teamcode.R;
 import org.firstinspires.ftc.teamcode.Robot;
 
 /**
@@ -21,9 +20,9 @@ public class Grabber implements Controller {
 
 
     private GrabberPosition grabberTarget = GrabberPosition.OPEN;
-    private FlipGrabberPosition grabberUpPosition = FlipGrabberPosition.FINISH;
+    private FlipGrabberPosition grabberUpPosition = FlipGrabberPosition.DOWN;
     private TransferPosition transferPosition = TransferPosition.NORMAL;
-    private RotateServoPosition rotateServoPosition = RotateServoPosition.NORMAL;
+    private double rotateServoPosition = RotateServoPosition.NORMAL.get();
 
     public GrabberPosition getGrabberTarget() {
         return grabberTarget;
@@ -37,7 +36,8 @@ public class Grabber implements Controller {
         return transferPosition;
     }
 
-    public RotateServoPosition getRotateServoPosition(){return  rotateServoPosition;}
+    public double getRotateServoPosition(){return  rotateServoPosition;}
+
 
     public void closeSimpleGrabber() {
         grabberTarget = GrabberPosition.CLOSE;
@@ -47,28 +47,30 @@ public class Grabber implements Controller {
         grabberTarget = GrabberPosition.OPEN;
     }
 
-    public void transferToGrab() {
-        transferPosition = TransferPosition.GRAB;
+
+    public void transferToEat() {
+        transferPosition = TransferPosition.EAT;
     }
 
     public void transferToNormal() {
         transferPosition = TransferPosition.NORMAL;
     }
 
-    public void closeFlipServo() {
-        grabberUpPosition = FlipGrabberPosition.FINISH;
+
+    public void upFlipServo() { grabberUpPosition = FlipGrabberPosition.DOWN;}
+
+    public void downFlipServo() {
+        grabberUpPosition = FlipGrabberPosition.UP;
     }
 
-    public void openFlipServo() {
-        grabberUpPosition = FlipGrabberPosition.START;
-    }
+    public void moveFLipServo(){grabberUpPosition = FlipGrabberPosition.MOVE;}
 
-    public void toAxisAngleFLipServo(){grabberUpPosition = FlipGrabberPosition.AXIS;}
 
-    public void normalRotatePos(){rotateServoPosition = RotateServoPosition.NORMAL;}
+    public void normalRotateServo() {rotateServoPosition = RotateServoPosition.NORMAL.get();}
 
-    public void perpendicularRotatePos(){rotateServoPosition = RotateServoPosition.PERPENDICULAR;}
+    public void rotatedRotateServo(){rotateServoPosition = RotateServoPosition.ROTATED.get();}
 
+    public void setRotateServoPosition(double pos ){rotateServoPosition = pos;}
 
     @Override
     public void init(Robot robot) {
@@ -80,10 +82,10 @@ public class Grabber implements Controller {
     }
 
     public void update() {
-        grabberServo.setPosition(grabberTarget.get());
-        flipServo.setPosition(grabberUpPosition.get());
-        transferServo.setPosition(transferPosition.get());
+        grabberServo .setPosition(grabberTarget    .get()  );
+        flipServo    .setPosition(grabberUpPosition.get()  );
+        transferServo.setPosition(transferPosition .get()  );
+        rotateServo  .setPosition(rotateServoPosition      );
     }
-
 
 }

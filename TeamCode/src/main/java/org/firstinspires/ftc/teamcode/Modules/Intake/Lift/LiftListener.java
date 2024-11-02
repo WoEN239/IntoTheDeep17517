@@ -22,7 +22,6 @@ public class LiftListener implements Listener {
     private double liftPosition = 0;
     private double liftStaticErrLeft = 0;
     private double liftStaticErrRight = 0;
-    private double encoderPosition = 0;
 
     public double errSync = 0;
 
@@ -39,8 +38,6 @@ public class LiftListener implements Listener {
         return liftPosition;
     }
 
-
-    
     private void updatePosition() {
         boolean isDownLeft  = upBorderButt.update(leftButtonDown.getState());
         boolean isDownRight = upBorderButt.update(rightButtonDown.getState());

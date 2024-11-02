@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.Lift;
 import static java.lang.Math.abs;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Devices.LiftHangingMotors;
 import org.firstinspires.ftc.teamcode.Devices.Motor;
@@ -12,11 +11,9 @@ import org.firstinspires.ftc.teamcode.Math.PidStatus;
 import org.firstinspires.ftc.teamcode.Modules.Controller;
 import org.firstinspires.ftc.teamcode.Robot;
 
-import java.awt.font.NumericShaper;
-
-/**
+/*
  * Writing by @MrFrosty1234
- */
+*/
 @Config
 public class LiftController implements Controller {
     LiftPosition liftPosition;
@@ -75,8 +72,6 @@ public class LiftController implements Controller {
             powerToLeftMotor = pid.getU();
             powerToRightMotor = pid.getU();
 
-          //  powerToLeftMotor = Range.clip(powerToLeftMotor, -1, 1.5);
-           // powerToRightMotor = Range.clip(powerToRightMotor, -1.5, 1.5);
         } else {
             if (liftListener.rightButtonDown.getState()) {
                 powerToRightMotor = gravity;
@@ -106,7 +101,7 @@ public class LiftController implements Controller {
     }
 
     public void setLowAxis() {
-        targetPosition = LiftPosition.LOW_AXIS_GET;
+        targetPosition = LiftPosition.LOW_AXIS;
     }
 
     public void setHighAxis() {
@@ -120,5 +115,5 @@ public class LiftController implements Controller {
     public void setHighBasket() {
         targetPosition = LiftPosition.HIGHEST_BASKET;
     }
-
+    public void setPosition(LiftPosition pos){targetPosition = pos;}
 }

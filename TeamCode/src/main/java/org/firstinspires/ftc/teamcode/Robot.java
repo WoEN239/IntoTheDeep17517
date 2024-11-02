@@ -10,7 +10,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Devices.DevicePool;
 import org.firstinspires.ftc.teamcode.Events.Task;
 import org.firstinspires.ftc.teamcode.Modules.IModule;
-import org.firstinspires.ftc.teamcode.Modules.Intake.GrabberStateMachine;
+import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeStateMachine;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 import org.firstinspires.ftc.teamcode.OpenCv.SimplesAndTagsDetectPipeline;
 
@@ -20,7 +20,7 @@ public class Robot extends ModulesList {
     public LinearOpMode opMode;
     public HardwareMap hardwareMap;
     public SimplesAndTagsDetectPipeline pipeLine = new SimplesAndTagsDetectPipeline();
-    public GrabberStateMachine grabberStateMachine = new GrabberStateMachine();
+    public IntakeStateMachine intake = new IntakeStateMachine();
 
     public static Telemetry telemetry = FtcDashboard.getInstance().getTelemetry();
     public ElapsedTime timer = new ElapsedTime();
@@ -34,7 +34,7 @@ public class Robot extends ModulesList {
         DevicePool.init(hardwareMap);
         Robot.telemetry = new MultipleTelemetry(FtcDashboard.getInstance().getTelemetry(), opMode.telemetry);
 
-        grabberStateMachine.init(this);
+        intake.init(this);
         if (BaseMode.isCamera) {
             camera.init(this);
         }
@@ -61,12 +61,14 @@ public class Robot extends ModulesList {
         {
             i.read();
         }
+
+        intake.update();
+
         for (IModule i : modules
         )
         {
             i.update();
         }
-        grabberStateMachine.update();
         telemetry.update();
     }
 

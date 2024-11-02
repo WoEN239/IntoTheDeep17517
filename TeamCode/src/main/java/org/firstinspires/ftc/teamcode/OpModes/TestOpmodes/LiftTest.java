@@ -9,12 +9,13 @@ import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeState;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftController;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftListener;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
-import org.firstinspires.ftc.teamcode.OpModes.BaseOpMode;
+import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
+import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 import org.firstinspires.ftc.teamcode.Robot;
 
 @Autonomous
 
-public class LiftTest extends BaseOpMode {
+public class LiftTest extends BaseMode {
     @Override
     public void doing() {
         if (pos) {

@@ -9,16 +9,16 @@ import com.acmerobotics.dashboard.config.Config;
 @Config
 public enum TransferPosition {
 
-    GRAB, NORMAL;
+    EAT, NORMAL;
 
-    public static double grab = 0.2;
+    public static double eat = 0.2;
     public static double normal = 0.55;
 
     public double get() {
         switch (this) {
             default:
-            case GRAB:
-                return grab;
+            case EAT:
+                return eat;
             case NORMAL:
                 return normal;
         }

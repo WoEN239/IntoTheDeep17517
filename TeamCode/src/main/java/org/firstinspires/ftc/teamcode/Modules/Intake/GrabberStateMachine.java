@@ -50,38 +50,38 @@ public class GrabberStateMachine {
                 if (liftListener.getPosition() > 200) {
                     grabber.transferToNormal();
                     grabber.openSimpleGrabber();
-                    grabber.closeFlipServo();
+                    grabber.upFlipServo();
                 }
                 setState(IntakeState.TO_DOWN);
                 break;
             case TO_HIGH_BASKET:
                 grabber.transferToNormal();
                 grabber.closeSimpleGrabber();
-                grabber.closeFlipServo();
+                grabber.upFlipServo();
                 liftController.setHighBasket();
                 break;
             case TO_LOW_BASKET:
                 grabber.transferToNormal();
                 grabber.closeSimpleGrabber();
-                grabber.closeFlipServo();
+                grabber.upFlipServo();
                 liftController.setLowBasket();
                 break;
             case TO_LOW_AXIS:
                 grabber.transferToNormal();
                 grabber.closeSimpleGrabber();
-                grabber.toAxisAngleFLipServo();
+                grabber.moveFLipServo();
                 liftController.setLowAxis();
                 break;
             case TO_HIGH_AXIS:
                 grabber.transferToNormal();
                 grabber.closeSimpleGrabber();
-                grabber.toAxisAngleFLipServo();
+                grabber.moveFLipServo();
                 liftController.setHighAxis();
                 break;
             case GRAB:
-                grabber.transferToGrab();
+                grabber.transferToEat();
                 grabber.openSimpleGrabber();
-                grabber.openFlipServo();
+                grabber.downFlipServo();
                 liftController.setDownPos();
                 break;
             case TO_DOWN:
@@ -90,13 +90,13 @@ public class GrabberStateMachine {
             case RIDE:
                 grabber.transferToNormal();
                 grabber.closeSimpleGrabber();
-                grabber.closeFlipServo();
+                grabber.upFlipServo();
                 liftController.setDownPos();
                 break;
             case PERPENDICULAR:
-                grabber.perpendicularRotatePos();
+                grabber.rotatedRotateServo();
             case NORMAL_ROTATE:
-                grabber.normalRotatePos();
+                grabber.normalRotateServo();
         }
     }
 }

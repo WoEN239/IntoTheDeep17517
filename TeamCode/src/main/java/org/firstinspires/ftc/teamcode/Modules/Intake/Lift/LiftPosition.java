@@ -5,7 +5,7 @@ import com.acmerobotics.dashboard.config.Config;
 
 @Config
 public enum LiftPosition {
-    DOWN, LOW_AXIS_GET, HIGHEST_AXIS, HIGHEST_BASKET, LOWEST_BASKET;
+    DOWN, LOW_AXIS, HIGHEST_AXIS, HIGHEST_BASKET, LOWEST_BASKET;
 
     public static double down = 0;
     public static double lowAxisGet = 0;
@@ -20,7 +20,7 @@ public enum LiftPosition {
                 return down;
             case HIGHEST_AXIS:
                 return highestAxis;
-            case LOW_AXIS_GET:
+            case LOW_AXIS:
                 return lowAxisGet;
             case HIGHEST_BASKET:
                 return highestBasket;
