@@ -33,6 +33,18 @@ public abstract class BaseMode extends LinearOpMode {
             leftStickX = gamepad1.left_stick_x;
             leftStickY = gamepad1.left_stick_y;
 
+            dropSamples = gamepad1.left_bumper;
+            grabSamples = gamepad1.right_bumper;
+
+            highBasket = gamepad1.dpad_up;
+            lowBasket = gamepad1.dpad_down;
+
+            toDown = gamepad1.square;
+
+            toLowAxis = gamepad1.cross;
+            toHighAxis = gamepad1.triangle;
+
+
             if (firstStart) {
                 robot.timer.reset();
                 firstStart = false;
@@ -47,6 +59,19 @@ public abstract class BaseMode extends LinearOpMode {
     protected double rightStickY;
     protected double leftStickX;
     protected double leftStickY;
+
+    protected boolean dropSamples;
+    protected boolean grabSamples;
+
+    protected boolean highBasket;
+    protected boolean lowBasket;
+
+    protected boolean toDown;
+
+    protected boolean toLowAxis;
+    protected boolean toHighAxis;
+
+
 
     public abstract void doing();
 

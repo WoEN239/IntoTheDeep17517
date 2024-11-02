@@ -27,12 +27,12 @@ public class LiftController implements Controller {
 
     LiftListener liftListener;
 
-    LiftPosition targetPosition = LiftPosition.DOWN;
+    public LiftPosition targetPosition = LiftPosition.DOWN;
 
-    public static PidStatus pidStatus = new PidStatus(0, 0, 0, 0, 0, 0, 0, 0, 0);
+    public static PidStatus pidStatus = new PidStatus(0.06, 0.001, 0.00001, 0, 0, 0, 0, 2, 0.5);
     Pid pid = new Pid(pidStatus);
 
-    public static PidStatus pidStatusSync = new PidStatus(0, 0, 0, 0, 0, 0, 0, 0, 0);
+    public static PidStatus pidStatusSync = new PidStatus(0.00001, 0, 0, 0, 0, 0, 0, 0, 0);
     Pid pidSync = new Pid(pidStatusSync);
     public static double gravity = 0.1;
 
@@ -53,8 +53,8 @@ public class LiftController implements Controller {
     }
 
 
-    private boolean isAtTarget() {
-        return abs(liftListener.getPosition() - targetPosition.get()) > 5;
+    public boolean isAtTarget() {
+        return abs(liftListener.getPosition() - targetPosition.get()) < 20;
     }
 
 
@@ -64,14 +64,19 @@ public class LiftController implements Controller {
     double uSync = 0;
 
     public void updateLift() {
-        if (targetPosition != LiftPosition.DOWN) {
+        pidSync.setTarget(0);
+        pidSync.setPos(-liftListener.errSync);
+        pidSync.update();
+        uSync = pidSync.getU();
+        if (!isAtTarget()) {
             pid.setTarget(targetPosition.get());
             pid.setPos(liftListener.getPosition());
             pid.update();
-            powerToLeftMotor = powerToRightMotor = pid.getU();
+            powerToLeftMotor = pid.getU();
+            powerToRightMotor = pid.getU();
 
-            powerToLeftMotor = Range.clip(powerToLeftMotor, -1, 1);
-            powerToRightMotor = Range.clip(powerToRightMotor, -1, 1);
+          //  powerToLeftMotor = Range.clip(powerToLeftMotor, -1, 1.5);
+           // powerToRightMotor = Range.clip(powerToRightMotor, -1.5, 1.5);
         } else {
             if (liftListener.rightButtonDown.getState()) {
                 powerToRightMotor = gravity;
@@ -86,15 +91,13 @@ public class LiftController implements Controller {
                 powerToLeftMotor = powerToRightMotor = gravity;
             }
         }
-        pidSync.setTarget(0);
-        pidSync.setPos(-liftListener.errSync);
-        pidSync.update();
-        uSync = pidSync.getU();
         pid.update();
     }
 
     @Override
     public void update() {
+        liftRightMotor.update();
+        liftLeftMotor.update();
         setPower();
     }
 
