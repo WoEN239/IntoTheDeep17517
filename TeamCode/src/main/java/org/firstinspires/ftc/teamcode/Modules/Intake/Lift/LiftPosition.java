@@ -8,10 +8,10 @@ public enum LiftPosition {
     DOWN, LOW_AXIS, HIGHEST_AXIS, HIGHEST_BASKET, LOWEST_BASKET;
 
     public static double down = 0;
-    public static double lowAxisGet = 0;
-    public static double highestAxis = 0;
-    public static double highestBasket = 0;
-    public static double lowestBasket = 0;
+    public static double lowAxisGet = 1500;
+    public static double highestAxis = 2000;
+    public static double highestBasket = 2500;
+    public static double lowestBasket = 1000;
 
     public double get() {
         switch (this) {

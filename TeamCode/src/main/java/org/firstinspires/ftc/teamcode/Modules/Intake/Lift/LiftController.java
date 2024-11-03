@@ -96,6 +96,10 @@ public class LiftController implements Controller {
         setPower();
     }
 
+    public LiftPosition getTargetPosition() {
+        return targetPosition;
+    }
+
     public void setDownPos() {
         targetPosition = LiftPosition.DOWN;
     }

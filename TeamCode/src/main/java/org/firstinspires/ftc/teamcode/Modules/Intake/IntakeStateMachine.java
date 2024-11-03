@@ -38,16 +38,26 @@ public class IntakeStateMachine {
         liftListener = robot.liftListener;
     }
 
+    ElapsedTime timer = new ElapsedTime();
+    private boolean f = true;
     public void update(){
+        Robot.telemetry.addData("State :", state.toString());
+        Robot.telemetry.addData("Target state :", target.toString());
         if(target!=state){
+            if(f){
+                timer.reset();
+            }
             changeState(target);
+            f = false;
+        }else {
+            updateState();
+            f = true;
         }
-
     }
 
     private void waitUp(){
         liftController.setPosition(upPos)  ;
-        grabber       .closeSimpleGrabber();
+        grabber       .openSampleGrabber();
         grabber       .normalRotateServo() ;
         grabber       .upFlipServo()       ;
         grabber       .transferToNormal()  ;
@@ -63,68 +73,67 @@ public class IntakeStateMachine {
 
     private void waitEat(){
         liftController.setDownPos()        ;
-        grabber       .openSimpleGrabber() ;
+        grabber       .openSampleGrabber() ;
         grabber       .setRotateServoPosition(rotateServoPos);
-        grabber       .moveFLipServo()     ;
+        grabber       .targetingFLipServo()     ;
         grabber       .transferToEat()     ;
     }
 
     private void fromUpWaitToDownWait(){
-        waitTimer.reset();
 
-        grabber.openSimpleGrabber();
+        grabber.openSampleGrabber();
         grabber.normalRotateServo();
-        grabber.moveFLipServo()    ;
-
-        if(waitSeconds(1)){
-            grabber.transferToNormal();
+        grabber.targetingFLipServo()    ;
+        grabber.transferToNormal();
+        if(timer.seconds()>1) {
             liftController.setDownPos();
-            waitTimer.reset();
         }
-
-        if(waitSeconds(2)){
+        if(timer.seconds()>2) {
             setState(IntakeState.WAIT_DOWN);
-            waitTimer.reset();
         }
     }
 
     private void fromDownWaitToUpWait(){
-        waitTimer.reset();
 
         grabber       .closeSimpleGrabber();
         grabber       .normalRotateServo() ;
         grabber       .downFlipServo()     ;
         grabber       .transferToNormal()  ;
-        liftController.setPosition(upPos);
-        if(waitSeconds(2)){
-            waitTimer.reset();
+
+        if(timer.seconds()>1) {
+            liftController.setPosition(upPos);
+        }
+        if(timer.seconds()>2) {
             setState(IntakeState.WAIT_UP);
         }
     }
 
     private void fromEatWaitToDownWait(){
-        waitTimer.reset();
-
+        grabber.transferToEat()     ;
         grabber.upFlipServo()       ;
-        grabber.setRotateServoPosition(rotateServoPos); ;
-        grabber.downFlipServo()     ;
-        grabber.closeSimpleGrabber();
-        grabber.transferToNormal()  ;
-
-        liftController.setDownPos();
-        if(waitSeconds(2)){
-            waitTimer.reset();
+        grabber.setRotateServoPosition(rotateServoPos);
+        liftController.setDownPos() ;
+        if(timer.seconds()>0.5) {
+            grabber.downFlipServo();
+            grabber.closeSimpleGrabber();
+        }
+        if(timer.seconds()>1) {
+            grabber.transferToNormal();
+        }
+        if(timer.seconds()>1.2) {
             setState(IntakeState.WAIT_DOWN);
         }
+
     }
 
     private void fromDownWaitToEatWait(){
-        waitTimer.reset();
-        grabber.moveFLipServo();       ;
+        grabber.targetingFLipServo();
+
         grabber.setRotateServoPosition(rotateServoPos); ;
-        grabber.openSimpleGrabber();
+        grabber.openSampleGrabber();
         grabber.transferToEat();
-        if (waitSeconds(1)){
+
+        if(timer.seconds()>1) {
             setState(IntakeState.WAIT_EAT);
         }
     }
@@ -134,6 +143,7 @@ public class IntakeStateMachine {
             case WAIT_EAT:
                 if(state == IntakeState.WAIT_DOWN)
                     fromDownWaitToEatWait();
+                break;
             case WAIT_DOWN:
                 if(state == IntakeState.WAIT_EAT)
                     fromEatWaitToDownWait();
@@ -142,7 +152,7 @@ public class IntakeStateMachine {
                 break;
             case WAIT_UP:
                 if(state == IntakeState.WAIT_DOWN)
-                    fromDownWaitToEatWait();
+                    fromDownWaitToUpWait();
                 break;
         }
     }
@@ -160,10 +170,6 @@ public class IntakeStateMachine {
         }
     }
 
-    ElapsedTime waitTimer = new ElapsedTime();
-    public boolean waitSeconds(double s){
-        return waitTimer.seconds()>s;
-    }
 
     public IntakeState getState() {
         return state;

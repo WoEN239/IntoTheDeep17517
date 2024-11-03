@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 public class GamepadConfig{
     Gamepad gamepad;
 
-    public GamepadConfig (Gamepad  gamepad){
+    public void update(Gamepad  gamepad){
         this.gamepad = gamepad;
     }
     public void read(){
@@ -30,23 +30,23 @@ public class GamepadConfig{
         waitUp   = gamepad.cross;
         waitEat  = gamepad.circle;
     }
-    protected double rightStickX;
-    protected double rightStickY;
-    protected double leftStickX;
-    protected double leftStickY;
+    protected double rightStickX = 0;
+    protected double rightStickY = 0;
+    protected double leftStickX = 0;
+    protected double leftStickY = 0;
 
-    protected boolean dropSamples;
-    protected boolean grabSamples;
+    protected boolean dropSamples = false;
+    protected boolean grabSamples = false;
 
-    protected boolean highBasket;
-    protected boolean lowBasket;
+    protected boolean highBasket = false;
+    protected boolean lowBasket = false;
 
-    protected boolean toDown;
+    protected boolean toDown = false;
 
-    protected boolean toLowAxis;
-    protected boolean toHighAxis;
+    protected boolean toLowAxis = false;
+    protected boolean toHighAxis = false;
 
-    protected boolean waitDown;
-    protected boolean waitUp;
-    protected boolean waitEat;
+    protected boolean waitDown = false;
+    protected boolean waitUp = false;
+    protected boolean waitEat = false;
 }

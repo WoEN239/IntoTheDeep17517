@@ -43,7 +43,7 @@ public class Grabber implements Controller {
         grabberTarget = GrabberPosition.CLOSE;
     }
 
-    public void openSimpleGrabber() {
+    public void openSampleGrabber() {
         grabberTarget = GrabberPosition.OPEN;
     }
 
@@ -63,7 +63,7 @@ public class Grabber implements Controller {
         grabberUpPosition = FlipGrabberPosition.UP;
     }
 
-    public void moveFLipServo(){grabberUpPosition = FlipGrabberPosition.MOVE;}
+    public void targetingFLipServo(){grabberUpPosition = FlipGrabberPosition.MOVE;}
 
 
     public void normalRotateServo() {rotateServoPosition = RotateServoPosition.NORMAL.get();}

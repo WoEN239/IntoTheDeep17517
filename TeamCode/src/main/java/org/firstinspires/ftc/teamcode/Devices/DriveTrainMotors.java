@@ -64,7 +64,7 @@ public class DriveTrainMotors {
     }
 
     public static void initPid(){
-        leftBackDrive    .pidStatusF .copyFrom(new PidStatus(kp,ki,kd,-0.5326,0.0053,8e-07,2e-10,maxI,zeroBorder));
+        leftBackDrive    .pidStatusF .copyFrom(new PidStatus(0,0,0,-0.5326,0.0053,8e-07,2e-10,maxI,zeroBorder));
         leftForwardDrive .pidStatusF .copyFrom(new PidStatus(kp,ki,kd,-0.5376,0.0052,5e-07,1e-10,maxI,zeroBorder));
         rightBackDrive   .pidStatusF .copyFrom(new PidStatus(kp,ki,kd,0.7869,0.0056,-9e-07,2e-10,maxI,zeroBorder));
         rightForwardDrive.pidStatusF .copyFrom(new PidStatus(kp,ki,kd,0.7843,0.0052,-6e-07,1e-10,maxI,zeroBorder));

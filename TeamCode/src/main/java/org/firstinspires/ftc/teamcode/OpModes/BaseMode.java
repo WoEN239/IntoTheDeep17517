@@ -12,8 +12,6 @@ public abstract class BaseMode extends LinearOpMode {
     protected Robot robot;
     public static boolean isCamera = false;
 
-    public final GamepadConfig gamepad = new GamepadConfig(this.gamepad1);
-
     protected void initOpMode() {
         robot = new Robot(this);
         robot.init();
@@ -30,7 +28,7 @@ public abstract class BaseMode extends LinearOpMode {
         }
         waitForStart();
         while (opModeIsActive()) {
-            gamepad.read();
+            read();
             if (firstStart) {
                 robot.timer.reset();
                 firstStart = false;
@@ -39,9 +37,53 @@ public abstract class BaseMode extends LinearOpMode {
             robot.updateTasks();
             robot.update();
         }
+        System.exit(0);
     }
 
 
     public abstract void doing();
 
+
+    protected double rightStickX = 0;
+    protected double rightStickY = 0;
+    protected double leftStickX = 0;
+    protected double leftStickY = 0;
+
+    protected boolean dropSamples = false;
+    protected boolean grabSamples = false;
+
+    protected boolean highBasket = false;
+    protected boolean lowBasket = false;
+
+    protected boolean toDown = false;
+
+    protected boolean toLowAxis = false;
+    protected boolean toHighAxis = false;
+
+    protected boolean waitDown = false;
+    protected boolean waitUp = false;
+    protected boolean waitEat = false;
+
+    public void read(){
+
+        rightStickX = gamepad1.right_stick_x;
+        rightStickY = gamepad1.right_stick_y;
+        leftStickX = gamepad1.left_stick_x;
+        leftStickY = gamepad1.left_stick_y;
+
+        dropSamples = gamepad1.left_bumper;
+        grabSamples = gamepad1.right_bumper;
+
+        highBasket = gamepad1.dpad_up;
+        lowBasket = gamepad1.dpad_down;
+
+        toDown = gamepad1.square;
+
+        toLowAxis = gamepad1.cross;
+        toHighAxis = gamepad1.triangle;
+
+        waitDown = gamepad1.a;
+        waitUp   = gamepad1.b;
+        waitEat  = gamepad1.x;
+    }
 }
