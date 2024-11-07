@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Devices;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 /**
@@ -11,28 +10,20 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class LiftHangingMotors {
 
     public static Motor liftRightMotor = new Motor();
-    public static Motor liftLeftMotor  = new Motor();
+    public static Motor liftMotor = new Motor();
     public static Motor hangingMotor   = new Motor();
 
     public static void init(HardwareMap hardwareMap) {
 
-        liftLeftMotor.init("liftLeftMotor", hardwareMap);
-        liftRightMotor.init("liftRightMotor", hardwareMap);
+        liftMotor.init("liftMotor", hardwareMap);
 
 
-        liftLeftMotor .setDir(MotorDirection.BACK);
-        liftRightMotor.setDir(MotorDirection.BACK);
+        liftMotor.setDir(MotorDirection.BACK);
 
-        liftRightMotor.dev.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        liftLeftMotor.dev.setZeroPowerBehavior (DcMotor.ZeroPowerBehavior.FLOAT);
+        liftMotor.dev.setZeroPowerBehavior (DcMotor.ZeroPowerBehavior.FLOAT);
 
-        liftLeftMotor.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        liftLeftMotor.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        liftRightMotor.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        liftRightMotor.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-
+        liftMotor.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        liftMotor.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
     }
 }

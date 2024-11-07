@@ -13,25 +13,19 @@ public class LiftListener implements Listener {
 
     Robot robot;
 
-    DigitalChannel leftButtonDown;
-    DigitalChannel rightButtonDown;
+    DigitalChannel buttonDown;
     Button upBorderButt = new Button();
-    Motor liftLeftMotor;
-    Motor liftRightMotor;
+    Motor liftMotor;
 
     private double liftPosition = 0;
-    private double liftStaticErrLeft = 0;
-    private double liftStaticErrRight = 0;
+    private double liftStaticErr = 0;
 
-    public double errSync = 0;
 
     @Override
     public void init(Robot robot) {
         this.robot = robot;
-        leftButtonDown = Sensors.downLeftButton;
-        rightButtonDown = Sensors.downRightButton;
-        liftLeftMotor = LiftHangingMotors.liftLeftMotor;
-        liftRightMotor = LiftHangingMotors.liftRightMotor;
+        buttonDown = Sensors.downButton;
+        liftMotor = LiftHangingMotors.liftMotor;
     }
 
     public double getPosition() {
@@ -39,15 +33,10 @@ public class LiftListener implements Listener {
     }
 
     private void updatePosition() {
-        boolean isDownLeft  = upBorderButt.update(leftButtonDown.getState());
-        boolean isDownRight = upBorderButt.update(rightButtonDown.getState());
-        if (isDownLeft)
-            liftStaticErrLeft = liftLeftMotor.getPosition() - LiftPosition.down;
-        if(isDownRight)
-            liftStaticErrRight = liftRightMotor.getPosition() - LiftPosition.down;
-
-        liftPosition = ((liftRightMotor.getPosition() - liftStaticErrRight) + (liftLeftMotor.getPosition() - liftStaticErrLeft)) / 2.0;
-        errSync = (liftLeftMotor.getPosition() - liftStaticErrLeft) - (liftRightMotor.getPosition() - liftStaticErrRight);
+        boolean isDown  = upBorderButt.update(buttonDown.getState());
+        if (isDown)
+            liftStaticErr = liftMotor.getPosition() - LiftPosition.down;
+        liftPosition = liftMotor.getPosition() - liftStaticErr;
     }
 
     @Override

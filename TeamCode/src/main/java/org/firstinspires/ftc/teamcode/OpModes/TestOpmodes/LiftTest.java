@@ -1,17 +1,9 @@
 package org.firstinspires.ftc.teamcode.OpModes.TestOpmodes;
 
-import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Devices.LiftHangingMotors;
-import org.firstinspires.ftc.teamcode.Devices.Motor;
-import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeState;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftController;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftListener;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
-import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
-import org.firstinspires.ftc.teamcode.Robot;
 
 @Autonomous
 
@@ -31,7 +23,7 @@ public class LiftTest extends BaseMode {
 
         telemetry.addData("rightPos", LiftHangingMotors.liftRightMotor.getPosition());
         telemetry.addData("pos", robot.liftListener.getPosition());
-        telemetry.addData("leftPos", LiftHangingMotors.liftLeftMotor.getPosition());
+        telemetry.addData("leftPos", LiftHangingMotors.liftMotor.getPosition());
         telemetry.addData("isAtTarget", robot.liftController.isAtTarget());
 
     }
