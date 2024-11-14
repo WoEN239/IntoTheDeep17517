@@ -32,14 +32,15 @@ public class PositionViewer implements Listener {
     }
 
     private void calcGlobalPosition() {
-        positionGlobal.h = localViewer.getPositionLocal().h;
+        positionGlobal.setH(localViewer.getPositionLocal().h);
         Position dp = new Position();
+
         dp.copyFrom(localViewer.deltaPositionLocal);
         dp.rotateIt(positionGlobal.h);
         dp.h = 0;
         positionGlobal.plus(dp);
 
-        positionRealGlobal = positionGlobal;
+        positionRealGlobal.copyFrom(positionGlobal);
         positionRealGlobal.linearMultiply(RobotConstant.lightOfOdometer/RobotConstant.odometerConstant);
     }
 

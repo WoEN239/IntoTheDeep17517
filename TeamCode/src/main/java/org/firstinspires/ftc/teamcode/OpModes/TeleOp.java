@@ -11,8 +11,8 @@ public class TeleOp extends BaseMode {
                 new Position(leftStickY*2400, leftStickX*2400, rightStickX*2400)
         );
 
-        if(waitDown) robot.intake.setTarget(IntakeState.WAIT_DOWN);
-        if(waitUp) robot.intake.setTarget  (IntakeState.WAIT_UP);
+        if(waitDown)robot.intake.setTarget(IntakeState.WAIT_DOWN);
+        if(waitUp)  robot.intake.setTarget  (IntakeState.WAIT_UP);
         if(waitEat) robot.intake.setTarget (IntakeState.WAIT_EAT);
 
         Robot.telemetry.addData("Voltage: ",Robot.voltage);

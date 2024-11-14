@@ -143,6 +143,9 @@ public class IntakeStateMachine {
             case WAIT_EAT:
                 if(state == IntakeState.WAIT_DOWN)
                     fromDownWaitToEatWait();
+                else{
+                    setTarget(IntakeState.WAIT_EAT);
+                }
                 break;
             case WAIT_DOWN:
                 if(state == IntakeState.WAIT_EAT)
@@ -153,9 +156,13 @@ public class IntakeStateMachine {
             case WAIT_UP:
                 if(state == IntakeState.WAIT_DOWN)
                     fromDownWaitToUpWait();
+                else{
+                    setTarget(IntakeState.WAIT_UP);
+                }
                 break;
         }
     }
+
     public void updateState(){
         switch (state){
             case WAIT_UP:
@@ -169,7 +176,6 @@ public class IntakeStateMachine {
                 break;
         }
     }
-
 
     public IntakeState getState() {
         return state;

@@ -44,13 +44,28 @@ public class PositionLocalViewer {
     }
     public Position deltaPositionLocal;
 
+
+
     private double staticAngleError = 0;
     private double angleErrorSensitivity = 7;
     private double yErrPerAngle = 150.29;
+    private double lastCleanH = 0;
+    private double lastY = 0;
+
     private void calcLocalPosition() {
         double x = (rightOdometer.getPosition() + leftOdometer.getPosition()) / 2.0;
         double hClean =((rightOdometer.getPosition() - leftOdometer.getPosition()) / 2.0)/TIK_PER_ANGLE;
-        double yFix = hClean*yErrPerAngle;
+        double dh = hClean - lastCleanH;
+        lastCleanH = hClean;
+
+        double yFix = dh*yErrPerAngle;
+
+        double yC = yOdometer.getPosition() + yFix;
+        double dy = yC - lastY;
+        lastY = yC;
+
+        double y = lastY+dy+yFix;
+
 
         hClean = Position.normalizeAngle(hClean);
         double hGyro = gyro.getAngle();
@@ -63,7 +78,6 @@ public class PositionLocalViewer {
         double h = hClean - staticAngleError;
         h = Position.normalizeAngle(h);
 
-        double y = yOdometer.getPosition() + yFix;
 
         deltaPositionLocal = new Position(x, y, h);
         deltaPositionLocal.minus(positionLocal);
@@ -72,7 +86,7 @@ public class PositionLocalViewer {
         positionLocal.x = x;
         positionLocal.h = h;
 
-        positionRealLocal = positionLocal;
+        positionRealLocal.copyFrom(positionLocal);
         positionRealLocal.linearMultiply(lightOfOdometer/odometerConstant);
     }
 

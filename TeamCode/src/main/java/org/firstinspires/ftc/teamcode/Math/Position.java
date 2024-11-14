@@ -20,6 +20,10 @@ public class Position {
     public double y;
     public double h;
 
+    public void setH(double h) {
+        this.h = h;
+    }
+
     public Position(double x, double y, double h) {
         this.x = x;
         this.y = y;
@@ -32,9 +36,10 @@ public class Position {
         this.h = 0;
     }
 
-    public void rotateIt(double angle1) {
-        double x1 = x * cos(angle1) - y * sin(angle1);
-        double y1 = x * sin(angle1) + y * cos(angle1);
+    public void rotateIt(double angle) {
+        double angle1 = Math.toRadians(angle);
+        double y1 = y * cos(angle1) - x * sin(angle1);
+        double x1 = y * sin(angle1) + x * cos(angle1);
         x = x1;
         y = y1;
     }
@@ -42,15 +47,11 @@ public class Position {
     public void minus(Position pos) {
         x -= pos.x;
         y -= pos.y;
-        h -= pos.h;
-        h = normalizeAngle(h);
     }
 
     public void plus(Position pos) {
         x += pos.x;
         y += pos.y;
-        h += pos.h;
-        h = normalizeAngle(h);
     }
 
     public static double normalizeAngle(double error){
