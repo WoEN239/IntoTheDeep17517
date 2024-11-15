@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.Events.Task;
 import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.IModule;
 import org.firstinspires.ftc.teamcode.Modules.Intake.StateMachine.IntakeStateMachine;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
+import org.firstinspires.ftc.teamcode.OpModes.StateMachine.AutonomusStateMachine;
 import org.firstinspires.ftc.teamcode.OpenCv.SimplesAndTagsDetectPipeline;
 
 import java.util.ArrayList;
@@ -20,7 +21,9 @@ public class Robot extends ModulesList {
     public LinearOpMode opMode;
     public HardwareMap hardwareMap;
     public SimplesAndTagsDetectPipeline pipeLine = new SimplesAndTagsDetectPipeline();
+
     public IntakeStateMachine intake = new IntakeStateMachine();
+    public AutonomusStateMachine autonomusStateMachine = new AutonomusStateMachine();
 
     public static Telemetry telemetry = FtcDashboard.getInstance().getTelemetry();
     public ElapsedTime timer = new ElapsedTime();
@@ -35,6 +38,7 @@ public class Robot extends ModulesList {
         Robot.telemetry = new MultipleTelemetry(FtcDashboard.getInstance().getTelemetry(), opMode.telemetry);
 
         intake.init(this);
+        autonomusStateMachine.init(this);
         if (BaseMode.isCamera) {
             camera.init(this);
         }
@@ -62,6 +66,7 @@ public class Robot extends ModulesList {
             i.read();
         }
 
+        autonomusStateMachine.update();
         intake.update();
 
         for (IModule i : modules

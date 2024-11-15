@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers;
 
+import static java.lang.Math.abs;
+
 import org.firstinspires.ftc.teamcode.Math.Pid;
 import org.firstinspires.ftc.teamcode.Math.PidStatus;
 import org.firstinspires.ftc.teamcode.Math.Position;
@@ -64,5 +66,10 @@ public class PositionController implements Controller {
             VelocityController.isUpdate = true;
             controller.moveReal(pidResult);
         }
+    }
+    public boolean isAtTarget(){
+        Position err = new Position().copyFrom(target);
+        err.positionMinus(position);
+        return abs(err.x)<3 && abs(err.y) < 5 && abs(err.h) < 5;
     }
 }
