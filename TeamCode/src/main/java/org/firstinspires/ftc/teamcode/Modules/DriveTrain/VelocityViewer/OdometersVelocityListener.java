@@ -30,7 +30,6 @@ public class OdometersVelocityListener {
         double h = (rightOdometer.getVelocity() - leftOdometer.getVelocity()) / 2.0;
         double y = (yOdometer.getVelocity());
 
-
         deltaVel = new Position(x, y, h);
         deltaVel.positionMinus(odometersVelocities);
 

@@ -76,10 +76,10 @@ public class DriveTrainMotors {
         rightForwardDrive.pidStatusB .copyFrom(new PidStatus(kp,ki,kd,-1.0408,0.0054,6e-07,1e-10,maxI,zeroBorder));
 
     }
-    public static double ki         = 0.001;
-    public static double kp         = 0.0035;
-    public static double kd         = 0;
-    public static double maxI       = 4;
-    public static double zeroBorder = 3;
+    public static double ki          = 0; //= 0.001;
+    public static double kp          = 0; //= 0.0035;
+    public static double kd          = 0; //= 0;
+    public static double maxI        = 0; //= 4;
+    public static double zeroBorder  = 0; //= 3;
 
 }

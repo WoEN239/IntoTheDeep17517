@@ -73,5 +73,9 @@ public class VelocityController implements Controller {
         pidH.update();
         pidResult.h = pidH.getU();
 
+        if(isUpdate){
+            motorsMap.move(pidResult);
+        }
+
     }
 }
