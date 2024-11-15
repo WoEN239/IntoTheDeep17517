@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.Grabber;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Devices.GrabberAndTransferServo;
-import org.firstinspires.ftc.teamcode.Modules.Controller;
+import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.Controller;
 import org.firstinspires.ftc.teamcode.Robot;
 
 /**

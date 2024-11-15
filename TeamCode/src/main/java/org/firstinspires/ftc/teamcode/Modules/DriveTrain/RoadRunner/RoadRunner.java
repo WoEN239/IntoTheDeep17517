@@ -30,7 +30,7 @@ import com.acmerobotics.roadrunner.VelConstraint;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
-import org.firstinspires.ftc.teamcode.Modules.IModule;
+import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.IModule;
 import org.firstinspires.ftc.teamcode.Robot;
 
 import java.util.Arrays;
@@ -82,7 +82,7 @@ public class RoadRunner implements IModule {
 
     private void move() {
         Pose2d pose = robot.positionViewer.getPositionGlobal().toRRPose();
-        PoseVelocity2d velocity = robot.velocityViewer.getLocalViewer().getVelocityLocal().toRRVelocity();
+        PoseVelocity2d velocity = robot.velocityViewer.getOdometers().getOdometersVelocities().toRRVelocity();
 
         if (!trajectories.isEmpty()) {
             Trajectory trajectoryNow = trajectories.get(0);

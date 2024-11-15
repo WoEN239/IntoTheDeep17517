@@ -36,7 +36,7 @@ public class Position {
         this.h = 0;
     }
 
-    public void rotateIt(double angle) {
+    public void rotateVector(double angle) {
         double angle1 = Math.toRadians(angle);
         double y1 = y * cos(angle1) - x * sin(angle1);
         double x1 = y * sin(angle1) + x * cos(angle1);
@@ -44,14 +44,26 @@ public class Position {
         y = y1;
     }
 
-    public void minus(Position pos) {
+    public void vectorMinus(Position pos) {
         x -= pos.x;
         y -= pos.y;
     }
 
-    public void plus(Position pos) {
+    public void positionMinus(Position pos){
+        x -= pos.x;
+        y -= pos.y;
+        h -= pos.h;
+    }
+
+    public void vectorPlus(Position pos) {
         x += pos.x;
         y += pos.y;
+    }
+
+    public void positionPlus(Position pos){
+        x += pos.x;
+        y += pos.y;
+        h += pos.h;
     }
 
     public static double normalizeAngle(double error){
@@ -74,6 +86,10 @@ public class Position {
 
     public static Position fromRRVelocity(PoseVelocity2dDual<Time> p) {
         return new Position(p.linearVel.x.value(), p.linearVel.y.value(), p.angVel.value());
+    }
+    public Position angleMultiply(double k){
+        this.h = h*k;
+        return this;
     }
     public Position linearMultiply(double k) {
         this.x = x*k;

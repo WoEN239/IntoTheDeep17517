@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Devices.DevicePool;
 import org.firstinspires.ftc.teamcode.Events.Task;
-import org.firstinspires.ftc.teamcode.Modules.IModule;
-import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeStateMachine;
+import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.IModule;
+import org.firstinspires.ftc.teamcode.Modules.Intake.StateMachine.IntakeStateMachine;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 import org.firstinspires.ftc.teamcode.OpenCv.SimplesAndTagsDetectPipeline;
 
@@ -72,14 +72,13 @@ public class Robot extends ModulesList {
         telemetry.update();
     }
 
-    public void updateTasks() {
+    public void   updateTasks() {
         taskQueue.forEach(Task::run);
     }
 
     public double getSeconds() {
         return timer.seconds();
     }
-
 
     public static Team myTeam = Team.BLUE;
 }

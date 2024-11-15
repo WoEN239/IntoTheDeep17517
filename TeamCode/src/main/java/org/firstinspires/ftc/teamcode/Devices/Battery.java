@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Math.ArrayExtra;
-import org.firstinspires.ftc.teamcode.Modules.Listener;
+import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.Listener;
 import org.firstinspires.ftc.teamcode.Robot;
 
 public class Battery implements Listener {

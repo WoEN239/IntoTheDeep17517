@@ -41,7 +41,7 @@ public class RobotConstant {
 
     public static double odometerConstant = 8192;
     public static double lightOfOdometer = 4.8d*PI;
-
+    public static double SM_PER_ODOMETER_TIK = lightOfOdometer/odometerConstant;
 
 
 

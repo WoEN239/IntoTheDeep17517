@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Modules;
+package org.firstinspires.ftc.teamcode.Modules.TypesOfModules;
 
 import org.firstinspires.ftc.teamcode.Robot;
 

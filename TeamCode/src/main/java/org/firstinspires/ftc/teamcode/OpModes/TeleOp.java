@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 import org.firstinspires.ftc.teamcode.Math.Position;
-import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeState;
+import org.firstinspires.ftc.teamcode.Modules.Intake.StateMachine.IntakeState;
 import org.firstinspires.ftc.teamcode.Robot;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp

@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers;
 import org.firstinspires.ftc.teamcode.Math.Pid;
 import org.firstinspires.ftc.teamcode.Math.PidStatus;
 import org.firstinspires.ftc.teamcode.Math.Position;
-import org.firstinspires.ftc.teamcode.Modules.Controller;
+import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.Controller;
 import org.firstinspires.ftc.teamcode.Robot;
 
 /**
@@ -25,7 +25,7 @@ public class PositionController implements Controller {
     }
 
     private void updatePosition() {
-        position = robot.positionViewer.getLocalViewer().getPositionLocal();
+        position = robot.positionViewer.getPositionRealGlobal();
     }
 
     public void move(Position target) {

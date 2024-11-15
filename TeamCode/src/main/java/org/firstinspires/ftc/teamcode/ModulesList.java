@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.Modules.DriveTrain.FieldSensors.FieldSenso
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PositionViewer.PositionViewer;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RoadRunner;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.VelocityViewer.VelocityViewer;
-import org.firstinspires.ftc.teamcode.Modules.IModule;
+import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.IModule;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Grabber;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftController;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftListener;
