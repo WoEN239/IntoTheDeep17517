@@ -27,6 +27,8 @@ public class ModulesList {
     public RoadRunner roadRunner = new RoadRunner();
     public Camera camera = new Camera();
 
+    public FieldView fieldView = new FieldView();
+
     public Grabber grabber = new Grabber();
     public LiftListener liftListener = new LiftListener();
     public LiftController liftController = new LiftController();
@@ -35,7 +37,7 @@ public class ModulesList {
     protected IModule[] modules = new IModule[]{
             roadRunner, imu, velocityViewer, positionViewer,
             positionController,velocityController, liftListener, grabber, liftController,
-            fieldSensors,battery
+            fieldSensors,battery, fieldView
     };
 
 }

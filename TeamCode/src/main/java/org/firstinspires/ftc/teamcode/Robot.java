@@ -42,6 +42,8 @@ public class Robot extends ModulesList {
         if (BaseMode.isCamera) {
             camera.init(this);
         }
+        if(BaseMode.isField)
+            fieldView.init(this);
     }
 
     public void addToQueue(Task task) {
