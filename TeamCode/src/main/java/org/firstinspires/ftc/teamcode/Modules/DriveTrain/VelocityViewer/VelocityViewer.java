@@ -15,11 +15,9 @@ import org.firstinspires.ftc.teamcode.Robot;
 public class VelocityViewer implements Listener {
     public void init(Robot robot) {
         this.robot = robot;
-        this.gyro = robot.imu;
         odometers.init();
     }
 
-    private Gyro gyro  ;
     private Robot robot;
     private final OdometersVelocityListener odometers = new OdometersVelocityListener();
 
@@ -30,27 +28,16 @@ public class VelocityViewer implements Listener {
         return velocityGlobal;
     }
 
+    public Position getVelocityRealGlobal(){return velocityRealGlobal;}
+
     public OdometersVelocityListener getOdometers() {
         return odometers;
     }
-    private Position fix = new Position(0,0,0);
+
     private void calcGlobalVelocity() {
-        double angleErrPerSec        = 0;
-        double angleErrorSensitivity = 0;
 
-        Position dp = new Position();
-        dp.copyFrom(odometers.deltaVel);
-        dp.rotateVector(robot.positionViewer.getPositionRealGlobal().h);
-        velocityGlobal    .positionPlus(dp);
-
-        fix.x = 0;
-        fix.y = dp.h*angleErrPerSec;
-        if (gyro.isNewValue()){
-            if(abs(velocityGlobal.h - gyro.getSpeed()*RobotConstant.TIK_PER_ANGLE)> angleErrorSensitivity){
-                fix.h = velocityGlobal.h-gyro.getSpeed()*RobotConstant.TIK_PER_ANGLE;
-            }
-        }
-        velocityGlobal.positionMinus(fix);
+        velocityGlobal    .copyFrom(odometers.getOdometersVelocities());
+        velocityGlobal    .rotateVector(robot.positionViewer.getPositionRealGlobal().h);
 
         velocityRealGlobal.copyFrom(velocityGlobal);
         velocityRealGlobal.linearMultiply(RobotConstant.ENC_TIK_PER_SM);

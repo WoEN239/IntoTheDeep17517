@@ -46,7 +46,7 @@ public class AutonomusStateMachine {
             updateState();
             f = true;
         }
-    }
+        }
     }
 
 }

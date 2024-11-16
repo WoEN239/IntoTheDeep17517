@@ -35,28 +35,15 @@ public class PositionViewer implements Listener {
         return odometers;
     }
 
-    private Position fix = new Position(0,0,0);
     private void calcGlobalPosition() {
-        double angleErrPerSec        = 0;
-        double angleErrorSensitivity = 0;
 
         Position dp = new Position();
         dp.copyFrom(odometers.deltaPos);
         dp.rotateVector(robot.positionViewer.getPositionRealGlobal().h);
-        positionGlobal.positionPlus(dp);
-
-        fix.x = 0;
-        fix.y = dp.h*angleErrPerSec;
-        if (gyro.isNewValue()){
-            if(abs(positionGlobal.h - gyro.getAngle()*RobotConstant.TIK_PER_ANGLE)> angleErrorSensitivity){
-                fix.h = positionGlobal.h-gyro.getAngle()*RobotConstant.TIK_PER_ANGLE;
-            }
-        }
-        positionGlobal.positionMinus(fix);
+        positionGlobal.vectorPlus(dp);
 
         positionRealGlobal.copyFrom(positionGlobal);
         positionRealGlobal.linearMultiply(RobotConstant.ENC_TIK_PER_SM);
-        positionRealGlobal.angleMultiply(1.0/RobotConstant.TIK_PER_ANGLE);
     }
 
     @Override
