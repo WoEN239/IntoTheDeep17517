@@ -33,13 +33,12 @@ public class ModulesList {
     public LiftListener liftListener = new LiftListener();
     public LiftController liftController = new LiftController();
 
-    public LogOutput logOutput = new LogOutput();
 
     public Battery battery = new Battery();
     protected IModule[] modules = new IModule[]{
             roadRunner, imu, velocityViewer, positionViewer,
             positionController,velocityController, liftListener, grabber, liftController,
-            fieldSensors,battery, fieldView, logOutput
+            fieldSensors,battery, fieldView
     };
 
 }

@@ -28,6 +28,7 @@ public class Robot extends ModulesList {
     public static Telemetry telemetry = FtcDashboard.getInstance().getTelemetry();
     public ElapsedTime timer = new ElapsedTime();
     private final ArrayList<Task> taskQueue = new ArrayList<>();
+    public LogOutput logOutput;
 
     public static double voltage = 12;
 
@@ -36,6 +37,8 @@ public class Robot extends ModulesList {
         this.hardwareMap = opMode.hardwareMap;
         DevicePool.init(hardwareMap);
         Robot.telemetry = new MultipleTelemetry(FtcDashboard.getInstance().getTelemetry(), opMode.telemetry);
+
+        logOutput = new LogOutput(this);
 
         intake.init(this);
         autonomusStateMachine.init(this);
