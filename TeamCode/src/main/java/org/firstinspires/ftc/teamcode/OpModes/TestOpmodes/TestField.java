@@ -1,24 +1,26 @@
 package org.firstinspires.ftc.teamcode.OpModes.TestOpmodes;
 
-import android.graphics.Canvas;
-
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.canvas.Canvas;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@Autonomous
+import java.util.Calendar;
 
-public class TestField extends LinearOpMode{
+@TeleOp
 
+public class TestField extends LinearOpMode {
 
+    TelemetryPacket packet = new TelemetryPacket();
 
     @Override
     public void runOpMode() throws InterruptedException {
+        waitForStart();
         while(opModeIsActive()){
-            TelemetryPacket packet = new TelemetryPacket();
-            packet.fieldOverlay().fillRect(-20,-20,40,40);
+            packet = new TelemetryPacket();
+            packet.fieldOverlay().setFill("blue").fillRect(-20,-20,40,40);
             FtcDashboard.getInstance().sendTelemetryPacket(packet);
         }
     }
