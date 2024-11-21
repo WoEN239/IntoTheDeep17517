@@ -20,16 +20,7 @@ public class VelocityConfigPID extends BaseMode {
     @Override
     public void doing() {
         DriveTrainMotors.initPid();
-        velPos = new Position(
-                (DriveTrainMotors.leftBackDrive.getVelocity()+DriveTrainMotors.leftForwardDrive.getVelocity()+
-                 DriveTrainMotors.rightForwardDrive.getVelocity()+DriveTrainMotors.rightBackDrive.getVelocity())/4.0,
-
-                (-DriveTrainMotors.leftBackDrive.getVelocity()+DriveTrainMotors.leftForwardDrive.getVelocity()+
-                 -DriveTrainMotors.rightForwardDrive.getVelocity()+DriveTrainMotors.rightBackDrive.getVelocity())/4.0,
-
-                (DriveTrainMotors.leftBackDrive.getVelocity()+DriveTrainMotors.leftForwardDrive.getVelocity()+
-                 -DriveTrainMotors.rightForwardDrive.getVelocity()-DriveTrainMotors.rightBackDrive.getVelocity())/4.0
-        );
+        velPos.copyFrom(robot.velocityViewer.getVelocityRealGlobal());
         Robot.telemetry.addData("xV", velPos.x);
         Robot.telemetry.addData("yV", velPos.y);
         Robot.telemetry.addData("hV", velPos.h);

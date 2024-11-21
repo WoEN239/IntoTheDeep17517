@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain.PositionViewer;
 
 import static java.lang.Math.abs;
-import static java.lang.Math.tan;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Devices.Gyro;
@@ -14,10 +13,10 @@ import org.firstinspires.ftc.teamcode.Robot;
 */
 
 public class PositionViewer implements Listener {
-    private final OdometersPositionListener odometers = new OdometersPositionListener();
+    private final LocalPositionListener localViewer = new LocalPositionListener();
     @Override
     public void init(Robot robot) {
-        odometers.init(robot);
+        localViewer.init(robot);
         this.robot = robot;
         this.gyro = robot.imu;
     }
@@ -31,24 +30,25 @@ public class PositionViewer implements Listener {
         return positionGlobal;
     }
 
-    public OdometersPositionListener getOdometers() {
-        return odometers;
+    public LocalPositionListener getLocalViewer() {
+        return localViewer;
     }
 
     private void calcGlobalPosition() {
-
         Position dp = new Position();
-        dp.copyFrom(odometers.deltaPos);
-        dp.rotateVector(robot.positionViewer.getPositionRealGlobal().h);
-        positionGlobal.vectorPlus(dp);
+        dp.copyFrom(localViewer.deltaPos);
+        dp.rotateVector(localViewer.getLocalPositions().h);
 
+        positionGlobal.vectorPlus(dp);
+        positionGlobal.h = localViewer.getLocalPositions().h;
+        
         positionRealGlobal.copyFrom(positionGlobal);
-        positionRealGlobal.linearMultiply(RobotConstant.ENC_TIK_PER_SM);
+        positionRealGlobal.linearMultiply(RobotConstant.SM_PER_ODOMETER_TIK);
     }
 
     @Override
     public void read() {
-        odometers.update();
+        localViewer.update();
         calcGlobalPosition();
     }
 

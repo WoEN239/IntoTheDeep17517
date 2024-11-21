@@ -10,22 +10,22 @@ public class AutonomusStateMachine {
     public void init(Robot robot){
         this.robot = robot;
     }
-    State state ;
-    State target;
+    AutonomusState state ;
+    AutonomusState target;
     ElapsedTime timer = new ElapsedTime();
 
-    public void setTarget(State target) {
+    public void setTarget(AutonomusState target) {
         this.target = target;
     }
 
     public void updateState(){
-        robot.intake.setTarget(state.getIntakeState());
-        robot.positionController.move(state.position);
+        robot.intake.setTarget(state.data.intakeState);
+        robot.positionController.move(state.data.position);
     }
     public void changeState(){
-        robot.intake.setTarget(target.getIntakeState());
+        robot.intake.setTarget(target.data.intakeState);
         if(timer.seconds()>3) {
-            robot.positionController.move(target.position);
+            robot.positionController.move(target.data.position);
             if(robot.positionController.isAtTarget()){
                 state = target;
             }

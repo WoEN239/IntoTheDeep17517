@@ -46,7 +46,7 @@ public class Motor {
     public PidStatus pidStatusB = new PidStatus(0, 0, 0, 0,0,0,0, 0, 0);
     Pid pidB = new Pid(pidStatusB);
 
-    public FilterStatus filterStatus = new FilterStatus(6, 150, 30, 1, 0.1, 0.3);
+    public FilterStatus filterStatus = new FilterStatus(6, 150, 30, 0.5, 0.1, 0.3);
     Filter filter = new Filter().init(filterStatus);
 
     public void setVel(double velTar) {

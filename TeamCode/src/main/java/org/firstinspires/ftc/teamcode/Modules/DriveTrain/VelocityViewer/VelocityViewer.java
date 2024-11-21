@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Modules.DriveTrain.VelocityViewer;
 import static java.lang.Math.abs;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Devices.Gyro;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant;
 import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.Listener;
 import org.firstinspires.ftc.teamcode.Robot;
@@ -19,7 +18,7 @@ public class VelocityViewer implements Listener {
     }
 
     private Robot robot;
-    private final OdometersVelocityListener odometers = new OdometersVelocityListener();
+    private final LocalVelocityListener odometers = new LocalVelocityListener();
 
     private final Position velocityGlobal = new Position(0, 0, 0);
     private final Position velocityRealGlobal = new Position(0, 0, 0);
@@ -27,21 +26,18 @@ public class VelocityViewer implements Listener {
     public Position getVelocityGlobal() {
         return velocityGlobal;
     }
-
     public Position getVelocityRealGlobal(){return velocityRealGlobal;}
 
-    public OdometersVelocityListener getOdometers() {
+    public LocalVelocityListener getLocalVelocityListener() {
         return odometers;
     }
 
     private void calcGlobalVelocity() {
-
         velocityGlobal    .copyFrom(odometers.getOdometersVelocities());
         velocityGlobal    .rotateVector(robot.positionViewer.getPositionRealGlobal().h);
 
         velocityRealGlobal.copyFrom(velocityGlobal);
         velocityRealGlobal.linearMultiply(RobotConstant.ENC_TIK_PER_SM);
-        velocityRealGlobal.angleMultiply(1.0/RobotConstant.TIK_PER_ANGLE);
     }
 
     @Override

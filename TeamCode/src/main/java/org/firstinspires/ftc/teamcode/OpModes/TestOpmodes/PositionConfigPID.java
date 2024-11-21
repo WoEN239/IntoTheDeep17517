@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.Robot;
 @TeleOp(group = "Test")
 @Config
 public class PositionConfigPID extends BaseMode {
-    public static Position pos = new Position();
+    public static Position pos = new Position()                ;
     public static Position target = new Position(0,0,0);
     ElapsedTime timer = new ElapsedTime();
     public static int k = 5;
@@ -20,7 +20,7 @@ public class PositionConfigPID extends BaseMode {
     @Override
     public void doing() {
         DriveTrainMotors.initPid();
-        pos = robot.positionViewer.getOdometers().getOdometersPositions();
+        pos.copyFrom(robot.positionViewer.getPositionRealGlobal());
         Robot.telemetry.addData("xV", pos.x);
         Robot.telemetry.addData("yV", pos.y);
         Robot.telemetry.addData("hV", pos.h);
@@ -28,12 +28,12 @@ public class PositionConfigPID extends BaseMode {
         Robot.telemetry.addData("xT", n*target.x);
         Robot.telemetry.addData("yT", n*target.y);
         Robot.telemetry.addData("hT", n*target.h);
-//        if(timer.seconds()%(2*k) > k){
-//            robot.velocityController.move(target);
-//            n = 1;
-//        }else{
-//            robot.velocityController.move(new Position(-target.x,-target.y,-target.h));
-//            n = -1;
-//        }
+        if(timer.seconds()%(2*k) > k){
+            robot.positionController.move(target);
+            n = 1;
+        }else{
+            robot.positionController.move(new Position(-target.x,-target.y,-target.h));
+            n = -1;
+        }
     }
 }

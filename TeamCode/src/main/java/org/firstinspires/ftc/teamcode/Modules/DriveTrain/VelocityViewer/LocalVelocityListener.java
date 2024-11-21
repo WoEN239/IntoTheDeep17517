@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain.VelocityViewer;
 
+import com.acmerobotics.dashboard.config.Config;
+
 import org.firstinspires.ftc.teamcode.Devices.DriveTrainMotors;
 import org.firstinspires.ftc.teamcode.Devices.Motor;
 import org.firstinspires.ftc.teamcode.Math.Position;
@@ -8,8 +10,8 @@ import org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstan
 /*
  Writing by EgorKhvostikov
 */
-
-public class OdometersVelocityListener {
+@Config
+public class LocalVelocityListener {
 
     public void init() {
         rightOdometer= DriveTrainMotors.rightOdometer;
@@ -32,11 +34,13 @@ public class OdometersVelocityListener {
         DriveTrainMotors.yOdometer    .update();
     }
 
+    public static double k = 15.25;
     private void calcLocalVelocity() {
-        double k = 122;
         double x = (rightOdometer.getVelocity() + leftOdometer.getVelocity()) / 2.0;
-        double h = (rightOdometer.getVelocity() - leftOdometer.getVelocity()) / 2.0 / RobotConstant.TIK_PER_ANGLE;
-        double y = (yOdometer.getVelocity())    - h*k;
+        double h    = ((rightOdometer.getVelocity() - leftOdometer.getVelocity()) / 2.0) / RobotConstant.TIK_PER_ANGLE;
+        double yFix = (k*Math.toRadians(h))/RobotConstant.SM_PER_ODOMETER_TIK;
+        double y    = (yOdometer.getVelocity());
+        y+= yFix;
 
         deltaVel = new Position(x, y, h);
         deltaVel.vectorMinus(odometersVelocities);

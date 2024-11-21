@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers;
 
 import static java.lang.Math.abs;
 
+import com.acmerobotics.dashboard.config.Config;
+
 import org.firstinspires.ftc.teamcode.Math.Pid;
 import org.firstinspires.ftc.teamcode.Math.PidStatus;
 import org.firstinspires.ftc.teamcode.Math.Position;
@@ -12,7 +14,7 @@ import org.firstinspires.ftc.teamcode.Robot;
  * Writing by EgorKhvostikov
  */
 
-
+@Config
 public class PositionController implements Controller {
     Robot robot;
     private VelocityController controller;
@@ -41,7 +43,7 @@ public class PositionController implements Controller {
     public static PidStatus pidStatusX = new PidStatus(0, 0, 0, 0,0,0,0, 0, 0);
     Pid pidX = new Pid(pidStatusX);
 
-    public static PidStatus pidStatusH = new PidStatus(0, 0, 0, 0,0,0,0, 0, 0);
+    public static PidStatus pidStatusH = new PidStatus(4, 15, 0.2, 0,0,0,0, 15, 0);
     Pid pidH = new Pid(pidStatusH);
 
     public void update() {
@@ -64,7 +66,7 @@ public class PositionController implements Controller {
         pidResult.h = pidH.getU();
         if (isUpdate) {
             VelocityController.isUpdate = true;
-            controller.moveReal(pidResult);
+            controller.move(pidResult);
         }
     }
     public boolean isAtTarget(){

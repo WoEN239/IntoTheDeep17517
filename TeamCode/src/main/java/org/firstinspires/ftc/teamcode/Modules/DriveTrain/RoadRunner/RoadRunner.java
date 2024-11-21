@@ -82,7 +82,7 @@ public class RoadRunner implements IModule {
 
     private void move() {
         Pose2d pose = robot.positionViewer.getPositionGlobal().toRRPose();
-        PoseVelocity2d velocity = robot.velocityViewer.getOdometers().getOdometersVelocities().toRRVelocity();
+        PoseVelocity2d velocity = robot.velocityViewer.getLocalVelocityListener().getOdometersVelocities().toRRVelocity();
 
         if (!trajectories.isEmpty()) {
             Trajectory trajectoryNow = trajectories.get(0);

@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.Modules.DriveTrain.PositionViewer;
 
 import static java.lang.Math.abs;
 
+import com.acmerobotics.dashboard.config.Config;
+
 import org.firstinspires.ftc.teamcode.Devices.DriveTrainMotors;
 import org.firstinspires.ftc.teamcode.Devices.Motor;
 import org.firstinspires.ftc.teamcode.Math.Position;
@@ -12,8 +14,8 @@ import org.firstinspires.ftc.teamcode.Robot;
 /*
  Writing by EgorKhvostikov
 */
-
-public class OdometersPositionListener {
+@Config
+public class LocalPositionListener {
     Gyro gyro;
     public void init(Robot robot) {
         rightOdometer= DriveTrainMotors.rightOdometer;
@@ -32,17 +34,20 @@ public class OdometersPositionListener {
     private Motor leftOdometer ;
     private Motor yOdometer    ;
 
-    public Position getOdometersPositions() {
+    public Position getLocalPositions() {
         return odometersPositions;
     }
     public Position deltaPos = new Position(0,0,0);
 
     double angleFix = 0;
+    public static double k = 15.25;
     private void calcLocalPosition() {
-        double k = 122;
         double x = (rightOdometer.getPosition() + leftOdometer.getPosition()) / 2.0;
-        double hClean = (rightOdometer.getPosition() - leftOdometer.getPosition()) / 2.0 / RobotConstant.TIK_PER_ANGLE;
-        double y = (yOdometer.getPosition()) - hClean*k;
+        double hClean = ((rightOdometer.getPosition() - leftOdometer.getPosition()) / 2.0) / RobotConstant.TIK_PER_ANGLE;
+        double yFix = (k*Math.toRadians(hClean))/RobotConstant.SM_PER_ODOMETER_TIK;
+        double y    = (yOdometer.getPosition());
+        y+= yFix;
+
 
         hClean = Position.normalizeAngle(hClean);
         if (gyro.isNewValue()){

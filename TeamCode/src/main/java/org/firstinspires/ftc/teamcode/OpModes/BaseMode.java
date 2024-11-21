@@ -38,7 +38,7 @@ public abstract class BaseMode extends LinearOpMode {
             robot.updateTasks();
             robot.update();
         }
-        System.exit(0);
+//        System.exit(0);
     }
 
 

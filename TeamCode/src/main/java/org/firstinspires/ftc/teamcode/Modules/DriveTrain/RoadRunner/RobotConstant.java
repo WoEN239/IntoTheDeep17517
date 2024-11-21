@@ -27,6 +27,7 @@ public class RobotConstant {
 
     public static double TICKS_PER_REV = 480;
     public static double MAX_RPM = 300;
+    public static double MAX_MOTOR_TICKS_VEL = 2400;
 
     public static double WHEEL_RADIUS = 2;
     public static double GEAR_RATIO = 1;

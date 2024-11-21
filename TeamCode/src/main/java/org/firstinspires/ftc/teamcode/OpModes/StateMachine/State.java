@@ -4,8 +4,8 @@ import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.Intake.StateMachine.IntakeState;
 
 public class State {
-    IntakeState intakeState = IntakeState.WAIT_DOWN;
-    Position    position    = new Position(0,0,0);
+    IntakeState intakeState ;
+    Position    position    ;
 
     public State(IntakeState intakeState, Position position) {
         this.intakeState = intakeState;
