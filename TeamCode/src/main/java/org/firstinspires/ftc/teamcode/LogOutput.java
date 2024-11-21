@@ -23,19 +23,25 @@ public class LogOutput implements ILogiable {
     }
 
 
-    public void addData( Map<String, Object> map) {
-        RobotLog.d(String.format("text = %s, value = %s",map.get(text)));
+    public void addData(String text, Object value) {
+        RobotLog.d(String.format("text = %s, value = %s",text, value.toString()));
     }
 
     public void update() {
-        Map<String, Object> map = addLoggingObjects(text, value);
-        addData(map);
+        Map<String, Object> map = Collections.emptyMap();
+        map.put(text, value);
+        addLoggingObjects(map);
     }
 
     @Override
-    public Map<String, Object> addLoggingObjects(String text, Object value) {
-        Map<String, Object> map = Collections.emptyMap();
-        map.put(text, value);
-        return map;
+    public Object addLoggingObjects(Map<String, Object> map) {
+        Object pair = "void";
+        String key = "";
+        for(Map.Entry<String, Object> entry : map.entrySet()){
+            pair = entry.getValue();
+            key = entry.getKey();
+            addData(key, pair);
+        }
+        return pair;
     }
 }
