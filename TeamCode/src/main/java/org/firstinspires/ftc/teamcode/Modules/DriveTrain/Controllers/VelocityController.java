@@ -8,7 +8,6 @@ import org.firstinspires.ftc.teamcode.Math.PidStatus;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.Controller;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Devices.DriveMotorsMap;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant;
 import org.firstinspires.ftc.teamcode.Robot;
 
 /**
@@ -31,27 +30,31 @@ public class VelocityController implements Controller {
 
     }
 
-    public void move(Position target) {
+    public void moveLocal(Position target){
         this.target.x = target.x;
         this.target.y = target.y;
         this.target.h = target.h;
+
         isUpdate = true;
     }
 
-    public void moveReal(Position target){
-        Position encTarget = target.linearMultiply(RobotConstant.ENC_TIK_PER_SM);
-        encTarget.h = target.h/RobotConstant.TIK_PER_ANGLE;
-        move(encTarget);
+    public void moveGlobal(Position t) {
+        Position target = new Position().copyFrom(t);
+        this.target.x = target.x;
+        this.target.y = target.y;
+        this.target.h = target.h;
+
+        isUpdate = true;
     }
+
     private void updatePosition() {
-        position = robot.velocityViewer.getVelocityGlobal();
+        position = robot.velocityViewer.getLocalVelocityListener().getVelocityLocalReal();
     }
 
-
-    public static PidStatus pidStatusY = new PidStatus(0, 0, 0, 0,1,0,0, 0, 0);
+    public static PidStatus pidStatusY = new PidStatus(0.5, 0, 0, 0,0.8,0,0, 0, 0);
     Pid pidY = new Pid(pidStatusY);
 
-    public static PidStatus pidStatusX = new PidStatus(0, 0, 0, 0,1,0,0, 0, 0);
+    public static PidStatus pidStatusX = new PidStatus(0.4, 0.5, 0.0025, 0,0.65,0,0, 3, 0);
     Pid pidX = new Pid(pidStatusX);
 
     public static PidStatus pidStatusH = new PidStatus(0.02, 0, 0, 0,0.055,0,0, 0, 0);

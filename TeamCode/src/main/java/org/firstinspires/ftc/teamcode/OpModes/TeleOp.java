@@ -8,7 +8,7 @@ public class TeleOp extends BaseMode {
     Position position = new Position();
     public void doing() {
         position.copyFrom(robot.velocityViewer.getLocalVelocityListener().getOdometersVelocities());
-        robot.velocityController.move(
+        robot.velocityController.moveGlobal(
                 new Position(leftStickY*360, leftStickX*360, rightStickX*360)
         );
 

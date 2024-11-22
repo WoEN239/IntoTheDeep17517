@@ -41,8 +41,9 @@ public class DriveTrainMotors {
         rightBackDrive   .setDir(MotorDirection.FORWARD);
         rightForwardDrive.setDir(MotorDirection.FORWARD);
 
-        rightOdometer.setDir(MotorDirection.FORWARD);
-        leftOdometer .setDir(MotorDirection.BACK);
+        rightOdometer.setDir(MotorDirection.BACK);
+        leftOdometer .setDir(MotorDirection.FORWARD);
+        yOdometer    .setDir(MotorDirection.BACK);
 
         leftBackDrive.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftBackDrive.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

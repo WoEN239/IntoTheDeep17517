@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Devices.DriveTrainMotors;
 import org.firstinspires.ftc.teamcode.Math.Position;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.PositionController;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 import org.firstinspires.ftc.teamcode.Robot;
 
@@ -19,8 +20,9 @@ public class VelocityConfigPID extends BaseMode {
     int n = 1;
     @Override
     public void doing() {
+        PositionController.isUpdate = false;
         DriveTrainMotors.initPid();
-        velPos.copyFrom(robot.velocityViewer.getVelocityRealGlobal());
+        velPos.copyFrom(robot.velocityViewer.getLocalVelocityListener().getVelocityLocalReal());
         Robot.telemetry.addData("xV", velPos.x);
         Robot.telemetry.addData("yV", velPos.y);
         Robot.telemetry.addData("hV", velPos.h);
@@ -29,10 +31,10 @@ public class VelocityConfigPID extends BaseMode {
         Robot.telemetry.addData("yT", n*velTarget.y);
         Robot.telemetry.addData("hT", n*velTarget.h);
         if(timer.seconds()%(2*k) > k){
-            robot.velocityController.move(velTarget);
+            robot.velocityController.moveLocal(velTarget);
             n = 1;
         }else{
-            robot.velocityController.move(new Position(-velTarget.x,-velTarget.y,-velTarget.h));
+            robot.velocityController.moveLocal(new Position(-velTarget.x,-velTarget.y,-velTarget.h));
             n = -1;
         }
     }

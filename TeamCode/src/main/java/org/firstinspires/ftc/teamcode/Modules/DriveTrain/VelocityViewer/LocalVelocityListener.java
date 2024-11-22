@@ -20,8 +20,10 @@ public class LocalVelocityListener {
     }
 
     private final Position odometersVelocities = new Position(0, 0, 0);
+    private final Position realVelocity = new Position(0, 0, 0);
 
     public Position getOdometersVelocities() {return odometersVelocities;}
+    public Position getVelocityLocalReal(){return realVelocity;}
 
     private Motor    rightOdometer;
     private Motor    leftOdometer ;
@@ -37,7 +39,7 @@ public class LocalVelocityListener {
     public static double k = 15.25;
     private void calcLocalVelocity() {
         double x = (rightOdometer.getVelocity() + leftOdometer.getVelocity()) / 2.0;
-        double h    = ((rightOdometer.getVelocity() - leftOdometer.getVelocity()) / 2.0) / RobotConstant.TIK_PER_ANGLE;
+        double h    = ((-rightOdometer.getVelocity() + leftOdometer.getVelocity()) / 2.0) / RobotConstant.TIK_PER_ANGLE;
         double yFix = (k*Math.toRadians(h))/RobotConstant.SM_PER_ODOMETER_TIK;
         double y    = (yOdometer.getVelocity());
         y+= yFix;
@@ -48,6 +50,9 @@ public class LocalVelocityListener {
         odometersVelocities.x = x;
         odometersVelocities.y = y;
         odometersVelocities.h = h;
+
+        realVelocity.copyFrom(odometersVelocities);
+        realVelocity.linearMultiply(RobotConstant.SM_PER_ODOMETER_TIK);
     }
 
     public void update()

@@ -90,7 +90,7 @@ public class RoadRunner implements IModule {
             double duration = timeTrajectory.duration;
             Pose2dDual<Time> target = timeTrajectory.get(timer.seconds());
             PoseVelocity2dDual<Time> velTarget = holonomicController.compute(target, pose, velocity);
-            robot.velocityController.move(Position.fromRRVelocity(velTarget));
+            robot.velocityController.moveGlobal(Position.fromRRVelocity(velTarget));
 
             if (timer.seconds() > duration) {
                 timer.reset();
@@ -101,7 +101,7 @@ public class RoadRunner implements IModule {
             double duration = turnNow.duration;
             Pose2dDual<Time> target = turnNow.get(timer.seconds());
             PoseVelocity2dDual<Time> velTarget = holonomicController.compute(target, pose, velocity);
-            robot.velocityController.move(Position.fromRRVelocity(velTarget));
+            robot.velocityController.moveGlobal(Position.fromRRVelocity(velTarget));
             if (timer.seconds() > duration) {
                 timer.reset();
                 trajectories.remove(0);

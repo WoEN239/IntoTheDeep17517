@@ -21,7 +21,7 @@ public class RoadRunnerTest extends BaseMode {
                         )
                 },
                 new Runnable[]{
-                        () -> robot.velocityController.move(new Position())
+                        () -> robot.velocityController.moveGlobal(new Position())
                 }
         ));
     }

@@ -32,15 +32,19 @@ public class PositionController implements Controller {
         position = robot.positionViewer.getPositionRealGlobal();
     }
 
-    public void move(Position target) {
+    public void move(Position t) {
+        Position target = new Position().copyFrom(t);
+        target.vectorMinus(robot.positionViewer.getPositionRealGlobal());
+        target.vectorPlus (robot.positionViewer.getLocalViewer().getRealLocalPositions());
+
         this.target = target;
         isUpdate = true;
     }
 
-    public static PidStatus pidStatusY = new PidStatus(0, 0, 0, 0,0,0,0, 0, 0);
+    public static PidStatus pidStatusY = new PidStatus(3.5, 7.50, 0.25, 0,0,0,0, 10, 0);
     Pid pidY = new Pid(pidStatusY);
 
-    public static PidStatus pidStatusX = new PidStatus(0, 0, 0, 0,0,0,0, 0, 0);
+    public static PidStatus pidStatusX = new PidStatus(3.5, 7.50, 0.25, 0,0,0,0, 10, 0);
     Pid pidX = new Pid(pidStatusX);
 
     public static PidStatus pidStatusH = new PidStatus(4, 15, 0.2, 0,0,0,0, 15, 0);
@@ -66,7 +70,7 @@ public class PositionController implements Controller {
         pidResult.h = pidH.getU();
         if (isUpdate) {
             VelocityController.isUpdate = true;
-            controller.move(pidResult);
+            controller.moveGlobal(pidResult);
         }
     }
     public boolean isAtTarget(){

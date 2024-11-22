@@ -29,6 +29,7 @@ public class LocalPositionListener {
         DriveTrainMotors.yOdometer    .update();
     }
     private final Position odometersPositions = new Position(0, 0, 0);
+    private final Position realLocalPositions = new Position(0, 0, 0);
 
     private Motor rightOdometer;
     private Motor leftOdometer ;
@@ -37,13 +38,18 @@ public class LocalPositionListener {
     public Position getLocalPositions() {
         return odometersPositions;
     }
+
+    public Position getRealLocalPositions() {
+        return realLocalPositions;
+    }
+
     public Position deltaPos = new Position(0,0,0);
 
     double angleFix = 0;
     public static double k = 15.25;
     private void calcLocalPosition() {
         double x = (rightOdometer.getPosition() + leftOdometer.getPosition()) / 2.0;
-        double hClean = ((rightOdometer.getPosition() - leftOdometer.getPosition()) / 2.0) / RobotConstant.TIK_PER_ANGLE;
+        double hClean = ((-rightOdometer.getPosition() + leftOdometer.getPosition()) / 2.0) / RobotConstant.TIK_PER_ANGLE;
         double yFix = (k*Math.toRadians(hClean))/RobotConstant.SM_PER_ODOMETER_TIK;
         double y    = (yOdometer.getPosition());
         y+= yFix;
@@ -65,6 +71,9 @@ public class LocalPositionListener {
         odometersPositions.x = x;
         odometersPositions.y = y;
         odometersPositions.h = h;
+
+        realLocalPositions.copyFrom(odometersPositions);
+        realLocalPositions.linearMultiply(RobotConstant.SM_PER_ODOMETER_TIK);
     }
 
     public void update() {
