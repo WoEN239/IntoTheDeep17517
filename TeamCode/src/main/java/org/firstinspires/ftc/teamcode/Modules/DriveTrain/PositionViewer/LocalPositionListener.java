@@ -56,8 +56,11 @@ public class LocalPositionListener {
 
 
         hClean = Position.normalizeAngle(hClean);
+        Robot.telemetry.addData("hGyro", gyro.getAngle());
+        Robot.telemetry.addData("hClean", hClean);
+
         if (gyro.isNewValue()){
-            if(abs(gyro.getAngle()-hClean)> 2){
+            if(abs(gyro.getAngle()-hClean)> 1){
                 angleFix = hClean-gyro.getAngle();
             }
         }

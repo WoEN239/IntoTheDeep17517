@@ -29,25 +29,26 @@ public class PositionController implements Controller {
     }
 
     private void updatePosition() {
-        position = robot.positionViewer.getPositionRealGlobal();
+        position = robot.positionViewer.getLocalViewer().getRealLocalPositions();
     }
 
     public void move(Position t) {
         Position target = new Position().copyFrom(t);
         target.vectorMinus(robot.positionViewer.getPositionRealGlobal());
+        target.rotateVector(- robot.positionViewer.getPositionRealGlobal().h);
         target.vectorPlus (robot.positionViewer.getLocalViewer().getRealLocalPositions());
 
         this.target = target;
         isUpdate = true;
     }
 
-    public static PidStatus pidStatusY = new PidStatus(3.5, 7.50, 0.25, 0,0,0,0, 10, 0);
+    public static PidStatus pidStatusY = new PidStatus(0, 0, 0., 0,0,0,0, 0, 0);
     Pid pidY = new Pid(pidStatusY);
 
-    public static PidStatus pidStatusX = new PidStatus(3.5, 7.50, 0.25, 0,0,0,0, 10, 0);
+    public static PidStatus pidStatusX = new PidStatus(3, 50, 0.25, 0,0,0,0, 10, 0);
     Pid pidX = new Pid(pidStatusX);
 
-    public static PidStatus pidStatusH = new PidStatus(4, 15, 0.2, 0,0,0,0, 15, 0);
+    public static PidStatus pidStatusH = new PidStatus(3, 50, 0.01, 0,0,0,0, 15, 0);
     Pid pidH = new Pid(pidStatusH);
 
     public void update() {
