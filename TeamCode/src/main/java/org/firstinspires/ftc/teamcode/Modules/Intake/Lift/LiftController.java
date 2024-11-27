@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.Lift;
 import static java.lang.Math.abs;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Devices.LiftHangingMotors;
 import org.firstinspires.ftc.teamcode.Devices.Motor;
@@ -11,15 +12,16 @@ import org.firstinspires.ftc.teamcode.Math.PidStatus;
 import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.Controller;
 import org.firstinspires.ftc.teamcode.Robot;
 
-/*
+/**
  * Writing by @MrFrosty1234
-*/
+ */
 @Config
 public class LiftController implements Controller {
     LiftPosition liftPosition;
     Robot robot;
 
-    Motor liftMotor;
+    public Motor liftLeftMotor;
+    public Motor liftRightMotor;
 
     LiftListener liftListener;
 
@@ -28,6 +30,8 @@ public class LiftController implements Controller {
     public static PidStatus pidStatus = new PidStatus(0.06, 0.001, 0.00001, 0, 0, 0, 0, 2, 0.5);
     Pid pid = new Pid(pidStatus);
 
+    public static PidStatus pidStatusSync = new PidStatus(0.00001, 0, 0, 0, 0, 0, 0, 0, 0);
+    Pid pidSync = new Pid(pidStatusSync);
     public static double gravity = 0.1;
 
 
@@ -36,12 +40,14 @@ public class LiftController implements Controller {
         this.robot = robot;
         liftListener = robot.liftListener;
 
-        liftMotor = LiftHangingMotors.liftMotor;
+        liftLeftMotor = LiftHangingMotors.liftLeftMotor;
+        liftRightMotor = LiftHangingMotors.liftRightMotor;
     }
 
     public void setPower() {
         updateLift();
-        liftMotor.setVoltage(powerToMotor);
+        liftLeftMotor.setVoltage(powerToLeftMotor - uSync);
+        liftRightMotor.setVoltage(powerToRightMotor + uSync);
     }
 
 
@@ -50,19 +56,37 @@ public class LiftController implements Controller {
     }
 
 
-    double powerToMotor = 0;
+    public double powerToLeftMotor = 0;
+    public double powerToRightMotor = 0;
 
+    double uSync = 0;
 
     public void updateLift() {
+        pidSync.setTarget(0);
+        pidSync.setPos(-liftListener.errSync);
+        pidSync.update();
+        uSync = pidSync.getU();
         if (!isAtTarget()) {
             pid.setTarget(targetPosition.get());
             pid.setPos(liftListener.getPosition());
             pid.update();
-            powerToMotor = pid.getU();
+            powerToLeftMotor = pid.getU();
+            powerToRightMotor = pid.getU();
 
+            powerToLeftMotor = Range.clip(powerToLeftMotor, -1, 1);
+            powerToRightMotor = Range.clip(powerToRightMotor, -1, 1);
         } else {
-            if (liftListener.buttonDown.getState() || (isAtTarget() && !liftListener.buttonDown.getState())) {
-                powerToMotor = gravity;
+            if (liftListener.rightButtonDown.getState()) {
+                powerToRightMotor = gravity;
+                uSync = 0;
+            }
+            if (liftListener.leftButtonDown.getState()) {
+                powerToLeftMotor = gravity;
+                uSync = 0;
+            }
+            if (isAtTarget() && (!liftListener.rightButtonDown.getState() && !liftListener.leftButtonDown.getState())) {
+                uSync = 0;
+                powerToLeftMotor = powerToRightMotor = gravity;
             }
         }
         pid.update();
@@ -70,32 +94,25 @@ public class LiftController implements Controller {
 
     @Override
     public void update() {
-        liftMotor.update();
+        liftRightMotor.update();
+        liftLeftMotor.update();
         setPower();
-    }
-
-    public LiftPosition getTargetPosition() {
-        return targetPosition;
     }
 
     public void setDownPos() {
         targetPosition = LiftPosition.DOWN;
     }
 
-    public void setLowAxis() {
-        targetPosition = LiftPosition.LOW_AXIS;
-    }
 
-    public void setHighAxis() {
-        targetPosition = LiftPosition.HIGHEST_AXIS;
-    }
-
-    public void setLowBasket() {
-        targetPosition = LiftPosition.LOWEST_BASKET;
+    public LiftPosition getTargetPosition(){
+        return targetPosition;
     }
 
     public void setHighBasket() {
         targetPosition = LiftPosition.HIGHEST_BASKET;
     }
-    public void setPosition(LiftPosition pos){targetPosition = pos;}
+
+    public void setPosition(LiftPosition liftPosition) {
+        this.targetPosition = liftPosition;
+    }
 }

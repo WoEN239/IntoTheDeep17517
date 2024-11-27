@@ -9,18 +9,21 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
  */
 
 public class Sensors {
-    public static DigitalChannel downButton;
+    public static DigitalChannel downLeftButton;
+
+    public static DigitalChannel downRightButton;
     public static AnalogInput leftColorSensor;
     public static AnalogInput rightColorSensor;
 
     public static void init(HardwareMap hardwareMap) {
         leftColorSensor = hardwareMap.get(AnalogInput.class, "leftColorSensor");
-        downButton = hardwareMap.get(DigitalChannel.class, "downButton");
+        downLeftButton = hardwareMap.get(DigitalChannel.class, "downLeftButton");
         rightColorSensor = hardwareMap.get(AnalogInput.class, "rightColorSensor");
+        downRightButton = hardwareMap.get(DigitalChannel.class, "downRightButton");
     }
 
     public void reset() {
-        downButton.setMode(DigitalChannel.Mode.INPUT);
+        downLeftButton.setMode(DigitalChannel.Mode.INPUT);
     }
 
 }
