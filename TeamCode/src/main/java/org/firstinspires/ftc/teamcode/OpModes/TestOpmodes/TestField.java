@@ -7,21 +7,17 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
+import org.firstinspires.ftc.teamcode.Robot;
+
 import java.util.Calendar;
 
 @TeleOp
 
-public class TestField extends LinearOpMode {
-
-    TelemetryPacket packet = new TelemetryPacket();
+public class TestField extends BaseMode {
 
     @Override
-    public void runOpMode() throws InterruptedException {
-        waitForStart();
-        while(opModeIsActive()){
-            packet = new TelemetryPacket();
-            packet.fieldOverlay().setFill("blue").fillRect(-20,-20,40,40);
-            FtcDashboard.getInstance().sendTelemetryPacket(packet);
-        }
+    public void doing() {
+        robot.fieldView.update();
     }
 }

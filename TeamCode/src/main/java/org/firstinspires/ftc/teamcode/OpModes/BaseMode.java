@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.Robot;
 public abstract class BaseMode extends LinearOpMode {
     protected Robot robot;
     public static boolean isCamera = false;
-    public static boolean isField = false;
+    public static boolean isField = true;
 
     protected void initOpMode() {
         robot = new Robot(this);
@@ -35,6 +35,7 @@ public abstract class BaseMode extends LinearOpMode {
                 firstStart = false;
             }
             doing();
+            robot.fieldView.updateField();
             robot.updateTasks();
             robot.update();
         }
