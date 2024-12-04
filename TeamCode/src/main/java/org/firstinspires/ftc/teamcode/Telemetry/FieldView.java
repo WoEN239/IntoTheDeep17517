@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Telemetry;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.canvas.Canvas;
@@ -6,7 +6,7 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 
 import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.Controller;
-import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
+import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 @Config
 

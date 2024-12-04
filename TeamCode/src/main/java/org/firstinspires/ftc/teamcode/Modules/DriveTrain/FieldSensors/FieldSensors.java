@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.AnalogInput;
 
 import org.firstinspires.ftc.teamcode.Devices.Sensors;
 import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.Listener;
-import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 @Config
 public class FieldSensors implements Listener {

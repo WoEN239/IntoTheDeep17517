@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.RotateServoPosition
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftController;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftListener;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
-import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 public class IntakeStateMachine {
     IntakeState state  = IntakeState.WAIT_DOWN;

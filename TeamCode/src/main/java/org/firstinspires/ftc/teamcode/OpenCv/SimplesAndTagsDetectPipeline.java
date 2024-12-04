@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode.OpenCv;
 
 import com.acmerobotics.dashboard.config.Config;
 
-import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.Team;
+import org.firstinspires.ftc.teamcode.Robot.Robot;
+import org.firstinspires.ftc.teamcode.Robot.Team;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import org.opencv.core.Core;

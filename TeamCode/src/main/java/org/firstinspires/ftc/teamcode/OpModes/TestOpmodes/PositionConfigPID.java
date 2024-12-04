@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Devices.DriveTrainMotors;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
-import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 @TeleOp(group = "Test")
 @Config

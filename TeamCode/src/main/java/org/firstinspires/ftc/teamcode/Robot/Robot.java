@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Robot;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Devices.DevicePool;
-import org.firstinspires.ftc.teamcode.Events.Task;
 import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.IModule;
 import org.firstinspires.ftc.teamcode.Modules.Intake.StateMachine.IntakeStateMachine;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
@@ -27,7 +26,7 @@ public class Robot extends ModulesList {
 
     public static Telemetry telemetry = FtcDashboard.getInstance().getTelemetry();
 
-    public static LogOutput logOutput = new LogOutput();
+  //  public static LogOutput logOutput;
 
     public ElapsedTime timer = new ElapsedTime();
     private final ArrayList<Task> taskQueue = new ArrayList<>();
@@ -46,9 +45,9 @@ public class Robot extends ModulesList {
         intake.init(this);
 
         autonomusStateMachine.init(this);
-//        if (BaseMode.isCamera) {
-//            camera.init(this);
-//        }
+        if (BaseMode.isCamera) {
+            camera.init(this);
+        }
      if(BaseMode.isField)
         fieldView.init(this);
     }
@@ -66,7 +65,7 @@ public class Robot extends ModulesList {
         ) {
             i.init(this);
         }
-        logOutput.init(this);
+    //    logOutput.init(this);
     }
 
     public void update() {
@@ -85,7 +84,7 @@ public class Robot extends ModulesList {
             i.update();
         }
 
-        logOutput.update();
+      //  logOutput.update();
         telemetry.update();
 
     }

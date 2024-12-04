@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.Devices.Motor;
 import org.firstinspires.ftc.teamcode.Devices.Sensors;
 import org.firstinspires.ftc.teamcode.Math.Button;
 import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.Listener;
-import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 public class LiftListener implements Listener {
 

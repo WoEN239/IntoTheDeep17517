@@ -4,13 +4,12 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.teamcode.Math.Filter;
 import org.firstinspires.ftc.teamcode.Math.FilterStatus;
 import org.firstinspires.ftc.teamcode.Math.Pid;
 import org.firstinspires.ftc.teamcode.Math.PidStatus;
-import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 public class Motor {
     public DcMotorEx dev;

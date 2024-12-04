@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.OpModes.StateMachine;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 public class AutonomusStateMachine {
     Robot robot;

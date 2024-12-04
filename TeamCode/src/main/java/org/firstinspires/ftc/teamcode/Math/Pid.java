@@ -5,7 +5,7 @@ import static java.lang.Math.signum;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 /**
  * Writing by EgorKhvostikov

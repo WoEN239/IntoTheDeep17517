@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Devices.GrabberAndTransferServo;
 import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.Controller;
-import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 /**
  * Writing by @MrFrosty1234

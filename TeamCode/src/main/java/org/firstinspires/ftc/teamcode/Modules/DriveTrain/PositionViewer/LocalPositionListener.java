@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Math.ExpanentoinFilter;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Devices.Gyro;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant;
-import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 /*
  Writing by EgorKhvostikov
@@ -51,7 +51,7 @@ public class LocalPositionListener {
     public static double k = 15.25;
 
     double s1Old = 0;
-    double s2Old = 0;
+    double xHOld = 0;
     private void calcLocalPosition() {
         double x = (rightOdometer.getPosition() + leftOdometer.getPosition()) / 2.0;
         double hClean = ((-rightOdometer.getPosition() + leftOdometer.getPosition()) / 2.0) / RobotConstant.TIK_PER_ANGLE;
@@ -60,25 +60,20 @@ public class LocalPositionListener {
         y+= yFix;
 
         hClean = Position.normalizeAngle(hClean);
-        Robot.telemetry.addData("hGyro", gyro.getAngle());
-        Robot.telemetry.addData("hClean",hClean         );
-        Robot.telemetry.addData("filter",filter.getX()  );
 
         double d1 = hClean          - s1Old;
-        double d2 = gyro.getAngle() - s2Old;
+        double d2 = gyro.getAngle() - xHOld;
         d2 = Position.normalizeAngle(d2);
         filter.update(d1,d2);
 
         s1Old = hClean;
-        s2Old = gyro.getAngle();
+        xHOld = filter.getX();
 
-        if (gyro.isNewValue()){
-            if(abs(gyro.getAngle()-hClean)> 1){
-                angleFix = hClean-gyro.getAngle();
-            }
-        }
+        Robot.telemetry.addData("hGyro", gyro.getAngle());
+        Robot.telemetry.addData("hClean",hClean         );
+        Robot.telemetry.addData("filter",filter.getX()  );
 
-        double h = hClean - angleFix;
+        double h = filter.getX();
         h = Position.normalizeAngle(h);
 
         deltaPos = new Position(x, y, h);

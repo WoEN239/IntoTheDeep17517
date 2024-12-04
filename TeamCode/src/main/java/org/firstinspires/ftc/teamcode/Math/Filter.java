@@ -4,7 +4,7 @@ import static java.lang.Math.abs;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 import java.util.Arrays;
 

@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
-import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Robot.Robot;
 @TeleOp
 public class OdometerTest extends BaseMode {
     Position position = new Position();

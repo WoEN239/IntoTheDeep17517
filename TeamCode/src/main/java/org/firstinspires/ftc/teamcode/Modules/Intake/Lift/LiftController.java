@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Devices.Motor;
 import org.firstinspires.ftc.teamcode.Math.Pid;
 import org.firstinspires.ftc.teamcode.Math.PidStatus;
 import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.Controller;
-import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 /**
  * Writing by @MrFrosty1234

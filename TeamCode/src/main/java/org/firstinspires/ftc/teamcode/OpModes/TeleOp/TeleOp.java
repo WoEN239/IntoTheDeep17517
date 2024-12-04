@@ -1,13 +1,16 @@
-package org.firstinspires.ftc.teamcode.OpModes;
+package org.firstinspires.ftc.teamcode.OpModes.TeleOp;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.Intake.StateMachine.IntakeState;
-import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
+import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp
 public class TeleOp extends BaseMode {
     Position position = new Position();
+
     public void doing() {
-        position.copyFrom(robot.velocityViewer.getLocalVelocityListener().getOdometersVelocities());
+        BaseMode.isField = true;
+        position.copyFrom(robot.positionViewer.getPositionRealGlobal());
         robot.velocityController.moveGlobal(
                 new Position(leftStickY*360, leftStickX*360, rightStickX*360)
         );

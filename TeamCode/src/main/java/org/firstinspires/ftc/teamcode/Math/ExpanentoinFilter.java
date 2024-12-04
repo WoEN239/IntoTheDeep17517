@@ -16,8 +16,8 @@ public class ExpanentoinFilter {
 
     public void update(double d1, double d2) {
         double dt = timer.seconds();
-        timer.reset();
 
-        x = x + d1 + d2*(dt / (k + dt));
+        x = x + d1 + d2 * (dt / (k + dt));
+        timer.reset();
     }
 }

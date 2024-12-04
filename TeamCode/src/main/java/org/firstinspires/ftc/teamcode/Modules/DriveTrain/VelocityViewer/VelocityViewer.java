@@ -5,7 +5,7 @@ import static java.lang.Math.abs;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant;
 import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.Listener;
-import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 /*
  Writing by EgorKhvostikov

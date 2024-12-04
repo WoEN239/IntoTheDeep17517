@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.Modules.TypesOfModules;
 
-import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 public interface IModule {
     void init(Robot robot);
