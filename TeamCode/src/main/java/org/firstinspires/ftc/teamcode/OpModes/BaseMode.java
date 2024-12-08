@@ -20,6 +20,7 @@ public abstract class BaseMode extends LinearOpMode {
 
     private boolean firstInit = true;
     protected boolean firstStart = true;
+    protected boolean isDone = false;
 
     @Override
     public void runOpMode() {
@@ -28,7 +29,7 @@ public abstract class BaseMode extends LinearOpMode {
             firstInit = false;
         }
         waitForStart();
-        while (opModeIsActive()) {
+        while (opModeIsActive() && !isDone) {
             read();
             if (firstStart) {
                 robot.timer.reset();
@@ -39,6 +40,7 @@ public abstract class BaseMode extends LinearOpMode {
             robot.updateTasks();
             robot.update();
         }
+        stop();
 //        System.exit(0);
     }
 

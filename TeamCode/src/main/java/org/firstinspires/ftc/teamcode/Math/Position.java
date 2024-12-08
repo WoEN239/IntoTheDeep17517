@@ -11,10 +11,25 @@ import com.acmerobotics.roadrunner.PoseVelocity2dDual;
 import com.acmerobotics.roadrunner.Time;
 import com.acmerobotics.roadrunner.Vector2d;
 
-/**
- * Writing by EgorKhvostikov
- */
+/*
+  Writing by EgorKhvostikov
+*/
 
+/*                          x
+                            ^
+                            |
+                            |
+                            |
+                            |
+                            |
+                            |
+----------------------------|---------------------------->y
+                            |
+                            |
+                            |
+                            |
+                            |
+*/
 public class Position {
     public double x;
     public double y;
@@ -44,9 +59,10 @@ public class Position {
         y = y1;
     }
 
-    public void vectorMinus(Position pos) {
+    public Position vectorMinus(Position pos) {
         x -= pos.x;
         y -= pos.y;
+        return this;
     }
 
     public void positionMinus(Position pos){
@@ -96,4 +112,6 @@ public class Position {
         this.y = y*k;
         return this;
     }
+
+
 }

@@ -10,19 +10,6 @@ import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 public class RoadRunnerTest extends BaseMode {
     @Override
     public void doing() {
-        robot.addToQueue(new Task(
-                () -> true,
-                () -> false,
-                new Runnable[]{
-                        () -> robot.roadRunner.moveToTrajectory(
-                                robot.roadRunner.builder()
-                                        .lineToX(10)
-                                        .build()
-                        )
-                },
-                new Runnable[]{
-                        () -> robot.velocityController.moveGlobal(new Position())
-                }
-        ));
+
     }
 }

@@ -9,19 +9,29 @@ import java.util.function.Supplier;
 public class Task {
     private final Runnable[] run;
     private final Runnable[] end;
+    private final Runnable[] init;
     private Supplier<Boolean> isDone;
     private Supplier<Boolean> isStart;
 
-    public Task(Supplier<Boolean> isStart, Supplier<Boolean> isDone, Runnable[] run, Runnable[] end) {
+    public Task(Supplier<Boolean> isStart, Supplier<Boolean> isDone,  Runnable[] init, Runnable[] run, Runnable[] end) {
         this.isDone = isDone;
         this.run = run;
         this.end = end;
+        this.init = init;
         this.isStart = isStart;
     }
 
-    boolean firstEnd = true;
+    boolean firstEnd   = true;
+    boolean firstStart = true;
 
     public void run() {
+        if(firstStart){
+            for(Runnable i : init){
+                i.run();
+            }
+            firstStart = false;
+        }
+
         if (isStart.get()) {
             isStart = () -> true;
             if (!isDone.get()) {
