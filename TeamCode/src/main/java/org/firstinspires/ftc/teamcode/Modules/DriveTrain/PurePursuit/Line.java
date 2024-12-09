@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePuresuit;
+package org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit;
 
 
 import static java.lang.Math.cos;
@@ -7,6 +7,9 @@ import static java.lang.Math.toRadians;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
 
+/*
+  Writing by EgorKhvostikov
+*/
 public class Line {
     Position start = new Position();
     Position end = new Position();
@@ -28,9 +31,11 @@ public class Line {
     }
     public Position findProection(Position p){
         p.vectorMinus(start);
-        p.rotateVector(start.h);
-        p.x = 0;
-        p.rotateVector(-start.h);
+        double a = toRadians(start.h);
+        double x = p.x * sin(a)*sin(a) - p.y*sin(2*a)/2.0;
+        double y = p.y * cos(a)*cos(a) - p.x*sin(2*a)/2.0;
+        p.x = x;
+        p.y = y;
         p.vectorPlus(start);
         return p;
     }

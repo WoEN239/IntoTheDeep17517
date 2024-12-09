@@ -36,9 +36,9 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Writing by EgorKhvostikov
- */
+/*
+  Writing by EgorKhvostikov
+*/
 
 @Config
 public class RoadRunner implements IModule {
