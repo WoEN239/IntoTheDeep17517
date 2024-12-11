@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.Grabber;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Devices.GrabberAndTransferServo;
+import org.firstinspires.ftc.teamcode.Devices.IntakeServo;
 import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.Controller;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
@@ -14,37 +14,42 @@ public class Grabber implements Controller {
     Robot robot;
 
     private Servo grabberServo;
-    private Servo flipServo;
-    private Servo rotateServo;
-    private Servo transferServo;
+    private Servo flipServoRight;
+    private Servo transferServoLeft;
+    private Servo transferServoRight;
+    private Servo afterTransferServo;
+    private Servo outRobotServo;
+    private Servo flipServoLeft;
 
 
-    private GrabberPosition grabberTarget = GrabberPosition.OPEN;
-    private FlipGrabberPosition grabberUpPosition = FlipGrabberPosition.DOWN;
+    private GrabberPosition grabberTarget = GrabberPosition.STOP;
+    private FlipGrabberPosition flipGrabberPositon = FlipGrabberPosition.UNSPREADOUT;
     private TransferPosition transferPosition = TransferPosition.NORMAL;
-    private double rotateServoPosition = RotateServoPosition.NORMAL.get();
+    private AfterTransferGrabber afterTransferGrabberPosition = AfterTransferGrabber.OPEN;
+    private OutServoPosition outServoPosition = OutServoPosition.IN_ROBOT;
 
     public GrabberPosition getGrabberTarget() {
         return grabberTarget;
     }
 
-    public FlipGrabberPosition getFlipServoPos() {
-        return grabberUpPosition;
-    }
+    public FlipGrabberPosition getFlipServoPos() {return flipGrabberPositon;}
 
     public TransferPosition getTransferPosition() {
         return transferPosition;
     }
 
-    public double getRotateServoPosition(){return  rotateServoPosition;}
 
 
-    public void closeSimpleGrabber() {
-        grabberTarget = GrabberPosition.CLOSE;
+    public void reverseSimpleGrabber() {
+        grabberTarget = GrabberPosition.REAVERSE;
     }
 
-    public void openSampleGrabber() {
-        grabberTarget = GrabberPosition.OPEN;
+    public void stopSimpleGrabber(){
+        grabberTarget = GrabberPosition.STOP;
+    }
+
+    public void forwardSampleGrabber() {
+        grabberTarget = GrabberPosition.FORWARD;
     }
 
 
@@ -57,35 +62,65 @@ public class Grabber implements Controller {
     }
 
 
-    public void upFlipServo() { grabberUpPosition = FlipGrabberPosition.DOWN;}
+    public void upFlipServo() { flipGrabberPositon = FlipGrabberPosition.UNSPREADOUT;}
 
     public void downFlipServo() {
-        grabberUpPosition = FlipGrabberPosition.UP;
+        flipGrabberPositon = FlipGrabberPosition.SPREADOUT;
     }
 
-    public void targetingFLipServo(){grabberUpPosition = FlipGrabberPosition.MOVE;}
+    public void inOutServo(){
+        outServoPosition = OutServoPosition.IN_ROBOT;
+    }
+
+    public void outOutServo(){
+        outServoPosition = OutServoPosition.OUT_ROBOR;
+    }
+
+    public void closeAfterTransferServo(){
+        afterTransferGrabberPosition = AfterTransferGrabber.CLOSE;
+    }
+
+    public void openAfterTransferServo(){
+        afterTransferGrabberPosition = AfterTransferGrabber.OPEN;
+    }
 
 
-    public void normalRotateServo() {rotateServoPosition = RotateServoPosition.NORMAL.get();}
 
-    public void rotatedRotateServo(){rotateServoPosition = RotateServoPosition.ROTATED.get();}
-
-    public void setRotateServoPosition(double pos ){rotateServoPosition = pos;}
 
     @Override
     public void init(Robot robot) {
         this.robot = robot;
-        flipServo = GrabberAndTransferServo.flipServo;
-        grabberServo = GrabberAndTransferServo.grabberServo;
-        transferServo = GrabberAndTransferServo.transferServo;
-        rotateServo = GrabberAndTransferServo.rotateServo;
+        flipServoRight = IntakeServo.flipServoRight;
+        grabberServo = IntakeServo.grabberServo;
+        transferServoLeft = IntakeServo.transferServoLeft;
+        flipServoLeft = IntakeServo.flipServoLeft;
+        outRobotServo = IntakeServo.outRobotServo;
+        afterTransferServo = IntakeServo.afterTransferServo;
     }
 
     public void update() {
         grabberServo .setPosition(grabberTarget    .get()  );
-        flipServo    .setPosition(grabberUpPosition.get()  );
-        transferServo.setPosition(transferPosition .get()  );
-        rotateServo  .setPosition(rotateServoPosition      );
+        flipServoRight.setPosition(flipGrabberPositon.get());
+        flipServoLeft.setPosition(flipGrabberPositon.get());
+        transferServoLeft.setPosition(transferPosition.get());
+        transferServoRight.setPosition(transferPosition.get());
+        afterTransferServo.setPosition(afterTransferGrabberPosition.get());
+        outRobotServo.setPosition(outServoPosition.get());
     }
 
+    public FlipGrabberPosition getFlipGrabberPositon() {
+        return flipGrabberPositon;
+    }
+
+    public void setFlipGrabberPositon(FlipGrabberPosition flipGrabberPositon) {
+        this.flipGrabberPositon = flipGrabberPositon;
+    }
+
+    public OutServoPosition getOutServoPosition() {
+        return outServoPosition;
+    }
+
+    public void setOutServoPosition(OutServoPosition outServoPosition) {
+        this.outServoPosition = outServoPosition;
+    }
 }

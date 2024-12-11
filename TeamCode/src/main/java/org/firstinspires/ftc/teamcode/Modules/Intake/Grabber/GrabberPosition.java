@@ -9,17 +9,21 @@ import com.acmerobotics.dashboard.config.Config;
 @Config
 
 public enum GrabberPosition {
-    OPEN, CLOSE;
-    public static double open = 0.14;
-    public static double close = 0;
+    FORWARD, REAVERSE, STOP;
+    public static double forward = 1;
+    public static double reverse = 0;
+
+    public static double stop = 0.5;
 
     public double get() {
         switch (this) {
             default:
-            case OPEN:
-                return open;
-            case CLOSE:
-                return close;
+            case FORWARD:
+                return forward;
+            case REAVERSE:
+                return reverse;
+            case STOP:
+                return stop;
         }
     }
 }

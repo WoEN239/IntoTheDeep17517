@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Devices;
 
 
-import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 /*
@@ -9,7 +8,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 */
 public class DevicePool {
     public static void init (HardwareMap hardwareMap) {
-        GrabberAndTransferServo.init(hardwareMap);
+        IntakeServo.init(hardwareMap);
         DriveTrainMotors.init(hardwareMap);
         Sensors.init(hardwareMap);
         LiftHangingMotors.init(hardwareMap);

@@ -9,20 +9,17 @@ import com.acmerobotics.dashboard.config.Config;
 @Config
 
 public enum FlipGrabberPosition {
-    UP, DOWN, MOVE;
-    public static double down = 0.15;
-    public static double up = 0.53;
-    public static double move = 0.33;
+    SPREADOUT, UNSPREADOUT;
+    public static double unSperadOut = 0.15;
+    public static double spreadOut = 0.5;
 
     public double get() {
         switch (this) {
             default:
-            case UP:
-                return down;
-            case DOWN:
-                return up;
-            case MOVE:
-                return move;
+            case SPREADOUT:
+                return spreadOut;
+            case UNSPREADOUT:
+                return unSperadOut;
         }
     }
 }
