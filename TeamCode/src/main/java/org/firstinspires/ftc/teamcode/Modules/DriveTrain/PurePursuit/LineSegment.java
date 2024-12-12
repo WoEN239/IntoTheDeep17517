@@ -10,17 +10,21 @@ import org.firstinspires.ftc.teamcode.Math.Position;
 /*
   Writing by EgorKhvostikov
 */
-public class Line {
+public class LineSegment {
+    /*
+    start.h,end.h - angle of line
+    */
+
     Position start = new Position();
     Position end = new Position();
     Position singleVector = new Position();
     public double k = 0;
     public double b = 0;
 
-    public Line makeWithTwoPoint(Position start, Position end) {
+    public LineSegment makeWithTwoPoint(Position start, Position end) {
         return makeWithTwoPoint(start.x, start.y, end.x, end.y);
     }
-    public Line makeWithTwoPoint(double x1, double y1, double x2, double y2){
+    public LineSegment makeWithTwoPoint(double x1, double y1, double x2, double y2){
         double h = Math.atan2(x2-x1,y2-y1);
         start = new Position(x1,y1,h);
         end   = new Position(x2,y2,h);

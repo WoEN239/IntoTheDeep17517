@@ -129,7 +129,6 @@ public class IntakeStateMachine {
 
     private void fromDownWaitToEatWait(){
       //  grabber.targetingFLipServo();
-
       //  grabber.setRotateServoPosition(rotateServoPos); ;
       //  grabber.closeSampleGrabber();
         grabber.transferToEat();

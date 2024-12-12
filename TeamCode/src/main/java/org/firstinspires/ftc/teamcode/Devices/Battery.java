@@ -12,7 +12,6 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
 */
 public class Battery implements Listener {
 
-
     Robot robot;
     public VoltageSensor battery;
     private final ElapsedTime timer = new ElapsedTime();
