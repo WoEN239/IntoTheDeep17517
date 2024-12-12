@@ -97,7 +97,7 @@ public class IntakeStateMachine {
     private void fromDownWaitToUpWait(){
 
         grabber       .reverseSimpleGrabber();
-        grabber       .normalRotateServo() ;
+       // grabber       .normalRotateServo() ;
         grabber       .downFlipServo()     ;
         grabber       .transferToNormal()  ;
 
@@ -112,7 +112,7 @@ public class IntakeStateMachine {
     private void fromEatWaitToDownWait(){
         grabber.transferToEat()     ;
         grabber.upFlipServo()       ;
-        grabber.setRotateServoPosition(rotateServoPos);
+       // grabber.setRotateServoPosition(rotateServoPos);
         liftController.setDownPos() ;
         if(timer.seconds()>0.5) {
             grabber.downFlipServo();
@@ -128,10 +128,10 @@ public class IntakeStateMachine {
     }
 
     private void fromDownWaitToEatWait(){
-        grabber.targetingFLipServo();
+      //  grabber.targetingFLipServo();
 
-        grabber.setRotateServoPosition(rotateServoPos); ;
-        grabber.closeSampleGrabber();
+      //  grabber.setRotateServoPosition(rotateServoPos); ;
+      //  grabber.closeSampleGrabber();
         grabber.transferToEat();
 
         if(timer.seconds()>1) {
