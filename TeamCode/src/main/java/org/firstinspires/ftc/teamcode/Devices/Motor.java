@@ -11,6 +11,9 @@ import org.firstinspires.ftc.teamcode.Math.Pid;
 import org.firstinspires.ftc.teamcode.Math.PidStatus;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
+/*
+  Writing by EgorKhvostikov
+*/
 public class Motor {
     public DcMotorEx dev;
     private double velocity = 0;

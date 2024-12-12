@@ -16,6 +16,9 @@ import org.firstinspires.ftc.teamcode.OpenCv.SimplesAndTagsDetectPipeline;
 
 import java.util.ArrayList;
 
+/*
+  Writing by EgorKhvostikov
+*/
 public class Robot extends ModulesList {
     public LinearOpMode opMode;
     public HardwareMap hardwareMap;

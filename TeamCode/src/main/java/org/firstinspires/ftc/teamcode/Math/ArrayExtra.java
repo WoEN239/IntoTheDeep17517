@@ -2,6 +2,9 @@ package org.firstinspires.ftc.teamcode.Math;
 
 import java.util.Arrays;
 
+/*
+  Writing by EgorKhvostikov
+*/
 public class ArrayExtra {
 
     public static void updateLikeBuffer(double val, double [] arr){

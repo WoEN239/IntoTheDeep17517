@@ -16,6 +16,9 @@ import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftListener;
 import org.firstinspires.ftc.teamcode.OpenCv.Camera;
 import org.firstinspires.ftc.teamcode.Telemetry.FieldView;
 
+/*
+  Writing by EgorKhvostikov
+*/
 public class ModulesList {
 
     public VelocityController velocityController = new VelocityController();

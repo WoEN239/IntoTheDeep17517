@@ -15,12 +15,10 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
 public class Gyro implements Listener {
     private IMU imu;
     private double angle;
-    private double speed;
     private final ElapsedTime timer = new ElapsedTime();
     @Override
     public void init(Robot robot) {
         imu = robot.hardwareMap.get(IMU.class, "imu");
-
         RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot
                 (RevHubOrientationOnRobot.LogoFacingDirection.RIGHT, RevHubOrientationOnRobot.UsbFacingDirection.UP);
         imu.initialize(new IMU.Parameters(orientationOnRobot));
@@ -30,26 +28,14 @@ public class Gyro implements Listener {
     public void reset() {
         imu.resetYaw();
     }
-    private boolean isNewValue = true;
     @Override
     public void read() {
         if(timer.seconds()>0.05) {
             angle = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
-            speed = imu.getRobotAngularVelocity(AngleUnit.DEGREES).zRotationRate;
             timer.reset();
-            isNewValue = true;
-        }else{
-            isNewValue = false;
         }
-    }
-    public boolean isNewValue(){
-        return isNewValue;
     }
     public double getAngle() {
         return angle;
-    }
-
-    public double getSpeed() {
-        return speed;
     }
 }

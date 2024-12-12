@@ -8,6 +8,9 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 import java.util.Arrays;
 
+/*
+  Writing by EgorKhvostikov
+*/
 public class Filter {
     FilterStatus status;
     double velocityTrue = 0;
@@ -119,7 +122,7 @@ public class Filter {
     }
 
     private void calcVel() {
-        double k = 0;
+        double k;
         double dv = medianVelNow - medianVelOld;
         medianVelOld = velocityTrue;
         updateDvBuffer(dv);

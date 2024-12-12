@@ -2,6 +2,9 @@ package org.firstinspires.ftc.teamcode.OpenCv;
 
 import org.opencv.core.Scalar;
 
+/*
+  Writing by EgorKhvostikov
+*/
 public class RangeHvsConfig {
     public double V = 0;
     public double H = 0;

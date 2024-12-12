@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class PurePursuit implements IModule {
     PositionController positionController;
     PositionViewer     positionViewer    ;
-    private ArrayList<Line> trajectory = new ArrayList<>();
+    private final ArrayList<Line> trajectory = new ArrayList<>();
     public static boolean isOn = false;
 
     public void addSegment(Line l){

@@ -8,6 +8,10 @@ import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftListener;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
+/*
+ Writing by EgorKhvostikov
+*/
+
 public class IntakeStateMachine {
     IntakeState state  = IntakeState.WAIT_DOWN;
     IntakeState target = IntakeState.WAIT_DOWN;
@@ -78,9 +82,9 @@ public class IntakeStateMachine {
     }
 
     private void fromUpWaitToDownWait(){
-        grabber.closeSampleGrabber();
-        grabber.normalRotateServo();
-        grabber.targetingFLipServo()    ;
+//        grabber.closeSampleGrabber();
+//        grabber.normalRotateServo();
+//        grabber.targetingFLipServo()    ;
         grabber.transferToNormal();
         if(timer.seconds()>1) {
             liftController.setDownPos();

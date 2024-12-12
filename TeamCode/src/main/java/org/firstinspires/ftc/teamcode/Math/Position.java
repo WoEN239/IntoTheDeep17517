@@ -54,8 +54,8 @@ public class Position {
     public void rotateVector(double angle) {
         double angle1 = Math.toRadians(angle);
         double y1 = y * cos(angle1) - x * sin(angle1);
-        double x1 = y * sin(angle1) + x * cos(angle1);
-        x = x1;
+
+        x = y * sin(angle1) + x * cos(angle1);
         y = y1;
     }
 
@@ -76,22 +76,18 @@ public class Position {
         y += pos.y;
     }
 
-    public void positionPlus(Position pos){
-        x += pos.x;
-        y += pos.y;
-        h += pos.h;
-    }
-
     public static double normalizeAngle(double error){
         while (abs(error)>180) error-=360*signum(error);
         return error;
     }
+
     public Position copyFrom(Position p){
         this.x = p.x;
         this.h = p.h;
         this.y = p.y;
         return this;
     }
+
     public Pose2d toRRPose() {
         return new Pose2d(x, y, h);
     }
@@ -103,10 +99,11 @@ public class Position {
     public static Position fromRRVelocity(PoseVelocity2dDual<Time> p) {
         return new Position(p.linearVel.x.value(), p.linearVel.y.value(), p.angVel.value());
     }
-    public Position angleMultiply(double k){
+
+    public void angleMultiply(double k){
         this.h = h*k;
-        return this;
     }
+
     public Position linearMultiply(double k) {
         this.x = x*k;
         this.y = y*k;

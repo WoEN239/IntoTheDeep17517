@@ -21,8 +21,6 @@ public class FieldView implements Controller {
     public static double height = 36.5 / 2.0;
     public static double width = 20 / 2.0;
 
-
-
     @Override
     public void init(Robot robot) {
         this.robot = robot;
@@ -34,7 +32,7 @@ public class FieldView implements Controller {
             double x = xPoints[i];
             double y = yPoints[i];
             xPoints[i] = x * Math.cos(Math.toRadians(angle)) - y * Math.sin(Math.toRadians(angle));
-            yPoints[i] = x * Math.sin(Math.toRadians(angle)) + y * Math.cos(Math.toRadians(angle)) ;
+            yPoints[i] = x * Math.sin(Math.toRadians(angle)) + y * Math.cos(Math.toRadians(angle));
         }
     }
 
@@ -45,11 +43,13 @@ public class FieldView implements Controller {
         double xPos = robot.positionViewer.getPositionRealGlobal().x;
         double yPos = robot.positionViewer.getPositionRealGlobal().y;
 
-        xPoints = new double[]{xPos - height,
+        xPoints = new double[]{
+                xPos - height,
                 xPos - height,
                 xPos + height,
                 xPos + height};
-        yPoints = new double[]{yPos - width,
+        yPoints = new double[]{
+                yPos - width,
                 yPos + width,
                 yPos + width,
                 yPos - width};

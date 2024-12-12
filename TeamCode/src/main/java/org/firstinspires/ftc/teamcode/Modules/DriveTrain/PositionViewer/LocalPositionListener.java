@@ -1,12 +1,9 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain.PositionViewer;
 
-import static java.lang.Math.abs;
-
 import com.acmerobotics.dashboard.config.Config;
-
 import org.firstinspires.ftc.teamcode.Devices.DriveTrainMotors;
 import org.firstinspires.ftc.teamcode.Devices.Motor;
-import org.firstinspires.ftc.teamcode.Math.ExpanentoinFilter;
+import org.firstinspires.ftc.teamcode.Math.ExponentFilter;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Devices.Gyro;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant;
@@ -46,8 +43,7 @@ public class LocalPositionListener {
 
     public Position deltaPos = new Position(0,0,0);
 
-    ExpanentoinFilter filter = new ExpanentoinFilter();
-    double angleFix = 0;
+    ExponentFilter filter = new ExponentFilter();
     public static double k = 15.25;
 
     double s1Old = 0;

@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode.Modules.TypesOfModules;
 
-import java.util.Map;
 
+/*
+  Writing by EgorKhvostikov
+*/
 public interface ILogiable {
      void update();
 }

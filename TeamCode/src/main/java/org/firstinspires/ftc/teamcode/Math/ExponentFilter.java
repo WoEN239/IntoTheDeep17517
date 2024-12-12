@@ -2,8 +2,13 @@ package org.firstinspires.ftc.teamcode.Math;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+/*
+  Writing by EgorKhvostikov
+*/
+
 @Config
-public class ExpanentoinFilter {
+public class ExponentFilter {
     public static double k = 0.1;
     private double x = 0;
     private final ElapsedTime timer = new ElapsedTime();

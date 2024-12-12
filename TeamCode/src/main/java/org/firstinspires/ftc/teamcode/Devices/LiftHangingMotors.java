@@ -11,7 +11,6 @@ public class LiftHangingMotors {
 
     public static Motor liftRightMotor = new Motor();
     public static Motor liftLeftMotor = new Motor();
-    public static Motor hangingMotor   = new Motor();
 
     public static void init(HardwareMap hardwareMap) {
 

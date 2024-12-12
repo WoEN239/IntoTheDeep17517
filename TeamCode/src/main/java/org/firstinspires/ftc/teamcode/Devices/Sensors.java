@@ -4,9 +4,9 @@ import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-/**
- * Writing by @MrFrosty1234
- */
+/*
+  Writing by @MrFrosty1234
+*/
 
 public class Sensors {
     public static DigitalChannel downLeftButton;
@@ -20,9 +20,10 @@ public class Sensors {
         downLeftButton = hardwareMap.get(DigitalChannel.class, "downLeftButton");
         rightColorSensor = hardwareMap.get(AnalogInput.class, "rightColorSensor");
         downRightButton = hardwareMap.get(DigitalChannel.class, "downRightButton");
+        reset();
     }
 
-    public void reset() {
+    public static void reset() {
         downLeftButton.setMode(DigitalChannel.Mode.INPUT);
     }
 

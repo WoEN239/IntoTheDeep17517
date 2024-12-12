@@ -15,8 +15,11 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 import java.util.ArrayList;
 
-@Config
 
+/*
+  Writing by EgorKhvostikov
+*/
+@Config
 public class SimplesAndTagsDetectPipeline extends OpenCvPipeline {
 
 

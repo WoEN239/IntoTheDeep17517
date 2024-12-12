@@ -7,6 +7,9 @@ import org.firstinspires.ftc.teamcode.Math.ArrayExtra;
 import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.Listener;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
+/*
+  Writing by EgorKhvostikov
+*/
 public class Battery implements Listener {
 
 
