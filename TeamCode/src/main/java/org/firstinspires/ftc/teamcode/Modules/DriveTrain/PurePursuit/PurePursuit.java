@@ -14,12 +14,12 @@ import java.util.ArrayList;
 public class PurePursuit implements IModule {
     PositionController positionController;
     PositionViewer     positionViewer    ;
-    private final ArrayList<LineSegment> trajectory = new ArrayList<>();
+    private final ArrayList<Position> trajectory = new ArrayList<>();
     public static boolean isOn = false;
 
-    public void addSegment(LineSegment l){
+    public void addWayPoint(Position p){
         isOn = true;
-        trajectory.add(trajectory.size()-1, l);
+        trajectory.add(trajectory.size()-1, p);
     }
 
     @Override
@@ -33,8 +33,8 @@ public class PurePursuit implements IModule {
     }
     @Override
     public void update() {
-        if(!trajectory.isEmpty()) {
-            LineSegment nowLineSegment = trajectory.get(0);
+        if(trajectory.size()>1) {
+            LineSegment nowLineSegment = new LineSegment().makeWithTwoPoint(trajectory.get(0),trajectory.get(1));
             isDone = false;
 
             LineSegmentFollower.targetLineSegment = nowLineSegment;
