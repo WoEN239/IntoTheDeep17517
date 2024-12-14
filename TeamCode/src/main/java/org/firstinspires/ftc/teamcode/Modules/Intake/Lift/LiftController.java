@@ -103,6 +103,8 @@ public class LiftController implements Controller {
         targetPosition = LiftPosition.DOWN;
     }
 
+    public void setInPos(){targetPosition = LiftPosition.IN_POSITION;}
+
 
     public LiftPosition getTargetPosition(){
         return targetPosition;

@@ -15,8 +15,8 @@ public class LineSegment {
     start.h,end.h - angle of line
     */
 
-    Position start = new Position();
-    Position end = new Position();
+    public Position start = new Position();
+    public Position end = new Position();
     Position singleVector = new Position();
     public double k = 0;
     public double b = 0;

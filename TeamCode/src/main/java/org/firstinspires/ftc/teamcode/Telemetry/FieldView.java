@@ -5,6 +5,8 @@ import com.acmerobotics.dashboard.canvas.Canvas;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.LineSegment;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.PurePursuit;
 import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.Controller;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
@@ -14,9 +16,11 @@ public class FieldView implements Controller {
 
     Robot robot;
 
+    LineSegment lineSegment = new LineSegment();
+
     TelemetryPacket packet = new TelemetryPacket();
     Canvas rect = new Canvas();
-    private double inchPerSm = 1.0 / 2.54;
+    private double inchPerM = 1.0 / 0.0254;
 
     public static double height = 36.5 / 2.0;
     public static double width = 20 / 2.0;
@@ -54,8 +58,9 @@ public class FieldView implements Controller {
                 yPos + width,
                 yPos - width};
         rotatePoints(xPoints, yPoints, robot.positionViewer.getPositionRealGlobal().h);
-        packet.fieldOverlay().setScale(inchPerSm, inchPerSm);
+        packet.fieldOverlay().setScale(inchPerM, inchPerM);
         packet.fieldOverlay().fillPolygon(xPoints, yPoints);
+        packet.fieldOverlay().strokeLine(lineSegment.start.x, lineSegment.start.y, lineSegment.end.x, lineSegment.end.y);
         FtcDashboard.getInstance().sendTelemetryPacket(packet);
     }
 

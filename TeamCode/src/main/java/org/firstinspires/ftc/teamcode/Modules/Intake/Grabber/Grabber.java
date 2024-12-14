@@ -40,11 +40,11 @@ public class Grabber implements Controller {
 
 
 
-    public void reverseSimpleGrabber() {
+    public void reverseSampleGrabber() {
         grabberTarget = GrabberPosition.REAVERSE;
     }
 
-    public void stopSimpleGrabber(){
+    public void stopSampleGrabber(){
         grabberTarget = GrabberPosition.STOP;
     }
 
