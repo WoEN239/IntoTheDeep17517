@@ -20,6 +20,17 @@ public class Task {
         this.init = init;
         this.isStart = isStart;
     }
+    public static Task Stub = new Task(
+            () -> false,
+            () -> true ,
+            new Runnable[]{},
+            new Runnable[]{},
+            new Runnable[]{}
+    );
+
+    public boolean isDone(){
+        return isDone.get();
+    }
 
     boolean firstEnd   = true;
     boolean firstStart = true;

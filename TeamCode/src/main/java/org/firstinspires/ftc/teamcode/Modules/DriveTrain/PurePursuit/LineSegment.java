@@ -7,16 +7,16 @@ import static java.lang.Math.toRadians;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
 
+import java.util.Objects;
+
 /*
   Writing by EgorKhvostikov
 */
 public class LineSegment {
-    /*
-    start.h,end.h - angle of line
-    */
-
+    //start.h,end.h - angle of line
     public Position start = new Position();
     public Position end = new Position();
+
     Position singleVector = new Position();
     public double k = 0;
     public double b = 0;
@@ -47,5 +47,4 @@ public class LineSegment {
         double y = k1*x + b1;
         return new Position(x,y,90-start.h);
     }
-
 }

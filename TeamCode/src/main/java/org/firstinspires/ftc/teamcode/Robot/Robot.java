@@ -56,10 +56,6 @@ public class Robot extends ModulesList {
         taskQueue.add(task);
     }
 
-    public Task getTask() {
-        return taskQueue.get(0);
-    }
-
     public void init() {
         for (IModule i : modules
         ) {
