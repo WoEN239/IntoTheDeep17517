@@ -32,7 +32,7 @@ public class VelocityViewer implements Listener {
 
     private void calcGlobalVelocity() {
         velocityGlobal    .copyFrom(odometers.getOdometersVelocities());
-        velocityGlobal    .rotateVector(robot.positionViewer.getPositionRealGlobal().h);
+        velocityGlobal    .rotateVector(robot.positionListener.getPositionGlobal().h);
 
         velocityRealGlobal.copyFrom(velocityGlobal);
         velocityRealGlobal.linearMultiply(RobotConstant.SM_PER_ODOMETER_TIK);

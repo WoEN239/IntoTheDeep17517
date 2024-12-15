@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.PositionController;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PositionViewer.PositionViewer;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PositionViewer.PositionListener;
 import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.IModule;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 */
 public class PurePursuit implements IModule {
     PositionController positionController;
-    PositionViewer     positionViewer    ;
+    PositionListener positionListener;
     Robot robot;
     private  ArrayList<WayPoint> trajectory = new ArrayList<>();
     public static boolean isOn = false;
@@ -28,8 +28,9 @@ public class PurePursuit implements IModule {
     @Override
     public void init(Robot robot) {
         positionController = robot.positionController;
-        positionViewer     = robot.positionViewer    ;
+        positionListener = robot.positionListener    ;
         this.robot         = robot                   ;
+        trajectory.add(new WayPoint(positionListener.getPositionGlobal()));
     }
     private boolean isDone = true;
     public boolean isDone(){
@@ -43,7 +44,7 @@ public class PurePursuit implements IModule {
             LineSegmentFollower.targetLineSegment = nowLineSegment;
             isDone = false;
 
-            Position position = positionViewer.getPositionRealGlobal();
+            Position position = positionListener.getPositionGlobal();
             Position target = LineSegmentFollower.getVirtualTarget(position);
             positionController.move(target);
 

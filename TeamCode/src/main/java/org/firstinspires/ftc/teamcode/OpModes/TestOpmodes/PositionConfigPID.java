@@ -20,7 +20,7 @@ public class PositionConfigPID extends BaseMode {
     @Override
     public void doing() {
         DriveTrainMotors.initPid();
-        pos.copyFrom(robot.positionViewer.getPositionRealGlobal());
+        pos.copyFrom(robot.positionListener.getPositionGlobal());
         Robot.telemetry.addData("xV", pos.x);
         Robot.telemetry.addData("yV", pos.y);
         Robot.telemetry.addData("hV", pos.h);

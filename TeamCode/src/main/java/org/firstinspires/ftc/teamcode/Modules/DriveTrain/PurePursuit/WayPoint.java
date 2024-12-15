@@ -8,7 +8,7 @@ public class WayPoint {
     public Task onPointTask = Task.Stub;
     public Position position;
 
-    public WayPoint(Task onLineTask, Task onPointTask, Position position) {
+    public WayPoint(Position position, Task onLineTask, Task onPointTask) {
         this.onLineTask = onLineTask;
         this.onPointTask = onPointTask;
         this.position = position;

@@ -3,8 +3,11 @@ package org.firstinspires.ftc.teamcode.OpModes.StateMachine;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Robot.Robot;
-
+/*
+  Writing by EgorKhvostikov
+*/
 public class AutonomusStateMachine {
+    //Видимо бесполезно, учитываяя PP
     Robot robot;
     public static boolean isOn = false;
     public void init(Robot robot){

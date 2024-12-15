@@ -10,7 +10,7 @@ public class TeleOp extends BaseMode {
 
     public void doing() {
         BaseMode.isField = true;
-        position.copyFrom(robot.positionViewer.getPositionRealGlobal());
+        position.copyFrom(robot.positionListener.getPositionGlobal());
         robot.velocityController.moveGlobal(
                 new Position(leftStickY*360, leftStickX*360, rightStickX*360)
         );

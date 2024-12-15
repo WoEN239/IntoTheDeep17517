@@ -29,6 +29,13 @@ public class Task {
         this.init    = new Runnable[]{};
     }
 
+    public Task(Runnable... init /*еденичное действие*/){
+        this.init    = init            ;
+        this.isStart = ()->false       ;
+        this.isDone  = ()->true        ;
+        this.end     = new Runnable[]{};
+        this.run     = new Runnable[]{};
+    }
     public static Task Stub = new Task(
             () -> false,
             () -> true ,

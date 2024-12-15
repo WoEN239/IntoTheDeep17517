@@ -29,14 +29,14 @@ public class PositionController implements Controller {
     }
 
     private void updatePosition() {
-        position = robot.positionViewer.getLocalViewer().getRealLocalPositions();
+        position = robot.positionListener.getLocalViewer().getRealLocalPositions();
     }
 
     public void move(Position t) {
         Position target = new Position().copyFrom(t);
-        target.vectorMinus(robot.positionViewer.getPositionRealGlobal());
-        target.rotateVector(- robot.positionViewer.getPositionRealGlobal().h);
-        target.vectorPlus (robot.positionViewer.getLocalViewer().getRealLocalPositions());
+        target.vectorMinus(robot.positionListener.getPositionGlobal());
+        target.rotateVector(- robot.positionListener.getPositionGlobal().h);
+        target.vectorPlus (robot.positionListener.getLocalViewer().getRealLocalPositions());
 
         this.target = target;
         isUpdate = true;

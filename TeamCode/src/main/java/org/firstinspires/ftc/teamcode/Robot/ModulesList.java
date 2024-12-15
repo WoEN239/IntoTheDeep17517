@@ -5,7 +5,7 @@ import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.PositionCon
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.VelocityController;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Devices.Gyro;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.FieldSensors.FieldSensors;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PositionViewer.PositionViewer;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PositionViewer.PositionListener;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.PurePursuit;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RoadRunner;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.VelocityViewer.VelocityViewer;
@@ -24,7 +24,7 @@ public class ModulesList {
     public VelocityController velocityController = new VelocityController();
     public PositionController positionController = new PositionController();
 
-    public PositionViewer positionViewer = new PositionViewer();
+    public PositionListener positionListener = new PositionListener();
     public VelocityViewer velocityViewer = new VelocityViewer();
     public Gyro imu = new Gyro();
     public FieldSensors fieldSensors = new FieldSensors();
@@ -42,7 +42,7 @@ public class ModulesList {
 
     public Battery battery = new Battery();
     protected IModule[] modules = new IModule[]{
-            roadRunner,purePursuit, imu, velocityViewer, positionViewer,
+            imu, velocityViewer, positionListener, roadRunner, purePursuit,
             positionController,velocityController, liftListener, grabber, liftController,
             fieldSensors,battery, fieldView
     };

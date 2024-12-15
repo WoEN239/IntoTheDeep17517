@@ -6,7 +6,6 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.LineSegment;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.PurePursuit;
 import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.Controller;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
@@ -44,8 +43,8 @@ public class FieldView implements Controller {
         packet = new TelemetryPacket();
         double[] xPoints;
         double[] yPoints;
-        double xPos = robot.positionViewer.getPositionRealGlobal().x;
-        double yPos = robot.positionViewer.getPositionRealGlobal().y;
+        double xPos = robot.positionListener.getPositionGlobal().x;
+        double yPos = robot.positionListener.getPositionGlobal().y;
 
         xPoints = new double[]{
                 xPos - height,
@@ -57,7 +56,7 @@ public class FieldView implements Controller {
                 yPos + width,
                 yPos + width,
                 yPos - width};
-        rotatePoints(xPoints, yPoints, robot.positionViewer.getPositionRealGlobal().h);
+        rotatePoints(xPoints, yPoints, robot.positionListener.getPositionGlobal().h);
         packet.fieldOverlay().setScale(inchPerM, inchPerM);
         packet.fieldOverlay().fillPolygon(xPoints, yPoints);
         packet.fieldOverlay().strokeLine(lineSegment.start.x, lineSegment.start.y, lineSegment.end.x, lineSegment.end.y);

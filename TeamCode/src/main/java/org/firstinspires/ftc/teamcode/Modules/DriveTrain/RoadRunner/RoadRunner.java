@@ -72,7 +72,7 @@ public class RoadRunner implements IModule {
     public TrajectoryBuilder builder() {
         return new TrajectoryBuilder(new TrajectoryBuilderParams(1e-6,
                 new ProfileParams(1e-6, 1e-6, 1e-6)),
-                robot.positionViewer.getPositionGlobal().toRRPose(),
+                robot.positionListener.getPositionTikGlobal().toRRPose(),
                 0, velConstraint, accelConstraint
         );
     }
@@ -81,7 +81,7 @@ public class RoadRunner implements IModule {
     }
 
     private void move() {
-        Pose2d pose = robot.positionViewer.getPositionGlobal().toRRPose();
+        Pose2d pose = robot.positionListener.getPositionTikGlobal().toRRPose();
         PoseVelocity2d velocity = robot.velocityViewer.getLocalVelocityListener().getOdometersVelocities().toRRVelocity();
 
         if (!trajectories.isEmpty()) {
