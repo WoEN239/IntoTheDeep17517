@@ -20,6 +20,15 @@ public class Task {
         this.init = init;
         this.isStart = isStart;
     }
+
+    public Task(Supplier<Boolean> isStart, Supplier<Boolean> isDone, Runnable[] run) {
+        this.isStart = isStart         ;
+        this.isDone  = isDone          ;
+        this.run     = run             ;
+        this.end     = new Runnable[]{};
+        this.init    = new Runnable[]{};
+    }
+
     public static Task Stub = new Task(
             () -> false,
             () -> true ,
