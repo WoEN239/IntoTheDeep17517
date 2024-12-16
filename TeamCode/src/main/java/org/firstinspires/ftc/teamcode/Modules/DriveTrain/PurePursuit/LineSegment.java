@@ -31,8 +31,8 @@ public class LineSegment {
         start = new Position(x1,y1,h);
         end   = new Position(x2,y2,h);
 
-        k = (y2-y1)/(x2-x1);
-        b = (y2-k*x2);
+        k = (x2-x1)/(y2-y1);
+        b = (x2-k*y2);
 
         //x^2+y^2 = 1
         singleVector = new Position(sin(toRadians(h)), cos(toRadians(h)), h);
