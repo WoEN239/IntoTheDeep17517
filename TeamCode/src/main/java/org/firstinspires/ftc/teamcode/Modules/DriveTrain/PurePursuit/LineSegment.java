@@ -18,6 +18,8 @@ public class LineSegment {
     public Position end = new Position();
 
     Position singleVector = new Position();
+    Position normalVector = new Position();
+
     public double k = 0;
     public double b = 0;
 
@@ -38,13 +40,12 @@ public class LineSegment {
     }
 
     public Position findProjection(Position p){
-        double k1 = - ( (end.x - start.x)/
-                        (end.y - start.y) );
-        double b1 = ( p.y + p.x * (end.x - start.x)/
-                                  (end.y - start.y) );
-        double x = (b - b1)/
-                   (k1 - b);
-        double y = k1*x + b1;
+        double k1 = - k;
+        double b1 = p.x - p.y*k1;
+
+        double y = (b - b1)/(k1 - k);
+        double x = k1*y + b1;
+
         return new Position(x,y,90-start.h);
     }
 }
