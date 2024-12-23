@@ -38,6 +38,7 @@ public abstract class BaseMode extends LinearOpMode {
             doing();
             robot.fieldView.updateField();
             robot.updateTasks();
+            robot.updatePPTasks();
             robot.update();
         }
         stop();
@@ -46,7 +47,6 @@ public abstract class BaseMode extends LinearOpMode {
 
 
     public abstract void doing();
-
 
     protected double rightStickX = 0;
     protected double rightStickY = 0;

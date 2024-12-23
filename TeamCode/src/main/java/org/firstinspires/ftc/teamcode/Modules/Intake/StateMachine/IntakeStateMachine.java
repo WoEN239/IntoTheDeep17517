@@ -48,10 +48,16 @@ public class IntakeStateMachine {
             }
             changeState(target);
             f = false;
+            isDone = false;
         }else {
             updateState();
             f = true;
+            isDone = true;
         }
+    }
+    boolean isDone = false;
+    public boolean isDone(){
+        return isDone;
     }
 
     private void waitUp(){

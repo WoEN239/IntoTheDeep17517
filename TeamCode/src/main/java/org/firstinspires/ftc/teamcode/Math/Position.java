@@ -71,9 +71,10 @@ public class Position {
         h -= pos.h;
     }
 
-    public void vectorPlus(Position pos) {
+    public Position vectorPlus(Position pos) {
         x += pos.x;
         y += pos.y;
+        return this;
     }
 
     public static double normalizeAngle(double error){
@@ -109,6 +110,8 @@ public class Position {
         this.y = y*k;
         return this;
     }
-
+    public static double length(Position s, Position e){
+        return Math.sqrt((s.x-e.x)*(s.x-e.x) - (s.y-e.y)*(s.y-e.y));
+    }
 
 }

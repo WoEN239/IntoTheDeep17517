@@ -29,9 +29,9 @@ public class Robot extends ModulesList {
 
     public static Telemetry telemetry = FtcDashboard.getInstance().getTelemetry();
 
-
     public ElapsedTime timer = new ElapsedTime();
     private final ArrayList<Task> taskQueue = new ArrayList<>();
+    private final ArrayList<PurePursuitTask> purePursuitTasks = new ArrayList<>();
 
     public static double voltage = 12;
 
@@ -85,9 +85,22 @@ public class Robot extends ModulesList {
         taskQueue.forEach(Task::run);
     }
 
+    public void updatePPTasks() {
+        for (PurePursuitTask i : purePursuitTasks) {
+            i.run();
+            if(i.isDone()){
+                i.end();
+                purePursuitTasks.remove(i);
+            }
+        }
+    }
+    public void addPPTask(PurePursuitTask t){
+        purePursuitTasks.add(t);
+    }
     public double getSeconds() {
         return timer.seconds();
     }
+
 
     public static Team myTeam = Team.BLUE;
 }
