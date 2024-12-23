@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.Math.PidStatus;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.Controller;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
+import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.DriveTrainSimulation;
 
 /**
  * Writing by EgorKhvostikov
@@ -72,6 +73,7 @@ public class PositionController implements Controller {
         if (isUpdate) {
             VelocityController.isUpdate = true;
             controller.moveGlobal(pidResult);
+            DriveTrainSimulation.velocity = pidResult;
         }
     }
     public boolean isAtTarget(){
