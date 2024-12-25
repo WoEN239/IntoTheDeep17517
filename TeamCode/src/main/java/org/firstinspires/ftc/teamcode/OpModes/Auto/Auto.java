@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
  * Writing by EgorKhvostikov and @MrFrosty1234
  */
 
-@Autonomous
+//@Autonomous
 public class Auto extends BaseMode {
     @Override
     public void doing() {
