@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.DriveTrainSimulation;
+import org.firstinspires.ftc.teamcode.Telemetry.FieldView;
 
 /*
   Writing by EgorKhvostikov
@@ -13,11 +14,12 @@ public abstract class BaseMode extends LinearOpMode {
     protected Robot robot;
     public static boolean isCamera = false;
     public static boolean isField = true;
-
+    {
+        Robot.isDebug = false;
+    }
     protected void initOpMode() {
         robot = new Robot(this);
         robot.init();
-        DriveTrainSimulation.position = robot.positionListener.getPositionGlobal();
     }
 
     private boolean firstInit = true;
@@ -38,11 +40,10 @@ public abstract class BaseMode extends LinearOpMode {
                 firstStart = false;
             }
             doing();
-            robot.fieldView.updateField();
             robot.updateTasks();
             robot.updatePPTasks();
             robot.update();
-            DriveTrainSimulation.updatePosition();
+            FieldView.updateField(robot.positionListener.getPositionGlobal());
         }
         stop();
 //        System.exit(0);
