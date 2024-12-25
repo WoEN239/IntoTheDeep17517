@@ -6,6 +6,7 @@ import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.PositionsPo
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant;
 import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.Listener;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
+import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.DriveTrainSimulation;
 import org.firstinspires.ftc.teamcode.Robot.Team;
 
 /*
@@ -36,7 +37,12 @@ public class PositionListener implements Listener {
     private Position positionTikGlobal;
     private Position positionGlobal;
 
-    public Position getPositionGlobal(){return positionGlobal;}
+    public Position getPositionGlobal(){
+        if(Robot.isDebug){
+            return DriveTrainSimulation.position;
+        }
+        return positionGlobal;
+    }
     public Position getPositionTikGlobal() {return positionTikGlobal;}
     public LocalPositionListener getLocalViewer() {return localViewer;}
 
