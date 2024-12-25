@@ -33,8 +33,6 @@ public class ModulesList {
     public Camera camera = new Camera();
     public PurePursuit purePursuit = new PurePursuit();
 
-    public FieldView fieldView = new FieldView();
-
     public Grabber grabber = new Grabber();
     public LiftListener liftListener = new LiftListener();
     public LiftController liftController = new LiftController();
@@ -42,9 +40,12 @@ public class ModulesList {
 
     public Battery battery = new Battery();
     protected IModule[] modules = new IModule[]{
-            imu, velocityViewer, positionListener, roadRunner, purePursuit,
+            imu, velocityViewer, positionListener, /*roadRunner,*/ purePursuit,
             positionController,velocityController, liftListener, grabber, liftController,
-            fieldSensors,battery, fieldView
+            fieldSensors,battery
+    };
+    protected IModule[] simulationModules = new IModule[]{
+           positionController,//purePursuit
     };
 
 }
