@@ -1,37 +1,25 @@
 package org.firstinspires.ftc.teamcode.Telemetry;
 
 import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.canvas.Canvas;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.LineSegment;
-import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.Controller;
+import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
-import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.DriveTrainSimulation;
 
 @Config
 
-public class FieldView implements Controller {
+public class FieldView {
 
-    Robot robot;
 
-    LineSegment lineSegment = new LineSegment();
+    //static TelemetryPacket packet = new TelemetryPacket();
+    private static double smPerInch = 1/2.54;
 
-    TelemetryPacket packet = new TelemetryPacket();
-    Canvas rect = new Canvas();
-    private double inchPerM = 1.0 / 0.0254;
-
+    public static Position target = new Position();
     public static double height = 36.5 / 2.0;
     public static double width = 20 / 2.0;
 
-    @Override
-    public void init(Robot robot) {
-        this.robot = robot;
-        updateField();
-    }
-
-    void rotatePoints(double[] xPoints, double[] yPoints, double angle) {
+    static void rotatePoints(double[] xPoints, double[] yPoints, double angle) {
         for (int i = 0; i < xPoints.length; i++) {
             double x = xPoints[i];
             double y = yPoints[i];
@@ -39,13 +27,13 @@ public class FieldView implements Controller {
             yPoints[i] = x * Math.sin(Math.toRadians(angle)) + y * Math.cos(Math.toRadians(angle));
         }
     }
-
-    public void updateField() {
-        packet = new TelemetryPacket();
+    static int i = 0;
+    public static void updateField(Position p) {
+        //packet = new TelemetryPacket();
         double[] xPoints;
         double[] yPoints;
-        double xPos = DriveTrainSimulation.position.x;
-        double yPos = DriveTrainSimulation.position.y;
+        double xPos = p.x;
+        double yPos = p.y;
 
         xPoints = new double[]{
                 xPos - height,
@@ -58,15 +46,18 @@ public class FieldView implements Controller {
                 yPos + width,
                 yPos - width};
 
-        rotatePoints(xPoints, yPoints, DriveTrainSimulation.position.h);
-        packet.fieldOverlay().setScale(inchPerM, inchPerM);
-        packet.fieldOverlay().fillPolygon(xPoints, yPoints);
-        packet.fieldOverlay().strokeLine(lineSegment.start.x, lineSegment.start.y, lineSegment.end.x, lineSegment.end.y);
-        FtcDashboard.getInstance().sendTelemetryPacket(packet);
+        rotatePoints(xPoints, yPoints, p.h);
+        //packet.fieldOverlay().setScale(smPerInch, smPerInch);
+//
+        //packet.fieldOverlay().setFill("red");
+        //packet.fieldOverlay().fillCircle(target.y,target.x,10);
+//
+        //packet.fieldOverlay().setFill("blue");
+        //packet.fieldOverlay().fillPolygon(xPoints, yPoints);
+
+        //FtcDashboard.getInstance().sendTelemetryPacket(packet);
+        //Robot.telemetry.addData("send packet №",++i);
     }
 
-    public void update() {
-        updateField();
-    }
 }
 
