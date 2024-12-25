@@ -33,23 +33,14 @@ public class Robot extends ModulesList {
     private final ArrayList<Task> taskQueue = new ArrayList<>();
     private final ArrayList<PurePursuitTask> purePursuitTasks = new ArrayList<>();
 
+    public static boolean isDebug = false;
     public static double voltage = 12;
 
     public Robot(LinearOpMode opMode) {
         this.opMode = opMode;
         this.hardwareMap = opMode.hardwareMap;
-        DevicePool.init(hardwareMap);
+
         Robot.telemetry = new MultipleTelemetry(FtcDashboard.getInstance().getTelemetry(), opMode.telemetry);
-
-        intake.init(this);
-
-        autonomusStateMachine.init(this);
-        if (BaseMode.isCamera) {
-            camera.init(this);
-        }
-        if(BaseMode.isField) {
-            fieldView.init(this);
-        }
     }
 
     public void addToQueue(Task task) {
@@ -57,10 +48,33 @@ public class Robot extends ModulesList {
     }
 
     public void init() {
+        DevicePool.init(hardwareMap);
+
+        if (BaseMode.isCamera) {
+            camera.init(this);
+        }
+
         for (IModule i : modules
         ) {
             i.init(this);
         }
+        intake.init(this);
+        autonomusStateMachine.init(this);
+
+    }
+    public void initSimulation(){
+        for (IModule i: simulationModules
+        ) {
+            i.init(this);
+        }
+    }
+    public void updateSimulation(){
+        for (IModule i: simulationModules
+        ) {
+            i.read();
+            i.update();
+        }
+        telemetry.update();
     }
 
     public void update() {
@@ -100,7 +114,6 @@ public class Robot extends ModulesList {
     public double getSeconds() {
         return timer.seconds();
     }
-
 
     public static Team myTeam = Team.BLUE;
 }
