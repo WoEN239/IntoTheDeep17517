@@ -21,7 +21,12 @@ public class PositionController implements Controller {
     private VelocityController controller;
     private Position position = new Position();
     private Position target = new Position();
+    private final Position globalTarget = new Position();
     public static boolean isUpdate = false;
+
+    public Position getGlobalTarget(){
+        return globalTarget;
+    }
 
     @Override
     public void init(Robot robot) {
@@ -34,7 +39,9 @@ public class PositionController implements Controller {
     }
 
     public void move(Position t) {
+        globalTarget.copyFrom(t);
         Position target = new Position().copyFrom(t);
+
         target.vectorMinus(robot.positionListener.getPositionGlobal());
         target.rotateVector(- robot.positionListener.getPositionGlobal().h);
         target.vectorPlus (robot.positionListener.getLocalViewer().getRealLocalPositions());
@@ -43,7 +50,7 @@ public class PositionController implements Controller {
         isUpdate = true;
     }
 
-    public static PidStatus pidStatusY = new PidStatus(0, 0, 0., 0,0,0,0, 0, 0);
+    public static PidStatus pidStatusY = new PidStatus(3, 50, 0.25, 0,0,0,0, 10, 0);
     Pid pidY = new Pid(pidStatusY);
 
     public static PidStatus pidStatusX = new PidStatus(3, 50, 0.25, 0,0,0,0, 10, 0);
@@ -72,8 +79,11 @@ public class PositionController implements Controller {
         pidResult.h = pidH.getU();
         if (isUpdate) {
             VelocityController.isUpdate = true;
+            if(Robot.isDebug) {
+                DriveTrainSimulation.velocity = pidResult;
+            }else{
             controller.moveGlobal(pidResult);
-            DriveTrainSimulation.velocity = pidResult;
+            }
         }
     }
     public boolean isAtTarget(){
