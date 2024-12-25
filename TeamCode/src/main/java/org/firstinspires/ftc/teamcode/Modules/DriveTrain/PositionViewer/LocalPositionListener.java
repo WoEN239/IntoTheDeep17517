@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Devices.Gyro;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
+import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.DriveTrainSimulation;
 
 /*
  Writing by EgorKhvostikov
@@ -38,6 +39,9 @@ public class LocalPositionListener {
     }
 
     public Position getRealLocalPositions() {
+        if(Robot.isDebug){
+            return DriveTrainSimulation.localPosition;
+        }
         return realLocalPositions;
     }
 
