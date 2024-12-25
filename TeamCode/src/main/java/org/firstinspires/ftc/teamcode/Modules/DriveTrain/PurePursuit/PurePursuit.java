@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /*
   Writing by EgorKhvostikov
 */
-public class PurePursuit implements IModule {
+public class    PurePursuit implements IModule {
     PositionController positionController;
     PositionListener positionListener;
     Robot robot;
