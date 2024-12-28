@@ -38,15 +38,16 @@ public class PositionController implements Controller {
         position = robot.positionListener.getLocalViewer().getRealLocalPositions();
     }
 
-    public void move(Position t) {
-        globalTarget.copyFrom(t);
-        Position target = new Position().copyFrom(t);
+    public void move(Position globalTarget) {
+        this.globalTarget.copyFrom(globalTarget);
 
-        target.vectorMinus(robot.positionListener.getPositionGlobal());
-        target.rotateVector(- robot.positionListener.getPositionGlobal().h);
-        target.vectorPlus (robot.positionListener.getLocalViewer().getRealLocalPositions());
+        Position localTarget = new Position().copyFrom(globalTarget);
+        localTarget.vectorMinus(robot.positionListener.getPositionGlobal());
 
-        this.target = target;
+        localTarget.rotateVector(-robot.positionListener.getPositionGlobal().h);
+        localTarget.vectorPlus (robot.positionListener.getLocalViewer().getRealLocalPositions());
+
+        this.target = localTarget;
         isUpdate = true;
     }
 

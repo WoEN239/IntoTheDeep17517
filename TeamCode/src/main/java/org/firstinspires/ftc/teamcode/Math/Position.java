@@ -54,7 +54,6 @@ public class Position {
     public void rotateVector(double angle) {
         double angle1 = Math.toRadians(angle);
         double y1 = y * cos(angle1) - x * sin(angle1);
-
         x = y * sin(angle1) + x * cos(angle1);
         y = y1;
     }

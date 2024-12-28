@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
 public class FieldView {
 
 
-    //static TelemetryPacket packet = new TelemetryPacket();
+    static TelemetryPacket packet = new TelemetryPacket();
     private static double smPerInch = 1/2.54;
 
     public static Position target = new Position();
@@ -23,40 +23,56 @@ public class FieldView {
         for (int i = 0; i < xPoints.length; i++) {
             double x = xPoints[i];
             double y = yPoints[i];
-            xPoints[i] = x * Math.cos(Math.toRadians(angle)) - y * Math.sin(Math.toRadians(angle));
-            yPoints[i] = x * Math.sin(Math.toRadians(angle)) + y * Math.cos(Math.toRadians(angle));
+            Position p = new Position(x,y,0);
+            p.rotateVector(angle);
+            xPoints[i]= p.x;
+            yPoints[i]= p.y;
+        }
+    }
+    static void plusVector(double [] x, double [] y, Position p){
+        for (int j = 0; j < x.length; j++) {
+            x[j] += p.x;
+            y[j] += p.y;
         }
     }
     static int i = 0;
     public static void updateField(Position p) {
-        //packet = new TelemetryPacket();
+        packet = new TelemetryPacket();
         double[] xPoints;
         double[] yPoints;
         double xPos = p.x;
         double yPos = p.y;
 
+        Position rect = new Position(height,width,0);
+        rect.rotateVector(p.h);
+
         xPoints = new double[]{
-                xPos - height,
-                xPos - height,
-                xPos + height,
-                xPos + height};
+                 + height,
+                 + height,
+                 - height,
+                 - height};
         yPoints = new double[]{
-                yPos - width,
-                yPos + width,
-                yPos + width,
-                yPos - width};
+                (+ width),
+                (- width),
+                (- width),
+                (+ width)};
 
-        rotatePoints(xPoints, yPoints, p.h);
-        //packet.fieldOverlay().setScale(smPerInch, smPerInch);
-//
-        //packet.fieldOverlay().setFill("red");
-        //packet.fieldOverlay().fillCircle(target.y,target.x,10);
-//
-        //packet.fieldOverlay().setFill("blue");
-        //packet.fieldOverlay().fillPolygon(xPoints, yPoints);
+        rotatePoints(xPoints,yPoints,p.h);
+        plusVector(xPoints,yPoints,p);
 
-        //FtcDashboard.getInstance().sendTelemetryPacket(packet);
-        //Robot.telemetry.addData("send packet №",++i);
+        packet.fieldOverlay().setScale(smPerInch, smPerInch);
+
+        packet.fieldOverlay().setFill("red");
+        packet.fieldOverlay().fillCircle(target.x,target.y,10);
+
+        packet.fieldOverlay().setFill("blue");
+        packet.fieldOverlay().fillPolygon(xPoints, yPoints);
+
+        packet.fieldOverlay().setFill("green");
+        packet.fieldOverlay().strokeLine(p.x,p.y, p.x + rect.x, p.y + rect.y);
+
+        FtcDashboard.getInstance().sendTelemetryPacket(packet);
+        Robot.telemetry.addData("send packet №",++i);
     }
 
 }

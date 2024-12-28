@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.DriveTrainSimulation
 import org.firstinspires.ftc.teamcode.Telemetry.FieldView;
 
 public abstract class BaseSimulation extends LinearOpMode {
-    static {
+    {
         Robot.isDebug = true;
     }
     Robot robot;

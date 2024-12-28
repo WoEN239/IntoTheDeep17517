@@ -16,11 +16,13 @@ public class DriveTrainSimulation {
             localPosition.y += velocity.y * time.seconds();
             localPosition.h += velocity.h * time.seconds();
 
-            Position dp = new Position().copyFrom(localPosition).vectorMinus(oldPosition);
+            Position dp = new Position() .copyFrom(localPosition). vectorMinus(oldPosition);
             oldPosition.copyFrom(localPosition);
-            dp.rotateVector(position.h);
+            dp.rotateVector(localPosition.h);
+
             position.vectorPlus(dp);
             position.h = localPosition.h;
+
             time.reset();
         }
     }

@@ -10,6 +10,6 @@ public class TestField extends BaseMode {
 
     @Override
     public void doing() {
-        robot.fieldView.update();
+      ///  robot.fieldView.update();
     }
 }
