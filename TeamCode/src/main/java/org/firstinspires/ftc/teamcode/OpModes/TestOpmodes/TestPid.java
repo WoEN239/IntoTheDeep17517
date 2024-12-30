@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Devices.DriveTrainMotors;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 
-@Config
 @TeleOp
 public class TestPid extends BaseMode {
     public static boolean isSin = false;

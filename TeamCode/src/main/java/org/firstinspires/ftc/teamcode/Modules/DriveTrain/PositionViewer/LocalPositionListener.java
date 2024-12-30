@@ -1,19 +1,17 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain.PositionViewer;
 
-import com.acmerobotics.dashboard.config.Config;
 import org.firstinspires.ftc.teamcode.Devices.DriveTrainMotors;
 import org.firstinspires.ftc.teamcode.Devices.Motor;
 import org.firstinspires.ftc.teamcode.Math.ExponentFilter;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Devices.Gyro;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant;
+import org.firstinspires.ftc.teamcode.Robot.RobotConstant;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.DriveTrainSimulation;
 
 /*
  Writing by EgorKhvostikov
 */
-@Config
 public class LocalPositionListener {
     Gyro gyro;
     public void init(Robot robot) {

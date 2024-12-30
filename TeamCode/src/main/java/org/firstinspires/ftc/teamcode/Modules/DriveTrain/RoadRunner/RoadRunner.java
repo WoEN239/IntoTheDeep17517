@@ -1,14 +1,13 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner;
 
-import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.maxAccel;
-import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.maxAngSpeed;
-import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.maxLinSpeed;
-import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.minAccel;
-import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.trackWidth;
-import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.wheelDiameter;
-import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.yMultiplier;
+import static org.firstinspires.ftc.teamcode.Robot.RobotConstant.maxAccel;
+import static org.firstinspires.ftc.teamcode.Robot.RobotConstant.maxAngSpeed;
+import static org.firstinspires.ftc.teamcode.Robot.RobotConstant.maxLinSpeed;
+import static org.firstinspires.ftc.teamcode.Robot.RobotConstant.minAccel;
+import static org.firstinspires.ftc.teamcode.Robot.RobotConstant.trackWidth;
+import static org.firstinspires.ftc.teamcode.Robot.RobotConstant.wheelDiameter;
+import static org.firstinspires.ftc.teamcode.Robot.RobotConstant.yMultiplier;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.AccelConstraint;
 import com.acmerobotics.roadrunner.AngularVelConstraint;
 import com.acmerobotics.roadrunner.HolonomicController;
@@ -40,7 +39,6 @@ import java.util.List;
   Writing by EgorKhvostikov
 */
 
-@Config
 public class RoadRunner implements IModule {
     Robot robot;
     ElapsedTime timer = new ElapsedTime();

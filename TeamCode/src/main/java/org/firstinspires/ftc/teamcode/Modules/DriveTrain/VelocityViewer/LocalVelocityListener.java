@@ -1,16 +1,14 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain.VelocityViewer;
 
-import com.acmerobotics.dashboard.config.Config;
-
 import org.firstinspires.ftc.teamcode.Devices.DriveTrainMotors;
 import org.firstinspires.ftc.teamcode.Devices.Motor;
 import org.firstinspires.ftc.teamcode.Math.Position;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant;
+import org.firstinspires.ftc.teamcode.Robot.RobotConstant;
 
 /*
  Writing by EgorKhvostikov
 */
-@Config
+
 public class LocalVelocityListener {
 
     public void init() {

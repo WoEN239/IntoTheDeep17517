@@ -11,7 +11,6 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 public class FieldView {
 
-
     public static TelemetryPacket packet = new TelemetryPacket();
     private static double smPerInch = 1/2.54;
 
@@ -62,7 +61,7 @@ public class FieldView {
 
         packet.fieldOverlay().setScale(smPerInch, smPerInch);
 
-        packet.fieldOverlay().setFill("red");
+        packet.fieldOverlay().setFill("green");
         packet.fieldOverlay().fillCircle(circle.x, circle.y,5);
 
         packet.fieldOverlay().setFill("blue");

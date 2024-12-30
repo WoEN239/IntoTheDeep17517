@@ -14,7 +14,6 @@ import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.DriveTrainSimulation
 /**
  * Writing by EgorKhvostikov
  */
-@Config
 public class VelocityController implements Controller {
     Robot robot;
 

@@ -15,7 +15,6 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
 /**
  * Writing by @MrFrosty1234
  */
-@Config
 public class LiftController implements Controller {
     LiftPosition liftPosition;
     Robot robot;

@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain.Devices;
 
-import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.MAX_MOTOR_TICKS_VEL;
-import static org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant.yMultiplier;
+import static org.firstinspires.ftc.teamcode.Robot.RobotConstant.MAX_MOTOR_TICKS_VEL;
+import static org.firstinspires.ftc.teamcode.Robot.RobotConstant.yMultiplier;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.max;
@@ -9,7 +9,7 @@ import static java.lang.Math.max;
 import org.firstinspires.ftc.teamcode.Devices.DriveTrainMotors;
 import org.firstinspires.ftc.teamcode.Devices.Motor;
 import org.firstinspires.ftc.teamcode.Math.Position;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RobotConstant;
+import org.firstinspires.ftc.teamcode.Robot.RobotConstant;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 /**

@@ -8,7 +8,6 @@ import org.firstinspires.ftc.teamcode.Math.PidStatus;
 /*
  *Writing by @MrFrosty1234
  */
-@Config
 public class DriveTrainMotors {
     public static Motor rightForwardDrive = new Motor();
     public static Motor rightBackDrive = new Motor();

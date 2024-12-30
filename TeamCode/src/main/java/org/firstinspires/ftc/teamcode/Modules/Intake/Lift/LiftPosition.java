@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.Lift;
 
 import com.acmerobotics.dashboard.config.Config;
 
-@Config
 public enum LiftPosition {
     DOWN, LOW_AXIS, HIGHEST_AXIS, HIGHEST_BASKET, LOWEST_BASKET, IN_POSITION;
 

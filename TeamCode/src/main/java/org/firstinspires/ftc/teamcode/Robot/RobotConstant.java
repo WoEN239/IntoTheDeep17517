@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner;
+package org.firstinspires.ftc.teamcode.Robot;
 
 import static java.lang.Math.PI;
 
@@ -10,10 +10,10 @@ import com.acmerobotics.dashboard.config.Config;
 
 @Config
 public class RobotConstant {
-    public static double maxAccel = 70;
+    public static double maxAccel = 200;
     public static double minAccel = -70;
 
-    public static double maxLinSpeed = 150;
+    public static double maxLinSpeed = 75;
     public static double maxAngSpeed = 4;
 
     public static double trackWidth = 0;

@@ -8,13 +8,12 @@ import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.PositionsPool;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.WayPoint;
 import org.firstinspires.ftc.teamcode.Robot.PurePursuitTask;
-import org.firstinspires.ftc.teamcode.Robot.Robot;
 import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.DriveTrainSimulation;
 import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.IntakeSimulation;
 import org.firstinspires.ftc.teamcode.Telemetry.FieldView;
 @Config
 @TeleOp
-public class Simulate extends BaseSimulation {
+public class PurePursuitSumulation extends BaseSimulation {
     int i = 0;
     boolean isFirst = true;
     boolean isEnd = false;

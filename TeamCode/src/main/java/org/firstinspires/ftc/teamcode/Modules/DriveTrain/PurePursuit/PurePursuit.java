@@ -33,12 +33,6 @@ public class PurePursuit implements IModule {
             makeWithTwoPoint(wayPoints.get(i-1).position, wayPoints.get(i).position)
             );
         }
-
-/*      int n = 0;
-        for(LineSegment i : trajectory){
-            Robot.telemetry.addData("LineSegment "+n,i.toString());
-            n++;
-        } */
     }
 
     @Override
@@ -60,11 +54,11 @@ public class PurePursuit implements IModule {
 
     @Override
     public void update() {
+        if(isOn){
         LineSegment nowLineSegment;
         Robot.telemetry.addData("Line Task",lineTask);
         if(!trajectory.isEmpty()) {
             nowLineSegment = trajectory.get(0);
-            //TODO
             FieldView.packet.fieldOverlay().
                     strokeLine(nowLineSegment.start.x, nowLineSegment.start.y,
                             nowLineSegment.end.x, nowLineSegment.end.y);
@@ -113,5 +107,6 @@ public class PurePursuit implements IModule {
         }else{
             isDone = true;
         }
+    }
     }
 }

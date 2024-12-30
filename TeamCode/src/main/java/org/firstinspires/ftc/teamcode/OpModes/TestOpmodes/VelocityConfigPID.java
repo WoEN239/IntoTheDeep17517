@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 @TeleOp(group = "Test")
-@Config
+
 public class VelocityConfigPID extends BaseMode {
     public static Position velPos = new Position();
     public static Position velTarget = new Position(0,0,0);

@@ -111,6 +111,11 @@ public class Position {
         this.y = y*k;
         return this;
     }
+
+    public double getLength(){
+        return Math.sqrt(x*x+y*y) ;
+    }
+
     public static double length(Position s, Position e){
         return Math.sqrt((s.x-e.x)*(s.x-e.x) - (s.y-e.y)*(s.y-e.y));
     }
