@@ -43,10 +43,9 @@ public abstract class BaseMode extends LinearOpMode {
             robot.updateTasks();
             robot.updatePPTasks();
             robot.update();
-            FieldView.updateField(robot.positionListener.getPositionGlobal());
+
         }
         stop();
-//        System.exit(0);
     }
 
 

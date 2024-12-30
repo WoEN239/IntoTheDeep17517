@@ -2,15 +2,19 @@ package org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit;
 
 import static java.lang.Math.abs;
 
+import com.acmerobotics.dashboard.config.Config;
+
 import org.firstinspires.ftc.teamcode.Math.Position;
+import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 /*
   Writing by EgorKhvostikov
 */
+@Config
 public class LineSegmentFollower {
     public static LineSegment targetLineSegment = new LineSegment();
-    public static double localRadius = 1.5;
-    public static double endDetect = 1.5;
+    public static double localRadius = 15;
+    public static double endDetect = 5;
     public static double targetLineAngle = 0;
     public static double targetEndAngle = 0;
 
@@ -25,6 +29,7 @@ public class LineSegmentFollower {
         target.h = targetLineAngle;
 
         Position error = new Position().copyFrom(pos).vectorMinus(targetLineSegment.end);
+
         if( abs(error.x) < endDetect && abs(error.y) < endDetect  ) {
             isEndNear = true;
             targetLineSegment.end.h = targetEndAngle;

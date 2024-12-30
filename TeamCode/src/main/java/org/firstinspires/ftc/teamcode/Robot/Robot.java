@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.OpModes.StateMachine.AutonomusStateMachine
 import org.firstinspires.ftc.teamcode.OpenCv.SimplesAndTagsDetectPipeline;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /*
   Writing by EgorKhvostikov
@@ -100,13 +101,20 @@ public class Robot extends ModulesList {
     }
 
     public void updatePPTasks() {
+        Robot.telemetry.addData("taskInQueue", purePursuitTasks.toString());
+
         for (PurePursuitTask i : purePursuitTasks) {
-            i.run();
+            if(!i.isRunOnce) {
+                i.run();
+            }
             if(i.isDone()){
                 i.end();
-                purePursuitTasks.remove(i);
             }
         }
+        purePursuitTasks.removeIf(PurePursuitTask::isDone);
+    }
+    public PurePursuitTask getPPTask(int index){
+        return purePursuitTasks.get(index);
     }
     public void addPPTask(PurePursuitTask t){
         purePursuitTasks.add(t);

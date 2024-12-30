@@ -5,19 +5,21 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.LineSegment;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.LineSegmentFollower;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
-
-@Config
 
 public class FieldView {
 
 
-    static TelemetryPacket packet = new TelemetryPacket();
+    public static TelemetryPacket packet = new TelemetryPacket();
     private static double smPerInch = 1/2.54;
 
-    public static Position target = new Position();
     public static double height = 36.5 / 2.0;
     public static double width = 20 / 2.0;
+
+    public static Position circle = new Position();
+    public static Position position = new Position();
 
     static void rotatePoints(double[] xPoints, double[] yPoints, double angle) {
         for (int i = 0; i < xPoints.length; i++) {
@@ -36,15 +38,13 @@ public class FieldView {
         }
     }
     static int i = 0;
-    public static void updateField(Position p) {
+    public static void updateField() {
         packet = new TelemetryPacket();
         double[] xPoints;
         double[] yPoints;
-        double xPos = p.x;
-        double yPos = p.y;
 
         Position rect = new Position(height,width,0);
-        rect.rotateVector(p.h);
+        rect.rotateVector(position.h);
 
         xPoints = new double[]{
                  + height,
@@ -57,22 +57,25 @@ public class FieldView {
                 (- width),
                 (+ width)};
 
-        rotatePoints(xPoints,yPoints,p.h);
-        plusVector(xPoints,yPoints,p);
+        rotatePoints(xPoints,yPoints,position.h);
+        plusVector(xPoints,yPoints,position);
 
         packet.fieldOverlay().setScale(smPerInch, smPerInch);
 
         packet.fieldOverlay().setFill("red");
-        packet.fieldOverlay().fillCircle(target.x,target.y,10);
+        packet.fieldOverlay().fillCircle(circle.x, circle.y,5);
 
         packet.fieldOverlay().setFill("blue");
         packet.fieldOverlay().fillPolygon(xPoints, yPoints);
 
         packet.fieldOverlay().setFill("green");
-        packet.fieldOverlay().strokeLine(p.x,p.y, p.x + rect.x, p.y + rect.y);
+        packet.fieldOverlay().strokeLine(position.x,position.y, position.x + rect.x, position.y + rect.y);
+
+        LineSegment trajectory = LineSegmentFollower.targetLineSegment;
+        packet.fieldOverlay().strokeLine(trajectory.start.x,trajectory.start.y,
+                                         trajectory.end.x,  trajectory.end.y );
 
         FtcDashboard.getInstance().sendTelemetryPacket(packet);
-        Robot.telemetry.addData("send packet №",++i);
     }
 
 }

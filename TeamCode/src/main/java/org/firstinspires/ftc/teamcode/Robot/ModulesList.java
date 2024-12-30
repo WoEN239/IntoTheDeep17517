@@ -45,7 +45,7 @@ public class ModulesList {
             fieldSensors,battery
     };
     protected IModule[] simulationModules = new IModule[]{
-           positionController,//purePursuit
+           positionController,purePursuit
     };
 
 }

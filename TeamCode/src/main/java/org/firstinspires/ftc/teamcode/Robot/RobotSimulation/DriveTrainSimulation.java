@@ -11,7 +11,7 @@ public class DriveTrainSimulation {
     private static Position oldPosition   = new Position();
     static ElapsedTime time = new ElapsedTime();
     public static void updatePosition(){
-        if(time.seconds()>0.02) {
+        if(time.seconds()>0.001) {
             localPosition.x += velocity.x * time.seconds();
             localPosition.y += velocity.y * time.seconds();
             localPosition.h += velocity.h * time.seconds();

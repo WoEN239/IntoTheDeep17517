@@ -5,6 +5,8 @@ import static java.lang.Math.cos;
 import static java.lang.Math.signum;
 import static java.lang.Math.sin;
 
+import androidx.annotation.NonNull;
+
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.PoseVelocity2d;
 import com.acmerobotics.roadrunner.PoseVelocity2dDual;
@@ -113,4 +115,9 @@ public class Position {
         return Math.sqrt((s.x-e.x)*(s.x-e.x) - (s.y-e.y)*(s.y-e.y));
     }
 
+    @NonNull
+    @Override
+    public String toString(){
+        return "x: " + x + " y: " + y;
+    }
 }

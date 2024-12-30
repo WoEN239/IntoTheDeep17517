@@ -5,8 +5,8 @@ import org.firstinspires.ftc.teamcode.Robot.PurePursuitTask;
 import org.firstinspires.ftc.teamcode.Robot.Task;
 
 public class WayPoint {
-    public PurePursuitTask onLineTask  = new PurePursuitTask(new Runnable[]{});
-    public PurePursuitTask onPointTask = new PurePursuitTask(new Runnable[]{});
+    public PurePursuitTask onLineTask ;
+    public PurePursuitTask onPointTask;
     public Position position;
 
     public WayPoint(Position position, PurePursuitTask onLineTask, PurePursuitTask onPointTask) {
@@ -18,9 +18,12 @@ public class WayPoint {
     public WayPoint(Position position, PurePursuitTask onPointTask) {
         this.position = position;
         this.onPointTask = onPointTask;
+        this.onLineTask = PurePursuitTask.Stub;
     }
 
     public WayPoint(Position position) {
+        this.onLineTask = PurePursuitTask.Stub;
+        this.onPointTask = PurePursuitTask.Stub;
         this.position = position;
     }
 }
