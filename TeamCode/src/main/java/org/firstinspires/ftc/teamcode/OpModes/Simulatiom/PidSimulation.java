@@ -20,7 +20,7 @@ public class PidSimulation extends BaseSimulation{
 
     @Override
     public void callRun() {
-        robot.driveTrain.setManualPidMode(true);
+
         isNeedToCall = false;
     }
 

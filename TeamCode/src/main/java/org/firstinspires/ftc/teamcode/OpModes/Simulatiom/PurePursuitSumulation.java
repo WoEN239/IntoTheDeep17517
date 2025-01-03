@@ -31,7 +31,8 @@ public class PurePursuitSumulation extends BaseSimulation {
                             new PurePursuitTask(
                                     "Scoring",
                                     IntakeSimulation::isDone,
-                                    () -> IntakeSimulation.setDelay(5)
+                                    () -> IntakeSimulation.setDelay(10),
+                                    () -> robot.driveTrain.setManualTarget(new Position(100,100,45))
                             )
                     ),
                     new WayPoint(new Position().copyFrom(PositionPool.redBasketScoring),
@@ -54,8 +55,7 @@ public class PurePursuitSumulation extends BaseSimulation {
     }
     @Override
     public void loopRun(){
-        robot.driveTrain.setManualTarget(targetMan);
-        FieldView.position = DriveTrainSimulation.position;
+          FieldView.position = DriveTrainSimulation.position;
         FieldView.circle = robot.driveTrain.getPidTarget();
         FieldView.updateField();
     }

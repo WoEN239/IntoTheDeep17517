@@ -71,6 +71,12 @@ public class Position {
         y -= pos.y;
         h -= pos.h;
     }
+    public Position positionPlus(Position pos){
+        x += pos.x;
+        y += pos.y;
+        h += pos.h;
+        return this;
+    }
 
     public Position vectorPlus(Position pos) {
         x += pos.x;

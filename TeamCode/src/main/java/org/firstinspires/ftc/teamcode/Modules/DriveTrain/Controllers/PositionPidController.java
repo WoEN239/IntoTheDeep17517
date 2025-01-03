@@ -14,7 +14,7 @@ public class PositionPidController{
 
     private final Position globalTarget = new Position();
     public Position getGlobalTarget() {return globalTarget;}
-    public void setGlobalTarget(Position globalTarget) {this.globalTarget.copyFrom(globalTarget);}
+    public void setTarget(Position globalTarget) {this.globalTarget.copyFrom(globalTarget);}
 
     private final Position globalPosition = new Position();
     public void setGlobalPosition(Position p) {this.globalPosition.copyFrom(p);}
@@ -48,6 +48,7 @@ public class PositionPidController{
 
     public void computePidResult() {
         computePidTarget();
+
         Position pidResult = new Position();
 
         pidX.setPos(localPosition.x);
@@ -68,11 +69,6 @@ public class PositionPidController{
         this.pidResult.copyFrom(pidResult);
     }
 
-    public boolean isAtTarget() {
-        Position err = new Position().copyFrom(targetForPid);
-        err.positionMinus(localPosition);
-        return abs(err.x) < 3 && abs(err.y) < 5 && abs(err.h) < 5;
 
-    }
 }
 
