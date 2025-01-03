@@ -17,6 +17,7 @@ import java.util.Arrays;
 public class PurePursuit {
     private final ArrayList<WayPoint>    wayPoints  = new ArrayList<>();
     private final ArrayList<LineSegment> trajectory = new ArrayList<>();
+    public boolean isEndOfTrajectory = false;
 
     public void addWayPoints(WayPoint... p){
         if(wayPoints.isEmpty()){
@@ -59,6 +60,7 @@ public class PurePursuit {
     public void computeTarget() {
         LineSegment nowLineSegment;
         if(!trajectory.isEmpty()) {
+            isEndOfTrajectory = false;
             nowLineSegment = trajectory.get(0);
             FieldView.packet.fieldOverlay().
                     strokeLine(nowLineSegment.start.x, nowLineSegment.start.y,
@@ -72,6 +74,8 @@ public class PurePursuit {
             Position target = LineSegmentFollower.getVirtualTarget(position);
             onPoint = LineSegmentFollower.isEndNear;
             this.target.copyFrom(target);
+        }else {
+            isEndOfTrajectory = true;
         }
     }
 

@@ -11,9 +11,6 @@ public class DriveTrainManager extends DriveTrain{
     private RobotState state = RobotState.TRAVELING;
     public void setState(RobotState state) {this.state = state;}
 
-    private boolean manualPidMode = false;
-    public void setManualPidMode(boolean manualPidMode) {this.manualPidMode = manualPidMode;}
-
     private void changeState(RobotState state){ this.state = state; isNeedToAddTask = true;}
     private boolean isNeedToAddTask = true;
 
@@ -21,16 +18,14 @@ public class DriveTrainManager extends DriveTrain{
         Robot.telemetry.addData("Robot move state",state.toString());
         switch (state){
             case POINT:
-                if(manualPidMode) {
-                    setDriveTrainState(DriveTrain.DriveTrainState.PID_CONTROL);
-                }
+                setDriveTrainState(DriveTrain.DriveTrainState.PID_CONTROL);
                 PurePursuitTask task1 = purePursuit.getOnPointTask();
                 if (isNeedToAddTask) {
                     isNeedToAddTask = false;
                     TaskManager.getInstance().addTask(task1);
                 }
 
-                if(task1.isDone() && task1.isRunOnce){
+                if(task1.isDone() && task1.isRunOnce && !purePursuit.isEndOfTrajectory){
                     purePursuit.changeTrajectorySegment();
                     changeState(RobotState.TRAVELING);
                 }
@@ -45,7 +40,7 @@ public class DriveTrainManager extends DriveTrain{
                     isNeedToAddTask = false;
                     TaskManager.getInstance().addTask(task2);
                 }
-                if(task2.isRunOnce && task2.isDone() && purePursuit.onPoint()){
+                if(task2.isRunOnce && task2.isDone() && purePursuit.onPoint() || purePursuit.isEndOfTrajectory){
                     changeState(RobotState.POINT);
                 }
                 break;

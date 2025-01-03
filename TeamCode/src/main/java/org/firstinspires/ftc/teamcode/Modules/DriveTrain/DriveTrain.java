@@ -114,7 +114,7 @@ abstract class DriveTrain {
         }
         positionPidController.setLocalPosition(localPosition);
         positionPidController.setGlobalPosition(position);
-        positionPidController.setGlobalTarget  (pidTarget);
+        positionPidController.setTarget(pidTarget);
         positionPidController.computePidResult();
 
         Position pidResult = positionPidController.getPidResult();
