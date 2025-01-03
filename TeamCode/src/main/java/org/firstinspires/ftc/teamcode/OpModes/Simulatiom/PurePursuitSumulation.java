@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.PositionsPool;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.PositionPool;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.WayPoint;
 import org.firstinspires.ftc.teamcode.Robot.PurePursuitTask;
 import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.DriveTrainSimulation;
@@ -15,16 +15,14 @@ import org.firstinspires.ftc.teamcode.Telemetry.FieldView;
 @TeleOp
 public class PurePursuitSumulation extends BaseSimulation {
     int i = 0;
-    boolean isFirst = true;
-    boolean isEnd = false;
     ElapsedTime timer = new ElapsedTime();
+    public static Position targetMan = new Position();
+
     @Override
-    public void doing() {
-        DriveTrainSimulation.updatePosition();
-        if(isFirst) {
-            timer.reset();
-            robot.purePursuit.addWayPoints(
-                    new WayPoint(new Position().copyFrom(PositionsPool.redCenterScoring),
+    public void callRun() {
+        timer.reset();
+        robot.driveTrain.addWayPoints(
+                    new WayPoint(new Position().copyFrom(PositionPool.redCenterScoring),
                             new PurePursuitTask(
                                     "Up Lift",
                                     IntakeSimulation::isDone,
@@ -36,7 +34,7 @@ public class PurePursuitSumulation extends BaseSimulation {
                                     () -> IntakeSimulation.setDelay(5)
                             )
                     ),
-                    new WayPoint(new Position().copyFrom(PositionsPool.redBasketScoring),
+                    new WayPoint(new Position().copyFrom(PositionPool.redBasketScoring),
                             new PurePursuitTask(
                                     "Up two Lift",
                                     IntakeSimulation::isDone,
@@ -48,13 +46,17 @@ public class PurePursuitSumulation extends BaseSimulation {
                                     ()->IntakeSimulation.setDelay(5)
                             )
                     ),
-                    new WayPoint(new Position().copyFrom(PositionsPool.redCenterEat))
+                    new WayPoint(new Position().copyFrom(PositionPool.redCenterEat))
 
             );
-            isFirst = false;
-        }
+        isNeedToCall = false;
+
+    }
+    @Override
+    public void loopRun(){
+        robot.driveTrain.setManualTarget(targetMan);
         FieldView.position = DriveTrainSimulation.position;
-        FieldView.circle = robot.positionController.getGlobalTarget();
+        FieldView.circle = robot.driveTrain.getPidTarget();
         FieldView.updateField();
     }
 }

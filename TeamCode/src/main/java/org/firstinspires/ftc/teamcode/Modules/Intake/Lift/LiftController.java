@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.Lift;
 
 import static java.lang.Math.abs;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Devices.LiftHangingMotors;
@@ -15,9 +14,8 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
 /**
  * Writing by @MrFrosty1234
  */
-public class LiftController implements Controller {
-    LiftPosition liftPosition;
-    Robot robot;
+
+public class LiftController {
 
     public Motor liftLeftMotor;
     public Motor liftRightMotor;
@@ -34,10 +32,8 @@ public class LiftController implements Controller {
     public static double gravity = 0.1;
 
 
-    @Override
-    public void init(Robot robot) {
-        this.robot = robot;
-        liftListener = robot.liftListener;
+    public void init(LiftListener liftListener) {
+        this.liftListener = liftListener;
 
         liftLeftMotor = LiftHangingMotors.liftLeftMotor;
         liftRightMotor = LiftHangingMotors.liftRightMotor;
@@ -91,7 +87,6 @@ public class LiftController implements Controller {
         pid.update();
     }
 
-    @Override
     public void update() {
         liftRightMotor.update();
         liftLeftMotor.update();

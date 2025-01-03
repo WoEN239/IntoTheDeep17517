@@ -8,21 +8,22 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
+import org.opencv.core.MatOfPoint;
 import org.opencv.core.Point;
+import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.imgproc.Moments;
 import org.openftc.easyopencv.OpenCvPipeline;
 
 import java.util.ArrayList;
-
+import java.util.List;
 
 /*
   Writing by EgorKhvostikov
 */
+
 @Config
 public class SimplesAndTagsDetectPipeline extends OpenCvPipeline {
-
-
     public Mat frame = new Mat();
     public Mat binaryMaskUnshaped = new Mat();
     public Mat binaryMask = new Mat();
@@ -57,10 +58,16 @@ public class SimplesAndTagsDetectPipeline extends OpenCvPipeline {
     @Override
     public Mat processFrame(Mat input) {
         frame = input;
-        findAprilTag();
-        doMask();
-        findCentreObject();
+        contours();
+        Imgproc.drawContours(input,pointList,0,new Scalar(200,200,200));
         return input;
+    }
+
+    Mat contours = new Mat();
+    List<MatOfPoint> pointList = new ArrayList<>();
+    Mat hierarchy = new Mat();
+    private void contours() {
+        Imgproc.findContours(frame,pointList,hierarchy,Imgproc.RETR_EXTERNAL,Imgproc.CHAIN_APPROX_TC89_KCOS);
     }
 
     public void findAprilTag() {

@@ -35,6 +35,9 @@ public class PurePursuitTask {
         }
     }
     public boolean isDone(){
+        if(isDone.get() && isRunOnce){
+            isDone = ()->true;
+        }
         return isDone.get();
     }
 

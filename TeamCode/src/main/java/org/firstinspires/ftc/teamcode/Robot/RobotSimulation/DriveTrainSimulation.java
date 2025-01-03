@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
 
-public class DriveTrainSimulation {
+public class    DriveTrainSimulation {
     public static  Position position      = new Position();
     public static  Position localPosition = new Position();
     public static  Position velocity      = new Position();
@@ -50,7 +50,7 @@ public class DriveTrainSimulation {
 
     public static void updatePosition(){
         if(time.seconds()>0.001) {
-            normalizeVelocity();
+            //normalizeVelocity();
             localPosition.x += velocity.x * time.seconds();
             localPosition.y += velocity.y * time.seconds();
             localPosition.h += velocity.h * time.seconds();

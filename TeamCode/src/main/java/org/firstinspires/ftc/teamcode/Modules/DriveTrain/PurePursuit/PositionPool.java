@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.Math.Position;
   Writing by EgorKhvostikov
 */
 @Config
-public class PositionsPool {
+public class PositionPool {
 
     public static Position blueStart         = new Position(0,0,0);
     public static Position redStart          = new Position(0,-150,0);

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Modules.DriveTrain.FieldSensors;
+package org.firstinspires.ftc.teamcode.Modules.DriveTrain.Devices;
 
 import com.qualcomm.robotcore.hardware.AnalogInput;
 
@@ -17,7 +17,7 @@ public class FieldSensors implements Listener {
     AnalogInput leftSensor;
     AnalogInput rightSensor;
 
-    public void init(Robot robot) {
+    public void init() {
         this.robot = robot;
         leftSensor  = Sensors.leftColorSensor;
         rightSensor = Sensors.rightColorSensor;

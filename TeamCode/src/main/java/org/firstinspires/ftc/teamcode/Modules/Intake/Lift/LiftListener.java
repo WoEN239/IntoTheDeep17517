@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.Math.Button;
 import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.Listener;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
-public class LiftListener implements Listener {
+public class LiftListener {
 
     Robot robot;
 
@@ -22,13 +22,10 @@ public class LiftListener implements Listener {
     private double liftPosition = 0;
     private double liftStaticErrLeft = 0;
     private double liftStaticErrRight = 0;
-    private double encoderPosition = 0;
 
     public double errSync = 0;
 
-    @Override
-    public void init(Robot robot) {
-        this.robot = robot;
+    public void init() {
         leftButtonDown = Sensors.downLeftButton;
         rightButtonDown = Sensors.downRightButton;
         liftLeftMotor = LiftHangingMotors.liftLeftMotor;
@@ -53,9 +50,5 @@ public class LiftListener implements Listener {
         errSync = (liftLeftMotor.getPosition() - liftStaticErrLeft) - (liftRightMotor.getPosition() - liftStaticErrRight);
     }
 
-    @Override
-    public void read() {
-        updatePosition();
-    }
 
 }

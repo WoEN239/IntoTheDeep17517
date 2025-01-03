@@ -11,7 +11,6 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
  */
 
 public class Grabber implements Controller {
-    Robot robot;
 
     private Servo grabberServo;
     private Servo flipServoRight;
@@ -88,8 +87,7 @@ public class Grabber implements Controller {
 
 
     @Override
-    public void init(Robot robot) {
-        this.robot = robot;
+    public void init() {
         flipServoRight = IntakeServo.flipServoRight;
         grabberServo = IntakeServo.grabberServo;
         transferServoLeft = IntakeServo.transferServoLeft;

@@ -18,10 +18,9 @@ public class IntakeStateMachine {
 
     LiftPosition upPos = LiftPosition.LOW_AXIS;
 
-    Robot robot                  ;
-    Grabber grabber              ;
-    LiftController liftController;
-    LiftListener liftListener    ;
+    Grabber grabber               = new Grabber()       ;
+    LiftController liftController = new LiftController();
+    LiftListener liftListener     = new LiftListener()  ;
 
     public void setTarget(IntakeState target) {
         this.target = target;
@@ -30,11 +29,10 @@ public class IntakeStateMachine {
         this.state = state;
     }
 
-    public void init(Robot robot) {
-        this.robot = robot;
-        grabber = robot.grabber;
-        liftController = robot.liftController;
-        liftListener = robot.liftListener;
+    public void init() {
+        grabber.init();
+        liftListener.init();
+        liftController.init(liftListener);
     }
 
     ElapsedTime timer = new ElapsedTime();
@@ -46,8 +44,8 @@ public class IntakeStateMachine {
             if(f){
                 timer.reset();
             }
-            changeState(target);
             f = false;
+            changeState(target);
             isDone = false;
         }else {
             updateState();

@@ -19,19 +19,17 @@ public class Camera {
     public static int HEIGHT = 448;
 
     public void init(Robot robot) {
-        int cameraMonitorViewId = robot.hardwareMap.appContext.getResources()
-                .getIdentifier("cameraMonitorViewId", "id", robot.hardwareMap.appContext.getPackageName());
+        int cameraMonitorViewId = robot.opMode.hardwareMap.appContext.getResources()
+                .getIdentifier("cameraMonitorViewId", "id", robot.opMode.hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createWebcam(
-                robot.hardwareMap.get(WebcamName.class, "Webcam 1"),
+                robot.opMode.hardwareMap.get(WebcamName.class, "Webcam 1"),
                 cameraMonitorViewId);
-        camera.setPipeline(robot.pipeLine);
+        //TODO setPipeLine
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
                 Robot.telemetry.addLine("camera successful init");
-                if (BaseMode.isCamera) {
-                    startStream();
-                }
+                startStream();
             }
 
             @Override
