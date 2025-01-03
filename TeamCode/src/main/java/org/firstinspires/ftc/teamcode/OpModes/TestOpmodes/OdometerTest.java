@@ -12,7 +12,6 @@ public class OdometerTest extends BaseMode {
 
     @Override
     public void doing() {
-        position = robot.positionListener.getPositionGlobal();
         Robot.telemetry.addData("xPos", position.x);
         Robot.telemetry.addData("yPos", position.y);
         Robot.telemetry.addData("hPos", position.h);

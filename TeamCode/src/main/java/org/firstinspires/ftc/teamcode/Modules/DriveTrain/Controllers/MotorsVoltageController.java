@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Modules.DriveTrain.Devices;
+package org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers;
 
 import static org.firstinspires.ftc.teamcode.Robot.RobotConstant.MAX_MOTOR_TICKS_VEL;
 import static org.firstinspires.ftc.teamcode.Robot.RobotConstant.yMultiplier;
@@ -12,32 +12,32 @@ import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Robot.RobotConstant;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
-/**
- * Writing by EgorKhvostikov
- */
+/*
+  Writing by EgorKhvostikov
+*/
 
-public class DriveMotorsMap {
-    Robot robot;
-    public Motor rightForwardDrive;
-    public Motor rightBackDrive;
-    public Motor leftForwardDrive;
-    public Motor leftBackDrive;
+public class MotorsVoltageController {
+    private Motor rightForwardDrive;
+    private Motor rightBackDrive;
+    private Motor leftForwardDrive;
+    private Motor leftBackDrive;
 
-    public void update() {
+    public void updateData() {
         rightBackDrive.update();
         rightForwardDrive.update();
         leftBackDrive.update();
         leftForwardDrive.update();
 
     }
+
     public void init(Robot robot) {
-        this.robot = robot;
         rightBackDrive    = DriveTrainMotors.rightBackDrive;
         rightForwardDrive = DriveTrainMotors.rightForwardDrive;
         leftBackDrive     = DriveTrainMotors.leftBackDrive;
         leftForwardDrive  = DriveTrainMotors.leftForwardDrive;
     }
-    public void move(Position t){
+
+    public void setVoltage(Position t){
         Position target = new Position().copyFrom(t);
 
         target.linearMultiply(RobotConstant.ENC_TIK_PER_SM);
@@ -50,7 +50,7 @@ public class DriveMotorsMap {
 
         double maxTargetVel = max(
                 max(abs(rightBackVel), abs(rightForwardVel)),
-                max(abs(leftBackVel), abs(leftForwardVel)));
+                max(abs(leftBackVel) , abs(leftForwardVel)));
 
 
         if (maxTargetVel > MAX_MOTOR_TICKS_VEL) {
@@ -65,5 +65,5 @@ public class DriveMotorsMap {
         rightForwardDrive.setVel(rightForwardVel);
         leftBackDrive    .setVel(leftBackVel);
         leftForwardDrive .setVel(leftForwardVel);
-        }
+    }
 }

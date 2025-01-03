@@ -23,15 +23,15 @@ public class AutonomusStateMachine {
 
     public void updateState(){
         robot.intake.setTarget(state.data.intakeState);
-        robot.positionController.move(state.data.position);
+        //robot.positionPidController.move(state.data.position);
     }
     public void changeState(){
         robot.intake.setTarget(target.data.intakeState);
         if(timer.seconds()>3) {
-            robot.positionController.move(target.data.position);
-            if(robot.positionController.isAtTarget()){
-                state = target;
-            }
+          //  robot.positionPidController.move(target.data.position);
+            //if(robot.positionPidController.isAtTarget()){
+              //  state = target;
+            //}
         }
 
     }

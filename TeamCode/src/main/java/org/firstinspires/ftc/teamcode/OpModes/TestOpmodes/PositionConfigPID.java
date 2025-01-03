@@ -20,7 +20,6 @@ public class PositionConfigPID extends BaseMode {
     @Override
     public void doing() {
         DriveTrainMotors.initPid();
-        pos.copyFrom(robot.positionListener.getPositionGlobal());
         Robot.telemetry.addData("xV", pos.x);
         Robot.telemetry.addData("yV", pos.y);
         Robot.telemetry.addData("hV", pos.h);
@@ -28,12 +27,12 @@ public class PositionConfigPID extends BaseMode {
         Robot.telemetry.addData("xT", n*target.x);
         Robot.telemetry.addData("yT", n*target.y);
         Robot.telemetry.addData("hT", n*target.h);
-        if(timer.seconds()%(2*k) > k){
-            robot.positionController.move(target);
-            n = 1;
-        }else{
-            robot.positionController.move(new Position(-target.x,-target.y,-target.h));
-            n = -1;
-        }
+//        if(timer.seconds()%(2*k) > k){
+//            robot.positionPidController.move(target);
+//            n = 1;
+//        }else{
+//            robot.positionPidController.move(new Position(-target.x,-target.y,-target.h));
+//            n = -1;
+//        }
     }
 }
