@@ -15,8 +15,8 @@ import org.openftc.easyopencv.OpenCvWebcam;
 */
 public class Camera {
     public OpenCvWebcam camera;
-    public static int WIDTH = 800;
-    public static int HEIGHT = 448;
+    public static int WIDTH = 640;
+    public static int HEIGHT = 480;
 
     public void init(Robot robot) {
         int cameraMonitorViewId = robot.opMode.hardwareMap.appContext.getResources()
@@ -24,7 +24,7 @@ public class Camera {
         camera = OpenCvCameraFactory.getInstance().createWebcam(
                 robot.opMode.hardwareMap.get(WebcamName.class, "Webcam 1"),
                 cameraMonitorViewId);
-        //TODO setPipeLine
+        camera.setPipeline(SimplesAndTagsDetectPipeline.getInstance());
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {

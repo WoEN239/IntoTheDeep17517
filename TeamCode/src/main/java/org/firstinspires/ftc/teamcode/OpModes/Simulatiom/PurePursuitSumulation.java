@@ -55,7 +55,7 @@ public class PurePursuitSumulation extends BaseSimulation {
     }
     @Override
     public void loopRun(){
-          FieldView.position = DriveTrainSimulation.position;
+        FieldView.position = DriveTrainSimulation.position;
         FieldView.circle = robot.driveTrain.getPidTarget();
         FieldView.updateField();
     }

@@ -36,7 +36,7 @@ public abstract class BaseSimulation extends LinearOpMode {
             loopRun();
             robot.update();
         }
-        System.exit(0);
+      //  System.exit(0);
     }
     public abstract void loopRun()   ;
     public void callRun(){};
