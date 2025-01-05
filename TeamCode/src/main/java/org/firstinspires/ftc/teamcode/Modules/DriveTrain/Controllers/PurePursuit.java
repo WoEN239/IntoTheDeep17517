@@ -16,13 +16,13 @@ import java.util.Arrays;
 */
 public class PurePursuit {
     private final ArrayList<WayPoint>    wayPoints  = new ArrayList<>();
+    {
+        wayPoints.add(new WayPoint(Robot.myTeam.startPos));
+    }
     private final ArrayList<LineSegment> trajectory = new ArrayList<>();
     public boolean isEndOfTrajectory = false;
 
     public void addWayPoints(WayPoint... p){
-        if(wayPoints.isEmpty()){
-            wayPoints.add(new WayPoint(Robot.myTeam.startPos));
-        }
 
         wayPoints.addAll(Arrays.asList(p));
 

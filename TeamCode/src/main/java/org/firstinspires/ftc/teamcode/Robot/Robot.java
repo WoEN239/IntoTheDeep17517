@@ -9,6 +9,8 @@ import org.firstinspires.ftc.teamcode.Devices.Battery;
 import org.firstinspires.ftc.teamcode.Devices.DevicePool;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.DriveTrainManager;
 import org.firstinspires.ftc.teamcode.Modules.Intake.StateMachine.IntakeStateMachine;
+import org.firstinspires.ftc.teamcode.OpenCv.Camera;
+import org.firstinspires.ftc.teamcode.OpenCv.SimplesAndTagsDetectPipeline;
 
 /*
   Writing by EgorKhvostikov
@@ -32,6 +34,8 @@ public class Robot{
 
     public DriveTrainManager  driveTrain = new DriveTrainManager ();
     public IntakeStateMachine intake     = new IntakeStateMachine();
+    public Camera camera = new Camera();
+
 
     public void init(LinearOpMode opMode){
         this.opMode = opMode;
@@ -39,6 +43,7 @@ public class Robot{
             DevicePool.init(opMode.hardwareMap);
             intake.init();
         }
+        camera.init(this);
         driveTrain.init();
     }
 

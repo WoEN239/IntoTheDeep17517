@@ -1,124 +1,89 @@
 package org.firstinspires.ftc.teamcode.OpenCv;
 
-import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.dashboard.FtcDashboard;
 
 import org.firstinspires.ftc.teamcode.Robot.Robot;
-import org.firstinspires.ftc.teamcode.Robot.Team;
-import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
-import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
-import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
+import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Point;
+import org.opencv.core.RotatedRect;
 import org.opencv.core.Scalar;
+import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
-import org.opencv.imgproc.Moments;
 import org.openftc.easyopencv.OpenCvPipeline;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /*
   Writing by EgorKhvostikov
 */
 
-@Config
+
 public class SimplesAndTagsDetectPipeline extends OpenCvPipeline {
+    private static SimplesAndTagsDetectPipeline instance = new SimplesAndTagsDetectPipeline();
+    public static SimplesAndTagsDetectPipeline getInstance() {
+        return instance;
+    }
+
     public Mat frame = new Mat();
-    public Mat binaryMaskUnshaped = new Mat();
-    public Mat binaryMask = new Mat();
 
-
-    public Mat hvsMaskYellow = new Mat();
-    public Mat hvsMaskRed = new Mat();
-    public Mat hvsMaskBlue = new Mat();
-
-    public Mat binaryMaskYellow = new Mat();
-    public Mat binaryMaskBlue = new Mat();
-    public Mat binaryMaskRed = new Mat();
-
-    public static RangeHvsConfig hvsMaxYellow = new RangeHvsConfig();
-    public static RangeHvsConfig hvsMinYellow = new RangeHvsConfig();
-
-    public static RangeHvsConfig hvsMaxRed = new RangeHvsConfig();
-    public static RangeHvsConfig hvsMinRed = new RangeHvsConfig();
-
-    public static RangeHvsConfig hvsMaxBlue = new RangeHvsConfig();
-    public static RangeHvsConfig hvsMinBlue = new RangeHvsConfig();
-
-    public static int idAprilTag = 1;
-    public boolean isAprilTag = false;
-    public boolean isObject = false;
-
-    AprilTagProcessor aprilTagProcessor = AprilTagProcessor.easyCreateWithDefaults();
-    ArrayList<AprilTagDetection> aprilTagDetections = new ArrayList<>();
-    Point aprilTagCenters = new Point();
-    Point objectCentre = new Point();
-
+    Point[] c1 ;
+    Point[] c2 ;
     @Override
     public Mat processFrame(Mat input) {
-        frame = input;
-        contours();
-        Imgproc.drawContours(input,pointList,0,new Scalar(200,200,200));
-        return input;
-    }
+        List<MatOfPoint> contr = new ArrayList<>();
+        Mat h = new Mat();
+        Mat bin = new Mat();
+        Imgproc.cvtColor(input,bin,Imgproc.COLOR_BGR2GRAY);
+        Imgproc.GaussianBlur(bin,bin,new Size(PipeLineConfig.blurA,PipeLineConfig.blurB),0,0);
+        Imgproc.adaptiveThreshold(bin,bin,255,Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C,Imgproc.THRESH_BINARY,
+                PipeLineConfig.tresh, PipeLineConfig.c);
 
-    Mat contours = new Mat();
-    List<MatOfPoint> pointList = new ArrayList<>();
-    Mat hierarchy = new Mat();
-    private void contours() {
-        Imgproc.findContours(frame,pointList,hierarchy,Imgproc.RETR_EXTERNAL,Imgproc.CHAIN_APPROX_TC89_KCOS);
-    }
+        Imgproc.findContours(bin,contr,h,Imgproc.RETR_EXTERNAL,Imgproc.CHAIN_APPROX_SIMPLE);
 
-    public void findAprilTag() {
-        aprilTagDetections = aprilTagProcessor.getDetections();
-        for (AprilTagDetection d : aprilTagDetections) {
-            if (d.id == idAprilTag) {
-                isAprilTag = true;
-                aprilTagCenters = d.center;
-            } else {
-                isAprilTag = false;
-            }
+
+        if(contr.isEmpty()){
+            return input;
         }
+//
+        contr.sort((c1, c2) -> (int) (Imgproc.contourArea(c1)-Imgproc.contourArea(c2)));
+
+        c1 = contr.get(contr.size()-1).toArray();
+        c2 = contr.get(contr.size()-2).toArray();
+
+        Point[] c  = new Point[c1.length+c2.length];
+        System.arraycopy(c1,0,c,0,c1.length);
+        System.arraycopy(c2,0,c,c1.length,c2.length);
+
+        double eps = PipeLineConfig.epsK*Imgproc.arcLength(new MatOfPoint2f(c),false);
+        MatOfPoint2f approx = new MatOfPoint2f();
+        Robot.telemetry.addData("Contour elements",approx.toArray().length);
+        Robot.telemetry.update();//
+        Imgproc.approxPolyDP(new MatOfPoint2f(c),approx,eps,false);
+
+        List<MatOfPoint> appCont = new ArrayList<>();
+        appCont.add(new MatOfPoint(approx.toArray()));
+
+        RotatedRect rect =  Imgproc.minAreaRect(new MatOfPoint2f(c));
+
+        Point[] vert = new Point[4];
+        rect.points(vert);
+
+        List<MatOfPoint> boxCont = new ArrayList<>();
+        boxCont.add(new MatOfPoint(vert));
+//
+        Imgproc.drawContours(input,boxCont, -1, new Scalar(0,255,0),5);
+        Imgproc.drawContours(input,contr, -1, new Scalar(255,255,255),5);
+        Imgproc.drawContours(input,appCont, -1, new Scalar(255,0,255),5);
+//        //Imgproc.circle(input,rect.center,10,new Scalar(0,0,255),5);
+//        Imgproc.putText(input,""+rect.angle,rect.center,Imgproc.FONT_HERSHEY_COMPLEX,1,new Scalar(255,0,0),1);
+
+        return input ;
     }
 
-    public void findCentreObject() {
-        Moments m = Imgproc.moments(binaryMask, true);
-        if (m.m00 > 30) {
-            objectCentre.x = m.m10 / m.m00;
-            objectCentre.y = m.m01 / m.m00;
-            isObject = true;
-        } else {
-            isObject = false;
-        }
-    }
 
-    public void doMask() {
-        Imgproc.cvtColor(frame, hvsMaskBlue, Imgproc.COLOR_RGBA2BGR);
-        Imgproc.cvtColor(frame, hvsMaskRed, Imgproc.COLOR_RGBA2BGR);
-        Imgproc.cvtColor(frame, hvsMaskYellow, Imgproc.COLOR_RGBA2BGR);
-        Imgproc.cvtColor(frame, hvsMaskBlue, Imgproc.COLOR_BGR2HSV);
-        Imgproc.cvtColor(frame, hvsMaskRed, Imgproc.COLOR_BGR2HSV);
-        Imgproc.cvtColor(frame, hvsMaskYellow, Imgproc.COLOR_BGR2HSV);
-
-        Core.inRange(hvsMaskRed, hvsMinRed.toScalar(),
-                hvsMaxRed.toScalar(),
-                binaryMaskRed);
-
-        Core.inRange(hvsMaskBlue, hvsMinBlue.toScalar(),
-                hvsMaxBlue.toScalar(),
-                binaryMaskBlue);
-
-        Core.inRange(hvsMaskYellow, hvsMinYellow.toScalar(),
-                hvsMaxYellow.toScalar(),
-                binaryMaskYellow);
-        if (Robot.myTeam == Team.BLUE) {
-            Core.bitwise_or(binaryMaskBlue, binaryMaskYellow, binaryMaskUnshaped);
-        } else {
-            Core.bitwise_or(binaryMaskRed, binaryMaskYellow, binaryMaskUnshaped);
-        }
-        binaryMask = binaryMaskUnshaped.rowRange(
-                ((int) binaryMaskUnshaped.size().width / 4) * 2, ((int) binaryMaskUnshaped.size().width / 4) * 3
-        );
-    }
 }
