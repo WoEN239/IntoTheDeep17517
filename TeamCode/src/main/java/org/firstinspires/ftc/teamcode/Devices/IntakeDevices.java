@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  Writing by @MrFrosty1234
 */
 
-public class IntakeServo {
+public class IntakeDevices {
 
     public static Servo grabberServo;
     public static Servo flipServoRight;
@@ -16,6 +16,7 @@ public class IntakeServo {
     public static Servo afterTransferServo;
     public static Servo outRobotServo;
     public static Servo flipServoLeft;
+    public static Motor brushMotor;
 
 
 
@@ -27,5 +28,6 @@ public class IntakeServo {
         afterTransferServo = hardwareMap.get(Servo.class, "afterTransferServo");
         outRobotServo = hardwareMap.get(Servo.class, "outRobotServo");
         flipServoLeft = hardwareMap.get(Servo.class, "flipServoLeft");
+        brushMotor = hardwareMap.get(Motor.class, "brush");
     }
 }

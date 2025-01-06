@@ -2,9 +2,9 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.Grabber;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Devices.IntakeServo;
+import org.firstinspires.ftc.teamcode.Devices.IntakeDevices;
+import org.firstinspires.ftc.teamcode.Devices.Motor;
 import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.Controller;
-import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 /**
  * Writing by @MrFrosty1234
@@ -19,13 +19,16 @@ public class Grabber implements Controller {
     private Servo afterTransferServo;
     private Servo outRobotServo;
     private Servo flipServoLeft;
+    private Motor brushMotor;
 
 
-    private GrabberPosition grabberTarget = GrabberPosition.STOP;
+    private GrabberPosition grabberTarget = GrabberPosition.CLOSE;
     private FlipGrabberPosition flipGrabberPositon = FlipGrabberPosition.UNSPREADOUT;
     private TransferPosition transferPosition = TransferPosition.NORMAL;
     private AfterTransferGrabber afterTransferGrabberPosition = AfterTransferGrabber.OPEN;
     private OutServoPosition outServoPosition = OutServoPosition.IN_ROBOT;
+
+    private BrushMotorPos brushTarget = BrushMotorPos.STOP;
 
     public GrabberPosition getGrabberTarget() {
         return grabberTarget;
@@ -39,16 +42,12 @@ public class Grabber implements Controller {
 
 
 
-    public void reverseSampleGrabber() {
-        grabberTarget = GrabberPosition.REAVERSE;
+    public void closeSampleGrabber() {
+        grabberTarget = GrabberPosition.CLOSE;
     }
 
-    public void stopSampleGrabber(){
-        grabberTarget = GrabberPosition.STOP;
-    }
-
-    public void forwardSampleGrabber() {
-        grabberTarget = GrabberPosition.FORWARD;
+    public void openSampleGrabber() {
+        grabberTarget = GrabberPosition.OPEN;
     }
 
 
@@ -83,17 +82,29 @@ public class Grabber implements Controller {
         afterTransferGrabberPosition = AfterTransferGrabber.OPEN;
     }
 
+    public void forwardBrush(){
+        brushTarget = BrushMotorPos.FORWARD;
+    }
+    public void reverseBrush(){
+        brushTarget = BrushMotorPos.REVERSE;
+    }
+    public void stopBrush(){
+        brushTarget = BrushMotorPos.STOP;
+    }
+
 
 
 
     @Override
     public void init() {
-        flipServoRight = IntakeServo.flipServoRight;
-        grabberServo = IntakeServo.grabberServo;
-        transferServoLeft = IntakeServo.transferServoLeft;
-        flipServoLeft = IntakeServo.flipServoLeft;
-        outRobotServo = IntakeServo.outRobotServo;
-        afterTransferServo = IntakeServo.afterTransferServo;
+        flipServoRight = IntakeDevices.flipServoRight;
+        grabberServo = IntakeDevices.grabberServo;
+        transferServoLeft = IntakeDevices.transferServoLeft;
+        flipServoLeft = IntakeDevices.flipServoLeft;
+        outRobotServo = IntakeDevices.outRobotServo;
+        afterTransferServo = IntakeDevices.afterTransferServo;
+        transferServoRight = IntakeDevices.transferServoRight;
+        brushMotor = IntakeDevices.brushMotor;
     }
 
     public void update() {
@@ -104,6 +115,7 @@ public class Grabber implements Controller {
         transferServoRight.setPosition(transferPosition.get());
         afterTransferServo.setPosition(afterTransferGrabberPosition.get());
         outRobotServo.setPosition(outServoPosition.get());
+        brushMotor.setPower(brushMotor.getPosition());
     }
 
     public FlipGrabberPosition getFlipGrabberPositon() {

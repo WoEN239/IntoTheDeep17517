@@ -15,100 +15,47 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
  * Writing by @MrFrosty1234
  */
 
-public class LiftController {
+public class LiftController { ;
 
-    public Motor liftLeftMotor;
-    public Motor liftRightMotor;
 
-    LiftListener liftListener;
+    private double errSync;
+    private double pos;
+    private double targetPos;
+    private double power;
+    private double uSync;
 
-    public LiftPosition targetPosition = LiftPosition.DOWN;
+    public void setErrSync(double err){
+        errSync = err;
+    }
+    public void setTargetPos(double target){
+        targetPos = target;
+    }
+    public void setPos(double posLift){
+        pos = posLift;
+    }
+    public double getPower(){
+        return power;
+    }
+    public double getUSync(){
+        return uSync;
+    }
 
     public static PidStatus pidStatus = new PidStatus(0.06, 0.001, 0.00001, 0, 0, 0, 0, 2, 0.5);
     Pid pid = new Pid(pidStatus);
 
     public static PidStatus pidStatusSync = new PidStatus(0.00001, 0, 0, 0, 0, 0, 0, 0, 0);
     Pid pidSync = new Pid(pidStatusSync);
-    public static double gravity = 0.1;
 
-
-    public void init(LiftListener liftListener) {
-        this.liftListener = liftListener;
-
-        liftLeftMotor = LiftHangingMotors.liftLeftMotor;
-        liftRightMotor = LiftHangingMotors.liftRightMotor;
-    }
-
-    public void setPower() {
-        updateLift();
-        liftLeftMotor.setVoltage(powerToLeftMotor - uSync);
-        liftRightMotor.setVoltage(powerToRightMotor + uSync);
-    }
-
-
-    public boolean isAtTarget() {
-        return abs(liftListener.getPosition() - targetPosition.get()) < 20;
-    }
-
-
-    public double powerToLeftMotor = 0;
-    public double powerToRightMotor = 0;
-
-    double uSync = 0;
-
-    public void updateLift() {
+    public void computeVoltage(){
         pidSync.setTarget(0);
-        pidSync.setPos(-liftListener.errSync);
+        pidSync.setPos(-errSync);
         pidSync.update();
         uSync = pidSync.getU();
-        if (!isAtTarget()) {
-            pid.setTarget(targetPosition.get());
-            pid.setPos(liftListener.getPosition());
-            pid.update();
-            powerToLeftMotor = pid.getU();
-            powerToRightMotor = pid.getU();
 
-            powerToLeftMotor = Range.clip(powerToLeftMotor, -1, 1);
-            powerToRightMotor = Range.clip(powerToRightMotor, -1, 1);
-        } else {
-            if (liftListener.rightButtonDown.getState()) {
-                powerToRightMotor = gravity;
-                uSync = 0;
-            }
-            if (liftListener.leftButtonDown.getState()) {
-                powerToLeftMotor = gravity;
-                uSync = 0;
-            }
-            if (isAtTarget() && (!liftListener.rightButtonDown.getState() && !liftListener.leftButtonDown.getState())) {
-                uSync = 0;
-                powerToLeftMotor = powerToRightMotor = gravity;
-            }
-        }
+
+        pid.setTarget(targetPos);
+        pid.setPos(pos);
         pid.update();
-    }
-
-    public void update() {
-        liftRightMotor.update();
-        liftLeftMotor.update();
-        setPower();
-    }
-
-    public void setDownPos() {
-        targetPosition = LiftPosition.DOWN;
-    }
-
-    public void setInPos(){targetPosition = LiftPosition.IN_POSITION;}
-
-
-    public LiftPosition getTargetPosition(){
-        return targetPosition;
-    }
-
-    public void setHighBasket() {
-        targetPosition = LiftPosition.HIGHEST_BASKET;
-    }
-
-    public void setPosition(LiftPosition liftPosition) {
-        this.targetPosition = liftPosition;
+        power = pid.getU();
     }
 }

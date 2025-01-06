@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Devices.Gyro;
 */
 public class DevicePool {
     public static void init (HardwareMap hardwareMap) {
-        IntakeServo.init(hardwareMap);
+        IntakeDevices.init(hardwareMap);
         DriveTrainMotors.init(hardwareMap);
         Sensors.init(hardwareMap);
         LiftHangingMotors.init(hardwareMap);
