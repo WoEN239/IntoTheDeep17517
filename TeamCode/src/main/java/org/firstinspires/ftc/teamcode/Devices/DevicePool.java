@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class DevicePool {
     private static boolean isInit = false;
     public static void init (HardwareMap hardwareMap) {
-        IntakeServo.init(hardwareMap);
+        IntakeDevices.init(hardwareMap);
         DriveTrainMotors.init(hardwareMap);
         Sensors.init(hardwareMap);
         if(!isInit) {
