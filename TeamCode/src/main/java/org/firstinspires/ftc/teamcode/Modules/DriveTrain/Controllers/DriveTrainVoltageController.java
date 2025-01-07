@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
   Writing by EgorKhvostikov
 */
 
-public class MotorsVoltageController {
+public class DriveTrainVoltageController {
     private Motor rightForwardDrive;
     private Motor rightBackDrive;
     private Motor leftForwardDrive;

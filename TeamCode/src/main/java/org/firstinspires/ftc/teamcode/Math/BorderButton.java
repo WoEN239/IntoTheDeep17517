@@ -4,13 +4,13 @@ package org.firstinspires.ftc.teamcode.Math;
  * Writing by EgorKhvostikov
  */
 
-public class Button {
+public class BorderButton {
     private boolean old = false;
 
-    public Button() {
+    public BorderButton() {
     }
 
-    public boolean update(boolean button) {
+    public boolean get(boolean button) {
         boolean indicator = (button != old) && button;
         old = button;
         return indicator;

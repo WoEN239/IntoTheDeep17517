@@ -2,14 +2,8 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.Lift;
 
 import static java.lang.Math.abs;
 
-import com.qualcomm.robotcore.util.Range;
-
-import org.firstinspires.ftc.teamcode.Devices.LiftHangingMotors;
-import org.firstinspires.ftc.teamcode.Devices.Motor;
 import org.firstinspires.ftc.teamcode.Math.Pid;
 import org.firstinspires.ftc.teamcode.Math.PidStatus;
-import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.Controller;
-import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 /**
  * Writing by @MrFrosty1234
@@ -21,21 +15,17 @@ public class LiftController { ;
     private double errSync;
     private double pos;
     private double targetPos;
-    private double power;
+    private double uMove;
     private double uSync;
 
     public void setErrSync(double err){
         errSync = err;
     }
-    public void setTargetPos(double target){
-        targetPos = target;
-    }
+    public void setTargetPos(double target){targetPos = target;}
     public void setPos(double posLift){
         pos = posLift;
     }
-    public double getPower(){
-        return power;
-    }
+    public double getUMove(){return uMove;}
     public double getUSync(){
         return uSync;
     }
@@ -56,6 +46,6 @@ public class LiftController { ;
         pid.setTarget(targetPos);
         pid.setPos(pos);
         pid.update();
-        power = pid.getU();
+        uMove = pid.getU();
     }
 }

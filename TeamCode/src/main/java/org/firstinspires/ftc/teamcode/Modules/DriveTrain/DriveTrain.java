@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain;
 import org.firstinspires.ftc.teamcode.Math.Position;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.MotorsVoltageController;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.DriveTrainVoltageController;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.PositionPidController;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.PurePursuit;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.VelocityPidController;
@@ -62,7 +62,7 @@ abstract class DriveTrain {
     public void setManualTarget(Position p) {this.manualTarget .copyFrom(p);}
     public void addWayPoints(WayPoint... t){purePursuit.addWayPoints(t);}
 
-    MotorsVoltageController motorsVoltageController = new MotorsVoltageController();
+    DriveTrainVoltageController driveTrainVoltageController = new DriveTrainVoltageController();
 
     DevicePositionListener devicePositionListener   = new DevicePositionListener ();
     LocalPositionListener  localPositionListener    = new LocalPositionListener  ();
@@ -73,7 +73,7 @@ abstract class DriveTrain {
     VelocityListener       velocityListener         = new VelocityListener      ();
 
     private void computePosition(){
-        motorsVoltageController.updateData();
+        driveTrainVoltageController.updateData();
         devicePositionListener.updateValuesMap();
 
         DeviceValueMap deviceValue = devicePositionListener.getValuesMap();
@@ -89,7 +89,7 @@ abstract class DriveTrain {
     }
 
     private void computeVelocity(){
-        motorsVoltageController.updateData();
+        driveTrainVoltageController.updateData();
         deviceVelocityListener.updateValuesMap();
 
         DeviceValueMap deviceValue = deviceVelocityListener.getValuesMap();
@@ -125,7 +125,7 @@ abstract class DriveTrain {
         velocityPidController.computePidResult();
         if(!Robot.isDebug){
             Position voltageMap = velocityPidController.getPidResult();
-            motorsVoltageController.setVoltage(voltageMap);
+            driveTrainVoltageController.setVoltage(voltageMap);
         }
     }
 

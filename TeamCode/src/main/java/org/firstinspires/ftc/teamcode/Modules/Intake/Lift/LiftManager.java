@@ -3,8 +3,8 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.Lift;
 public class LiftManager {
     LiftController liftController = new LiftController();
     LiftDeviceListener liftDeviceListener = new LiftDeviceListener();
-    LiftDevices devices = new LiftDevices();
     LiftListener liftListener = new LiftListener();
+    LiftVoltageController voltageController = new LiftVoltageController();
 
     LiftPosition target = LiftPosition.DOWN;
 
@@ -13,17 +13,23 @@ public class LiftManager {
     }
 
     public void init(){
+        voltageController.init();
         liftDeviceListener.init();
     }
-    public void computePosition(){
+    private void computePosition(){
       liftDeviceListener.updateValuesMap();
       liftListener.computePosition();
     }
-    public void computeVoltage(){
-        computePosition();
-        liftController.setErrSync(liftListener.errSync);
+
+    private void computeVoltage(){
+        liftController.setErrSync(liftListener.getErrSync());
         liftController.setPos(liftListener.getPosition());
         liftController.setTargetPos(target.get());
         liftController.computeVoltage();
+    }
+    private void update(){
+        computePosition();
+        computeVoltage();
+        voltageController.setVoltage(liftController.getUSync(), liftController.getUMove());
     }
 }
