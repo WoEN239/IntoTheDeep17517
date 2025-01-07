@@ -2,48 +2,50 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.Lift;
 
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 
-import org.firstinspires.ftc.teamcode.Devices.IntakeDevices;
 import org.firstinspires.ftc.teamcode.Devices.LiftHangingMotors;
 import org.firstinspires.ftc.teamcode.Devices.Motor;
 import org.firstinspires.ftc.teamcode.Devices.Sensors;
-import org.firstinspires.ftc.teamcode.Math.Button;
+import org.firstinspires.ftc.teamcode.Math.BorderButton;
 
 public class LiftDeviceListener {
-    private DigitalChannel leftButtonDown;
-    private DigitalChannel rightButtonDown;
-    private DigitalChannel leftButtonUp;
-    private DigitalChannel rightButtonUp;
+    private DigitalChannel leftDownButton;
+    private final BorderButton leftDownBorderButt = new BorderButton();
+
+    private DigitalChannel rightDownButton;
+    private final BorderButton rightDownBorderButt = new BorderButton();
+
+    private DigitalChannel leftUpButton;
+    private final BorderButton leftUpBorderButt    = new BorderButton();
+
+    private DigitalChannel rightUpButton;
+    private final BorderButton rightUpBorderButt   = new BorderButton();
+
     private Motor leftMotor;
     private Motor rightMotor;
-    Button upBorderButt = new Button();
 
-    private final LiftDevices valuesMap = new LiftDevices();
-    private LiftDevices getValuesMap(){
-        return valuesMap;
-    }
+
+    private final LiftDevicesValueMap valuesMap = new LiftDevicesValueMap();
+    private LiftDevicesValueMap getValuesMap(){return valuesMap;}
 
     public void init(){
         leftMotor = LiftHangingMotors.liftLeftMotor;
         rightMotor = LiftHangingMotors.liftRightMotor;
-        leftButtonDown = Sensors.downLeftButton;
-        leftButtonUp = Sensors.upLeftButton;
-        rightButtonUp = Sensors.upRightButton;
-        rightButtonDown = Sensors.downRightButton;
+        leftDownButton = Sensors.downLeftButton;
+        leftUpButton = Sensors.upLeftButton;
+        rightUpButton = Sensors.upRightButton;
+        rightDownButton = Sensors.downRightButton;
     }
     private void updateDevices(){
-       upBorderButt.update(leftButtonUp.getState());
-       upBorderButt.update(leftButtonDown.getState());
-       upBorderButt.update(rightButtonDown.getState());
-       upBorderButt.update(rightButtonUp.getState());
        leftMotor.update();
        rightMotor.update();
     }
     public void updateValuesMap(){
         updateDevices();
-        valuesMap.leftUpButton = leftButtonUp.getState();
-        valuesMap.leftDownButton = leftButtonDown.getState();
-        valuesMap.rightUpButton = rightButtonUp.getState();
-        valuesMap.rightDownButton = rightButtonDown.getState();
+        valuesMap.leftUpButton    = leftUpBorderButt.get(leftUpButton   .getState());
+        valuesMap.leftDownButton  = leftDownBorderButt.get(leftDownButton .getState());
+        valuesMap.rightUpButton   = rightUpBorderButt.get(rightUpButton  .getState());
+        valuesMap.rightDownButton = rightDownBorderButt.get(rightDownButton.getState());
+
         valuesMap.leftMotorPos = leftMotor.getPosition();
         valuesMap.rightMotorPos = rightMotor.getPosition();
     }

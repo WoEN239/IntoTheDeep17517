@@ -12,4 +12,10 @@ public class PipeLineConfig {
     public static double blurA = 33;
     public static double blurB = 33;
 
+    public static int kernelOpenA = 5;
+    public static int kernelOpenB = 5;
+    public static int kernelCloseB = 5;
+    public static int kernelCloseA = 5;
+
+
 }
