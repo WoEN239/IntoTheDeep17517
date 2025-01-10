@@ -144,14 +144,6 @@ public class Grabber implements Controller {
     }
 
     public void brushVolt(){
-        if(Robot.myTeam == Team.RED){
-            if(colorSensorListener.getColor() == ColorDetective.BLUE)
-                brushPower = PowerBrush.REVERSE;
-        }
-        if(Robot.myTeam == Team.BLUE){
-            if(colorSensorListener.getColor() == ColorDetective.RED)
-                brushPower = PowerBrush.REVERSE;
-        }
         if(voltageSensor.getVoltage() > volt){
             brushPower = PowerBrush.REVERSE;
         }

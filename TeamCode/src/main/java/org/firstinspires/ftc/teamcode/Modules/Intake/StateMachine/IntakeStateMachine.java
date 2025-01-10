@@ -3,12 +3,14 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.StateMachine;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Grabber;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.PowerBrush;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftController;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftListener;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
 import org.firstinspires.ftc.teamcode.Modules.Intake.SampleSensor.ColorDetective;
 import org.firstinspires.ftc.teamcode.Modules.Intake.SampleSensor.ColorSensorListener;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
+import org.firstinspires.ftc.teamcode.Robot.Team;
 
 /*
  Writing by EgorKhvostikov
@@ -20,13 +22,12 @@ public class IntakeStateMachine {
 
     LiftPosition upPos = LiftPosition.LOW_AXIS;
 
-
+    ColorSensorListener colorSensorListener = new ColorSensorListener();
 
     Robot robot                            ;
     Grabber grabber                        ;
     LiftController liftController          ;
     LiftListener liftListener              ;
-    ColorSensorListener colorSensorListener;
 
     public void setTarget(IntakeState target) {
         this.target = target;
@@ -92,7 +93,18 @@ public class IntakeStateMachine {
         liftController.setInPos();
         grabber       .forwrdBrush();
         grabber       .toEatTwistServo();
-        grabber       .openSampleGrabber();
+        if(Robot.myTeam == Team.RED){
+            if(colorSensorListener.getColor() == ColorDetective.BLUE)
+                grabber.openSampleGrabber();
+        }else {
+            if (Robot.myTeam == Team.BLUE) {
+                if (colorSensorListener.getColor() == ColorDetective.RED)
+                    grabber.openSampleGrabber();
+            }
+            else{
+                grabber.closeSampleGrabber();
+            }
+        }
         grabber       .downFlipServo();
         grabber       .transferToEat();
         grabber       .openAfterTransferServo();
