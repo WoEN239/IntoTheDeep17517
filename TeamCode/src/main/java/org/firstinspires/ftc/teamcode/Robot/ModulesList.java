@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PositionViewer.Position
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.PurePursuit;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.RoadRunner.RoadRunner;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.VelocityViewer.VelocityViewer;
+import org.firstinspires.ftc.teamcode.Modules.Intake.SampleSensor.ColorSensorListener;
 import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.IModule;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Grabber;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftController;
@@ -36,13 +37,14 @@ public class ModulesList {
     public Grabber grabber = new Grabber();
     public LiftListener liftListener = new LiftListener();
     public LiftController liftController = new LiftController();
+    public ColorSensorListener colorSensorListener = new ColorSensorListener();
 
 
     public Battery battery = new Battery();
     protected IModule[] modules = new IModule[]{
             imu, velocityViewer, positionListener, /*roadRunner,*/ purePursuit,
             positionController,velocityController, liftListener, grabber, liftController,
-            fieldSensors,battery
+            fieldSensors,battery, colorSensorListener
     };
     protected IModule[] simulationModules = new IModule[]{
            positionController,purePursuit

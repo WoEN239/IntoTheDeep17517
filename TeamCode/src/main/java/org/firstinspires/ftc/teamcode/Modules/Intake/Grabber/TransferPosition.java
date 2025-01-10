@@ -6,6 +6,7 @@ import com.acmerobotics.dashboard.config.Config;
  * Writing by @MrFrosty1234
  */
 
+@Config
 public enum TransferPosition {
 
     EAT, NORMAL;

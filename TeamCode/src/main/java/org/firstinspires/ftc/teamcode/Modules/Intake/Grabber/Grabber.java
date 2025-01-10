@@ -1,17 +1,26 @@
 package org.firstinspires.ftc.teamcode.Modules.Intake.Grabber;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.teamcode.Devices.IntakeServo;
+import org.firstinspires.ftc.teamcode.Devices.LiftHangingMotors;
+import org.firstinspires.ftc.teamcode.Devices.Motor;
+import org.firstinspires.ftc.teamcode.Modules.Intake.SampleSensor.ColorDetective;
+import org.firstinspires.ftc.teamcode.Modules.Intake.SampleSensor.ColorSensorListener;
 import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.Controller;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
+import org.firstinspires.ftc.teamcode.Robot.Team;
 
 /**
  * Writing by @MrFrosty1234
  */
 
+@Config
 public class Grabber implements Controller {
     Robot robot;
+    ColorSensorListener colorSensorListener = new ColorSensorListener();
 
     private Servo grabberServo;
     private Servo flipServoRight;
@@ -20,13 +29,20 @@ public class Grabber implements Controller {
     private Servo afterTransferServo;
     private Servo outRobotServo;
     private Servo flipServoLeft;
+    private Motor brushMotor;
+    private Servo twistServo;
+    private VoltageSensor voltageSensor;
+
+    public static double volt = 3.3;
 
 
-    private GrabberPosition grabberTarget = GrabberPosition.STOP;
+    private GrabberPosition grabberTarget = GrabberPosition.OPEN;
     private FlipGrabberPosition flipGrabberPositon = FlipGrabberPosition.UNSPREADOUT;
     private TransferPosition transferPosition = TransferPosition.NORMAL;
     private AfterTransferGrabber afterTransferGrabberPosition = AfterTransferGrabber.OPEN;
     private OutServoPosition outServoPosition = OutServoPosition.IN_ROBOT;
+    private TwistServo twistServoPosition = TwistServo.EAT;
+    private PowerBrush brushPower = PowerBrush.STOP;
 
     public GrabberPosition getGrabberTarget() {
         return grabberTarget;
@@ -40,16 +56,13 @@ public class Grabber implements Controller {
 
 
 
-    public void reverseSampleGrabber() {
-        grabberTarget = GrabberPosition.REAVERSE;
+    public void closeSampleGrabber() {
+        grabberTarget = GrabberPosition.CLOSE;
     }
 
-    public void stopSampleGrabber(){
-        grabberTarget = GrabberPosition.STOP;
-    }
 
-    public void forwardSampleGrabber() {
-        grabberTarget = GrabberPosition.FORWARD;
+    public void openSampleGrabber() {
+        grabberTarget = GrabberPosition.OPEN;
     }
 
 
@@ -84,7 +97,25 @@ public class Grabber implements Controller {
         afterTransferGrabberPosition = AfterTransferGrabber.OPEN;
     }
 
+    public void toEatTwistServo(){
+        twistServoPosition = TwistServo.EAT;
+    }
+    public void toEatFromWallTwistServo(){
+        twistServoPosition = TwistServo.EAT_FROM_WALL;
+    }
+    public void toDropTwistServo(){
+        twistServoPosition = TwistServo.DROP;
+    }
 
+    public void forwrdBrush(){
+        brushPower = PowerBrush.FORWARD;
+    }
+    public void stopBrush(){
+        brushPower = PowerBrush.STOP;
+    }
+    public void reverseBrush(){
+        brushPower = PowerBrush.REVERSE;
+    }
 
 
     @Override
@@ -96,6 +127,8 @@ public class Grabber implements Controller {
         flipServoLeft = IntakeServo.flipServoLeft;
         outRobotServo = IntakeServo.outRobotServo;
         afterTransferServo = IntakeServo.afterTransferServo;
+        twistServo = IntakeServo.twistServo;
+        brushMotor = LiftHangingMotors.brushMotor;
     }
 
     public void update() {
@@ -106,6 +139,23 @@ public class Grabber implements Controller {
         transferServoRight.setPosition(transferPosition.get());
         afterTransferServo.setPosition(afterTransferGrabberPosition.get());
         outRobotServo.setPosition(outServoPosition.get());
+        twistServo.setPosition(twistServoPosition.get());
+        brushVolt();
+    }
+
+    public void brushVolt(){
+        if(Robot.myTeam == Team.RED){
+            if(colorSensorListener.getColor() == ColorDetective.BLUE)
+                brushPower = PowerBrush.REVERSE;
+        }
+        if(Robot.myTeam == Team.BLUE){
+            if(colorSensorListener.getColor() == ColorDetective.RED)
+                brushPower = PowerBrush.REVERSE;
+        }
+        if(voltageSensor.getVoltage() > volt){
+            brushPower = PowerBrush.REVERSE;
+        }
+        brushMotor.setVoltage(brushPower.get());
     }
 
     public FlipGrabberPosition getFlipGrabberPositon() {

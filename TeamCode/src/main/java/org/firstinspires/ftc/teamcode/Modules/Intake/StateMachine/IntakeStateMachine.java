@@ -6,6 +6,8 @@ import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Grabber;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftController;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftListener;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
+import org.firstinspires.ftc.teamcode.Modules.Intake.SampleSensor.ColorDetective;
+import org.firstinspires.ftc.teamcode.Modules.Intake.SampleSensor.ColorSensorListener;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 /*
@@ -18,10 +20,13 @@ public class IntakeStateMachine {
 
     LiftPosition upPos = LiftPosition.LOW_AXIS;
 
-    Robot robot                  ;
-    Grabber grabber              ;
-    LiftController liftController;
-    LiftListener liftListener    ;
+
+
+    Robot robot                            ;
+    Grabber grabber                        ;
+    LiftController liftController          ;
+    LiftListener liftListener              ;
+    ColorSensorListener colorSensorListener;
 
     public void setTarget(IntakeState target) {
         this.target = target;
@@ -35,6 +40,7 @@ public class IntakeStateMachine {
         grabber = robot.grabber;
         liftController = robot.liftController;
         liftListener = robot.liftListener;
+        colorSensorListener = robot.colorSensorListener;
     }
 
     ElapsedTime timer = new ElapsedTime();
@@ -62,17 +68,21 @@ public class IntakeStateMachine {
 
     private void waitUp(){
         liftController.setPosition(upPos)  ;
-        grabber       .stopSampleGrabber();
-        grabber       .upFlipServo();
+        grabber       .stopBrush();
+        grabber       .toDropTwistServo();
+        grabber       .closeSampleGrabber();
+        grabber       .downFlipServo();
         grabber       .transferToNormal()  ;
         grabber       .outOutServo();
         grabber       .closeAfterTransferServo();
     }
 
     private void waitDown(){
-        liftController.setInPos();        ;
-        grabber       .reverseSampleGrabber();
-        grabber       .upFlipServo()       ;
+        liftController.setInPos();
+        grabber       .stopBrush();
+        grabber       .toEatFromWallTwistServo();
+        grabber       .openSampleGrabber();
+        grabber       .downFlipServo()       ;
         grabber       .transferToNormal()  ;
         grabber       .openAfterTransferServo();
         grabber       .inOutServo();
@@ -80,7 +90,9 @@ public class IntakeStateMachine {
 
     private void waitEat(){
         liftController.setInPos();
-        grabber       .forwardSampleGrabber();
+        grabber       .forwrdBrush();
+        grabber       .toEatTwistServo();
+        grabber       .openSampleGrabber();
         grabber       .downFlipServo();
         grabber       .transferToEat();
         grabber       .openAfterTransferServo();
@@ -90,8 +102,13 @@ public class IntakeStateMachine {
 
 
     private void fromUpWaitToDownWait(){
-        grabber.transferToNormal();
-        grabber.openAfterTransferServo();
+        grabber.openSampleGrabber();
+        if(timer.seconds() > 0.5) {
+            grabber.inOutServo();
+            grabber.transferToNormal();
+            grabber.openAfterTransferServo();
+            grabber.toEatTwistServo();
+        }
         if(timer.seconds()>1) {
             liftController.setInPos();
         }
@@ -103,7 +120,7 @@ public class IntakeStateMachine {
     private void fromDownWaitToUpWait(){
         grabber       .transferToNormal()  ;
         grabber       .downFlipServo()     ;
-        grabber       .reverseSampleGrabber();
+        grabber       .closeSampleGrabber();
         grabber.closeAfterTransferServo();
 
         if(timer.seconds()>1) {
@@ -117,11 +134,10 @@ public class IntakeStateMachine {
     private void fromEatWaitToDownWait(){
         grabber.transferToEat()     ;
         grabber.upFlipServo()       ;
-        grabber.forwardSampleGrabber();
+        grabber.closeSampleGrabber();
         liftController.setInPos();
         if(timer.seconds()>0.5) {
             grabber.downFlipServo();
-            grabber.reverseSampleGrabber();
         }
         if(timer.seconds()>1) {
             grabber.transferToNormal();
@@ -133,8 +149,8 @@ public class IntakeStateMachine {
     }
 
     private void fromDownWaitToEatWait(){
-        grabber.transferToEat();
-
+        grabber.upFlipServo();
+        if(timer.seconds() > 0.5) grabber.transferToEat();
         if(timer.seconds()>1) {
             setState(IntakeState.WAIT_EAT);
         }

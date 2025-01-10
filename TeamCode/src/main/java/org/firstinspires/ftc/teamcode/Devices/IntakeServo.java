@@ -16,6 +16,7 @@ public class IntakeServo {
     public static Servo afterTransferServo;
     public static Servo outRobotServo;
     public static Servo flipServoLeft;
+    public static Servo twistServo;
 
 
 
@@ -27,5 +28,6 @@ public class IntakeServo {
         afterTransferServo = hardwareMap.get(Servo.class, "afterTransferServo");
         outRobotServo = hardwareMap.get(Servo.class, "outRobotServo");
         flipServoLeft = hardwareMap.get(Servo.class, "flipServoLeft");
+        twistServo = hardwareMap.get(Servo.class, "twistServo");
     }
 }
