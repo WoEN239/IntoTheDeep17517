@@ -17,7 +17,7 @@ public class LiftHangingMotors {
 
         liftLeftMotor.init("liftLeftMotor", hardwareMap);
         liftRightMotor.init("liftRightMotor", hardwareMap);
-        brushMotor.init("brushMotor", hardwareMap);
+        brushMotor.init("yOdometer", hardwareMap);
 
 
         liftLeftMotor.setDir(MotorDirection.BACK);

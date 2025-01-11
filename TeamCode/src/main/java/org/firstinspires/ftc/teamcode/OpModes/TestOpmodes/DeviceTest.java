@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.OpModes.TestOpmodes;
 
 import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGREES;
+import static org.firstinspires.ftc.teamcode.Devices.FixColorSensor.fix;
 import static org.firstinspires.ftc.teamcode.OpModes.TestOpmodes.DeviceTest.DeviceType.ANALOG_INPUT;
 import static org.firstinspires.ftc.teamcode.OpModes.TestOpmodes.DeviceTest.DeviceType.BATTERY_VOLTAGE;
 import static org.firstinspires.ftc.teamcode.OpModes.TestOpmodes.DeviceTest.DeviceType.DISTANCE_SENSOR;
@@ -10,6 +11,7 @@ import static org.firstinspires.ftc.teamcode.OpModes.TestOpmodes.DeviceTest.Devi
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.qualcomm.hardware.adafruit.AdafruitI2cColorSensor;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -133,7 +135,7 @@ public class DeviceTest extends LinearOpMode {
                         telemetry.addData("Voltage", voltageSensor.getVoltage());
                         break;
                     case COLOR_SENSOR:
-                        ColorSensor colorSensor = (ColorSensor) hardwareDevice;
+                        ColorSensor colorSensor = fix((AdafruitI2cColorSensor) hardwareDevice);
                         telemetry.addData("red", colorSensor.red());
                         telemetry.addData("green", colorSensor.green());
                         telemetry.addData("blue", colorSensor.blue());

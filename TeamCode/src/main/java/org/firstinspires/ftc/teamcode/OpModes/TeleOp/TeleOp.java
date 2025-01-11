@@ -1,4 +1,5 @@
 package org.firstinspires.ftc.teamcode.OpModes.TeleOp;
+import org.firstinspires.ftc.teamcode.Devices.IntakeServo;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.Intake.StateMachine.IntakeState;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
@@ -11,23 +12,25 @@ public class TeleOp extends BaseMode {
     public void doing() {
         BaseMode.isField = true;
         position.copyFrom(robot.positionListener.getPositionGlobal());
+        IntakeServo.transferServoLeft.setPosition(1);
         robot.velocityController.moveGlobal(
-                new Position(leftStickY*360, leftStickX*360, rightStickX*360)
+                new Position(-leftStickY*500, leftStickX*500, rightStickX*360)
         );
 
-        if(waitDown)robot.intake.setTarget(IntakeState.WAIT_DOWN);
-        if(waitUp)  robot.intake.setTarget(IntakeState.WAIT_UP)  ;
-        if(waitEat) robot.intake.setTarget(IntakeState.WAIT_EAT) ;
-
-        Robot.telemetry.addData("Voltage: ",Robot.voltage);
-        Robot.telemetry.addData("Circle", gamepad1.a);
-        Robot.telemetry.addData("sticks ",leftStickX+leftStickY+rightStickX);
-        Robot.telemetry.addData("Lift target  ",robot.liftController.getTargetPosition());
-
-        Robot.telemetry.addData("x", position.x);
-        Robot.telemetry.addData("h", position.h);
-        Robot.telemetry.addData("y", position.y);
-
+//
+//        if(waitDown)robot.intake.setTarget(IntakeState.WAIT_DOWN);
+//        if(waitUp)  robot.intake.setTarget(IntakeState.WAIT_UP)  ;
+//        if(waitEat) robot.intake.setTarget(IntakeState.WAIT_EAT) ;
+//
+//        Robot.telemetry.addData("Voltage: ",Robot.voltage);
+//        Robot.telemetry.addData("Circle", gamepad1.a);
+//        Robot.telemetry.addData("sticks ",leftStickX+leftStickY+rightStickX);
+//        Robot.telemetry.addData("Lift target  ",robot.liftController.getTargetPosition());
+//
+//        Robot.telemetry.addData("x", position.x);
+//        Robot.telemetry.addData("h", position.h);
+//        Robot.telemetry.addData("y", position.y);
+//
 
     }
 }

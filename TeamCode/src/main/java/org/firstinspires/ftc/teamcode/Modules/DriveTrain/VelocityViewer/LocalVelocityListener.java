@@ -34,7 +34,7 @@ public class LocalVelocityListener {
         DriveTrainMotors.yOdometer    .update();
     }
 
-    public static double k = 15.25;
+    public static double k = 0;
     private void calcLocalVelocity() {
         double x = (rightOdometer.getVelocity() + leftOdometer.getVelocity()) / 2.0;
         double h    = ((-rightOdometer.getVelocity() + leftOdometer.getVelocity()) / 2.0) / RobotConstant.TIK_PER_ANGLE;

@@ -24,18 +24,18 @@ public class DriveTrainMotors {
         rightBackDrive   .init("motorRB", hardwareMap);
         leftForwardDrive .init("motorLF", hardwareMap);
 
-        yOdometer.init("yOdometer", hardwareMap);
+        yOdometer.init("motorRF", hardwareMap);
         leftOdometer.init("motorLB", hardwareMap);
-        rightOdometer.init("rightOdometer", hardwareMap);
+        rightOdometer.init("motorRB", hardwareMap);
         reset();
         initPid();
     }
 
     public static void reset(){
-        leftBackDrive    .setDir(MotorDirection.BACK);
-        leftForwardDrive .setDir(MotorDirection.BACK);
-        rightBackDrive   .setDir(MotorDirection.FORWARD);
-        rightForwardDrive.setDir(MotorDirection.FORWARD);
+        leftBackDrive    .setDir(MotorDirection.FORWARD);
+        leftForwardDrive .setDir(MotorDirection.FORWARD);
+        rightBackDrive   .setDir(MotorDirection.BACK);
+        rightForwardDrive.setDir(MotorDirection.BACK);
 
         rightOdometer.setDir(MotorDirection.BACK);
         leftOdometer .setDir(MotorDirection.FORWARD);

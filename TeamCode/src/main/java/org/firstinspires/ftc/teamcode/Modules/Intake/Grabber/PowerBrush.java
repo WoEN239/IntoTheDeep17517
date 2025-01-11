@@ -19,6 +19,8 @@ public enum PowerBrush {
                 return reverse;
             case STOP:
                 return stop;
+            default:
+                return 0;
         }
     }
 }

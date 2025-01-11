@@ -6,7 +6,7 @@ import com.acmerobotics.dashboard.config.Config;
 public enum AfterTransferGrabber {
     OPEN, CLOSE;
 
-    public static double open = 0;
+    public static double open = 0.1;
     public static double close = 0;
 
     public double get(){

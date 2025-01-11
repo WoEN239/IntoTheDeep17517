@@ -4,6 +4,7 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 import org.firstinspires.ftc.teamcode.Devices.IntakeServo;
 import org.firstinspires.ftc.teamcode.Devices.LiftHangingMotors;
 import org.firstinspires.ftc.teamcode.Devices.Motor;
@@ -20,8 +21,6 @@ import org.firstinspires.ftc.teamcode.Robot.Team;
 @Config
 public class Grabber implements Controller {
     Robot robot;
-    ColorSensorListener colorSensorListener = new ColorSensorListener();
-
     private Servo grabberServo;
     private Servo flipServoRight;
     private Servo transferServoLeft;
@@ -31,8 +30,6 @@ public class Grabber implements Controller {
     private Servo flipServoLeft;
     private Motor brushMotor;
     private Servo twistServo;
-    private VoltageSensor voltageSensor;
-
     public static double volt = 3.3;
 
 
@@ -123,7 +120,8 @@ public class Grabber implements Controller {
         this.robot = robot;
         flipServoRight = IntakeServo.flipServoRight;
         grabberServo = IntakeServo.grabberServo;
-        transferServoLeft = IntakeServo.transferServoLeft;
+        transferServoLeft  = IntakeServo.transferServoLeft;
+        transferServoRight = IntakeServo.transferServoRight;
         flipServoLeft = IntakeServo.flipServoLeft;
         outRobotServo = IntakeServo.outRobotServo;
         afterTransferServo = IntakeServo.afterTransferServo;
@@ -144,7 +142,7 @@ public class Grabber implements Controller {
     }
 
     public void brushVolt(){
-        if(voltageSensor.getVoltage() > volt){
+        if(brushMotor.dev.getCurrent(CurrentUnit.AMPS) > volt){
             brushPower = PowerBrush.REVERSE;
         }
         brushMotor.setVoltage(brushPower.get());

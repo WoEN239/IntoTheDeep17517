@@ -51,7 +51,7 @@ public class VelocityController implements Controller {
         position = robot.velocityViewer.getLocalVelocityListener().getVelocityLocalReal();
     }
 
-    public static PidStatus pidStatusY = new PidStatus(0, 0, 0, 0,0,0,0, 0, 0);
+    public static PidStatus pidStatusY = new PidStatus(0.4, 0, 0, 0,0,0,0, 0, 0);
     Pid pidY = new Pid(pidStatusY);
 
     public static PidStatus pidStatusX = new PidStatus(0.4, 0.5, 0.0025, 0,0.65,0,0, 3, 0);

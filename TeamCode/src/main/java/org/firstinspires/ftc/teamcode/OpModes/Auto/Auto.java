@@ -12,6 +12,6 @@ import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 public class Auto extends BaseMode {
     @Override
     public void doing() {
-
+        sleep(2000);
     }
 }
