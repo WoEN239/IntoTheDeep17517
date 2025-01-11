@@ -41,7 +41,7 @@ public abstract class BaseMode extends LinearOpMode {
             }
             doing();
             robot.updateTasks();
-            robot.updatePPTasks();
+           //  robot.updatePPTasks();
             robot.update();
 
         }

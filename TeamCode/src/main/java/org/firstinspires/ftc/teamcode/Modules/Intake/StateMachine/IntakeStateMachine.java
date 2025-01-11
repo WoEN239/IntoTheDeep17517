@@ -2,8 +2,13 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.StateMachine;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.AfterTransferGrabber;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.FlipGrabberPositionLeft;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.FlipGrabberPositionRight;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Grabber;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.OutServoPosition;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.PowerBrush;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.TwistServo;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftController;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftListener;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
@@ -18,7 +23,7 @@ import org.firstinspires.ftc.teamcode.Robot.Team;
 
 public class IntakeStateMachine {
     IntakeState state  = IntakeState.WAIT_DOWN;
-    IntakeState target = IntakeState.WAIT_DOWN;
+    IntakeState target = IntakeState.WAIT_EAT;
 
     LiftPosition upPos = LiftPosition.LOW_AXIS;
 
@@ -79,36 +84,26 @@ public class IntakeStateMachine {
     }
 
     private void waitDown(){
-        liftController.setInPos();
-        grabber       .stopBrush();
-        grabber       .toEatFromWallTwistServo();
-        grabber       .openSampleGrabber();
-        grabber       .downFlipServo()       ;
-        grabber       .transferToNormal()  ;
-        grabber       .openAfterTransferServo();
-        grabber       .inOutServo();
+        //liftController.setInPos();
+      //  grabber       .stopBrush();
+        grabber       .flipGrabberPositonLeft = FlipGrabberPositionLeft.UNSPREADOUT;
+        grabber       .flipGrabberPositonRight = FlipGrabberPositionRight.UNSPREADOUT;
+        grabber       .afterTransferGrabberPosition = AfterTransferGrabber.CLOSE;
+        grabber       .outServoPosition = OutServoPosition.IN_ROBOT;
+        grabber       .twistServoPosition = TwistServo.EAT;
+//        grabber       .transferToNormal()  ;
+//        grabber       .openAfterTransferServo();
+//        grabber       .inOutServo();
     }
 
     private void waitEat(){
-        liftController.setInPos();
-        grabber       .forwrdBrush();
-        grabber       .toEatTwistServo();
-        if(Robot.myTeam == Team.RED){
-            if(colorSensorListener.getColor() == ColorDetective.BLUE)
-                grabber.openSampleGrabber();
-        }else {
-            if (Robot.myTeam == Team.BLUE) {
-                if (colorSensorListener.getColor() == ColorDetective.RED)
-                    grabber.openSampleGrabber();
-            }
-            else{
-                grabber.closeSampleGrabber();
-            }
-        }
-        grabber       .downFlipServo();
-        grabber       .transferToEat();
-        grabber       .openAfterTransferServo();
-        grabber       .inOutServo();
+        //liftController.setInPos();
+        grabber       .outServoPosition = OutServoPosition.OUT_ROBOR;
+        grabber       .afterTransferGrabberPosition = AfterTransferGrabber.OPEN;
+        grabber       .twistServoPosition = TwistServo.EAT_FROM_WALL;
+        grabber       .flipGrabberPositonLeft = FlipGrabberPositionLeft.UNSPREADOUT;
+        grabber       .flipGrabberPositonRight = FlipGrabberPositionRight.UNSPREADOUT;
+
     }
 
 
@@ -161,11 +156,7 @@ public class IntakeStateMachine {
     }
 
     private void fromDownWaitToEatWait(){
-        grabber.upFlipServo();
-        if(timer.seconds() > 0.5) grabber.transferToEat();
-        if(timer.seconds()>1) {
-            setState(IntakeState.WAIT_EAT);
-        }
+
     }
 
     private void changeState(IntakeState target){

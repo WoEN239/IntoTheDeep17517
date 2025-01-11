@@ -11,16 +11,16 @@ public class TeleOp extends BaseMode {
 
     public void doing() {
         BaseMode.isField = true;
+
+        robot.intake.setTarget(IntakeState.WAIT_EAT);
         position.copyFrom(robot.positionListener.getPositionGlobal());
-        IntakeServo.transferServoLeft.setPosition(1);
         robot.velocityController.moveGlobal(
                 new Position(-leftStickY*500, leftStickX*500, rightStickX*360)
         );
-
-//
-//        if(waitDown)robot.intake.setTarget(IntakeState.WAIT_DOWN);
-//        if(waitUp)  robot.intake.setTarget(IntakeState.WAIT_UP)  ;
-//        if(waitEat) robot.intake.setTarget(IntakeState.WAIT_EAT) ;
+        Robot.telemetry.addData("state",robot.intake.getState().toString());
+//if(waitDown)robot.intake.setTarget(IntakeState.WAIT_DOWN);
+// if(waitUp)  robot.intake.setTarget(IntakeState.WAIT_UP)  ;
+// if(waitEat) robot.intake.setTarget(IntakeState.WAIT_EAT) ;
 //
 //        Robot.telemetry.addData("Voltage: ",Robot.voltage);
 //        Robot.telemetry.addData("Circle", gamepad1.a);

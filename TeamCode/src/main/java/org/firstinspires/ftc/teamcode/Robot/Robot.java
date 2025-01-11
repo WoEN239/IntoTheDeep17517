@@ -86,7 +86,7 @@ public class Robot extends ModulesList {
         }
 
         //autonomusStateMachine.update();
-        //intake.update();
+        intake.update();
 
         for (IModule i : modules
         )

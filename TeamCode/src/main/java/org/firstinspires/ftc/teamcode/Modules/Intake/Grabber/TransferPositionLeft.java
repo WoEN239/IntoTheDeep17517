@@ -7,12 +7,12 @@ import com.acmerobotics.dashboard.config.Config;
  */
 
 @Config
-public enum TransferPosition {
+public enum TransferPositionLeft {
 
     EAT, NORMAL;
 
-    public static double eat = 0.2;
-    public static double normal = 0.55;
+    public static double eat = 0;
+    public static double normal = 0;
 
     public double get() {
         switch (this) {

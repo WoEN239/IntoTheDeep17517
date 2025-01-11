@@ -7,10 +7,10 @@ import com.acmerobotics.dashboard.config.Config;
  */
 
 @Config
-public enum FlipGrabberPosition {
+public enum FlipGrabberPositionLeft {
     SPREADOUT, UNSPREADOUT;
-    public static double unSperadOut = 0.15;
-    public static double spreadOut = 0.5;
+    public static double unSperadOut = 0.4;
+    public static double spreadOut   = 0.43;
 
     public double get() {
         switch (this) {

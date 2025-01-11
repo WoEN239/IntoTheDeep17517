@@ -2,17 +2,12 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.Grabber;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.VoltageSensor;
 
-import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 import org.firstinspires.ftc.teamcode.Devices.IntakeServo;
 import org.firstinspires.ftc.teamcode.Devices.LiftHangingMotors;
 import org.firstinspires.ftc.teamcode.Devices.Motor;
-import org.firstinspires.ftc.teamcode.Modules.Intake.SampleSensor.ColorDetective;
-import org.firstinspires.ftc.teamcode.Modules.Intake.SampleSensor.ColorSensorListener;
 import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.Controller;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
-import org.firstinspires.ftc.teamcode.Robot.Team;
 
 /**
  * Writing by @MrFrosty1234
@@ -33,22 +28,24 @@ public class Grabber implements Controller {
     public static double volt = 3.3;
 
 
-    private GrabberPosition grabberTarget = GrabberPosition.OPEN;
-    private FlipGrabberPosition flipGrabberPositon = FlipGrabberPosition.UNSPREADOUT;
-    private TransferPosition transferPosition = TransferPosition.NORMAL;
-    private AfterTransferGrabber afterTransferGrabberPosition = AfterTransferGrabber.OPEN;
-    private OutServoPosition outServoPosition = OutServoPosition.IN_ROBOT;
-    private TwistServo twistServoPosition = TwistServo.EAT;
-    private PowerBrush brushPower = PowerBrush.STOP;
+    public GrabberPosition grabberTarget = GrabberPosition.OPEN;
+    public FlipGrabberPositionRight flipGrabberPositonRight = FlipGrabberPositionRight.UNSPREADOUT;
+    public FlipGrabberPositionLeft flipGrabberPositonLeft = FlipGrabberPositionLeft.UNSPREADOUT;
+    public TransferPositionLeft transferPositionLeft = TransferPositionLeft.NORMAL;
+    public TransferPositionRight transferPositionRight = TransferPositionRight.NORMAL;
+    public AfterTransferGrabber afterTransferGrabberPosition = AfterTransferGrabber.OPEN;
+    public OutServoPosition outServoPosition = OutServoPosition.IN_ROBOT;
+    public TwistServo twistServoPosition = TwistServo.EAT;
+    public PowerBrush brushPower = PowerBrush.STOP;
 
     public GrabberPosition getGrabberTarget() {
         return grabberTarget;
     }
 
-    public FlipGrabberPosition getFlipServoPos() {return flipGrabberPositon;}
+    //public FlipGrabberPositionLeft getFlipServoPos() {return flipGrabberPositonRight;}
 
-    public TransferPosition getTransferPosition() {
-        return transferPosition;
+    public TransferPositionLeft getTransferPosition() {
+        return transferPositionLeft;
     }
 
 
@@ -64,18 +61,18 @@ public class Grabber implements Controller {
 
 
     public void transferToEat() {
-        transferPosition = TransferPosition.EAT;
+        transferPositionLeft = TransferPositionLeft.EAT;
     }
 
     public void transferToNormal() {
-        transferPosition = TransferPosition.NORMAL;
+        transferPositionLeft = TransferPositionLeft.NORMAL;
     }
 
 
-    public void upFlipServo() { flipGrabberPositon = FlipGrabberPosition.UNSPREADOUT;}
+    public void upFlipServo() { flipGrabberPositonRight = FlipGrabberPositionRight.UNSPREADOUT;}
 
     public void downFlipServo() {
-        flipGrabberPositon = FlipGrabberPosition.SPREADOUT;
+        flipGrabberPositonRight = FlipGrabberPositionRight.SPREADOUT;
     }
 
     public void inOutServo(){
@@ -131,29 +128,29 @@ public class Grabber implements Controller {
 
     public void update() {
         grabberServo .setPosition(grabberTarget    .get()  );
-        flipServoRight.setPosition(flipGrabberPositon.get());
-        flipServoLeft.setPosition(flipGrabberPositon.get());
-        transferServoLeft.setPosition(transferPosition.get());
-        transferServoRight.setPosition(transferPosition.get());
+        flipServoRight.setPosition(flipGrabberPositonRight.get());
+        flipServoLeft.setPosition(flipGrabberPositonLeft.get());
+
+        transferServoLeft.setPosition( transferPositionLeft.get());
+        transferServoRight.setPosition(transferPositionRight.get());
+
         afterTransferServo.setPosition(afterTransferGrabberPosition.get());
+
         outRobotServo.setPosition(outServoPosition.get());
         twistServo.setPosition(twistServoPosition.get());
         brushVolt();
     }
 
     public void brushVolt(){
-        if(brushMotor.dev.getCurrent(CurrentUnit.AMPS) > volt){
-            brushPower = PowerBrush.REVERSE;
-        }
         brushMotor.setVoltage(brushPower.get());
     }
 
-    public FlipGrabberPosition getFlipGrabberPositon() {
-        return flipGrabberPositon;
+    public FlipGrabberPositionRight getFlipGrabberPositonRight() {
+        return flipGrabberPositonRight;
     }
 
-    public void setFlipGrabberPositon(FlipGrabberPosition flipGrabberPositon) {
-        this.flipGrabberPositon = flipGrabberPositon;
+    public void setFlipGrabberPositonRight(FlipGrabberPositionRight flipGrabberPositonRight) {
+        this.flipGrabberPositonRight = flipGrabberPositonRight;
     }
 
     public OutServoPosition getOutServoPosition() {

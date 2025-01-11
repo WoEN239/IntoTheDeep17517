@@ -135,7 +135,7 @@ public class DeviceTest extends LinearOpMode {
                         telemetry.addData("Voltage", voltageSensor.getVoltage());
                         break;
                     case COLOR_SENSOR:
-                        ColorSensor colorSensor = fix((AdafruitI2cColorSensor) hardwareDevice);
+                        ColorSensor colorSensor = (AdafruitI2cColorSensor) hardwareDevice;
                         telemetry.addData("red", colorSensor.red());
                         telemetry.addData("green", colorSensor.green());
                         telemetry.addData("blue", colorSensor.blue());
