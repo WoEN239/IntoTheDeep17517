@@ -52,7 +52,7 @@ public class Robot extends ModulesList {
         DevicePool.init(hardwareMap);
 
         if (BaseMode.isCamera) {
-            camera.init(this);
+        //    camera.init(this);
         }
 
         for (IModule i : modules
@@ -60,7 +60,7 @@ public class Robot extends ModulesList {
             i.init(this);
         }
         intake.init(this);
-        autonomusStateMachine.init(this);
+        //autonomusStateMachine.init(this);
 
     }
     public void initSimulation(){
@@ -84,10 +84,8 @@ public class Robot extends ModulesList {
         {
             i.read();
         }
-
         //autonomusStateMachine.update();
         intake.update();
-
         for (IModule i : modules
         )
         {

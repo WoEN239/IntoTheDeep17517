@@ -2,15 +2,21 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.Lift;
 
 
 import com.acmerobotics.dashboard.config.Config;
-
+@Config
 public enum LiftPosition {
-    DOWN, LOW_AXIS, HIGHEST_AXIS, HIGHEST_BASKET, LOWEST_BASKET, IN_POSITION;
+    DOWN,UP, WALL_EAT,LOW_AXIS, HIGHEST_AXIS,SCORE_AXIS, HIGHEST_BASKET, LOWEST_BASKET, IN_ROBOT;
 
     public static double down = 0;
+    public static double up = 3100;
+
+    public static double waitEat = 1000;
     public static double lowAxisGet = 1500;
     public static double highestAxis = 2000;
+    public static double scoreAxis = 1700;
+
     public static double highestBasket = 2500;
     public static double lowestBasket = 1000;
+
 
     public static double inPos = 100;
 
@@ -27,8 +33,14 @@ public enum LiftPosition {
                 return highestBasket;
             case LOWEST_BASKET:
                 return lowestBasket;
-            case IN_POSITION:
+            case IN_ROBOT:
                 return inPos;
+            case UP:
+                return up;
+            case WALL_EAT:
+                return waitEat;
+            case SCORE_AXIS:
+                return scoreAxis;
         }
     }
 

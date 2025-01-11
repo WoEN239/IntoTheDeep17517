@@ -18,16 +18,16 @@ public class TestPurePursuit extends BaseMode {
         robot.purePursuit.addWayPoints(
                 /* едем к корзине */
        new WayPoint(redBasketScoring,
-       PurePursuitTask.easyBuild(IntakeState.WAIT_UP, robot.intake),
-       PurePursuitTask.easyBuild(IntakeState.WAIT_DOWN, robot.intake)),
+       PurePursuitTask.easyBuild(IntakeState.WAIT_BASKET, robot.intake),
+       PurePursuitTask.easyBuild(IntakeState.WAIT_AXIS, robot.intake)),
                 /* eдем к первому образцу */
        new WayPoint(redFirstElement,
-       PurePursuitTask.easyBuild(IntakeState.WAIT_EAT,robot.intake),
-       PurePursuitTask.easyBuild(IntakeState.WAIT_DOWN, robot.intake)),
+       PurePursuitTask.easyBuild(IntakeState.WAIT_WALL_EAT,robot.intake),
+       PurePursuitTask.easyBuild(IntakeState.WAIT_AXIS, robot.intake)),
                 /* едем к корзине */
         new WayPoint(redBasketScoring,
-        PurePursuitTask.easyBuild(IntakeState.WAIT_UP,robot.intake),
-        PurePursuitTask.easyBuild(IntakeState.WAIT_DOWN, robot.intake)),
+        PurePursuitTask.easyBuild(IntakeState.WAIT_BASKET,robot.intake),
+        PurePursuitTask.easyBuild(IntakeState.WAIT_AXIS, robot.intake)),
                 /* паркуемся */
         new WayPoint(redCenterScoring)
         );

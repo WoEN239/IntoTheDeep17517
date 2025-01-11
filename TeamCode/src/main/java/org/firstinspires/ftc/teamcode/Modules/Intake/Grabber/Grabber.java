@@ -32,7 +32,7 @@ public class Grabber implements Controller {
     public FlipGrabberPositionRight flipGrabberPositonRight = FlipGrabberPositionRight.UNSPREADOUT;
     public FlipGrabberPositionLeft flipGrabberPositonLeft = FlipGrabberPositionLeft.UNSPREADOUT;
     public TransferPositionLeft transferPositionLeft = TransferPositionLeft.NORMAL;
-    public TransferPositionRight transferPositionRight = TransferPositionRight.NORMAL;
+    public double transferPositionRight = TransferPositionRight.NORMAL.get();
     public AfterTransferGrabber afterTransferGrabberPosition = AfterTransferGrabber.OPEN;
     public OutServoPosition outServoPosition = OutServoPosition.IN_ROBOT;
     public TwistServo twistServoPosition = TwistServo.EAT;
@@ -80,7 +80,7 @@ public class Grabber implements Controller {
     }
 
     public void outOutServo(){
-        outServoPosition = OutServoPosition.OUT_ROBOR;
+        outServoPosition = OutServoPosition.OUT_ROBOT;
     }
 
     public void closeAfterTransferServo(){
@@ -129,9 +129,9 @@ public class Grabber implements Controller {
     public void update() {
         grabberServo .setPosition(grabberTarget    .get()  );
         flipServoRight.setPosition(flipGrabberPositonRight.get());
-        flipServoLeft.setPosition(flipGrabberPositonLeft.get());
+        //flipServoLeft.setPosition(flipGrabberPositonLeft.get());
 
-        transferServoLeft.setPosition( transferPositionLeft.get());
+        //transferServoLeft.setPosition( transferPositionLeft.get());
         transferServoRight.setPosition(transferPositionRight.get());
 
         afterTransferServo.setPosition(afterTransferGrabberPosition.get());

@@ -1,31 +1,31 @@
 package org.firstinspires.ftc.teamcode.Modules.Intake.StateMachine;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.AfterTransferGrabber;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.FlipGrabberPositionLeft;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.FlipGrabberPositionRight;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Grabber;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.OutServoPosition;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.PowerBrush;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.TransferPositionRight;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.TwistServo;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftController;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftListener;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
-import org.firstinspires.ftc.teamcode.Modules.Intake.SampleSensor.ColorDetective;
 import org.firstinspires.ftc.teamcode.Modules.Intake.SampleSensor.ColorSensorListener;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
-import org.firstinspires.ftc.teamcode.Robot.Team;
 
 /*
  Writing by EgorKhvostikov
 */
 
 public class IntakeStateMachine {
-    IntakeState state  = IntakeState.WAIT_DOWN;
-    IntakeState target = IntakeState.WAIT_EAT;
+    IntakeState state  = IntakeState.WAIT_CENTRE_EAT;
+    IntakeState target = IntakeState.WAIT_CENTRE_EAT;
 
     LiftPosition upPos = LiftPosition.LOW_AXIS;
+    public double transferPos = 0;
 
     ColorSensorListener colorSensorListener = new ColorSensorListener();
 
@@ -83,32 +83,28 @@ public class IntakeStateMachine {
         grabber       .closeAfterTransferServo();
     }
 
-    private void waitDown(){
-        //liftController.setInPos();
-      //  grabber       .stopBrush();
+    private void waitAxis(){
+        liftController.setTargetPosition(LiftPosition.HIGHEST_AXIS);
         grabber       .flipGrabberPositonLeft = FlipGrabberPositionLeft.UNSPREADOUT;
         grabber       .flipGrabberPositonRight = FlipGrabberPositionRight.UNSPREADOUT;
         grabber       .afterTransferGrabberPosition = AfterTransferGrabber.CLOSE;
-        grabber       .outServoPosition = OutServoPosition.IN_ROBOT;
-        grabber       .twistServoPosition = TwistServo.EAT;
-//        grabber       .transferToNormal()  ;
-//        grabber       .openAfterTransferServo();
-//        grabber       .inOutServo();
+        grabber       .outServoPosition = OutServoPosition.OUT_ROBOT;
+        grabber       .twistServoPosition = TwistServo.EAT_FROM_WALL;
+
     }
 
-    private void waitEat(){
-        //liftController.setInPos();
-        grabber       .outServoPosition = OutServoPosition.OUT_ROBOR;
-        grabber       .afterTransferGrabberPosition = AfterTransferGrabber.OPEN;
-        grabber       .twistServoPosition = TwistServo.EAT_FROM_WALL;
+    private void waitWallEat(){
+        liftController.setTargetPosition(LiftPosition.WALL_EAT);
         grabber       .flipGrabberPositonLeft = FlipGrabberPositionLeft.UNSPREADOUT;
         grabber       .flipGrabberPositonRight = FlipGrabberPositionRight.UNSPREADOUT;
-
+        grabber       .outServoPosition = OutServoPosition.OUT_ROBOT;
+        grabber       .twistServoPosition = TwistServo.EAT_FROM_WALL;
+        grabber       .afterTransferGrabberPosition = AfterTransferGrabber.OPEN;
     }
 
 
 
-    private void fromUpWaitToDownWait(){
+    private void fromUpWaitToAxisWait(){
         grabber.openSampleGrabber();
         if(timer.seconds() > 0.5) {
             grabber.inOutServo();
@@ -120,7 +116,7 @@ public class IntakeStateMachine {
             liftController.setInPos();
         }
         if(timer.seconds()>2) {
-            setState(IntakeState.WAIT_DOWN);
+            setState(IntakeState.WAIT_AXIS);
         }
     }
 
@@ -134,51 +130,54 @@ public class IntakeStateMachine {
             liftController.setPosition(upPos);
         }
         if(timer.seconds()>2) {
-            setState(IntakeState.WAIT_UP);
+            setState(IntakeState.WAIT_BASKET);
         }
     }
 
-    private void fromEatWaitToDownWait(){
-        grabber.transferToEat()     ;
-        grabber.upFlipServo()       ;
-        grabber.closeSampleGrabber();
-        liftController.setInPos();
+    private void fromEatWallWaitToAxisWait(){
+        grabber.afterTransferGrabberPosition = AfterTransferGrabber.CLOSE;
         if(timer.seconds()>0.5) {
-            grabber.downFlipServo();
+            liftController.setTargetPosition(LiftPosition.HIGHEST_AXIS);
+            if (liftController.isAtTarget()) {
+                setState(IntakeState.WAIT_AXIS);
+            }
         }
-        if(timer.seconds()>1) {
-            grabber.transferToNormal();
-        }
-        if(timer.seconds()>1.2) {
-            setState(IntakeState.WAIT_DOWN);
+    }
+
+    private void fromAxisWaitToEatWallWait(){
+        liftController.setTargetPosition(LiftPosition.SCORE_AXIS);
+        if(liftController.isAtTarget()) {
+            grabber.afterTransferGrabberPosition = AfterTransferGrabber.OPEN;
+            setState(IntakeState.WAIT_WALL_EAT);
         }
 
     }
 
-    private void fromDownWaitToEatWait(){
 
+    private void waitCentreEat(){
+        grabber.transferPositionRight = Range.clip(transferPos,TransferPositionRight.NORMAL.get(),TransferPositionRight.EAT.get());
     }
 
     private void changeState(IntakeState target){
         switch (target) {
-            case WAIT_EAT:
-                if(state == IntakeState.WAIT_DOWN)
-                    fromDownWaitToEatWait();
+            case WAIT_WALL_EAT:
+                if(state == IntakeState.WAIT_AXIS)
+                    fromAxisWaitToEatWallWait();
                 else{
-                    setTarget(IntakeState.WAIT_EAT);
+                    setTarget(IntakeState.WAIT_WALL_EAT);
                 }
                 break;
-            case WAIT_DOWN:
-                if(state == IntakeState.WAIT_EAT)
-                    fromEatWaitToDownWait();
-                else if (state == IntakeState.WAIT_UP)
-                    fromUpWaitToDownWait();
+            case WAIT_AXIS:
+                if(state == IntakeState.WAIT_WALL_EAT)
+                    fromEatWallWaitToAxisWait();
+                else if (state == IntakeState.WAIT_BASKET)
+                    fromUpWaitToAxisWait();
                 break;
-            case WAIT_UP:
-                if(state == IntakeState.WAIT_DOWN)
+            case WAIT_BASKET:
+                if(state == IntakeState.WAIT_AXIS)
                     fromDownWaitToUpWait();
                 else{
-                    setTarget(IntakeState.WAIT_UP);
+                    setTarget(IntakeState.WAIT_BASKET);
                 }
                 break;
         }
@@ -186,14 +185,17 @@ public class IntakeStateMachine {
 
     public void updateState(){
         switch (state){
-            case WAIT_UP:
+            case WAIT_BASKET:
                 waitUp();
                 break;
-            case WAIT_DOWN:
-                waitDown();
+            case WAIT_AXIS:
+                waitAxis();
                 break;
-            case WAIT_EAT:
-                waitEat();
+            case WAIT_WALL_EAT:
+                waitWallEat();
+                break;
+            case WAIT_CENTRE_EAT:
+                waitCentreEat();
                 break;
         }
     }

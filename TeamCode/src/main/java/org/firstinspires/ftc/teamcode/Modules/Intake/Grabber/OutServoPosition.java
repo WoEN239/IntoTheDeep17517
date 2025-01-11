@@ -4,8 +4,8 @@ import com.acmerobotics.dashboard.config.Config;
 
 @Config
 public enum OutServoPosition {
-    IN_ROBOT, OUT_ROBOR;
-    public static double inRobot = 0.325;
+    IN_ROBOT, OUT_ROBOT;
+    public static double inRobot = 0.35;
     public static double outRobot = 0.7;
 
     public double get(){
@@ -13,7 +13,7 @@ public enum OutServoPosition {
             default:
             case IN_ROBOT:
                 return inRobot;
-            case OUT_ROBOR:
+            case OUT_ROBOT:
                 return outRobot;
         }
     }
