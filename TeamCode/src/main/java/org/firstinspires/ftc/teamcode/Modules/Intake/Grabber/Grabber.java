@@ -31,7 +31,7 @@ public class Grabber implements Controller {
     public GrabberPosition grabberTarget = GrabberPosition.OPEN;
     public FlipGrabberPositionRight flipGrabberPositonRight = FlipGrabberPositionRight.UNSPREADOUT;
     public FlipGrabberPositionLeft flipGrabberPositonLeft = FlipGrabberPositionLeft.UNSPREADOUT;
-    public TransferPositionLeft transferPositionLeft = TransferPositionLeft.NORMAL;
+    public double transferPositionLeft = TransferPositionLeft.NORMAL.get();
     public double transferPositionRight = TransferPositionRight.NORMAL.get();
     public AfterTransferGrabber afterTransferGrabberPosition = AfterTransferGrabber.OPEN;
     public OutServoPosition outServoPosition = OutServoPosition.IN_ROBOT;
@@ -44,9 +44,6 @@ public class Grabber implements Controller {
 
     //public FlipGrabberPositionLeft getFlipServoPos() {return flipGrabberPositonRight;}
 
-    public TransferPositionLeft getTransferPosition() {
-        return transferPositionLeft;
-    }
 
 
 
@@ -59,14 +56,6 @@ public class Grabber implements Controller {
         grabberTarget = GrabberPosition.OPEN;
     }
 
-
-    public void transferToEat() {
-        transferPositionLeft = TransferPositionLeft.EAT;
-    }
-
-    public void transferToNormal() {
-        transferPositionLeft = TransferPositionLeft.NORMAL;
-    }
 
 
     public void upFlipServo() { flipGrabberPositonRight = FlipGrabberPositionRight.UNSPREADOUT;}
@@ -129,10 +118,10 @@ public class Grabber implements Controller {
     public void update() {
         grabberServo .setPosition(grabberTarget    .get()  );
         flipServoRight.setPosition(flipGrabberPositonRight.get());
-        //flipServoLeft.setPosition(flipGrabberPositonLeft.get());
+       // flipServoLeft.setPosition(flipGrabberPositonLeft.get());
 
-        //transferServoLeft.setPosition( transferPositionLeft.get());
-        transferServoRight.setPosition(transferPositionRight);
+       // transferServoLeft.setPosition( transferPositionRight);
+        transferServoRight.setPosition(0);
 
         afterTransferServo.setPosition(afterTransferGrabberPosition.get());
 

@@ -17,10 +17,8 @@ public class TeleOp extends BaseMode {
         if(gamepad1.right_bumper) robot.intake.setTarget(IntakeState.WAIT_WALL_EAT);
         if(gamepad1.left_bumper) robot.intake.setTarget(IntakeState.WAIT_AXIS);
 
-        if(gamepad1.dpad_up) robot.intake.setTarget(IntakeState.WAIT_CENTRE_EAT);
-        robot.intake.transferPos = gamepad1.left_trigger;
 
-        double manT = 0;//= 12*gamepad1.left_trigger + -12 * gamepad1.right_trigger;
+        double manT = 12*gamepad1.left_trigger + -12 * gamepad1.right_trigger;
         robot.liftController.setManualTarget(manT);
         if(abs(manT) > 2){
             robot.liftController.setMode(LiftMode.MANUAL);

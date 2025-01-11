@@ -24,8 +24,8 @@ public class LiftHangingMotors {
         liftRightMotor.setDir(MotorDirection.BACK);
         brushMotor.setDir(MotorDirection.BACK);
 
-        liftLeftMotor.dev.setZeroPowerBehavior (DcMotor.ZeroPowerBehavior.FLOAT);
-        liftRightMotor.dev.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        liftLeftMotor.dev.setZeroPowerBehavior (DcMotor.ZeroPowerBehavior.BRAKE);
+        liftRightMotor.dev.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         brushMotor.dev.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
         liftLeftMotor.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

@@ -21,8 +21,8 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
 */
 
 public class IntakeStateMachine {
-    IntakeState state  = IntakeState.WAIT_CENTRE_EAT;
-    IntakeState target = IntakeState.WAIT_CENTRE_EAT;
+    IntakeState state  = IntakeState.WAIT_WALL_EAT;
+    IntakeState target = IntakeState.WAIT_WALL_EAT;
 
     LiftPosition upPos = LiftPosition.LOW_AXIS;
     public double transferPos = 0;
@@ -78,7 +78,7 @@ public class IntakeStateMachine {
         grabber       .toDropTwistServo();
         grabber       .closeSampleGrabber();
         grabber       .downFlipServo();
-        grabber       .transferToNormal()  ;
+       // grabber       .transferToNormal()  ;
         grabber       .outOutServo();
         grabber       .closeAfterTransferServo();
     }
@@ -108,7 +108,7 @@ public class IntakeStateMachine {
         grabber.openSampleGrabber();
         if(timer.seconds() > 0.5) {
             grabber.inOutServo();
-            grabber.transferToNormal();
+          //  grabber.transferToNormal();
             grabber.openAfterTransferServo();
             grabber.toEatTwistServo();
         }
@@ -121,7 +121,7 @@ public class IntakeStateMachine {
     }
 
     private void fromDownWaitToUpWait(){
-        grabber       .transferToNormal()  ;
+       // grabber       .transferToNormal()  ;
         grabber       .downFlipServo()     ;
         grabber       .closeSampleGrabber();
         grabber.closeAfterTransferServo();
