@@ -132,7 +132,7 @@ public class Grabber implements Controller {
         //flipServoLeft.setPosition(flipGrabberPositonLeft.get());
 
         //transferServoLeft.setPosition( transferPositionLeft.get());
-        transferServoRight.setPosition(transferPositionRight.get());
+        transferServoRight.setPosition(transferPositionRight);
 
         afterTransferServo.setPosition(afterTransferGrabberPosition.get());
 
