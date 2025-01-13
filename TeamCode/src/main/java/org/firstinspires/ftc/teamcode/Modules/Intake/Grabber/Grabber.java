@@ -100,7 +100,7 @@ public class Grabber implements Controller {
         brushPower = PowerBrush.REVERSE;
     }
 
-
+    public static double fixTransfer = 0.05;
     @Override
     public void init(Robot robot) {
         this.robot = robot;
@@ -117,11 +117,11 @@ public class Grabber implements Controller {
 
     public void update() {
         grabberServo .setPosition(grabberTarget    .get()  );
-        flipServoRight.setPosition(flipGrabberPositonRight.get());
-       // flipServoLeft.setPosition(flipGrabberPositonLeft.get());
+        //flipServoRight.setPosition(flipGrabberPositonRight.get());
+        //flipServoLeft.setPosition(flipGrabberPositonLeft.get());
 
-       // transferServoLeft.setPosition( transferPositionRight);
-        transferServoRight.setPosition(0);
+        transferServoLeft.setPosition(1-transferPositionRight+fixTransfer);
+        transferServoRight.setPosition(transferPositionRight);
 
         afterTransferServo.setPosition(afterTransferGrabberPosition.get());
 

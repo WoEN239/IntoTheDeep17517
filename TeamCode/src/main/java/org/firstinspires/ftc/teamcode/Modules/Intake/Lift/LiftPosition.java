@@ -9,10 +9,10 @@ public enum LiftPosition {
     public static double down = 0;
     public static double up = 3100;
 
-    public static double waitEat = 1000;
+    public static double waitEat = 550;
     public static double lowAxisGet = 1500;
-    public static double highestAxis = 2000;
-    public static double scoreAxis = 1700;
+    public static double highestAxis = 1900;
+    public static double scoreAxis  = 1600;
 
     public static double highestBasket = 2500;
     public static double lowestBasket = 1000;

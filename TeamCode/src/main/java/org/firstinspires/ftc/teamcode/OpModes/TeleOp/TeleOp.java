@@ -15,21 +15,30 @@ public class TeleOp extends BaseMode {
         BaseMode.isField = true;
 
         if(gamepad1.right_bumper) robot.intake.setTarget(IntakeState.WAIT_WALL_EAT);
-        if(gamepad1.left_bumper) robot.intake.setTarget(IntakeState.WAIT_AXIS);
+        if(gamepad1.left_bumper) robot.intake.setTarget (IntakeState.WAIT_AXIS);
+
+        robot.intake.transferPos = gamepad1.left_trigger/5;
 
 
-        double manT = 12*gamepad1.left_trigger + -12 * gamepad1.right_trigger;
+        double manT =0;
+        if(gamepad1.dpad_up){
+            manT = 6;
+        }
+        if(gamepad1.dpad_down){
+            manT = -6;
+        }
+
         robot.liftController.setManualTarget(manT);
-        if(abs(manT) > 2){
+        if(abs(manT)>2){
             robot.liftController.setMode(LiftMode.MANUAL);
-        }else{
+        }else {
             robot.liftController.setMode(LiftMode.AUTO);
         }
 
 
         position.copyFrom(robot.positionListener.getPositionGlobal());
         robot.velocityController.moveGlobal(
-                new Position(-leftStickY*500, leftStickX*500, rightStickX*360)
+                new Position(leftStickY*500, -leftStickX*500, rightStickX*360)
         );
         Robot.telemetry.addData("state",robot.intake.getState().toString());
         Robot.telemetry.addData("liftPos", robot.liftListener.getPosition());

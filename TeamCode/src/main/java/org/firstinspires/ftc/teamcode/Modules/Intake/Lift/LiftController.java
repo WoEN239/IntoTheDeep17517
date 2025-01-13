@@ -58,7 +58,7 @@ public class LiftController implements Controller {
 
 
     public boolean isAtTarget() {
-        return abs(liftListener.getPosition() - targetPosition.get()) < 25;
+        return abs(liftListener.getPosition() - targetPosition.get()) < 35;
     }
 
     private double uMove = 0;

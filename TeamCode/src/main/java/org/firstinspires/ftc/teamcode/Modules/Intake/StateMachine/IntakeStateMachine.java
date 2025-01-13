@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.FlipGrabberPosition
 import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.FlipGrabberPositionRight;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Grabber;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.OutServoPosition;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.PowerBrush;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.TransferPositionRight;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.TwistServo;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftController;
@@ -21,8 +22,8 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
 */
 
 public class IntakeStateMachine {
-    IntakeState state  = IntakeState.WAIT_WALL_EAT;
-    IntakeState target = IntakeState.WAIT_WALL_EAT;
+    IntakeState state  = IntakeState.WAIT_CENTRE_EAT;
+    IntakeState target = IntakeState.WAIT_CENTRE_EAT;
 
     LiftPosition upPos = LiftPosition.LOW_AXIS;
     public double transferPos = 0;
@@ -37,7 +38,7 @@ public class IntakeStateMachine {
     public void setTarget(IntakeState target) {
         this.target = target;
     }
-    private void setState(IntakeState state){
+    public void setState(IntakeState state){
         this.state = state;
     }
 
@@ -88,8 +89,10 @@ public class IntakeStateMachine {
         grabber       .flipGrabberPositonLeft = FlipGrabberPositionLeft.UNSPREADOUT;
         grabber       .flipGrabberPositonRight = FlipGrabberPositionRight.UNSPREADOUT;
         grabber       .afterTransferGrabberPosition = AfterTransferGrabber.CLOSE;
-        grabber       .outServoPosition = OutServoPosition.OUT_ROBOT;
-        grabber       .twistServoPosition = TwistServo.EAT_FROM_WALL;
+        if(liftListener.getPosition()>500) {
+            grabber.outServoPosition = OutServoPosition.OUT_ROBOT;
+        }
+            grabber.twistServoPosition = TwistServo.EAT_FROM_WALL;
 
     }
 
@@ -146,16 +149,25 @@ public class IntakeStateMachine {
 
     private void fromAxisWaitToEatWallWait(){
         liftController.setTargetPosition(LiftPosition.SCORE_AXIS);
-        if(liftController.isAtTarget()) {
-            grabber.afterTransferGrabberPosition = AfterTransferGrabber.OPEN;
-            setState(IntakeState.WAIT_WALL_EAT);
-        }
+        if(timer.seconds()>1) {
+            if (liftController.isAtTarget() || timer.seconds()>2) {
 
+                grabber.afterTransferGrabberPosition = AfterTransferGrabber.OPEN;
+                setState(IntakeState.WAIT_WALL_EAT);
+            }
+        }
     }
 
 
     private void waitCentreEat(){
-        grabber.transferPositionRight = Range.clip(transferPos,TransferPositionRight.NORMAL.get(),TransferPositionRight.EAT.get());
+        double p  = Range.clip(transferPos,TransferPositionRight.NORMAL.get(),TransferPositionRight.EAT.get());
+        grabber.transferPositionRight = p;
+
+        grabber.flipGrabberPositonLeft  = FlipGrabberPositionLeft.SPREADOUT;
+        grabber.flipGrabberPositonRight = FlipGrabberPositionRight.SPREADOUT;
+        grabber.brushPower = PowerBrush.FORWARD;
+
+
     }
 
     private void changeState(IntakeState target){
