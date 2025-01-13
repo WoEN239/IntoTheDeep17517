@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Modules.Intake.Grabber;
+package org.firstinspires.ftc.teamcode.Modules.Intake.Config;
 
 import com.acmerobotics.dashboard.config.Config;
 
@@ -6,18 +6,18 @@ import com.acmerobotics.dashboard.config.Config;
  * Writing by @MrFrosty1234
  */
 
-
+@Config
 public enum FlipGrabberPosition {
-    SPREADOUT, UNSPREADOUT;
+    UP, DOWN;
     public static double unSperadOut = 0.15;
     public static double spreadOut = 0.5;
 
     public double get() {
         switch (this) {
             default:
-            case SPREADOUT:
+            case UP:
                 return spreadOut;
-            case UNSPREADOUT:
+            case DOWN:
                 return unSperadOut;
         }
     }

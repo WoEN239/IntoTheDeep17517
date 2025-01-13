@@ -8,9 +8,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Devices.Battery;
 import org.firstinspires.ftc.teamcode.Devices.DevicePool;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.DriveTrainManager;
-import org.firstinspires.ftc.teamcode.Modules.Intake.StateMachine.IntakeStateMachine;
+import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager;
 import org.firstinspires.ftc.teamcode.OpenCv.Camera;
-import org.firstinspires.ftc.teamcode.OpenCv.SimplesAndTagsDetectPipeline;
 
 /*
   Writing by EgorKhvostikov
@@ -33,7 +32,7 @@ public class Robot{
     public static Team myTeam = Team.BLUE;
 
     public DriveTrainManager  driveTrain = new DriveTrainManager ();
-    public IntakeStateMachine intake     = new IntakeStateMachine();
+    public IntakeManager intake     = new IntakeManager();
     public Camera camera = new Camera();
 
 

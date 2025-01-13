@@ -1,8 +1,6 @@
-package org.firstinspires.ftc.teamcode.Modules.Intake.Grabber;
+package org.firstinspires.ftc.teamcode.Modules.Intake.Config;
 
-import com.acmerobotics.dashboard.config.Config;
-
-public enum OutServoPosition {
+public enum InnerTransferPosition {
     IN_ROBOT, OUT_ROBOR;
     public static double inRobot = 0;
     public static double outRobot = 0;

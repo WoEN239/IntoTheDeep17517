@@ -1,6 +1,6 @@
-package org.firstinspires.ftc.teamcode.Modules.Intake.Grabber;
+package org.firstinspires.ftc.teamcode.Modules.Intake.Config;
 
-public enum BrushMotorPos {
+public enum BrushMotorPowers {
     STOP, FORWARD, REVERSE;
     public static double forward = 1;
     public static double reverse = -1;

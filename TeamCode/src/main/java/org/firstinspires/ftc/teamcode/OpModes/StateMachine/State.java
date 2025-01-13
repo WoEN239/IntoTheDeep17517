@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.OpModes.StateMachine;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
-import org.firstinspires.ftc.teamcode.Modules.Intake.StateMachine.IntakeState;
 
 public class State {
     IntakeState intakeState ;

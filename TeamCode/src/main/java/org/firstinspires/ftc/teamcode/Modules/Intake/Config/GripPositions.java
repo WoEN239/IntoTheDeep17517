@@ -1,9 +1,7 @@
-package org.firstinspires.ftc.teamcode.Modules.Intake.Grabber;
+package org.firstinspires.ftc.teamcode.Modules.Intake.Config;
 
 
-import com.acmerobotics.dashboard.config.Config;
-
-public enum AfterTransferGrabber {
+public enum GripPositions {
     OPEN, CLOSE;
 
     public static double open = 0;

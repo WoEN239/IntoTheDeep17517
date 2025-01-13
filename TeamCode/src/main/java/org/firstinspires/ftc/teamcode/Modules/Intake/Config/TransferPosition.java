@@ -1,6 +1,4 @@
-package org.firstinspires.ftc.teamcode.Modules.Intake.Grabber;
-
-import com.acmerobotics.dashboard.config.Config;
+package org.firstinspires.ftc.teamcode.Modules.Intake.Config;
 
 /**
  * Writing by @MrFrosty1234

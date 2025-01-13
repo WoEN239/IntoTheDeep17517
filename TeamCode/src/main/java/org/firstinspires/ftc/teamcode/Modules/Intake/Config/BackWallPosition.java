@@ -1,13 +1,11 @@
-package org.firstinspires.ftc.teamcode.Modules.Intake.Grabber;
-
-import com.acmerobotics.dashboard.config.Config;
+package org.firstinspires.ftc.teamcode.Modules.Intake.Config;
 
 /**
  * Writing by @MrFrosty1234
  */
 
 
-public enum GrabberPosition {
+public enum BackWallPosition {
     OPEN, CLOSE;
     public static double open = 1;
     public static double close = 0;

@@ -2,8 +2,7 @@ package org.firstinspires.ftc.teamcode.Robot;
 
 import androidx.annotation.NonNull;
 
-import org.firstinspires.ftc.teamcode.Modules.Intake.StateMachine.IntakeState;
-import org.firstinspires.ftc.teamcode.Modules.Intake.StateMachine.IntakeStateMachine;
+import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager;
 
 import java.util.function.Supplier;
 
@@ -56,7 +55,7 @@ public class PurePursuitTask {
     public PurePursuitTask(Runnable... run) {
         this.run = run;
     }
-    public static PurePursuitTask easyBuild(IntakeState state, IntakeStateMachine intake){
+    public static PurePursuitTask easyBuild(IntakeState state, IntakeManager intake){
        return new PurePursuitTask(state.toString(),intake::isDone,()->intake.setTarget(state));
     }
     @NonNull
