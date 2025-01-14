@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Modules.Intake.Grabber;
+package org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Intake.Position;
 
 public enum FlipGrabberPositionRight {
     SPREADOUT, UNSPREADOUT;

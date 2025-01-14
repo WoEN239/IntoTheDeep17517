@@ -3,16 +3,15 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.StateMachine;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.AfterTransferGrabber;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.FlipGrabberPositionLeft;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.FlipGrabberPositionRight;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Transfer.Position.AfterTransferGrabber;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Intake.Position.FlipGrabberPositionLeft;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Intake.Position.FlipGrabberPositionRight;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Grabber;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.OutServoPosition;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.PowerBrush;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.TransferPositionRight;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.TwistServo;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftController;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftListener;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Transfer.Position.OutServoPosition;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Intake.Position.PowerBrush;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Intake.Position.TransferPositionRight;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Transfer.Position.TwistServo;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftManager;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
 import org.firstinspires.ftc.teamcode.Modules.Intake.SampleSensor.ColorSensorListener;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
@@ -22,18 +21,17 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
 */
 
 public class IntakeStateMachine {
+    Robot robot;
     IntakeState state  = IntakeState.WAIT_CENTRE_EAT;
     IntakeState target = IntakeState.WAIT_CENTRE_EAT;
-
     LiftPosition upPos = LiftPosition.LOW_AXIS;
+    SampleState sampleState = SampleState.NOT_CLAIMED;
+
     public double transferPos = 0;
 
     ColorSensorListener colorSensorListener = new ColorSensorListener();
-
-    Robot robot                            ;
-    Grabber grabber                        ;
-    LiftController liftController          ;
-    LiftListener liftListener              ;
+    Grabber grabber = new Grabber();
+    LiftManager liftManager = new LiftManager();
 
     public void setTarget(IntakeState target) {
         this.target = target;
@@ -44,10 +42,9 @@ public class IntakeStateMachine {
 
     public void init(Robot robot) {
         this.robot = robot;
-        grabber = robot.grabber;
-        liftController = robot.liftController;
-        liftListener = robot.liftListener;
-        colorSensorListener = robot.colorSensorListener;
+        grabber.init(robot);
+        liftManager.init();
+        colorSensorListener = ;
     }
 
     ElapsedTime timer = new ElapsedTime();

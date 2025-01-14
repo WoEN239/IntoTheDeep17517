@@ -1,13 +1,18 @@
-package org.firstinspires.ftc.teamcode.Modules.Intake.Grabber;
+package org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Intake.Position;
 
 import com.acmerobotics.dashboard.config.Config;
 
+/**
+ * Writing by @MrFrosty1234
+ */
+
 @Config
-public enum TransferPositionRight {
+public enum TransferPositionLeft {
+
     EAT, NORMAL;
 
-    public static double eat = 0.35;
-    public static double normal = 0.1;
+    public static double eat = 0.7;
+    public static double normal = 0.3;
 
     public double get() {
         switch (this) {

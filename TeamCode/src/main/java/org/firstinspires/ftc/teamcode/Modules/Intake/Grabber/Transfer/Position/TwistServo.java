@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Modules.Intake.Grabber;
+package org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Transfer.Position;
 
 public enum TwistServo {
     EAT, DROP, EAT_FROM_WALL;

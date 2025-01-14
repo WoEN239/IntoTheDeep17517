@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
  * Writing by @MrFrosty1234
  */
 @Config
-public class LiftController implements Controller {
+public class LiftController {
     Robot robot;
     public static double g = 2;
     private LiftMode mode = LiftMode.AUTO;
@@ -42,7 +42,6 @@ public class LiftController implements Controller {
     Pid pidSync = new Pid(pidStatusSync);
 
 
-    @Override
     public void init(Robot robot) {
         this.robot = robot;
         liftListener = robot.liftListener;
@@ -103,25 +102,6 @@ public class LiftController implements Controller {
         }
 
         setPower();
-    }
-
-    public void setDownPos() {
-        targetPosition = LiftPosition.DOWN;
-    }
-
-    public void setTargetPosition(LiftPosition targetPosition) {
-        this.targetPosition = targetPosition;
-    }
-
-    public void setInPos(){targetPosition = LiftPosition.IN_ROBOT;}
-
-
-    public LiftPosition getTargetPosition(){
-        return targetPosition;
-    }
-
-    public void setHighBasket() {
-        targetPosition = LiftPosition.HIGHEST_BASKET;
     }
 
     public void setPosition(LiftPosition liftPosition) {
