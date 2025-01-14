@@ -3,15 +3,7 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Transfer;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Devices.IntakeServo;
-import org.firstinspires.ftc.teamcode.Devices.LiftHangingMotors;
-import org.firstinspires.ftc.teamcode.Devices.Motor;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Intake.Position.FlipGrabberPositionLeft;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Intake.Position.FlipGrabberPositionRight;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Intake.Position.GrabberPosition;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Intake.Position.PowerBrush;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Intake.Position.TransferPositionLeft;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Intake.Position.TransferPositionRight;
+import org.firstinspires.ftc.teamcode.Devices.IntakeDevices;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Transfer.Position.AfterTransferGrabber;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Transfer.Position.OutServoPosition;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Transfer.Position.TwistServo;
@@ -62,9 +54,9 @@ public class Transfer {
 
         public void init(Robot robot) {
             this.robot = robot;
-            outRobotServo = IntakeServo.outRobotServo;
-            afterTransferServo = IntakeServo.afterTransferServo;
-            twistServo = IntakeServo.twistServo;
+            outRobotServo = IntakeDevices.outRobotServo;
+            afterTransferServo = IntakeDevices.afterTransferServo;
+            twistServo = IntakeDevices.twistServo;
         }
 
         public void update() {

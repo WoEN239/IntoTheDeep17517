@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  Writing by @MrFrosty1234
 */
 
-public class IntakeServo {
+public class IntakeDevices {
 
     public static Servo grabberServo;
     public static Servo flipServoRight;

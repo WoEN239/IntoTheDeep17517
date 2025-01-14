@@ -1,72 +1,38 @@
 package org.firstinspires.ftc.teamcode.Modules.Intake.Lift;
 
-import com.qualcomm.robotcore.hardware.DigitalChannel;
+public class LiftListener{
 
-import org.firstinspires.ftc.teamcode.Devices.LiftHangingMotors;
-import org.firstinspires.ftc.teamcode.Devices.Motor;
-import org.firstinspires.ftc.teamcode.Devices.Sensors;
-import org.firstinspires.ftc.teamcode.Math.Button;
-import org.firstinspires.ftc.teamcode.Modules.TypesOfModules.Listener;
-import org.firstinspires.ftc.teamcode.Robot.Robot;
-
-public class LiftListener implements Listener {
-
-    Robot robot;
-
-    DigitalChannel buttonUp;
-    DigitalChannel buttonDown;
-    static Button upBorderButt = new Button();
-    static Button downBorderButt = new Button();
-    Motor liftLeftMotor;
-    Motor liftRightMotor;
-
-    private static double liftPosition = 0;
-    private static double liftStaticErrLeft = 0;
-    private static double liftStaticErrRight = 0;
-    private static double encoderPosition = 0;
-
-    public double errSync = 0;
-
-    @Override
-    public void init(Robot robot) {
-        this.robot = robot;
-        buttonUp = Sensors.upButton;
-        buttonDown = Sensors.downButton;
-
-        liftLeftMotor = LiftHangingMotors.liftLeftMotor;
-        liftRightMotor = LiftHangingMotors.liftRightMotor;
+    LiftDevicesValueMap liftDevicesValueMap = new LiftDevicesValueMap();
+    private void setDevicesValueMap(LiftDevicesValueMap lD){
+        liftDevicesValueMap.copyFrom(lD);
     }
-    private void updateDevice(){
-        liftRightMotor.update();
-        liftLeftMotor.update();
-    }
+
+    private double liftPosition = 0;
+    private double liftStaticErrLeft = 0;
+    private double liftStaticErrRight = 0;
+    private double errSync = 0;
 
     public double getPosition() {
         return liftPosition;
     }
+    public double getErrSync(){return errSync;}
 
-    private void updatePosition() {
-        updateDevice();
-        boolean isUp   = buttonUp.getState();
-        boolean isDown = buttonDown.getState();
+    public void computePosition() {
+        boolean isDownLeft  = liftDevicesValueMap.leftDownButton;
+        boolean isDownRight = liftDevicesValueMap.rightDownButton;
+        boolean isUpRight   = liftDevicesValueMap.rightUpButton;
+        boolean isUpLeft    = liftDevicesValueMap.leftUpButton;
+        if (isDownLeft)
+            liftStaticErrLeft = liftDevicesValueMap.leftMotorPos - LiftPosition.down;
+        if(isDownRight)
+            liftStaticErrRight = liftDevicesValueMap.rightMotorPos - LiftPosition.down;
+        if(isUpRight)
+            liftStaticErrRight = -LiftPosition.highestBasket + liftDevicesValueMap.rightMotorPos;
+        if(isUpLeft)
+            liftStaticErrLeft = - LiftPosition.highestBasket + liftDevicesValueMap.leftMotorPos;
 
-        if (isUp) {
-            liftStaticErrRight = -liftRightMotor.getPosition() - LiftPosition.up;
-            liftStaticErrLeft  = liftLeftMotor.getPosition()   - LiftPosition .up;
-        }
-        if(isDown) {
-            liftStaticErrRight = -liftRightMotor.getPosition() - LiftPosition.down;
-            liftStaticErrLeft  = liftLeftMotor.getPosition() - LiftPosition.down;
-        }
-
-        LiftListener.liftPosition = (( -liftRightMotor.getPosition() - liftStaticErrRight) + ( liftLeftMotor.getPosition() - liftStaticErrLeft)) / 2.0;
-        errSync = ( liftLeftMotor.getPosition() - liftStaticErrLeft) - ( -liftRightMotor.getPosition() - liftStaticErrRight);
-    }
-
-
-    @Override
-    public void read() {
-        updatePosition();
+        liftPosition = ((liftDevicesValueMap.rightMotorPos - liftStaticErrRight) + (liftDevicesValueMap.leftMotorPos - liftStaticErrLeft)) / 2.0;
+        errSync = (liftDevicesValueMap.leftMotorPos - liftStaticErrLeft) - (liftDevicesValueMap.rightMotorPos - liftStaticErrRight);
     }
 
 }

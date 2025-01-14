@@ -9,16 +9,18 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
  */
 
 public class Grabber {
-   Robot robot;
-   Intake intake = new Intake();
-   Transfer transfer = new Transfer();
-   public void init(Robot robot){
-       this.robot = robot;
-       intake.init(robot);
-       transfer.init(robot);
-   }
-   public void update(){
-       intake.update();
-       transfer.update();
-   }
+    Robot robot;
+    public Intake intake = new Intake();
+    public Transfer transfer = new Transfer();
+
+    public void init(Robot robot) {
+        this.robot = robot;
+        intake.init(robot);
+        transfer.init(robot);
+    }
+
+    public void update() {
+        intake.update();
+        transfer.update();
+    }
 }

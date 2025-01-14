@@ -4,5 +4,5 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.StateMachine;
 */
 public enum IntakeState {
 
-    WAIT_AXIS, WAIT_BASKET, WAIT_WALL_EAT,WAIT_CENTRE_EAT;
+    WAIT_ROBOT, WAIT_EAT, WAIT_WALL_EAT,WAIT_SAMPLE_SCORE;
 }

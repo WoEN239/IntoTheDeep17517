@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 
 @Config
-public class ColorSensorListener implements Listener {
+public class ColorSensorListener {
 
     Robot robot;
 
@@ -28,13 +28,12 @@ public class ColorSensorListener implements Listener {
         return colorDetective;
     }
 
-    @Override
     public void init(Robot robot) {
         this.robot = robot;
         sensor = Sensors.sampleSensor;
     }
 
-    public void updateColors(){
+    public void update(){
         if(sensor.red() > red){
             colorDetective = ColorDetective.RED;
         }
@@ -51,10 +50,5 @@ public class ColorSensorListener implements Listener {
                 }
             }
         }
-    }
-
-    @Override
-    public void read(){
-        updateColors();
     }
 }

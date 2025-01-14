@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Intake;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Devices.IntakeServo;
+import org.firstinspires.ftc.teamcode.Devices.IntakeDevices;
 import org.firstinspires.ftc.teamcode.Devices.LiftHangingMotors;
 import org.firstinspires.ftc.teamcode.Devices.Motor;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Intake.Position.FlipGrabberPositionLeft;
@@ -67,7 +67,7 @@ public class Intake {
         transferPositionLeft = TransferPositionLeft.EAT;
     }
 
-    public void forwrdBrush() {
+    public void forwardBrush() {
         brushPower = PowerBrush.FORWARD;
     }
 
@@ -83,11 +83,11 @@ public class Intake {
 
     public void init(Robot robot) {
         this.robot = robot;
-        flipServoRight = IntakeServo.flipServoRight;
-        grabberServo = IntakeServo.grabberServo;
-        transferServoLeft = IntakeServo.transferServoLeft;
-        transferServoRight = IntakeServo.transferServoRight;
-        flipServoLeft = IntakeServo.flipServoLeft;
+        flipServoRight = IntakeDevices.flipServoRight;
+        grabberServo = IntakeDevices.grabberServo;
+        transferServoLeft = IntakeDevices.transferServoLeft;
+        transferServoRight = IntakeDevices.transferServoRight;
+        flipServoLeft = IntakeDevices.flipServoLeft;
         brushMotor = LiftHangingMotors.brushMotor;
     }
 

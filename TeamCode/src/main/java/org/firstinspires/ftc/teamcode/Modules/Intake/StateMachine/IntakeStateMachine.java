@@ -1,16 +1,8 @@
 package org.firstinspires.ftc.teamcode.Modules.Intake.StateMachine;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Transfer.Position.AfterTransferGrabber;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Intake.Position.FlipGrabberPositionLeft;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Intake.Position.FlipGrabberPositionRight;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Grabber;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Transfer.Position.OutServoPosition;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Intake.Position.PowerBrush;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Intake.Position.TransferPositionRight;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Transfer.Position.TwistServo;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftManager;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
 import org.firstinspires.ftc.teamcode.Modules.Intake.SampleSensor.ColorSensorListener;
@@ -22,10 +14,11 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 public class IntakeStateMachine {
     Robot robot;
-    IntakeState state  = IntakeState.WAIT_CENTRE_EAT;
-    IntakeState target = IntakeState.WAIT_CENTRE_EAT;
-    LiftPosition upPos = LiftPosition.LOW_AXIS;
+    IntakeState state = IntakeState.WAIT_ROBOT;
+    IntakeState target = IntakeState.WAIT_ROBOT;
+    LiftPosition upPos = LiftPosition.HIGHEST_BASKET;
     SampleState sampleState = SampleState.NOT_CLAIMED;
+    LiftPosition liftPosition = LiftPosition.IN_ROBOT;
 
     public double transferPos = 0;
 
@@ -36,175 +29,203 @@ public class IntakeStateMachine {
     public void setTarget(IntakeState target) {
         this.target = target;
     }
-    public void setState(IntakeState state){
+
+    public void setState(IntakeState state) {
         this.state = state;
+    }
+
+    public void setLiftHigh(LiftPosition liftPosition) {
+        this.liftPosition = liftPosition;
     }
 
     public void init(Robot robot) {
         this.robot = robot;
         grabber.init(robot);
         liftManager.init();
-        colorSensorListener = ;
+        colorSensorListener.init(robot);
     }
 
     ElapsedTime timer = new ElapsedTime();
     private boolean f = true;
-    public void update(){
+
+    public void update() {
         Robot.telemetry.addData("State :", state.toString());
         Robot.telemetry.addData("Target state :", target.toString());
-        if(target!=state){
-            if(f){
+        if (target != state) {
+            if (f) {
                 timer.reset();
             }
             changeState(target);
             f = false;
             isDone = false;
-        }else {
+        } else {
             updateState();
             f = true;
             isDone = true;
         }
     }
+
     boolean isDone = false;
-    public boolean isDone(){
+
+    public boolean isDone() {
         return isDone;
     }
 
-    private void waitUp(){
-        liftController.setPosition(upPos)  ;
-        grabber       .stopBrush();
-        grabber       .toDropTwistServo();
-        grabber       .closeSampleGrabber();
-        grabber       .downFlipServo();
-       // grabber       .transferToNormal()  ;
-        grabber       .outOutServo();
-        grabber       .closeAfterTransferServo();
+    private void waitEat() {
+        liftManager.setTarget(LiftPosition.IN_ROBOT);
+        grabber.intake.forwardBrush();
+        grabber.intake.eatTransfer();
+        grabber.intake.upFlipServo();
+        grabber.intake.openSampleGrabber();
+        grabber.transfer.openAfterTransferServo();
+        grabber.transfer.inOutServo();
+        grabber.transfer.toEatTwistServo();
+        sampleState = SampleState.FROM_BRUSHS;
     }
 
-    private void waitAxis(){
-        liftController.setTargetPosition(LiftPosition.HIGHEST_AXIS);
-        grabber       .flipGrabberPositonLeft = FlipGrabberPositionLeft.UNSPREADOUT;
-        grabber       .flipGrabberPositonRight = FlipGrabberPositionRight.UNSPREADOUT;
-        grabber       .afterTransferGrabberPosition = AfterTransferGrabber.CLOSE;
-        if(liftListener.getPosition()>500) {
-            grabber.outServoPosition = OutServoPosition.OUT_ROBOT;
-        }
-            grabber.twistServoPosition = TwistServo.EAT_FROM_WALL;
-
+    private void inRobot() {
+        liftManager.setTarget(LiftPosition.IN_ROBOT);
+        grabber.intake.stopBrush();
+        grabber.intake.normalTrasnfer();
+        grabber.intake.downFlipServo();
+        grabber.intake.openSampleGrabber();
+        grabber.transfer.openAfterTransferServo();
+        grabber.transfer.inOutServo();
+        grabber.transfer.toEatTwistServo();
     }
 
-    private void waitWallEat(){
-        liftController.setTargetPosition(LiftPosition.WALL_EAT);
-        grabber       .flipGrabberPositonLeft = FlipGrabberPositionLeft.UNSPREADOUT;
-        grabber       .flipGrabberPositonRight = FlipGrabberPositionRight.UNSPREADOUT;
-        grabber       .outServoPosition = OutServoPosition.OUT_ROBOT;
-        grabber       .twistServoPosition = TwistServo.EAT_FROM_WALL;
-        grabber       .afterTransferGrabberPosition = AfterTransferGrabber.OPEN;
+    private void eatFromWall() {
+        liftManager.setTarget(LiftPosition.WALL_EAT);
+        grabber.intake.stopBrush();
+        grabber.intake.normalTrasnfer();
+        grabber.intake.upFlipServo();
+        grabber.intake.openSampleGrabber();
+        grabber.transfer.openAfterTransferServo();
+        grabber.transfer.outOutServo();
+        grabber.transfer.toEatFromWallTwistServo();
+        sampleState = SampleState.FROM_WALL;
     }
 
-
-
-    private void fromUpWaitToAxisWait(){
-        grabber.openSampleGrabber();
-        if(timer.seconds() > 0.5) {
-            grabber.inOutServo();
-          //  grabber.transferToNormal();
-            grabber.openAfterTransferServo();
-            grabber.toEatTwistServo();
-        }
-        if(timer.seconds()>1) {
-            liftController.setInPos();
-        }
-        if(timer.seconds()>2) {
-            setState(IntakeState.WAIT_AXIS);
-        }
+    private void toScoreSample() {
+        liftManager.setTarget(liftPosition);
+        grabber.intake.stopBrush();
+        grabber.intake.normalTrasnfer();
+        grabber.intake.upFlipServo();
+        grabber.intake.openSampleGrabber();
+        grabber.transfer.closeAfterTransferServo();
+        grabber.transfer.outOutServo();
+        grabber.transfer.toDropTwistServo();
+        sampleState = SampleState.NOT_CLAIMED;
     }
 
-    private void fromDownWaitToUpWait(){
-       // grabber       .transferToNormal()  ;
-        grabber       .downFlipServo()     ;
-        grabber       .closeSampleGrabber();
-        grabber.closeAfterTransferServo();
-
-        if(timer.seconds()>1) {
-            liftController.setPosition(upPos);
-        }
-        if(timer.seconds()>2) {
-            setState(IntakeState.WAIT_BASKET);
-        }
+    private void fromEatToRobot() {
+        liftManager.setTarget(LiftPosition.IN_ROBOT);
+        grabber.intake.stopBrush();
+        grabber.intake.upFlipServo();
+        grabber.intake.openSampleGrabber();
+        if (timer.seconds() > 0.5)
+            grabber.intake.normalTrasnfer();
+        if (timer.seconds() > 1)
+            setState(IntakeState.WAIT_ROBOT);
     }
 
-    private void fromEatWallWaitToAxisWait(){
-        grabber.afterTransferGrabberPosition = AfterTransferGrabber.CLOSE;
-        if(timer.seconds()>0.5) {
-            liftController.setTargetPosition(LiftPosition.HIGHEST_AXIS);
-            if (liftController.isAtTarget()) {
-                setState(IntakeState.WAIT_AXIS);
+    private void fromRobotToEat() {
+        liftManager.setTarget(LiftPosition.IN_ROBOT);
+        grabber.intake.upFlipServo();
+        grabber.intake.forwardBrush();
+        if (timer.seconds() > 0.5)
+            grabber.intake.eatTransfer();
+        if (timer.seconds() > 1)
+            setState(IntakeState.WAIT_EAT);
+    }
+
+    private void fromRobotToWallEat() {
+        liftManager.setTarget(LiftPosition.WALL_EAT);
+        grabber.intake.upFlipServo();
+        grabber.intake.stopBrush();
+        ;
+        if (timer.seconds() > 0.5) {
+            grabber.transfer.outOutServo();
+            grabber.transfer.toEatFromWallTwistServo();
+        }
+        if (timer.seconds() > 1)
+            setState(IntakeState.WAIT_EAT);
+    }
+
+    private void scoreSample() {
+        grabber.intake.normalTrasnfer();
+        grabber.intake.upFlipServo();
+        if (sampleState == SampleState.FROM_WALL) {
+            grabber.transfer.closeAfterTransferServo();
+            if (timer.seconds() > 0.5)
+                liftManager.setTarget(liftPosition);
+        } else {
+            if (sampleState == SampleState.FROM_BRUSHS) {
+                grabber.intake.openSampleGrabber();
+                grabber.transfer.closeAfterTransferServo();
+                if (timer.seconds() > 0.5)
+                    liftManager.setTarget(liftPosition);
+                if (timer.seconds() > 1) {
+                    grabber.transfer.toDropTwistServo();
+                    grabber.transfer.outOutServo();
+                }
             }
         }
     }
 
-    private void fromAxisWaitToEatWallWait(){
-        liftController.setTargetPosition(LiftPosition.SCORE_AXIS);
-        if(timer.seconds()>1) {
-            if (liftController.isAtTarget() || timer.seconds()>2) {
-
-                grabber.afterTransferGrabberPosition = AfterTransferGrabber.OPEN;
-                setState(IntakeState.WAIT_WALL_EAT);
-            }
+    public void fromScoreToRobot() {
+        grabber.transfer.openAfterTransferServo();
+        if (timer.seconds() > 0.5){
+            grabber.transfer.inOutServo();
+            grabber.transfer.toEatTwistServo();
         }
+        if(timer.seconds() > 0.75)
+            liftManager.setTarget(LiftPosition.IN_ROBOT);
     }
 
-
-    private void waitCentreEat(){
-        double p  = Range.clip(transferPos,TransferPositionRight.NORMAL.get(),TransferPositionRight.EAT.get());
-        grabber.transferPositionRight = p;
-
-        grabber.flipGrabberPositonLeft  = FlipGrabberPositionLeft.SPREADOUT;
-        grabber.flipGrabberPositonRight = FlipGrabberPositionRight.SPREADOUT;
-        grabber.brushPower = PowerBrush.FORWARD;
-
-
-    }
-
-    private void changeState(IntakeState target){
+    private void changeState(IntakeState target) {
         switch (target) {
             case WAIT_WALL_EAT:
-                if(state == IntakeState.WAIT_AXIS)
-                    fromAxisWaitToEatWallWait();
-                else{
+                if (state == IntakeState.WAIT_ROBOT)
+                    fromRobotToWallEat();
+                else {
                     setTarget(IntakeState.WAIT_WALL_EAT);
                 }
                 break;
-            case WAIT_AXIS:
-                if(state == IntakeState.WAIT_WALL_EAT)
-                    fromEatWallWaitToAxisWait();
-                else if (state == IntakeState.WAIT_BASKET)
-                    fromUpWaitToAxisWait();
+            case WAIT_ROBOT:
+                if (state == IntakeState.WAIT_SAMPLE_SCORE)
+                    fromScoreToRobot();
+                else if (state == IntakeState.WAIT_EAT)
+                    fromEatToRobot();
                 break;
-            case WAIT_BASKET:
-                if(state == IntakeState.WAIT_AXIS)
-                    fromDownWaitToUpWait();
-                else{
-                    setTarget(IntakeState.WAIT_BASKET);
+            case WAIT_SAMPLE_SCORE:
+                if (state == IntakeState.WAIT_ROBOT || state == IntakeState.WAIT_WALL_EAT)
+                    toScoreSample();
+                else {
+                    setTarget(IntakeState.WAIT_SAMPLE_SCORE);
                 }
                 break;
+            case WAIT_EAT:
+                if(state == IntakeState.WAIT_ROBOT)
+                    fromRobotToEat();
+                else
+                    setTarget(IntakeState.WAIT_EAT);
         }
     }
 
-    public void updateState(){
-        switch (state){
-            case WAIT_BASKET:
-                waitUp();
+    public void updateState() {
+        switch (state) {
+            case WAIT_ROBOT:
+                inRobot();
                 break;
-            case WAIT_AXIS:
-                waitAxis();
+            case WAIT_SAMPLE_SCORE:
+                toScoreSample();
                 break;
             case WAIT_WALL_EAT:
-                waitWallEat();
+                eatFromWall();
                 break;
-            case WAIT_CENTRE_EAT:
-                waitCentreEat();
+            case WAIT_EAT:
+                waitEat();
                 break;
         }
     }
