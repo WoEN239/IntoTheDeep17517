@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.Devices;
 
+import static org.firstinspires.ftc.teamcode.Devices.ColorSensorFix.fix;
+
+import com.qualcomm.hardware.adafruit.AdafruitI2cColorSensor;
 import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -15,6 +18,8 @@ public class Sensors {
     public static DigitalChannel upLeftButton;
     public static AnalogInput leftColorSensor;
     public static AnalogInput rightColorSensor;
+    public static AdafruitI2cColorSensor sampleSensor;
+
 
     public static void init(HardwareMap hardwareMap) {
         leftColorSensor = hardwareMap.get(AnalogInput.class, "leftColorSensor");
@@ -23,6 +28,7 @@ public class Sensors {
         rightColorSensor = hardwareMap.get(AnalogInput.class, "rightColorSensor");
         downRightButton = hardwareMap.get(DigitalChannel.class, "downRightButton");
         upRightButton = hardwareMap.get(DigitalChannel.class,"upRightButton");
+        sampleSensor = fix(hardwareMap.get(AdafruitI2cColorSensor.class, "puckSensor"));
         reset();
     }
 

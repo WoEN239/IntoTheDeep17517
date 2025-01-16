@@ -4,16 +4,25 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Devices.IntakeDevices;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.GripPositions;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Config.TwistPosition;
 
 public class Grip {
-    Servo grip;
+    Servo gripServo;
+    Servo twistServo;
     public void init(){
-        grip = IntakeDevices.gripServo;
+        twistServo = IntakeDevices.twistServo;
+        gripServo = IntakeDevices.gripServo;
     }
     public void open(){
-        grip.setPosition(GripPositions.OPEN.get());
+        gripServo.setPosition(GripPositions.OPEN.get());
     }
     public void close(){
-        grip.setPosition(GripPositions.CLOSE.get());
+        gripServo.setPosition(GripPositions.CLOSE.get());
+    }
+    public void in(){
+        twistServo.setPosition(TwistPosition.IN.get());
+    }
+    public void out(){
+        twistServo.setPosition(TwistPosition.OUT.get());
     }
 }

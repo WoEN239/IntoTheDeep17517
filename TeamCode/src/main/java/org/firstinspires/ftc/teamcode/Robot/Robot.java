@@ -23,6 +23,7 @@ public class Robot{
         }
         return instance;
     }
+
     public LinearOpMode opMode;
     public static Telemetry telemetry = FtcDashboard.getInstance().getTelemetry();
     public ElapsedTime timer = new ElapsedTime();
@@ -40,7 +41,7 @@ public class Robot{
         this.opMode = opMode;
         if(!isDebug) {
             DevicePool.init(opMode.hardwareMap);
-            intake.init();
+
         }
         camera.init(this);
         driveTrain.init();

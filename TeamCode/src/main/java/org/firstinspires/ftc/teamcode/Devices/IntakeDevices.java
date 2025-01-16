@@ -15,6 +15,8 @@ public class IntakeDevices {
     public static Servo transferServoLeft;
     public static Servo transferServoRight;
     public static Servo gripServo;
+    public static Servo twistServo;
+
     public static Servo innerTransfer;
     public static Servo flipServoLeft;
     public static Motor brushMotor;
@@ -27,6 +29,7 @@ public class IntakeDevices {
         flipServoRight = hardwareMap.get(Servo.class, "flipServoRight");
         transferServoRight = hardwareMap.get(Servo.class, "transferServRight");
         gripServo = hardwareMap.get(Servo.class, "afterTransferServo");
+        twistServo = hardwareMap.get(Servo.class, "twistServo");
         innerTransfer = hardwareMap.get(Servo.class, "outRobotServo");
         flipServoLeft = hardwareMap.get(Servo.class, "flipServoLeft");
         brushMotor = hardwareMap.get(Motor.class, "brush");

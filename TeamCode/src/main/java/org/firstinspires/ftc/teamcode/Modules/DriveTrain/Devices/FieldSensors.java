@@ -4,9 +4,7 @@ import com.qualcomm.robotcore.hardware.AnalogInput;
 
 import org.firstinspires.ftc.teamcode.Devices.Sensors;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
-
-public class FieldSensors implements Listener {
-    Robot robot;
+public class FieldSensors  {
 
     public static double fieldVoltageLeft = 100;
     public static double fieldVoltageRight = 100;
@@ -17,7 +15,6 @@ public class FieldSensors implements Listener {
     AnalogInput rightSensor;
 
     public void init() {
-        this.robot = robot;
         leftSensor  = Sensors.leftColorSensor;
         rightSensor = Sensors.rightColorSensor;
     }
@@ -38,7 +35,6 @@ public class FieldSensors implements Listener {
         }
     }
 
-    @Override
     public void read() {
         updateState();
     }

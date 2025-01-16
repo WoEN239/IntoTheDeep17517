@@ -39,7 +39,7 @@ public class SimplesAndTagsDetectPipeline extends OpenCvPipeline {
 
         Imgproc.morphologyEx(bin,bin,Imgproc.MORPH_OPEN,Mat.ones(PipeLineConfig.kernelOpenB,PipeLineConfig.kernelOpenA, CvType.CV_32F));
         Imgproc.morphologyEx(bin,bin,Imgproc.MORPH_HITMISS,Mat.ones(PipeLineConfig.kernelCloseB,PipeLineConfig.kernelCloseA, CvType.CV_32F));
-        //        Imgproc.findContours(bin,contr,h,Imgproc.RETR_EXTERNAL,Imgproc.CHAIN_APPROX_SIMPLE);
+                 // Imgproc.findContours(bin,contr,h,Imgproc.RETR_EXTERNAL,Imgproc.CHAIN_APPROX_SIMPLE);
 //
 //
 //        if(contr.isEmpty()){
