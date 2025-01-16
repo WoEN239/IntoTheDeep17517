@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Devices.DriveTrainMotors;
 import org.firstinspires.ftc.teamcode.Math.Position;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.DriveTrainManager;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
@@ -27,12 +28,14 @@ public class PositionConfigPID extends BaseMode {
         Robot.telemetry.addData("xT", n*target.x);
         Robot.telemetry.addData("yT", n*target.y);
         Robot.telemetry.addData("hT", n*target.h);
-//        if(timer.seconds()%(2*k) > k){
-//            robot.positionPidController.move(target);
-//            n = 1;
-//        }else{
-//            robot.positionPidController.move(new Position(-target.x,-target.y,-target.h));
-//            n = -1;
-//        }
+       if(timer.seconds()%(2*k) > k){
+            robot.driveTrain.setState(DriveTrainManager.RobotState.POINT);
+            robot.driveTrain.setManualTarget(target);
+           n = 1;
+        }else{
+           robot.driveTrain.setState(DriveTrainManager.RobotState.POINT);
+            robot.driveTrain.setManualTarget(new Position(-target.x,-target.y,-target.h));
+            n = -1;
+        }
     }
 }

@@ -17,10 +17,10 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
 */
 
 public class DriveTrainVoltageController {
-    private Motor rightForwardDrive;
-    private Motor rightBackDrive;
-    private Motor leftForwardDrive;
-    private Motor leftBackDrive;
+    private Motor rightForwardDrive = new Motor();
+    private Motor rightBackDrive = new Motor();
+    private Motor leftForwardDrive = new Motor();
+    private Motor leftBackDrive = new Motor();
 
     public void updateData() {
         rightBackDrive.update();
@@ -30,7 +30,7 @@ public class DriveTrainVoltageController {
 
     }
 
-    public void init(Robot robot) {
+    public void init() {
         rightBackDrive    = DriveTrainMotors.rightBackDrive;
         rightForwardDrive = DriveTrainMotors.rightForwardDrive;
         leftBackDrive     = DriveTrainMotors.leftBackDrive;

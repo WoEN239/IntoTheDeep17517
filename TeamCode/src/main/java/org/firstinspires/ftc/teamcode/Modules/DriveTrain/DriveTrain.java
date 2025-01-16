@@ -32,6 +32,7 @@ abstract class DriveTrain {
     public void init(){
         devicePositionListener.init();
         deviceVelocityListener.init();
+        driveTrainVoltageController.init();
         positionListener.init();
     }
 

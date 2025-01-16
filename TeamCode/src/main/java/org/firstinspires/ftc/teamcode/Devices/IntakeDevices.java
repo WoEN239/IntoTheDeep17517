@@ -19,7 +19,7 @@ public class IntakeDevices {
 
     public static Servo innerTransfer;
     public static Servo flipServoLeft;
-    public static Motor brushMotor;
+    public static Motor brushMotor = new Motor();
 
 
 
@@ -32,6 +32,6 @@ public class IntakeDevices {
         twistServo = hardwareMap.get(Servo.class, "twistServo");
         innerTransfer = hardwareMap.get(Servo.class, "outRobotServo");
         flipServoLeft = hardwareMap.get(Servo.class, "flipServoLeft");
-        brushMotor = hardwareMap.get(Motor.class, "brush");
+        brushMotor.init("yOdometer", hardwareMap);
     }
 }
