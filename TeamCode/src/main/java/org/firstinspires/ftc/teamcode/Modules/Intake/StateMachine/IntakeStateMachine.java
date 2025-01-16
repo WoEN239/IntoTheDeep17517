@@ -5,8 +5,10 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Grabber.Grabber;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftManager;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
+import org.firstinspires.ftc.teamcode.Modules.Intake.SampleSensor.ColorDetective;
 import org.firstinspires.ftc.teamcode.Modules.Intake.SampleSensor.ColorSensorListener;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
+import org.firstinspires.ftc.teamcode.Robot.Team;
 
 /*
  Writing by EgorKhvostikov
@@ -21,6 +23,8 @@ public class IntakeStateMachine {
     LiftPosition liftPosition = LiftPosition.IN_ROBOT;
 
     public double transferPos = 0;
+
+    public ColorDetective myColor;
 
     ColorSensorListener colorSensorListener = new ColorSensorListener();
     Grabber grabber = new Grabber();
@@ -43,6 +47,10 @@ public class IntakeStateMachine {
         grabber.init(robot);
         liftManager.init();
         colorSensorListener.init(robot);
+        if (Robot.myTeam == Team.BLUE)
+            myColor = ColorDetective.BLUE;
+        else
+            myColor = ColorDetective.RED;
     }
 
     ElapsedTime timer = new ElapsedTime();
@@ -72,15 +80,22 @@ public class IntakeStateMachine {
     }
 
     private void waitEat() {
-        liftManager.setTarget(LiftPosition.IN_ROBOT);
-        grabber.intake.forwardBrush();
         grabber.intake.eatTransfer();
-        grabber.intake.upFlipServo();
-        grabber.intake.openSampleGrabber();
+        grabber.intake.downFlipServo();
         grabber.transfer.openAfterTransferServo();
         grabber.transfer.inOutServo();
         grabber.transfer.toEatTwistServo();
-        sampleState = SampleState.FROM_BRUSHS;
+
+        liftManager.setTarget(LiftPosition.IN_ROBOT);
+        if (myColor != colorSensorListener.getColor()) {
+            grabber.intake.openSampleGrabber();
+            grabber.intake.reverseBrush();
+        }
+        else{
+            grabber.intake.forwardBrush();
+            grabber.intake.closeSampleGrabber();
+            sampleState = SampleState.FROM_BRUSHS;
+        }
     }
 
     private void inRobot() {
@@ -175,11 +190,11 @@ public class IntakeStateMachine {
 
     public void fromScoreToRobot() {
         grabber.transfer.openAfterTransferServo();
-        if (timer.seconds() > 0.5){
+        if (timer.seconds() > 0.5) {
             grabber.transfer.inOutServo();
             grabber.transfer.toEatTwistServo();
         }
-        if(timer.seconds() > 0.75)
+        if (timer.seconds() > 0.75)
             liftManager.setTarget(LiftPosition.IN_ROBOT);
     }
 
@@ -200,13 +215,13 @@ public class IntakeStateMachine {
                 break;
             case WAIT_SAMPLE_SCORE:
                 if (state == IntakeState.WAIT_ROBOT || state == IntakeState.WAIT_WALL_EAT)
-                    toScoreSample();
+                    scoreSample();
                 else {
                     setTarget(IntakeState.WAIT_SAMPLE_SCORE);
                 }
                 break;
             case WAIT_EAT:
-                if(state == IntakeState.WAIT_ROBOT)
+                if (state == IntakeState.WAIT_ROBOT)
                     fromRobotToEat();
                 else
                     setTarget(IntakeState.WAIT_EAT);
