@@ -2,44 +2,28 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain.Brush.Brush;
 import org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain.ColorSensor.ColorDetective;
-import org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain.ColorSensor.ColorSensor;
-import org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain.Transfer.Transfer;
-import org.firstinspires.ftc.teamcode.Modules.Intake.GripChain.Grip.Grip;
-import org.firstinspires.ftc.teamcode.Modules.Intake.GripChain.InnerTransfer.InnerTransfer;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
-import org.firstinspires.ftc.teamcode.Robot.Robot;
+import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeModules;
 
 public class BrushChainManager {
-    private IntakeBrushState state = IntakeBrushState.DOWN;
-    private IntakeBrushTask  task = IntakeBrushTask.EAT;
+    private BrushTask task = BrushTask.EAT;
 
-    private LiftPosition liftRequest = LiftPosition.DOWN;
-
-    public LiftPosition getLiftRequest() {
-        return liftRequest;
+    public void startEat(){
+        task = BrushTask.TO_EAT;
     }
 
-    /* states */
-    public enum IntakeBrushState {
-        DOWN, UP;
-
-        private Runnable[] update;
-        public void init(Runnable... run) {
-            update = run;
-        }
-
-        public void update() {
-            for (Runnable r : update) {
-                r.run();
-            }
-        }
-
+    public void endEat(){
+        task = BrushTask.END_EAT;
+    }
+    public void target(){
+        task = BrushTask.TARGETING;
+    }
+    public void  score(){
+        task = BrushTask.SCORE;
     }
 
-    public enum IntakeBrushTask{
-        TO_EAT,EAT,END_EAT,SCORE,MOVE;
+    public enum BrushTask {
+        TO_EAT,EAT,END_EAT,RE_GRIP,MOVE, TARGETING, SCORE;
         private Runnable[] update;
 
         public void init(Runnable... run) {
@@ -55,143 +39,75 @@ public class BrushChainManager {
     }
 
     public void initTasks(){
-        IntakeBrushTask.TO_EAT.init(
+        BrushTask.TO_EAT.init(
             ()-> {
-                if (state == IntakeBrushState.DOWN) {
-                    transfer.eat();
-                    brush.openWall();
-                    brush.on();
-                } else {
-                    task = IntakeBrushTask.MOVE;
-                }},
+                modules.transfer.eat();
+                modules.brush.openWall();
+                modules.brush.on();
+                task = BrushTask.MOVE;
+            },
+            ()->{if(timer.seconds()>1) task = BrushTask.EAT;}
 
-                ()->{if(timer.seconds()>1) task = IntakeBrushTask.EAT;}
         );
 
-        IntakeBrushTask.EAT.init(
+        BrushTask.EAT.init(
                 ()->{
-                if(sampleDetect.colorDetective != ColorDetective.OUR){
-                    brush.openWall();
-                    brush.on();
-                    transfer.eat();
+                if(modules.sampleDetect.colorDetective != ColorDetective.OUR){
+                    modules.brush.openWall();
+                    modules.brush.on();
+                    modules.transfer.eat();
                 }else{
-                    task = IntakeBrushTask.END_EAT;
+                    task = BrushTask.END_EAT;
                     timer.reset();
                 }
             }
 
         );
 
-        IntakeBrushTask.END_EAT.init(
+        BrushTask.END_EAT.init(
                 ()->{
-                    if(timer.seconds()>1){
-                        task = IntakeBrushTask.MOVE;
+                    if(timer.seconds()>0.5){
+                        timer.reset();
+                        task = BrushTask.RE_GRIP;
                     }
-                    brush.closeWall();
-                    brush.off();
-                    transfer.normal();
+                    modules.brush.closeWall();
+                    modules.brush.off();
+                    modules.transfer.normal();
                 }
         );
 
-        IntakeBrushTask.SCORE.init(
+        BrushTask.RE_GRIP.init(
                 ()->{
-                    liftRequest = LiftPosition.SCORE_AXIS;
-                    if(timer.seconds()>1){
-                        task = IntakeBrushTask.MOVE;
+                    modules.innerTransfer.in();
+                    modules.brush.openWall();
+                    if(timer.seconds()>0.5) {
+                        modules.grip.close();
+                    }
+                    if(timer.seconds()>0.6){
+                        task = BrushTask.MOVE;
                     }
                 }
         );
-
-    }
-
-    private void initStates(){
-        IntakeBrushState.DOWN.init(
-                brush::off,
-                brush::up,
-                brush::openWall,
-
-                transfer::normal,
-                innerTransfer::in,
-
-                grip::close,
-                grip::in,
-
-                () -> liftRequest = LiftPosition.DOWN
+        BrushTask.TARGETING.init(
+                ()->modules.grip.close(),
+                ()->modules.innerTransfer.out()
         );
-        IntakeBrushState.UP.init(
-
+        BrushTask.SCORE.init(
+                ()->modules.grip.open()
         );
 
     }
 
     /* modules */
-    private final Brush brush = new Brush();
-    private final Transfer transfer = new Transfer();
-    private final InnerTransfer innerTransfer = new InnerTransfer();
-    private final Grip grip = new Grip();
-    private final ColorSensor sampleDetect = new ColorSensor();
-
-    /* state function */
-    private void updateDown(){
-
-    }
-
-    private void updateEat(){
-        brush.on();
-        brush.down();
-        brush.openWall();
-        transfer.eat();
-        innerTransfer.in();
-        grip.open();
-        grip.in();
-
-        liftRequest = LiftPosition.DOWN;
-    }
-
-    private void updateScoring(){
-        brush.off();
-        brush.up();
-        brush.openWall();
-        transfer.normal();
-        innerTransfer.out();
-        grip.close();
-        grip.out();
-
-        liftRequest = LiftPosition.HIGHEST_BASKET;
-    }
-
-    /* transmission function */
-    private void toEat(){
-        transfer.eat();
-        brush.closeWall();
-        brush.on();
-    }
-
-    private void toDown(){
-        transfer.normal();
-        brush.openWall();
-        brush.off();
-    }
-
-    /* update functions */
-    private void updateState(){
-       state.update();
-
-    }
-
-    private void updateTransmission(){
-        }
-
-    /* State */
-    private boolean isTaskDone = true;
+    public void setModules(IntakeModules modules) {this.modules = modules;}
+    private IntakeModules modules = new IntakeModules();
 
     /* main update */
     ElapsedTime timer = new ElapsedTime();
     private boolean f = true;
 
     public void update(){
-        Robot.telemetry.addData("State :", state.toString());
-        if(task !=  IntakeBrushTask.MOVE){
+        if(task !=  BrushTask.MOVE){
             if(f){
                 timer.reset();
                 f = false;
@@ -199,11 +115,13 @@ public class BrushChainManager {
             task.update();
         }else {
             f = true;
-            state.update();
         }
 
     }
 
+    public boolean isDone(){
+        return task == BrushTask.MOVE;
+    }
 
     /* end */
 }

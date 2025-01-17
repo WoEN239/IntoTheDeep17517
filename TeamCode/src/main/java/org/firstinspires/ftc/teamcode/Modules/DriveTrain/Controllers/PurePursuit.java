@@ -1,5 +1,17 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers;
 
+import com.acmerobotics.roadrunner.AngularVelConstraint;
+import com.acmerobotics.roadrunner.MinVelConstraint;
+import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.ProfileAccelConstraint;
+import com.acmerobotics.roadrunner.ProfileParams;
+import com.acmerobotics.roadrunner.QuinticSpline1d;
+import com.acmerobotics.roadrunner.QuinticSpline2d;
+import com.acmerobotics.roadrunner.Trajectory;
+import com.acmerobotics.roadrunner.TrajectoryBuilder;
+import com.acmerobotics.roadrunner.TrajectoryBuilderParams;
+import com.acmerobotics.roadrunner.Vector2d;
+
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.LineSegment;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.LineSegmentFollower;
@@ -10,6 +22,7 @@ import org.firstinspires.ftc.teamcode.Telemetry.FieldView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /*
   Writing by EgorKhvostikov
@@ -56,6 +69,14 @@ public class PurePursuit {
         return wayPoints.get(1).onLineTask;
     }
 
+    public void spline(){
+        QuinticSpline2d spline2d = new QuinticSpline2d(
+                new QuinticSpline1d(0,0,12,2,2,3),
+                new QuinticSpline1d(0,0,0,0,0,0)
+        );
+        spline2d.x.get(1,0);
+
+    }
 
     public void computeTarget() {
         LineSegment nowLineSegment;

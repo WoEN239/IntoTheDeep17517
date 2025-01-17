@@ -41,9 +41,9 @@ public class Robot{
         this.opMode = opMode;
         if(!isDebug) {
             DevicePool.init(opMode.hardwareMap);
-
+            camera.init(this);
         }
-        camera.init(this);
+
         driveTrain.init();
     }
 

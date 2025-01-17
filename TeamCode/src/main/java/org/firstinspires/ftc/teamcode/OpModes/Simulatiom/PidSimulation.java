@@ -26,14 +26,15 @@ public class PidSimulation extends BaseSimulation{
 
     @Override
     public void loopRun(){
-        position = DriveTrainSimulation.position;
-        FieldView.position = position;
+      position = DriveTrainSimulation.position;
+      FieldView.position = position;
 
-        robot.driveTrain.setState(DriveTrainManager.RobotState.POINT);
-        robot.driveTrain.setManualTarget(target);
+      robot.driveTrain.setState(DriveTrainManager.RobotState.POINT);
+      robot.driveTrain.setManualTarget(target);
 
-        FieldView.circle   = target;
-        FieldView.updateField();
+      FieldView.circle   = target;
+      FieldView.updateField();
+
     }
 
 }
