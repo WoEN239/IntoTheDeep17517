@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers;
 
+import com.acmerobotics.dashboard.config.Config;
+
 import org.firstinspires.ftc.teamcode.Math.Pid;
 import org.firstinspires.ftc.teamcode.Math.PidStatus;
 import org.firstinspires.ftc.teamcode.Math.Position;
@@ -7,6 +9,7 @@ import org.firstinspires.ftc.teamcode.Math.Position;
 /*
   Writing by EgorKhvostikov
 */
+@Config
 public class VelocityPidController{
 
     private final Position target = new Position();
@@ -19,13 +22,13 @@ public class VelocityPidController{
     public Position getPidResult(){return pidResult;}
 
 
-    public static PidStatus pidStatusY = new PidStatus(0, 0, 0, 0,0,0,0, 0, 0);
+    public static PidStatus pidStatusY = new PidStatus(0.25, 2, 0, 0,1.25,0,0, 4, 0);
     Pid pidY = new Pid(pidStatusY);
 
-    public static PidStatus pidStatusX = new PidStatus(0.4, 0.5, 0.0025, 0,0.65,0,0, 3, 0);
+    public static PidStatus pidStatusX = new PidStatus(0.15, 3, 0, 0,1.25,0,0, 4, 0);
     Pid pidX = new Pid(pidStatusX);
 
-    public static PidStatus pidStatusH = new PidStatus(0.002, 0.01, 0, 0,0.065,0,0, 5, 0);
+    public static PidStatus pidStatusH = new PidStatus(0.05, 0.05, 0, 0,0.07,0,0, 3, 0);
     Pid pidH = new Pid(pidStatusH);
 
     public void computePidResult() {

@@ -80,7 +80,7 @@ public class Motor {
         if(Robot.voltage!=0) {
             u = ((voltage) / (Robot.voltage));
         }
-        Robot.telemetry.addData("Voltage "+name+" ", voltage);
+        Robot.telemetryPacket.put("Voltage "+name+" ", voltage);
         setPower(u);
     }
 

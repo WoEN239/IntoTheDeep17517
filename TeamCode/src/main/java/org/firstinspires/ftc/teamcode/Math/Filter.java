@@ -70,12 +70,12 @@ public class Filter {
     }
 
     private void updateTelemetry() {
-        Robot.telemetry.addData("Median vel " + name, medianVelNow);
-        Robot.telemetry.addData("Math vel " + name, reads[reads.length - 1]);
-        Robot.telemetry.addData("Velocity " + name, velocityTrue);
-        Robot.telemetry.addData("time " + name, System.nanoTime());
-        Robot.telemetry.addData("medianSize " + name, reads.length);
-        Robot.telemetry.addData("reads " + name, Arrays.toString(reads));
+        Robot.telemetryPacket.put("Median vel " + name, medianVelNow);
+        Robot.telemetryPacket.put("Math vel " + name, reads[reads.length - 1]);
+        Robot.telemetryPacket.put("Velocity " + name, velocityTrue);
+        Robot.telemetryPacket.put("time " + name, System.nanoTime());
+        Robot.telemetryPacket.put("medianSize " + name, reads.length);
+        Robot.telemetryPacket.put("reads " + name, Arrays.toString(reads));
     }
 
     private void calcMedian() {

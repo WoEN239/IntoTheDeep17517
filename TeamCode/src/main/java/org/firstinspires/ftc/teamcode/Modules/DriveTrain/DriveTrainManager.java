@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.Robot.TaskManager;
 
 public class DriveTrainManager extends DriveTrain{
     public enum RobotState {
-        POINT,TRAVELING
+        POINT,TRAVELING,TELE_OP
     }
     private RobotState state = RobotState.TRAVELING;
     public void setState(RobotState state) {this.state = state;}
@@ -15,7 +15,7 @@ public class DriveTrainManager extends DriveTrain{
     private boolean isNeedToAddTask = true;
 
     public void update(){
-        Robot.telemetry.addData("Robot move state",state.toString());
+        Robot.telemetryPacket.put("Robot move state",state.toString());
         switch (state){
             case POINT:
                 setDriveTrainState(DriveTrain.DriveTrainState.PID_CONTROL);
@@ -27,9 +27,9 @@ public class DriveTrainManager extends DriveTrain{
 
                 if(task1.isDone() && task1.isRunOnce && !purePursuit.isEndOfTrajectory){
                     purePursuit.changeTrajectorySegment();
+                    purePursuit.computeTarget();
                     changeState(RobotState.TRAVELING);
                 }
-
                 break;
 
             case TRAVELING:
@@ -40,12 +40,15 @@ public class DriveTrainManager extends DriveTrain{
                     isNeedToAddTask = false;
                     TaskManager.getInstance().addTask(task2);
                 }
-                if(task2.isRunOnce && task2.isDone() && purePursuit.onPoint() || purePursuit.isEndOfTrajectory){
+                if((task2.isRunOnce && task2.isDone() && purePursuit.onPoint()) || purePursuit.isEndOfTrajectory){
                     changeState(RobotState.POINT);
                 }
                 break;
-        }
 
+            case TELE_OP:
+                setDriveTrainState(DriveTrainState.TELE_OP);
+                break;
+        }
         moveUpdate();
     }
 

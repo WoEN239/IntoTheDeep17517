@@ -32,10 +32,10 @@ public class DriveTrainMotors {
     }
 
     public static void reset(){
-        leftBackDrive    .setDir(MotorDirection.BACK);
-        leftForwardDrive .setDir(MotorDirection.BACK);
-        rightBackDrive   .setDir(MotorDirection.FORWARD);
-        rightForwardDrive.setDir(MotorDirection.FORWARD);
+        leftBackDrive    .setDir(MotorDirection.FORWARD);
+        leftForwardDrive .setDir(MotorDirection.FORWARD);
+        rightBackDrive   .setDir(MotorDirection.BACK);
+        rightForwardDrive.setDir(MotorDirection.BACK);
 
         rightOdometer.setDir(MotorDirection.BACK);
         leftOdometer .setDir(MotorDirection.FORWARD);

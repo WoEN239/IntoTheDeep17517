@@ -14,6 +14,7 @@ public class PositionListener{
     public Position getPositionTik() {return positionTik;}
 
     private final Position position = new Position();
+
     public Position getPosition(){
         if(Robot.isDebug){
             return DriveTrainSimulation.position;

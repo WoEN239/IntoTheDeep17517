@@ -9,7 +9,7 @@ public class TaskManager {
     public void addTask(PurePursuitTask t ){tasks.add(t);}
 
     public void updateTasks() {
-        Robot.telemetry.addData("taskInQueue", tasks.toString());
+        Robot.telemetryPacket.put("taskInQueue", tasks.toString());
 
         for (PurePursuitTask i : tasks) {
             if(!i.isRunOnce) {

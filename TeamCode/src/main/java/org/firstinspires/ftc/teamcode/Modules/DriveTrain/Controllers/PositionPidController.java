@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers;
 
 import static java.lang.Math.abs;
 
+import com.acmerobotics.dashboard.config.Config;
+
 import org.firstinspires.ftc.teamcode.Math.Pid;
 import org.firstinspires.ftc.teamcode.Math.PidStatus;
 import org.firstinspires.ftc.teamcode.Math.Position;
@@ -9,7 +11,7 @@ import org.firstinspires.ftc.teamcode.Math.Position;
 /**
  * Writing by EgorKhvostikov
  */
-
+@Config
 public class PositionPidController{
 
     private final Position globalTarget = new Position();
@@ -26,13 +28,13 @@ public class PositionPidController{
     public Position getPidResult() {return pidResult;}
 
 
-    public static PidStatus pidStatusY = new PidStatus(3, 50, 0.25, 0, 0, 0, 0, 10, 0);
+    public static PidStatus pidStatusY = new PidStatus(2.35, 5, 0, 0, 0, 0, 0, 3, 0);
     Pid pidY = new Pid(pidStatusY);
 
-    public static PidStatus pidStatusX = new PidStatus(3, 50, 0.25, 0, 0, 0, 0, 10, 0);
+    public static PidStatus pidStatusX = new PidStatus(2, 5, 0.2, 0, 0, 0, 0, 5, 0);
     Pid pidX = new Pid(pidStatusX);
 
-    public static PidStatus pidStatusH = new PidStatus(3, 50, 0.01, 0, 0, 0, 0, 15, 0);
+    public static PidStatus pidStatusH = new PidStatus(1.5, 3, 0.15, 0, 0, 0, 0, 3, 0);
     Pid pidH = new Pid(pidStatusH);
 
     private final Position targetForPid = new Position();

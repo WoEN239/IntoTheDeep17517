@@ -11,9 +11,9 @@ public class OdometerTest extends BaseMode {
     Position velocity = new Position();
 
     @Override
-    public void doing() {
-        Robot.telemetry.addData("xPos", position.x);
-        Robot.telemetry.addData("yPos", position.y);
-        Robot.telemetry.addData("hPos", position.h);
+    public void loopRun() {
+        Robot.telemetryPacket.put("xPos", position.x);
+        Robot.telemetryPacket.put("yPos", position.y);
+        Robot.telemetryPacket.put("hPos", position.h);
     }
 }

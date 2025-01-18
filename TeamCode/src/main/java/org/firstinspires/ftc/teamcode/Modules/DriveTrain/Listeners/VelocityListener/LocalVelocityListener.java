@@ -19,11 +19,11 @@ public class LocalVelocityListener {
     private final DeviceValueMap deviceValue = new DeviceValueMap();
     public void setDeviceValue(DeviceValueMap m){deviceValue.copyFrom(m);}
 
-    public static double k = 15.25;
+    public static double k = 0;
 
     public void computeVelocity() {
         double x = ( deviceValue.rightOdometer + deviceValue.leftOdometer) / 2.0;
-        double h    = ((-deviceValue.rightOdometer + deviceValue.leftOdometer) / 2.0) / RobotConstant.TIK_PER_ANGLE;
+        double h    = ((deviceValue.rightOdometer - deviceValue.leftOdometer) / 2.0) / RobotConstant.TIK_PER_ANGLE;
         double yFix = (k*Math.toRadians(h))/RobotConstant.SM_PER_ODOMETER_TIK;
         double y    = deviceValue.yOdometer;
         y+= yFix;

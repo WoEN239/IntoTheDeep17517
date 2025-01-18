@@ -28,13 +28,13 @@ public class Camera {
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
-                Robot.telemetry.addLine("camera successful init");
+                Robot.telemetryPacket.addLine("camera successful init");
                 startStream();
             }
 
             @Override
             public void onError(int errorCode) {
-                Robot.telemetry.addData("camera init failed", errorCode);
+                Robot.telemetryPacket.put("camera init failed", errorCode);
             }
         });
     }

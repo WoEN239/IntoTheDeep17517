@@ -19,22 +19,22 @@ public class PositionConfigPID extends BaseMode {
     public static int k = 5;
     int n = 1;
     @Override
-    public void doing() {
+    public void loopRun() {
         DriveTrainMotors.initPid();
-        Robot.telemetry.addData("xV", pos.x);
-        Robot.telemetry.addData("yV", pos.y);
-        Robot.telemetry.addData("hV", pos.h);
-
-        Robot.telemetry.addData("xT", n*target.x);
-        Robot.telemetry.addData("yT", n*target.y);
-        Robot.telemetry.addData("hT", n*target.h);
+        pos.copyFrom(robot.driveTrain.position);
+        Robot.telemetryPacket.put("xV", pos.x);
+        Robot.telemetryPacket.put("yV", pos.y);
+        Robot.telemetryPacket.put("hV", pos.h);
+        Robot.telemetryPacket.put("xT", n*target.x);
+        Robot.telemetryPacket.put("yT", n*target.y);
+        Robot.telemetryPacket.put("hT", n*target.h);
        if(timer.seconds()%(2*k) > k){
             robot.driveTrain.setState(DriveTrainManager.RobotState.POINT);
-            robot.driveTrain.setManualTarget(target);
+            robot.driveTrain.setManualPodition(target);
            n = 1;
         }else{
            robot.driveTrain.setState(DriveTrainManager.RobotState.POINT);
-            robot.driveTrain.setManualTarget(new Position(-target.x,-target.y,-target.h));
+            robot.driveTrain.setManualPodition(new Position(-target.x,-target.y,-target.h));
             n = -1;
         }
     }

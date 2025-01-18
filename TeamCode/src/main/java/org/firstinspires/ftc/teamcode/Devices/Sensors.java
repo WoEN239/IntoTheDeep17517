@@ -28,7 +28,7 @@ public class Sensors {
         rightColorSensor = hardwareMap.get(AnalogInput.class, "rightColorSensor");
         downRightButton = hardwareMap.get(DigitalChannel.class, "downRightButton");
         upRightButton = hardwareMap.get(DigitalChannel.class,"upRightButton");
-        sampleSensor = fix(hardwareMap.get(AdafruitI2cColorSensor.class, "puckSensor"));
+      //  sampleSensor = fix(hardwareMap.get(AdafruitI2cColorSensor.class, "puckSensor"));
         reset();
     }
 

@@ -21,35 +21,22 @@ public class PurePursuitSumulation extends BaseSimulation {
     @Override
     public void callRun() {
         timer.reset();
-        robot.driveTrain.addWayPoints(
-                    new WayPoint(new Position().copyFrom(PositionPool.redCenterScoring),
-                            new PurePursuitTask(
-                                    "Up Lift",
-                                    IntakeSimulation::isDone,
-                                    () -> IntakeSimulation.setDelay(3)
-                            ),
-                            new PurePursuitTask(
-                                    "Scoring",
-                                    IntakeSimulation::isDone,
-                                    () -> IntakeSimulation.setDelay(10),
-                                    () -> robot.driveTrain.setManualTarget(new Position(100,100,45))
-                            )
-                    ),
-                    new WayPoint(new Position().copyFrom(PositionPool.redBasketScoring),
-                            new PurePursuitTask(
-                                    "Up two Lift",
-                                    IntakeSimulation::isDone,
-                                    () -> IntakeSimulation.setDelay(3)
-                            )
-                            ,new PurePursuitTask(
-                                    "Scoring into basket",
-                                    IntakeSimulation::isDone,
-                                    ()->IntakeSimulation.setDelay(5)
-                            )
-                    ),
-                    new WayPoint(new Position().copyFrom(PositionPool.redCenterEat))
+        robot.driveTrain.addWayPoints(new WayPoint(new Position(100,0,0),
+                        new PurePursuitTask(
+                                "edf",
+                                ()->true,
+                                ()->robot.driveTrain.setManualPodition(new Position(100,0,0))
+                        ))
+                ,
+                new WayPoint(new Position(100,50,10),
+                        new PurePursuitTask(
+                                "edf",
+                                ()->true,
+                                ()->robot.driveTrain.setManualPodition(new Position(100,50,0))
+                        ))
+        );
 
-            );
+
         isNeedToCall = false;
 
     }

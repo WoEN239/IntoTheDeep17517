@@ -34,7 +34,7 @@ public class RobotConstant {
     public static double TRACK_WIDTH = 1;
 
     public static double encoderConstant = 480;
-    public static double transmission    = 1.26d;
+    public static double transmission    = 21d/27;
     public static double lightOfWheel    = 9.6d*PI;
 
     public static double TIK_PER_ANGLE = 97.09166;//TODO

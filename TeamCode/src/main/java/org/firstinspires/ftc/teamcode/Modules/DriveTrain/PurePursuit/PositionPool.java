@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.Math.Position;
 public class PositionPool {
 
     public static Position blueStart         = new Position(0,0,0);
-    public static Position redStart          = new Position(0,-150,0);
+    public static Position redStart          = new Position(0,-0,0);
 
     public static Position redCenterEat      = new Position(-50,0,0);
     public static Position blueCenterEat     = new Position(0,0,0);

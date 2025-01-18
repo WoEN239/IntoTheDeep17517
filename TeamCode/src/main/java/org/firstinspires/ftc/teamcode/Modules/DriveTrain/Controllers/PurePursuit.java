@@ -28,7 +28,8 @@ import java.util.List;
   Writing by EgorKhvostikov
 */
 public class PurePursuit {
-    private final ArrayList<WayPoint>    wayPoints  = new ArrayList<>();
+
+    private  ArrayList<WayPoint>    wayPoints  = new ArrayList<>();
     {
         wayPoints.add(new WayPoint(Robot.myTeam.startPos));
     }
@@ -36,7 +37,6 @@ public class PurePursuit {
     public boolean isEndOfTrajectory = false;
 
     public void addWayPoints(WayPoint... p){
-
         wayPoints.addAll(Arrays.asList(p));
 
         for(int i = 1; i < wayPoints.size(); i++){
@@ -44,6 +44,10 @@ public class PurePursuit {
             makeWithTwoPoint(wayPoints.get(i-1).position, wayPoints.get(i).position)
             );
         }
+    }
+    public void resetPoints(){
+        wayPoints = new ArrayList<>();
+        wayPoints.add(new WayPoint(Robot.myTeam.startPos));
     }
 
     private final Position position = new Position();
@@ -79,6 +83,7 @@ public class PurePursuit {
     }
 
     public void computeTarget() {
+        Robot.telemetryPacket.put("way points",wayPoints.toString());
         LineSegment nowLineSegment;
         if(!trajectory.isEmpty()) {
             isEndOfTrajectory = false;

@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
 public class TestPurePursuit extends BaseMode {
 
     @Override
-    public void doing(){
+    public void loopRun(){
         Robot.getInstance().driveTrain.addWayPoints();
     }
 }

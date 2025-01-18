@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 
 public class LiftTest extends BaseMode {
     @Override
-    public void doing() {
+    public void loopRun() {
 
     }
 

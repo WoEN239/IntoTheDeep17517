@@ -13,7 +13,7 @@ public class TestFilter extends BaseMode {
     public static double u = 0;
     public static double a = 0;
 
-    public void doing() {
+    public void loopRun() {
         if (isSin) {
             DriveTrainMotors.leftBackDrive.setPower(Math.sin(robot.timer.seconds() / Math.PI * u) * a);
         } else {

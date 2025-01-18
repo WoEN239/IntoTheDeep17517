@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.Telemetry;
 
-import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
@@ -38,7 +36,6 @@ public class FieldView {
     }
     static int i = 0;
     public static void updateField() {
-        packet = new TelemetryPacket();
         double[] xPoints;
         double[] yPoints;
 
@@ -59,22 +56,22 @@ public class FieldView {
         rotatePoints(xPoints,yPoints,position.h);
         plusVector(xPoints,yPoints,position);
 
-        packet.fieldOverlay().setScale(smPerInch, smPerInch);
+        Robot.telemetryPacket.fieldOverlay().setScale(smPerInch, smPerInch);
+        Robot.telemetryPacket.fieldOverlay().setFill("green");
 
-        packet.fieldOverlay().setFill("green");
-        packet.fieldOverlay().fillCircle(circle.x, circle.y,5);
+        Robot.telemetryPacket.fieldOverlay().fillCircle(circle.x, circle.y,5);
 
-        packet.fieldOverlay().setFill("blue");
-        packet.fieldOverlay().fillPolygon(xPoints, yPoints);
+        Robot.telemetryPacket.fieldOverlay().setFill("blue");
+        Robot.telemetryPacket.fieldOverlay().fillPolygon(xPoints, yPoints);
 
-        packet.fieldOverlay().setFill("green");
-        packet.fieldOverlay().strokeLine(position.x,position.y, position.x + rect.x, position.y + rect.y);
+        Robot.telemetryPacket.field().fillCircle(100,100,5);
+        Robot.telemetryPacket.fieldOverlay().setFill("green");
+        Robot.telemetryPacket.fieldOverlay().strokeLine(position.x,position.y, position.x + rect.x, position.y + rect.y);
 
         LineSegment trajectory = LineSegmentFollower.targetLineSegment;
-        packet.fieldOverlay().strokeLine(trajectory.start.x,trajectory.start.y,
-                                         trajectory.end.x,  trajectory.end.y );
+        Robot.telemetryPacket.fieldOverlay().strokeLine(trajectory.start.x,trajectory.start.y,
+                                               trajectory.end.x,  trajectory.end.y );
 
-        FtcDashboard.getInstance().sendTelemetryPacket(packet);
     }
 
 }

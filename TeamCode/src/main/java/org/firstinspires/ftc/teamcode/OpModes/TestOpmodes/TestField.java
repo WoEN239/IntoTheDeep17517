@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 public class TestField extends BaseMode {
 
     @Override
-    public void doing() {
+    public void loopRun() {
       ///  robot.fieldView.update();
     }
 }

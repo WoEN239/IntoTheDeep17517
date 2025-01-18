@@ -11,7 +11,7 @@ public class TestPid extends BaseMode {
     public static boolean isSin = false;
     public static double u = 0;
     public static double a = 0;
-    public void doing() {
+    public void loopRun() {
         DriveTrainMotors.rightForwardDrive.pidStatusB.setTelemetry(true);
         if (isSin) {
             DriveTrainMotors.rightForwardDrive.setVel(Math.sin(robot.timer.seconds() / Math.PI * u) * a);

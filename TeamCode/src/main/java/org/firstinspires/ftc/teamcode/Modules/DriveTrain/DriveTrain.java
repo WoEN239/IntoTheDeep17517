@@ -11,6 +11,8 @@ import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Listeners.PositionListe
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Listeners.VelocityListener.DeviceVelocityListener;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Listeners.VelocityListener.LocalVelocityListener;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Listeners.VelocityListener.VelocityListener;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.LineSegment;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.LineSegmentFollower;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.WayPoint;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.DriveTrainSimulation;
@@ -19,13 +21,13 @@ abstract class DriveTrain {
 
     private final Position pidTarget = new Position();
     public Position getPidTarget() {return pidTarget;}
+    //TODO private
+    public final Position pidPositionResult = new Position();
+    public final Position position      = new Position().copyFrom(Robot.myTeam.startPos);  //actual robot position
+    public final Position localVelocity = new Position();
+    public final Position localPosition = new Position();
 
-    private final Position pidPositionResult = new Position();
-    private final Position position  = new Position().copyFrom(Robot.myTeam.startPos);  //actual robot position
-    private final Position localVelocity = new Position();
-    private final Position localPosition = new Position();
-
-    protected enum DriveTrainState {PURE_PURSUIT,PID_CONTROL}
+    protected enum DriveTrainState {PURE_PURSUIT,PID_CONTROL,TELE_OP}
     private DriveTrainState driveTrainState = DriveTrainState.PID_CONTROL;
     protected void setDriveTrainState(DriveTrainState driveTrainState) {this.driveTrainState = driveTrainState;}
 
@@ -34,6 +36,16 @@ abstract class DriveTrain {
         deviceVelocityListener.init();
         driveTrainVoltageController.init();
         positionListener.init();
+        purePursuit.resetPoints();
+
+        pidPositionResult.copyFrom(new Position());
+        pidTarget     .copyFrom(new Position());
+        position      .copyFrom(Robot.myTeam.startPos);
+        localVelocity .copyFrom(new Position());
+        localPosition .copyFrom(new Position());
+
+        localPositionListener.reset();
+        LineSegmentFollower.targetLineSegment = new LineSegment();
     }
 
     protected void moveUpdate() {
@@ -45,22 +57,27 @@ abstract class DriveTrain {
         switch (driveTrainState){
             case PID_CONTROL:
                 pidTarget.copyFrom(manualTarget);
+                setVoltages();
                 break;
             case PURE_PURSUIT:
                 purePursuit.setPosition(position);
                 purePursuit.computeTarget();
                 pidTarget.copyFrom(purePursuit.getPidTarget());
+                setVoltages();
+                break;
+            case TELE_OP:
+                setVoltagesFromVelocity();
                 break;
         }
-        setVoltages();
-        DriveTrainSimulation.velocity = pidPositionResult;
-        DriveTrainSimulation.updatePosition();
+
+        //DriveTrainSimulation.velocity = pidPositionResult;
+        //DriveTrainSimulation.updatePosition();
 
     }
 
 
     private final Position manualTarget = new Position();
-    public void setManualTarget(Position p) {this.manualTarget .copyFrom(p);}
+    public void setManualPodition(Position p) {this.manualTarget .copyFrom(p);}
     public void addWayPoints(WayPoint... t){purePursuit.addWayPoints(t);}
 
     DriveTrainVoltageController driveTrainVoltageController = new DriveTrainVoltageController();
@@ -123,6 +140,21 @@ abstract class DriveTrain {
 
         velocityPidController.setVelocity(localVelocity);
         velocityPidController.setTarget(pidResult);
+        velocityPidController.computePidResult();
+        if(!Robot.isDebug){
+            Position voltageMap = velocityPidController.getPidResult();
+            driveTrainVoltageController.setVoltage(voltageMap);
+        }
+    }
+
+    private Position velocityTarget = new Position();
+    public void setVelocityTarget(Position velocityTarget) {
+        this.velocityTarget = velocityTarget;
+    }
+
+    protected void setVoltagesFromVelocity(){
+        velocityPidController.setVelocity(localVelocity);
+        velocityPidController.setTarget(velocityTarget);
         velocityPidController.computePidResult();
         if(!Robot.isDebug){
             Position voltageMap = velocityPidController.getPidResult();

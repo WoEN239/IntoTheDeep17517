@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 @Autonomous(group = "Test")
 public class RoadRunnerTest extends BaseMode {
     @Override
-    public void doing() {
+    public void loopRun() {
 
     }
 }

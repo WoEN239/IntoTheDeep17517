@@ -14,12 +14,18 @@ public class LocalPositionListener {
     private final Position tikPosition = new Position(0, 0, 0);
 
     private final Position localPositions = new Position(0, 0, 0);
+    public void reset(){
+        localPositions.copyFrom(new Position());
+        tikPosition.copyFrom(new Position());
+    }
+
     public Position getLocalPositions() {
         if(Robot.isDebug){
             return DriveTrainSimulation.localPosition;
         }
         return localPositions;
     }
+
 
     private final DeviceValueMap deviceValue = new DeviceValueMap();
     public void setDeviceValue(DeviceValueMap m ){ deviceValue.copyFrom(m);}
@@ -35,11 +41,12 @@ public class LocalPositionListener {
     public void computePosition() {
         double x = (deviceValue.rightOdometer + deviceValue.leftOdometer) / 2.0;
 
-        double hClean = ((-deviceValue.rightOdometer + deviceValue.leftOdometer) / 2.0) / RobotConstant.TIK_PER_ANGLE;
+        double hClean = ((deviceValue.rightOdometer - deviceValue.leftOdometer) / 2.0) / RobotConstant.TIK_PER_ANGLE;
 
         double yFix = (k*Math.toRadians(hClean))/RobotConstant.SM_PER_ODOMETER_TIK;
         double y    = (deviceValue.yOdometer);
         y+= yFix;
+
 
         hClean = Position.normalizeAngle(hClean);
 
@@ -53,6 +60,10 @@ public class LocalPositionListener {
 
         double h = filter.getX();
         h = Position.normalizeAngle(h);
+
+        Robot.telemetryPacket.put("clean h", hClean);
+        Robot.telemetryPacket.put("filter", h);
+
 
         deltaPos.copyFrom(new Position(x, y, h));
         deltaPos.vectorMinus(tikPosition);

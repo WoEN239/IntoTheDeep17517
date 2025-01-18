@@ -7,8 +7,8 @@ import java.util.function.Supplier;
 public class IntakeSimulation {
     private static Supplier<Boolean> isDone = ()-> false;
     public static boolean isDone() {
-        Robot.telemetry.addData("resetDelay",timer.seconds());
-        Robot.telemetry.addData("Delay size",delay);
+        Robot.telemetryPacket.put("resetDelay",timer.seconds());
+        Robot.telemetryPacket.put("Delay size",delay);
 
         return isDone.get();
     }

@@ -19,26 +19,29 @@ public abstract class BaseMode extends LinearOpMode {
     }
 
     private   boolean firstInit  = true;
-    protected boolean firstStart = true;
-
+    protected boolean isNeedToCall = true;
     @Override
-    public void runOpMode() {
-        if (opModeInInit() && firstInit) {
+    public void runOpMode(){
+        if(firstInit) {
             initOpMode();
+            Robot.getInstance().timer.reset();
             firstInit = false;
         }
         waitForStart();
-        while (opModeIsActive()) {
-            if (firstStart) {
-                Robot.getInstance().timer.reset();
-                firstStart = false;
+        while (opModeIsActive()){
+            if(isNeedToCall){
+                callRun();
             }
-            doing();
-            Robot.getInstance().update();
+            loopRun();
+            robot.update();
         }
-        stop();
+
+        firstInit = true;
+        isNeedToCall = true;
+        //  System.exit(0);
     }
 
-    public abstract void doing();
+    public void callRun(){};
+    public abstract void loopRun();
 
 }
