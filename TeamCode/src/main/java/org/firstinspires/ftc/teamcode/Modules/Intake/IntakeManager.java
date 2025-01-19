@@ -76,8 +76,8 @@ public class IntakeManager {
     boolean isDone = false;
     private boolean f = true;
     public void update(){
-        Robot.telemetry.addData("State :", state.toString());
-        Robot.telemetry.addData("Target state :", target.toString());
+        Robot.telemetryPacket.put("State :", state.toString());
+        Robot.telemetryPacket.put("Target state :", target.toString());
         if(target!=state){
             if(f){
                 timer.reset();
