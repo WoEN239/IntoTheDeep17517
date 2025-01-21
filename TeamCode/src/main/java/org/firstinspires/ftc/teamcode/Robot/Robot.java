@@ -1,14 +1,19 @@
 package org.firstinspires.ftc.teamcode.Robot;
 
+import static org.firstinspires.ftc.teamcode.Devices.ColorSensorFix.fix;
+
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.qualcomm.hardware.adafruit.AdafruitI2cColorSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Devices.Battery;
 import org.firstinspires.ftc.teamcode.Devices.DevicePool;
+import org.firstinspires.ftc.teamcode.Devices.Sensors;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.DriveTrainManager;
+import org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain.ColorSensor.ColorSensor;
 import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager;
 import org.firstinspires.ftc.teamcode.OpenCv.Camera;
 import org.firstinspires.ftc.teamcode.Telemetry.FieldView;
@@ -45,22 +50,33 @@ public class Robot{
         if(!isDebug) {
             DevicePool.init(opMode.hardwareMap);
         }
-       // camera.init(this);
+
         driveTrain.init();
         driveTrain.setState       (DriveTrainManager.RobotState.TRAVELING);
-        FtcDashboard.getInstance().clearTelemetry();
-        telemetryPacket.clearLines();
+        intake.init();
+
     }
 
+    private ElapsedTime timerFix = new ElapsedTime();
     public void update(){
-        telemetryPacket = new TelemetryPacket();
+        if(timerFix.seconds()>1){
+            ColorSensor.sensor = fix(opMode.hardwareMap.get(AdafruitI2cColorSensor.class, "puckSensor"));
+            timerFix.reset();
+        }
+
         Battery.getInstance().update();
         TaskManager.getInstance().updateTasks();
+
         driveTrain.update();
+        intake.update();
+
 
         telemetryPacket.put("time",timer.seconds());
         FieldView.updateField();
+
         FtcDashboard.getInstance().sendTelemetryPacket(telemetryPacket);
+
+        Robot.telemetryPacket = new TelemetryPacket();
     }
 
 }

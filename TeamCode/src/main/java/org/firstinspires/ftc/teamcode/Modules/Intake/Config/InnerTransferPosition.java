@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.Config;
 public enum InnerTransferPosition {
     IN_ROBOT, OUT_ROBOR;
     public static double inRobot = 0;
-    public static double outRobot = 0;
+    public static double outRobot = 0.25;
 
     public double get(){
         switch (this){

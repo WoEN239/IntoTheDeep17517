@@ -28,6 +28,7 @@ public class Motor {
         this.dev = map.get(DcMotorEx.class, name);
         dev.setDirection(DcMotorSimple.Direction.FORWARD);
         dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         this.name = name;
         filter.setName(name);
         pidF.setName(name + " F");

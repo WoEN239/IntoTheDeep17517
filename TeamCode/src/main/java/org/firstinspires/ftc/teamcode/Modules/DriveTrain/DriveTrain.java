@@ -70,14 +70,15 @@ abstract class DriveTrain {
                 break;
         }
 
-        //DriveTrainSimulation.velocity = pidPositionResult;
-        //DriveTrainSimulation.updatePosition();
-
+        if(Robot.isDebug) {
+            DriveTrainSimulation.velocity = pidPositionResult;
+            DriveTrainSimulation.updatePosition();
+        }
     }
 
 
     private final Position manualTarget = new Position();
-    public void setManualPodition(Position p) {this.manualTarget .copyFrom(p);}
+    public void setManualPosition(Position p) {this.manualTarget .copyFrom(p);}
     public void addWayPoints(WayPoint... t){purePursuit.addWayPoints(t);}
 
     DriveTrainVoltageController driveTrainVoltageController = new DriveTrainVoltageController();

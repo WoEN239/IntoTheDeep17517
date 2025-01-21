@@ -30,7 +30,7 @@ public class PidSimulation extends BaseSimulation{
       FieldView.position = position;
 
       robot.driveTrain.setState(DriveTrainManager.RobotState.POINT);
-      robot.driveTrain.setManualTarget(target);
+      robot.driveTrain.setManualPosition(target);
 
       FieldView.circle   = target;
       FieldView.updateField();

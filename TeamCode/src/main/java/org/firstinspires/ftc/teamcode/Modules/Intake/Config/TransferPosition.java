@@ -8,8 +8,9 @@ public enum TransferPosition {
 
     EAT, NORMAL;
 
-    public static double eat = 0.2;
-    public static double normal = 0.55;
+    public static double eat = 0.35;
+    public static double normal = 0;
+
 
     public double get() {
         switch (this) {

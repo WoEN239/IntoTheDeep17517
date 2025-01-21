@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.Modules.Intake.Config.TransferPosition;
 public class Transfer {
     private Servo transferServoLeft ;
     private Servo transferServoRight;
-    private double eatPos;
+    public static double eatPos;
 
     public void init(){
         transferServoRight = IntakeDevices.transferServoRight;
@@ -17,11 +17,12 @@ public class Transfer {
     }
     public void normal(){
         transferServoRight.setPosition(TransferPosition.normal);
-        transferServoLeft .setPosition(TransferPosition.normal);
+        transferServoLeft .setPosition(1.0-TransferPosition.normal);
     }
+
     public void eat(){
         double t = Range.clip(eatPos,TransferPosition.normal,TransferPosition.EAT.get());
         transferServoRight.setPosition(t);
-        transferServoLeft .setPosition(t);
+        transferServoLeft .setPosition(1-t);
     }
 }

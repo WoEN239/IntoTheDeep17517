@@ -10,7 +10,7 @@ import java.util.Map;
 
 @Config
 
-public class LogOutput implements ILogiable {
+public class LogOutput {
 
     Robot robot;
 
@@ -27,7 +27,6 @@ public class LogOutput implements ILogiable {
         RobotLog.d(String.format("text = %s, value = %s",text, value.toString()));
     }
 
-    @Override
     public void update() {
         Map<String, Object> map = Collections.emptyMap();
         map.put(text, value);

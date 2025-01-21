@@ -8,6 +8,7 @@ import static com.qualcomm.hardware.ams.AMSColorSensor.AMS_TCS34725_ADDRESS;
 
 import com.qualcomm.hardware.adafruit.AdafruitI2cColorSensor;
 import com.qualcomm.hardware.ams.AMSColorSensor;
+import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.hardware.I2cDeviceSynchDeviceWithParameters;
 
 import java.lang.reflect.Field;
@@ -15,6 +16,7 @@ import java.lang.reflect.Field;
 
 public class ColorSensorFix {
     public static AdafruitI2cColorSensor fix(AdafruitI2cColorSensor sensor){
+        sensor.setI2cAddress(new I2cAddr(0x4D));
         try {
             AMSColorSensor.class.getDeclaredField("AMS_TCS34725_ID").setAccessible(true);
 

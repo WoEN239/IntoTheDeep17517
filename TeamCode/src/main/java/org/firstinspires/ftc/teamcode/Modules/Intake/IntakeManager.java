@@ -8,23 +8,45 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain.BrushChainManager;
 import org.firstinspires.ftc.teamcode.Modules.Intake.GripChain.GripChainManager;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftController;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftDeviceListener;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftListener;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftManager;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftVoltageController;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 public class IntakeManager {
     private BrushChainManager brushChainManager = new BrushChainManager();
     private GripChainManager  gripChainManager  = new GripChainManager();
+    private IntakeModules modules = new IntakeModules();
+
     private IntakeState state = IntakeState.MOVE;
     private IntakeState target = IntakeState.MOVE;
-    private IntakeModules modules = new IntakeModules();
+
+
+
 
     public enum IntakeState{
         MOVE, BRUSH,GRIP
     }
 
+    public void init(){
+        modules.init();
+
+        brushChainManager.setModules(modules);
+        gripChainManager.setModules(modules);
+
+        brushChainManager.initTasks();
+        gripChainManager .initTasks();
+    }
+
     public void startBrushEat(){
         brushChainManager.startEat();
+        target = IntakeState.BRUSH;
+        state = IntakeState.BRUSH;
     }
+
     public void endBrushEat(){
         brushChainManager.endEat();
     }
@@ -37,6 +59,13 @@ public class IntakeManager {
     public void updateState(){
         switch (state){
             case MOVE:
+                modules.transfer.normal();
+                modules.brush.up();
+                modules.brush.off();
+                modules.brush.openWall();
+                modules.grip.in();
+                modules.grip.close();
+                modules.innerTransfer.in();
                 break;
             case BRUSH:
                 brushChainManager.update();

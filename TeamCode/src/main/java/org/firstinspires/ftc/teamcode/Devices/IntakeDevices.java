@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Devices;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -22,7 +23,6 @@ public class IntakeDevices {
     public static Motor brushMotor = new Motor();
 
 
-
     public static void init(HardwareMap hardwareMap) {
         backWallServo = hardwareMap.get(Servo.class, "grabberServo");
         transferServoLeft = hardwareMap.get(Servo.class, "transferServoLeft");
@@ -32,6 +32,10 @@ public class IntakeDevices {
         twistServo = hardwareMap.get(Servo.class, "twistServo");
         innerTransfer = hardwareMap.get(Servo.class, "outRobotServo");
         flipServoLeft = hardwareMap.get(Servo.class, "flipServoLeft");
+
         brushMotor.init("yOdometer", hardwareMap);
+
+        brushMotor.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        brushMotor.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 }

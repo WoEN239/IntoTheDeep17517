@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.Lift;
 
 public class LiftListener{
 
-    LiftDevicesValueMap liftDevicesValueMap = new LiftDevicesValueMap();
-    private void setDevicesValueMap(LiftDevicesValueMap lD){
+    private LiftDevicesValueMap liftDevicesValueMap = new LiftDevicesValueMap();
+    public void setDevicesValueMap(LiftDevicesValueMap lD){
         liftDevicesValueMap.copyFrom(lD);
     }
 

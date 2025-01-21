@@ -19,6 +19,7 @@ public class Grip {
     public void close(){
         gripServo.setPosition(GripPositions.CLOSE.get());
     }
+
     public void in(){
         twistServo.setPosition(TwistPosition.IN.get());
     }

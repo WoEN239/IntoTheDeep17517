@@ -11,10 +11,10 @@ import org.firstinspires.ftc.teamcode.Math.PidStatus;
 
 public class LiftController { ;
 
-
     private double errSync;
     private double pos;
     private double targetPos;
+
     private double uMove;
     private double uSync;
 
@@ -25,6 +25,7 @@ public class LiftController { ;
     public void setPos(double posLift){
         pos = posLift;
     }
+
     public double getUMove(){return uMove;}
     public double getUSync(){
         return uSync;

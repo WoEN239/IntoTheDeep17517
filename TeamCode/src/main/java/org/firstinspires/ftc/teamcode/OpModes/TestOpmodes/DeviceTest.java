@@ -123,12 +123,12 @@ public class DeviceTest extends LinearOpMode {
                         break;
                     case GYRO:
                         IMU imu = (IMU) hardwareDevice;
-                        YawPitchRollAngles ypra = imu.getRobotYawPitchRollAngles();
+                        YawPitchRollAngles gyro = imu.getRobotYawPitchRollAngles();
                         telemetry.addLine("NOTE: REV IMU orietnation may be off");
                         telemetry.addLine("Angle units are Degrees");
-                        telemetry.addData("yaw", ypra.getYaw(DEGREES));
-                        telemetry.addData("pitch", ypra.getPitch(DEGREES));
-                        telemetry.addData("roll", ypra.getRoll(DEGREES));
+                        telemetry.addData("yaw", gyro.getYaw(DEGREES));
+                        telemetry.addData("pitch", gyro.getPitch(DEGREES));
+                        telemetry.addData("roll", gyro.getRoll(DEGREES));
                         break;
                     case BATTERY_VOLTAGE:
                         VoltageSensor voltageSensor = (VoltageSensor) hardwareDevice;

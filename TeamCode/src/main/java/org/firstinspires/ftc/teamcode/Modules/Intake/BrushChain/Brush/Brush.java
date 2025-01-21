@@ -22,17 +22,28 @@ public class Brush {
     }
 
     public void up(){
-        flipServoLeft.setPosition( FlipGrabberPosition.UP.get()   );
+        flipServoLeft.setPosition(1- FlipGrabberPosition.UP.get()   );
         flipServoRight.setPosition(FlipGrabberPosition.UP.get());
     }
 
+    public void in(){
+        flipServoLeft.setPosition(1- FlipGrabberPosition.IN.get() );
+        flipServoRight.setPosition(FlipGrabberPosition.IN.get());
+    }
+
     public void down(){
-        flipServoLeft.setPosition( FlipGrabberPosition.DOWN.get()   );
+        flipServoLeft.setPosition(1- FlipGrabberPosition.DOWN.get()   );
         flipServoRight.setPosition(FlipGrabberPosition.DOWN.get());
     }
 
+    public void clear(){
+        flipServoLeft.setPosition(1- FlipGrabberPosition.CLEAR.get()   );
+        flipServoRight.setPosition(  FlipGrabberPosition.CLEAR.get());
+    }
+
+
     public void openWall(){
-        backWallServo.setPosition(BackWallPosition.OPEN.get());
+        backWallServo.setPosition (BackWallPosition.OPEN.get());
     }
 
     public void closeWall(){
@@ -40,10 +51,10 @@ public class Brush {
     }
 
     public void on() {
-        this.brushMotor.setPower(BrushMotorPowers.forward);
+        brushMotor.setVoltage(BrushMotorPowers.forward);
     }
 
     public void off() {
-        this.brushMotor.setVoltage(BrushMotorPowers.stop);
+        brushMotor.setVoltage(BrushMotorPowers.stop);
     }
 }

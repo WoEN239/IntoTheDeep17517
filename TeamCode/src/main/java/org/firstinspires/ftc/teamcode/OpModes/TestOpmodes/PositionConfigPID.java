@@ -30,11 +30,11 @@ public class PositionConfigPID extends BaseMode {
         Robot.telemetryPacket.put("hT", n*target.h);
        if(timer.seconds()%(2*k) > k){
             robot.driveTrain.setState(DriveTrainManager.RobotState.POINT);
-            robot.driveTrain.setManualPodition(target);
+            robot.driveTrain.setManualPosition(target);
            n = 1;
         }else{
            robot.driveTrain.setState(DriveTrainManager.RobotState.POINT);
-            robot.driveTrain.setManualPodition(new Position(-target.x,-target.y,-target.h));
+            robot.driveTrain.setManualPosition(new Position(-target.x,-target.y,-target.h));
             n = -1;
         }
     }

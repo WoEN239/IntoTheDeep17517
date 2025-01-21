@@ -1,19 +1,22 @@
 package org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain.ColorSensor;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.hardware.adafruit.AdafruitI2cColorSensor;
 
 import org.firstinspires.ftc.teamcode.Devices.Sensors;
+import org.firstinspires.ftc.teamcode.Robot.Robot;
+import org.firstinspires.ftc.teamcode.Robot.Team;
 
+@Config
 public class ColorSensor {
-    AdafruitI2cColorSensor sensor;
-    public ColorDetective colorDetective = ColorDetective.NOTHING;
+    public static AdafruitI2cColorSensor sensor;
+    private ColorDetective colorDetective = ColorDetective.NOTHING;
 
     public static double red = 0;
-    public static double blue = 0;
-    public static double green = 0;
+    public static double yellowGreenDetect = 80;
+    public static double detect = 25;
 
     public ColorDetective getColor(){
-        updateColors();
         return colorDetective;
     }
 
@@ -21,23 +24,30 @@ public class ColorSensor {
         sensor = Sensors.sampleSensor;
     }
 
-    private void updateColors(){
-        if(sensor.red() > red){
-            colorDetective = ColorDetective.OPPONENT;
-        }
-        else{
-            if(sensor.blue() > blue){
-                colorDetective = ColorDetective.OUR;
-            }
-            else{
-                if(sensor.green() > green){
-                    colorDetective = ColorDetective.YELLOW;
+    public void computeColorDetect(){
+        if(sensor.blue() > detect || sensor.red() > detect){
+            if(sensor.blue() > sensor.red()){
+                if(Robot.myTeam == Team.BLUE){
+                    colorDetective = ColorDetective.OUR;
+                }else{
+                    colorDetective = ColorDetective.OPPONENT;
                 }
-                else{
-                    colorDetective = ColorDetective.NOTHING;
+            }else{
+
+                if(Robot.myTeam == Team.RED){
+                    colorDetective = ColorDetective.OUR;
+                }else{
+                    colorDetective = ColorDetective.OPPONENT;
+                }
+
+                if(sensor.green()>yellowGreenDetect){
+                    colorDetective = ColorDetective.OUR;
                 }
             }
+        }else{
+            colorDetective = ColorDetective.NOTHING;
         }
+
     }
 
 }

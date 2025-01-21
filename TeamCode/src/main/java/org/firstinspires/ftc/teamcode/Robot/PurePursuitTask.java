@@ -55,9 +55,7 @@ public class PurePursuitTask {
     public PurePursuitTask(Runnable... run) {
         this.run = run;
     }
-    public static PurePursuitTask easyBuild(IntakeState state, IntakeManager intake){
-       return new PurePursuitTask(state.toString(),intake::isDone,()->intake.setTarget(state));
-    }
+
     @NonNull
     @Override
     public String toString(){

@@ -25,7 +25,7 @@ public class LiftDeviceListener {
 
 
     private final LiftDevicesValueMap valuesMap = new LiftDevicesValueMap();
-    private LiftDevicesValueMap getValuesMap(){return valuesMap;}
+    public  LiftDevicesValueMap getValuesMap(){return valuesMap;}
 
     public void init(){
         leftMotor = LiftHangingMotors.liftLeftMotor;
