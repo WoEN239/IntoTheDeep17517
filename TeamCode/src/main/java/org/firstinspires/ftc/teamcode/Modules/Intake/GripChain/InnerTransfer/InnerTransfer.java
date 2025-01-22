@@ -10,11 +10,14 @@ public class InnerTransfer {
     public void init(){
         innerTransferServo = IntakeDevices.innerTransfer;
     }
+
     public void in(){
         innerTransferServo.setPosition(InnerTransferPosition.IN_ROBOT.get());
     }
     public void out(){
-        innerTransferServo.setPosition(InnerTransferPosition.OUT_ROBOR.get());
+        innerTransferServo.setPosition(InnerTransferPosition.OUT_ROBOT.get());}
+    public void centre(){
+        innerTransferServo.setPosition(InnerTransferPosition.CENTER.get());
     }
 
 }

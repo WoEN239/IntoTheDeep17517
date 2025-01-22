@@ -57,12 +57,8 @@ public class Robot{
 
     }
 
-    private ElapsedTime timerFix = new ElapsedTime();
+
     public void update(){
-        if(timerFix.seconds()>1){
-            ColorSensor.sensor = fix(opMode.hardwareMap.get(AdafruitI2cColorSensor.class, "puckSensor"));
-            timerFix.reset();
-        }
 
         Battery.getInstance().update();
         TaskManager.getInstance().updateTasks();

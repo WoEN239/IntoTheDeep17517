@@ -14,14 +14,9 @@ public class LiftDeviceListener {
     private DigitalChannel rightDownButton;
     private final BorderButton rightDownBorderButt = new BorderButton();
 
-    private DigitalChannel leftUpButton;
-    private final BorderButton leftUpBorderButt    = new BorderButton();
 
-    private DigitalChannel rightUpButton;
-    private final BorderButton rightUpBorderButt   = new BorderButton();
-
-    private Motor leftMotor;
-    private Motor rightMotor;
+    private static Motor leftMotor;
+    private static Motor rightMotor;
 
 
     private final LiftDevicesValueMap valuesMap = new LiftDevicesValueMap();
@@ -31,8 +26,7 @@ public class LiftDeviceListener {
         leftMotor = LiftHangingMotors.liftLeftMotor;
         rightMotor = LiftHangingMotors.liftRightMotor;
         leftDownButton = Sensors.downLeftButton;
-        leftUpButton = Sensors.upLeftButton;
-        rightUpButton = Sensors.upRightButton;
+
         rightDownButton = Sensors.downRightButton;
     }
     private void updateDevices(){
@@ -41,12 +35,10 @@ public class LiftDeviceListener {
     }
     public void updateValuesMap(){
         updateDevices();
-        valuesMap.leftUpButton    = leftUpBorderButt.get(leftUpButton   .getState());
         valuesMap.leftDownButton  = leftDownBorderButt.get(leftDownButton .getState());
-        valuesMap.rightUpButton   = rightUpBorderButt.get(rightUpButton  .getState());
         valuesMap.rightDownButton = rightDownBorderButt.get(rightDownButton.getState());
 
-        valuesMap.leftMotorPos = leftMotor.getPosition();
+        valuesMap.leftMotorPos  = leftMotor.getPosition();
         valuesMap.rightMotorPos = rightMotor.getPosition();
     }
 }

@@ -9,7 +9,7 @@ public enum TransferPosition {
     EAT, NORMAL;
 
     public static double eat = 0.35;
-    public static double normal = 0;
+    public static double normal = 0.0;
 
 
     public double get() {

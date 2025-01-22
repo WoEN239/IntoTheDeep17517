@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.OpModes.Auto;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
@@ -11,7 +12,7 @@ import org.firstinspires.ftc.teamcode.Telemetry.FieldView;
 /**
  * Writing by EgorKhvostikov and @MrFrosty1234
  */
-@TeleOp
+@Autonomous
 public class Auto extends BaseMode {
 
     @Override
@@ -21,15 +22,15 @@ public class Auto extends BaseMode {
                         ()->true,
                         ()->robot.driveTrain.setManualPosition(new Position(100,0,0))
                 )),
-                new WayPoint(new Position(100,50,10),
+                new WayPoint(new Position(100,0,0),
                         new PurePursuitTask("edf",
                                 ()->true,
-                                ()->robot.driveTrain.setManualPosition(new Position(100,50,0))
+                                ()->robot.driveTrain.setManualPosition(new Position(100,0,0))
                         )),
-                new WayPoint(new Position(50,0,10),
+                new WayPoint(new Position(100,0,0),
                         new PurePursuitTask("edf",
                                 ()->true,
-                                ()->robot.driveTrain.setManualPosition(new Position(50,0,0))
+                                ()->robot.driveTrain.setManualPosition(new Position(100,0,0))
                         ))
                 );
 

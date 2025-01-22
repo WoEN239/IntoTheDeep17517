@@ -7,10 +7,10 @@ public class LiftListener{
         liftDevicesValueMap.copyFrom(lD);
     }
 
-    private double liftPosition = 0;
-    private double liftStaticErrLeft = 0;
-    private double liftStaticErrRight = 0;
-    private double errSync = 0;
+    private static double liftPosition = 0;
+    private static double liftStaticErrLeft = 0;
+    private static double liftStaticErrRight = 0;
+    private static double errSync = 0;
 
     public double getPosition() {
         return liftPosition;
@@ -20,18 +20,13 @@ public class LiftListener{
     public void computePosition() {
         boolean isDownLeft  = liftDevicesValueMap.leftDownButton;
         boolean isDownRight = liftDevicesValueMap.rightDownButton;
-        boolean isUpRight   = liftDevicesValueMap.rightUpButton;
-        boolean isUpLeft    = liftDevicesValueMap.leftUpButton;
-        if (isDownLeft)
-            liftStaticErrLeft = liftDevicesValueMap.leftMotorPos - LiftPosition.down;
+
+        if(isDownLeft)
+            liftStaticErrLeft = liftDevicesValueMap.leftMotorPos   - LiftPosition.down;
         if(isDownRight)
             liftStaticErrRight = liftDevicesValueMap.rightMotorPos - LiftPosition.down;
-        if(isUpRight)
-            liftStaticErrRight = -LiftPosition.highestBasket + liftDevicesValueMap.rightMotorPos;
-        if(isUpLeft)
-            liftStaticErrLeft = - LiftPosition.highestBasket + liftDevicesValueMap.leftMotorPos;
 
-        liftPosition = ((liftDevicesValueMap.rightMotorPos - liftStaticErrRight) + (liftDevicesValueMap.leftMotorPos - liftStaticErrLeft)) / 2.0;
+        liftPosition = (( liftDevicesValueMap.rightMotorPos - liftStaticErrRight) + (liftDevicesValueMap.leftMotorPos - liftStaticErrLeft)) / 2.0;
         errSync = (liftDevicesValueMap.leftMotorPos - liftStaticErrLeft) - (liftDevicesValueMap.rightMotorPos - liftStaticErrRight);
     }
 

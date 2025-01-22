@@ -4,27 +4,24 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain.ColorSensor.ColorDetective;
 import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeModules;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 public class BrushChainManager {
     private BrushTask task = BrushTask.EAT;
+    public LiftPosition liftRequest = LiftPosition.DOWN;
 
     public void startEat(){
         task = BrushTask.TO_EAT;
+        timer.reset();
     }
 
     public void endEat(){
         task = BrushTask.END_EAT;
     }
-    public void target(){
-        task = BrushTask.TARGETING;
-    }
-    public void  score(){
-        task = BrushTask.SCORE;
-    }
 
     public enum BrushTask {
-        TO_EAT,EAT,CLEAR,END_EAT,RE_GRIP,MOVE, TARGETING, SCORE;
+        TO_EAT,EAT,CLEAR,END_EAT,RE_GRIP,TO_MOVE,MOVE;
         private Runnable[] update;
 
         public void init(Runnable... run) {
@@ -41,6 +38,7 @@ public class BrushChainManager {
 
     public void initTasks(){
         BrushTask.TO_EAT.init(
+            ()->liftRequest = LiftPosition.DOWN,
             ()-> {
 
                 modules.transfer.eat();
@@ -63,6 +61,10 @@ public class BrushChainManager {
                     modules.brush.down();
                     modules.brush.on();
                     modules.transfer.eat();
+
+                    modules.grip.in();
+                    modules.grip.open();
+
                 }else if(modules.sampleDetect.getColor() == ColorDetective.OPPONENT){
                     timer.reset();
                     task = BrushTask.CLEAR;
@@ -75,7 +77,7 @@ public class BrushChainManager {
         );
         BrushTask.CLEAR.init(
                 ()->{
-                    if(modules.sampleDetect.getColor() == ColorDetective.OPPONENT || timer.seconds() < 0.25){
+                    if(modules.sampleDetect.getColor() == ColorDetective.OPPONENT || timer.seconds() < 0.4){
                         modules.brush.on();
                         modules.brush.clear();
                     }else{
@@ -88,16 +90,24 @@ public class BrushChainManager {
         BrushTask.END_EAT.init(
                 ()->{
                     modules.innerTransfer.in();
-                    modules.grip.close();
-                    modules.grip.in();
 
+                   // modules.grip.close();
+                    modules.grip.in();
 
                     modules.brush.closeWall();
                     modules.brush.off();
                     modules.transfer.normal();
-                    modules.brush.up();
 
-                    if(timer.seconds()>0.7){
+                    if(timer.seconds()<0.7) {
+                        modules.brush.up();
+                    }
+
+                    if(timer.seconds()>0.75) {
+                        modules.brush.down();
+                    }
+
+
+                    if(timer.seconds()>1){
                         timer.reset();
                         task = BrushTask.RE_GRIP;
                     }
@@ -107,41 +117,61 @@ public class BrushChainManager {
 
         BrushTask.RE_GRIP.init(
                 ()->{
-                    modules.brush.in();
+                    modules.brush.down();
 
                     modules.innerTransfer.in();
                     modules.grip.in();
 
-                    if(timer.seconds()>0.2 && timer.seconds() < 0.35) {
-                      modules.grip.open();
-                    }
 
-                    if(timer.seconds()>0.4){
+                    if(timer.seconds()>0.2 && timer.seconds()<0.5){
                         modules.grip.close();
                     }
 
-                    if(timer.seconds()>0.5){
+                    if( timer.seconds()>0.5){
+                        modules.grip.close();
+                    }
+
+                    if(timer.seconds()>0.7){
+                        task = BrushTask.TO_MOVE;
+                        timer.reset();
+                    }
+                }
+        );
+        BrushTask.TO_MOVE.init(
+                ()->{
+                    if(timer.seconds()<0.5) {
+                        modules.innerTransfer.centre();
+                    }
+
+                    if(timer.seconds()>0.55){
+                        liftRequest = LiftPosition.IN_POSITION;
+                    }
+
+                    if(timer.seconds()>0.8){
+                        modules.innerTransfer.out();
+                    }
+
+                    if(timer.seconds()>0.9){
+                        timer.reset();
                         task = BrushTask.MOVE;
                     }
                 }
-//                ()->{
-//                    modules.innerTransfer.in();
-//                    modules.brush.openWall();
-//                    if(timer.seconds()>0.5) {
-//                        modules.grip.close();
-//                    }
-//                    if(timer.seconds()>0.6){
-//                        task = BrushTask.MOVE;
-//                    }
-//                }
         );
-        BrushTask.TARGETING.init(
-                ()->modules.grip.close(),
-                ()->modules.innerTransfer.out()
+
+        BrushTask.MOVE.init(
+                ()->{
+                    modules.innerTransfer.out();
+                    modules.transfer.normal();
+
+                    modules.grip.close();
+                    modules.grip.out();
+
+                    modules.brush.off();
+                    modules.brush.in();
+
+                }
         );
-        BrushTask.SCORE.init(
-                ()->modules.grip.open()
-        );
+
 
     }
 
@@ -151,22 +181,15 @@ public class BrushChainManager {
 
     /* main update */
     ElapsedTime timer = new ElapsedTime();
-    private boolean f = true;
 
     public void update(){
-        modules.sampleDetect.computeColorDetect();
+        modules.sampleDetect.update();
+
         Robot.telemetryPacket.put("sample in brush",modules.sampleDetect.getColor());
 
         Robot.telemetryPacket.put("Task brush", task.toString());
-        if(task !=  BrushTask.MOVE){
-            if(f){
-                timer.reset();
-                f = false;
-            }
-            task.update();
-        }else {
-            f = true;
-        }
+
+        task.update();
 
     }
 

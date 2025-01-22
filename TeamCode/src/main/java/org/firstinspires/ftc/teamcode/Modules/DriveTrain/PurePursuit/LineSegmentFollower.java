@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
 @Config
 public class LineSegmentFollower {
     public static LineSegment targetLineSegment = new LineSegment();
-    public static double localRadius = 15;
+    public static double localRadius = 55;
     public static double endDetect = 5;
     public static double targetLineAngle = 0;
     public static double targetEndAngle = 0;

@@ -8,37 +8,39 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain.BrushChainManager;
 import org.firstinspires.ftc.teamcode.Modules.Intake.GripChain.GripChainManager;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftController;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftDeviceListener;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftListener;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftManager;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftVoltageController;
+import org.firstinspires.ftc.teamcode.Modules.Intake.ScoreChain.ScoreChainManager;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 public class IntakeManager {
     private BrushChainManager brushChainManager = new BrushChainManager();
-    private GripChainManager  gripChainManager  = new GripChainManager();
-    private IntakeModules modules = new IntakeModules();
+    private GripChainManager  gripChainManager  = new GripChainManager ();
+    private ScoreChainManager scoreChainManager = new ScoreChainManager();
 
-    private IntakeState state = IntakeState.MOVE;
+    private IntakeModules     modules = new IntakeModules();
+
+
+    private IntakeState state = IntakeState .MOVE;
     private IntakeState target = IntakeState.MOVE;
-
-
+    private LiftManager liftManager = new LiftManager();
 
 
     public enum IntakeState{
-        MOVE, BRUSH,GRIP
+        SCORE,BRUSH,GRIP,MOVE
     }
 
     public void init(){
         modules.init();
+        liftManager.init();
 
         brushChainManager.setModules(modules);
         gripChainManager.setModules(modules);
+        scoreChainManager.setModules(modules);
 
         brushChainManager.initTasks();
         gripChainManager .initTasks();
+        scoreChainManager.initTasks();
+
     }
 
     public void startBrushEat(){
@@ -47,60 +49,80 @@ public class IntakeManager {
         state = IntakeState.BRUSH;
     }
 
-    public void endBrushEat(){
-        brushChainManager.endEat();
+    public void wallEat(){
+        gripChainManager.setEat();
+        target = IntakeState.GRIP;
+        state = IntakeState.GRIP;
     }
 
-    public void endScoreBrush(){
-        brushChainManager.score();
+    public void basketScore(){
+        scoreChainManager.scoreBasket();
+        state  = IntakeState .SCORE;
+        target = IntakeState.SCORE;
     }
 
-    LiftPosition liftTarget = LiftPosition.DOWN;
+    public void axisScore(){
+        scoreChainManager.scoreAxis();
+        state  = IntakeState.SCORE;
+        target = IntakeState.SCORE;
+    }
+
+    public void setTargeted(boolean t){
+        scoreChainManager.setTargeted(t);
+        gripChainManager.setTargeted(t);
+    }
+
     public void updateState(){
         switch (state){
             case MOVE:
-                modules.transfer.normal();
-                modules.brush.up();
-                modules.brush.off();
-                modules.brush.openWall();
+                modules.grip.open();
                 modules.grip.in();
-                modules.grip.close();
+
+                modules.brush.off();
+                modules.brush.in();
+
+                modules.transfer.normal();
                 modules.innerTransfer.in();
                 break;
+            case SCORE:
+                liftManager.setTarget(scoreChainManager.liftRequest);
+                scoreChainManager.setLiftAtTarget(liftManager.isDone());
+                scoreChainManager.update();
+                break;
             case BRUSH:
+                liftManager.setTarget(brushChainManager.liftRequest);
                 brushChainManager.update();
                 break;
             case GRIP:
-                modules.transfer.normal();
-                modules.brush.off();
-                modules.brush.openWall();
-
+                liftManager.setTarget(gripChainManager.liftRequest);
                 gripChainManager.update();
                 break;
         }
+        liftManager.update();
     }
 
-    public void changeState(){
-        switch (target){
-            case MOVE:
-                state = target;
-                break;
-            case GRIP:
-                brushChainManager.endEat();
-                brushChainManager.update();
-                if(brushChainManager.isDone()){
-                    state = IntakeState.GRIP;
-                }
-                break;
-            case BRUSH:
-                gripChainManager.endEat();
-                gripChainManager.update();
-                if(gripChainManager.isDone()){
-                    state = IntakeState.BRUSH;
-                }
-                break;
-        }
-    }
+//
+//    public void changeState(){
+//        switch (target){
+//            case MOVE:
+//                state = target;
+//                break;
+//            case GRIP:
+//                brushChainManager.endEat();
+//                brushChainManager.update();
+//                if(brushChainManager.isDone()){
+//                    state = IntakeState.GRIP;
+//                }
+//                break;
+//            case BRUSH:
+//                gripChainManager.endEat();
+//                gripChainManager.update();
+//                if(gripChainManager.isDone()){
+//                    state = IntakeState.BRUSH;
+//                }
+//                break;
+//        }
+//    }
     ElapsedTime timer = new ElapsedTime();
     boolean isDone = false;
     private boolean f = true;
@@ -111,7 +133,7 @@ public class IntakeManager {
             if(f){
                 timer.reset();
             }
-            changeState();
+       //     changeState();
             f = false;
             isDone = false;
         }else {

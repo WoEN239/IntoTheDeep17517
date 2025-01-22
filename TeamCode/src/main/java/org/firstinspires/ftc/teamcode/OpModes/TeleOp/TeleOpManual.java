@@ -5,6 +5,8 @@ import org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain.Brush.Brush;
 import org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain.ColorSensor.ColorSensor;
 import org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain.Transfer.Transfer;
 import org.firstinspires.ftc.teamcode.Modules.Intake.GripChain.InnerTransfer.InnerTransfer;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftManager;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 import org.firstinspires.ftc.teamcode.Telemetry.FieldView;
@@ -16,12 +18,14 @@ public class TeleOpManual extends BaseMode {
     Transfer transfer = new Transfer();
     ColorSensor colorSensor = new ColorSensor();
     InnerTransfer innerTransfer = new InnerTransfer();
+    LiftManager liftManager = new LiftManager();
 
     public void callRun(){
         transfer.init();
         brush.init();
         colorSensor.init();
         innerTransfer.init();
+        liftManager.init();
         isNeedToCall = false;
     }
 
@@ -35,8 +39,8 @@ public class TeleOpManual extends BaseMode {
 
 
         Transfer.eatPos = gamepad1.left_trigger;
-        transfer.eat();
-        colorSensor.computeColorDetect();
+        //transfer.eat();
+        colorSensor.update();
 
         if(gamepad1.dpad_up) {
             brush.up();
@@ -52,15 +56,30 @@ public class TeleOpManual extends BaseMode {
             innerTransfer.out();
         }
 
+        if(gamepad1.right_bumper){
+            liftManager.setTarget(LiftPosition.LOWEST_BASKET);
+        }
+
+        if(gamepad1.left_bumper){
+            liftManager.setTarget(LiftPosition.HIGHEST_AXIS);
+        }
+
+
+
+        liftManager.computePosition();
+        liftManager.update();
+
+       // Robot.telemetryPacket.put("lift target",   liftManager.target.get());
+       // Robot.telemetryPacket.put("lift position", liftManager.liftListener.getPosition());
 
         Robot.telemetryPacket.put("sample Color", colorSensor.getColor().toString());
 
         Robot.telemetryPacket.put("Voltage ",Robot.voltage);
       //  Robot.telemetryPacket.put("Circle", gamepad1.a);
 
-        Robot.telemetryPacket.put("x", robot.driveTrain.position.x);
-        Robot.telemetryPacket.put("h", robot.driveTrain.position.h);
-        Robot.telemetryPacket.put("y", robot.driveTrain.position.y);
+//        Robot.telemetryPacket.put("x", robot.driveTrain.position.x);
+//        Robot.telemetryPacket.put("h", robot.driveTrain.position.h);
+//        Robot.telemetryPacket.put("y", robot.driveTrain.position.y);
 
         FieldView.position = robot.driveTrain.position;
         FieldView.circle   = robot.driveTrain.getPidTarget();

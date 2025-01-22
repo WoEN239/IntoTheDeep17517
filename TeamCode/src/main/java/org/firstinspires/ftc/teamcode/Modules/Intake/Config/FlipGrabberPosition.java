@@ -10,7 +10,7 @@ import com.acmerobotics.dashboard.config.Config;
 public enum FlipGrabberPosition {
     UP, DOWN, CLEAR, IN;
     public static double up   = 0.15;
-    public static double down = 0.065;
+    public static double down = 0.07;
     public static double clear = 0.25   ;
     public static double in = 0.1;
 
