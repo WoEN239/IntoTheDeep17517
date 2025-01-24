@@ -15,7 +15,7 @@ public class TestFilter extends BaseMode {
 
     public void loopRun() {
         if (isSin) {
-            DriveTrainMotors.leftBackDrive.setPower(Math.sin(robot.timer.seconds() / Math.PI * u) * a);
+            DriveTrainMotors.leftBackDrive.setPower(Math.sin(robot.getSeconds() / Math.PI * u) * a);
         } else {
             DriveTrainMotors.leftBackDrive.setPower(u);
         }

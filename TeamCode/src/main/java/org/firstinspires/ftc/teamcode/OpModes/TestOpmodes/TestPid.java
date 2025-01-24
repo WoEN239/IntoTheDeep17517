@@ -14,7 +14,7 @@ public class TestPid extends BaseMode {
     public void loopRun() {
         DriveTrainMotors.rightForwardDrive.pidStatusB.setTelemetry(true);
         if (isSin) {
-            DriveTrainMotors.rightForwardDrive.setVel(Math.sin(robot.timer.seconds() / Math.PI * u) * a);
+            DriveTrainMotors.rightForwardDrive.setVel(Math.sin(robot.getSeconds() / Math.PI * u) * a);
         } else {
             DriveTrainMotors.rightForwardDrive.setVel(u);
         }

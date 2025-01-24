@@ -62,7 +62,6 @@ public class LineSegment {
             return new Position();
         }
 
-        FieldView.packet.fieldOverlay().strokeLine(p.x,p.y, x,y);
 
         return new Position(x,y,0);
     }

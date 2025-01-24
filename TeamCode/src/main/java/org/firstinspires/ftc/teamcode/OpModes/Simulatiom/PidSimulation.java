@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.DriveTrainManager;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.LineSegment;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.LineSegmentFollower;
+import org.firstinspires.ftc.teamcode.Robot.Robot;
 import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.DriveTrainSimulation;
 import org.firstinspires.ftc.teamcode.Telemetry.FieldView;
 
@@ -27,13 +28,9 @@ public class PidSimulation extends BaseSimulation{
     @Override
     public void loopRun(){
       position = DriveTrainSimulation.position;
-      FieldView.position = position;
 
       robot.driveTrain.setState(DriveTrainManager.RobotState.POINT);
       robot.driveTrain.setManualPosition(target);
-
-      FieldView.circle   = target;
-      FieldView.updateField();
 
     }
 
