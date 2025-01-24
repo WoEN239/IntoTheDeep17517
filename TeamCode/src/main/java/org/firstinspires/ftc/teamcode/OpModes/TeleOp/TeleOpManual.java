@@ -32,7 +32,7 @@ public class TeleOpManual extends BaseMode {
     public void loopRun() {
         BaseMode.isField = true;
 
-        robot.driveTrain.setState(DriveTrainManager.RobotState.TELE_OP);
+        robot.driveTrain.setState(DriveTrainManager.RobotState.TELEOP);
         robot.driveTrain.setVelocityTarget(
                 new Position(-gamepad1.left_stick_y*240, gamepad1.left_stick_x*240, gamepad1.right_stick_x*100)
         );
@@ -69,19 +69,16 @@ public class TeleOpManual extends BaseMode {
         liftManager.computePosition();
         liftManager.update();
 
-       // Robot.telemetryPacket.put("lift target",   liftManager.target.get());
-       // Robot.telemetryPacket.put("lift position", liftManager.liftListener.getPosition());
 
         Robot.telemetryPacket.put("sample Color", colorSensor.getColor().toString());
 
         Robot.telemetryPacket.put("Voltage ",Robot.voltage);
-      //  Robot.telemetryPacket.put("Circle", gamepad1.a);
 
-//        Robot.telemetryPacket.put("x", robot.driveTrain.position.x);
-//        Robot.telemetryPacket.put("h", robot.driveTrain.position.h);
-//        Robot.telemetryPacket.put("y", robot.driveTrain.position.y);
+        Robot.telemetryPacket.put("x", robot.driveTrain.getPosition().x);
+        Robot.telemetryPacket.put("h", robot.driveTrain.getPosition().h);
+        Robot.telemetryPacket.put("y", robot.driveTrain.getPosition().y);
 
-        FieldView.position = robot.driveTrain.position;
-        FieldView.circle   = robot.driveTrain.getPidTarget();
+        robot.fieldView.position = robot.driveTrain.getPosition();
+        robot.fieldView.circle   = robot.driveTrain.getPidTarget();
     }
 }

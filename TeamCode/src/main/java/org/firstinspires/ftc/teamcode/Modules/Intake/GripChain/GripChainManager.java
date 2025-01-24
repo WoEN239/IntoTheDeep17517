@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.GripChain;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain.BrushChainManager;
+import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager;
 import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeModules;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
@@ -87,24 +88,27 @@ public class GripChainManager {
        );
        GripTask.MOVE.init(
                ()->{
+                   IntakeManager.setState(IntakeManager.IntakeState.WALL_EAT);
+
+                   modules.innerTransfer.out();
+                   modules.transfer.normal();
+
                    modules.grip.close();
                    modules.grip.out();
 
-                   modules.innerTransfer.out();
+                   modules.brush.off();
+                   modules.brush.in();
                }
        );
 
     }
 
-    /* modules */
     public void setModules(IntakeModules modules) {this.modules = modules;}
     private IntakeModules modules = new IntakeModules();
 
-    /* main update */
     ElapsedTime timer = new ElapsedTime();
 
     public void update(){
-
         task.update();
     }
 
@@ -112,5 +116,4 @@ public class GripChainManager {
         return task == GripTask.MOVE;
     }
 
-    /* end */
 }

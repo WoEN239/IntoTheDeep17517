@@ -11,14 +11,16 @@ import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Devices.Gyro;
 public class DevicePool {
     private static boolean isLiftInit = false;
     public static void init (HardwareMap hardwareMap) {
-        IntakeDevices.init(hardwareMap);
+        IntakeDevices   .init(hardwareMap);
         DriveTrainMotors.init(hardwareMap);
-        Sensors.init(hardwareMap);
+        Sensors         .init(hardwareMap);
+
+        Gyro.getInstance()   .init(hardwareMap);
+        Battery.getInstance().init(hardwareMap);
+
         if(!isLiftInit) {
             LiftHangingMotors.init(hardwareMap);
             isLiftInit = true;
         }
-        Gyro.getInstance().init(hardwareMap);
-        Battery.getInstance().init(hardwareMap);
     }
 }

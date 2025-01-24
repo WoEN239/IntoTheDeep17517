@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
  */
 
 public class Pid {
-    PidStatus status;
+    private final PidStatus status;
 
     public Pid(PidStatus status) {
         this.status = status;

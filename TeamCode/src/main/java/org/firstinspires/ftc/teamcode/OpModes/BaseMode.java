@@ -14,6 +14,7 @@ public abstract class BaseMode extends LinearOpMode {
         Robot.isDebug = false;
     }
     protected void initOpMode() {
+        Robot.reset();
         Robot.getInstance().init(this);
         robot = Robot.getInstance();
     }
@@ -24,9 +25,9 @@ public abstract class BaseMode extends LinearOpMode {
     public void runOpMode(){
         if(firstInit) {
             initOpMode();
-            Robot.getInstance().timer.reset();
             firstInit = false;
         }
+        initServo();
         waitForStart();
         while (opModeIsActive()){
             if(isNeedToCall){
@@ -38,10 +39,11 @@ public abstract class BaseMode extends LinearOpMode {
 
         firstInit = true;
         isNeedToCall = true;
-        //  System.exit(0);
+
+//        System.exit(0);
     }
 
     public void callRun(){};
     public abstract void loopRun();
-
+    public void initServo(){}
 }

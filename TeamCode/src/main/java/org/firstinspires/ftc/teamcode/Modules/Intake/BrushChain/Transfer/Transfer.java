@@ -6,6 +6,9 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.teamcode.Devices.IntakeDevices;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.TransferPosition;
 
+/*
+  Writing by EgorKhvostikov
+*/
 public class Transfer {
     private Servo transferServoLeft ;
     private Servo transferServoRight;
@@ -21,7 +24,7 @@ public class Transfer {
     }
 
     public void eat(){
-        double t = Range.clip(eatPos,TransferPosition.normal,TransferPosition.EAT.get());
+        double t = Range.clip(eatPos,TransferPosition.normal,TransferPosition.eat);
         transferServoRight.setPosition(t);
         transferServoLeft .setPosition(1-t);
     }

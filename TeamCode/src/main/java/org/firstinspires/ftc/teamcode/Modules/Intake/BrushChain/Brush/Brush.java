@@ -8,6 +8,9 @@ import org.firstinspires.ftc.teamcode.Modules.Intake.Config.BrushMotorPowers;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.FlipGrabberPosition;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.BackWallPosition;
 
+/*
+  Writing by EgorKhvostikov
+*/
 public class Brush {
     private Servo flipServoLeft;
     private Motor brushMotor;
@@ -22,32 +25,32 @@ public class Brush {
     }
 
     public void up(){
-        flipServoLeft.setPosition(1- FlipGrabberPosition.UP.get()   );
-        flipServoRight.setPosition(FlipGrabberPosition.UP.get());
+        flipServoLeft.setPosition(1-FlipGrabberPosition.up);
+        flipServoRight.setPosition(FlipGrabberPosition.up);
     }
 
     public void in(){
-        flipServoLeft.setPosition(1- FlipGrabberPosition.IN.get() );
-        flipServoRight.setPosition(FlipGrabberPosition.IN.get());
+        flipServoLeft.setPosition(1-FlipGrabberPosition.in);
+        flipServoRight.setPosition(FlipGrabberPosition.in);
     }
 
     public void down(){
-        flipServoLeft.setPosition(1- FlipGrabberPosition.DOWN.get()   );
-        flipServoRight.setPosition(FlipGrabberPosition.DOWN.get());
+        flipServoLeft.setPosition(1-FlipGrabberPosition.down);
+        flipServoRight.setPosition(FlipGrabberPosition.down);
     }
 
     public void clear(){
-        flipServoLeft.setPosition(1- FlipGrabberPosition.CLEAR.get()   );
-        flipServoRight.setPosition(  FlipGrabberPosition.CLEAR.get());
+        flipServoLeft.setPosition(1-FlipGrabberPosition.clear);
+        flipServoRight.setPosition(FlipGrabberPosition.clear);
     }
 
 
     public void openWall(){
-        backWallServo.setPosition (BackWallPosition.OPEN.get());
+        backWallServo.setPosition (BackWallPosition.open);
     }
 
     public void closeWall(){
-        backWallServo.setPosition(BackWallPosition.CLOSE.get());
+        backWallServo.setPosition(BackWallPosition.close);
     }
 
     public void on() {

@@ -1,8 +1,11 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
-import org.firstinspires.ftc.teamcode.Robot.PurePursuitTask;
+import org.firstinspires.ftc.teamcode.Robot.TaskManager.PurePursuitTask;
 
+/*
+  Writing by EgorKhvostikov
+*/
 public class WayPoint {
     public PurePursuitTask onLineTask ;
     public PurePursuitTask onPointTask;

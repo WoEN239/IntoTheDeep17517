@@ -6,6 +6,9 @@ import org.firstinspires.ftc.teamcode.Devices.IntakeDevices;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.GripPositions;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.TwistPosition;
 
+/*
+  Writing by EgorKhvostikov
+*/
 public class Grip {
     Servo gripServo;
     Servo twistServo;
@@ -14,16 +17,10 @@ public class Grip {
         gripServo = IntakeDevices.gripServo;
     }
     public void open(){
-        gripServo.setPosition(GripPositions.OPEN.get());
+        gripServo.setPosition(GripPositions.open);
     }
-    public void close(){
-        gripServo.setPosition(GripPositions.CLOSE.get());
-    }
+    public void close(){gripServo.setPosition(GripPositions.open);}
 
-    public void in(){
-        twistServo.setPosition(TwistPosition.IN.get());
-    }
-    public void out(){
-        twistServo.setPosition(TwistPosition.OUT.get());
-    }
+    public void in(){twistServo.setPosition(TwistPosition.in);}
+    public void out(){twistServo.setPosition(TwistPosition.in);}
 }

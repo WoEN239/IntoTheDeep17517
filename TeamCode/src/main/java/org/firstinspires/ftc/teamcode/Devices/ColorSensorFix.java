@@ -16,7 +16,6 @@ import java.lang.reflect.Field;
 
 public class ColorSensorFix {
     public static AdafruitI2cColorSensor fix(AdafruitI2cColorSensor sensor){
-        sensor.setI2cAddress(new I2cAddr(0x4D));
         try {
             AMSColorSensor.class.getDeclaredField("AMS_TCS34725_ID").setAccessible(true);
 

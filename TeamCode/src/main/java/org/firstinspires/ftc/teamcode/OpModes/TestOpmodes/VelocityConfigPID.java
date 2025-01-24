@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Devices.DriveTrainMotors;
 import org.firstinspires.ftc.teamcode.Math.Position;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.PositionPidController;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.DriveTrainManager;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
@@ -22,8 +21,8 @@ public class VelocityConfigPID extends BaseMode {
     @Override
     public void loopRun() {
         DriveTrainMotors.initPid();
-        robot.driveTrain.setState(DriveTrainManager.RobotState.TELE_OP);
-        velPos.copyFrom(robot.driveTrain.localVelocity);
+        robot.driveTrain.setState(DriveTrainManager.RobotState.TELEOP);
+        velPos.copyFrom(robot.driveTrain.getLocalVelocity());
         Robot.telemetryPacket.put("xV", velPos.x);
         Robot.telemetryPacket.put("yV", velPos.y);
         Robot.telemetryPacket.put("hV", velPos.h);

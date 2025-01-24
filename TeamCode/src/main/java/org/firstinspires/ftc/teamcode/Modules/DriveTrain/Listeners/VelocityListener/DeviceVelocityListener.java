@@ -6,6 +6,9 @@ import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Devices.Gyro;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Listeners.DeviceValueMap;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
+/*
+  Writing by EgorKhvostikov
+*/
 public class DeviceVelocityListener {
     private Motor rightOdometer;
     private Motor leftOdometer ;

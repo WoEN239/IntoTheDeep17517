@@ -47,19 +47,19 @@ public class DriveTrainVoltageController {
         double rightForwardVel = target.x + target.y*yMultiplier + target.h;
         double leftBackVel     = target.x + target.y*yMultiplier - target.h;
         double leftForwardVel  = target.x - target.y*yMultiplier - target.h;
-//
-//        double maxTargetVel = max(
-//                max(abs(rightBackVel), abs(rightForwardVel)),
-//                max(abs(leftBackVel) , abs(leftForwardVel)));
-//
-//
-//        if (maxTargetVel > MAX_MOTOR_TICKS_VEL) {
-//            double k = MAX_MOTOR_TICKS_VEL / maxTargetVel;
-//            rightBackVel *= k;
-//            rightForwardVel *= k;
-//            leftBackVel *= k;
-//            leftForwardVel *= k;
-//        }
+
+        double maxTargetVel = max(
+                max(abs(rightBackVel), abs(rightForwardVel)),
+                max(abs(leftBackVel) , abs(leftForwardVel)));
+
+
+        if (maxTargetVel > MAX_MOTOR_TICKS_VEL) {
+            double k = MAX_MOTOR_TICKS_VEL / maxTargetVel;
+            rightBackVel *= k;
+            rightForwardVel *= k;
+            leftBackVel *= k;
+            leftForwardVel *= k;
+        }
 
         rightBackDrive   .setVel( rightBackVel);
         rightForwardDrive.setVel( rightForwardVel);

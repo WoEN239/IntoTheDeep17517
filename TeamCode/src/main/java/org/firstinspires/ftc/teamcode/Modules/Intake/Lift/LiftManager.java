@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Modules.Intake.Lift;
 
+import org.firstinspires.ftc.teamcode.Devices.LiftHangingMotors;
+
 public class LiftManager {
     LiftController liftController = new LiftController();
     LiftDeviceListener liftDeviceListener = new LiftDeviceListener();
@@ -44,9 +46,13 @@ public class LiftManager {
         liftController.computeVoltage();
     }
 
+
+
     public void update(){
         computePosition();
         computeVoltage();
+
         voltageController.setVoltage(liftController.getUSync(), liftController.getUMove());
+
     }
 }

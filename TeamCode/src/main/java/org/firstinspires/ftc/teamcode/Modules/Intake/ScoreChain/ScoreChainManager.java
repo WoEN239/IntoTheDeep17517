@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.Modules.Intake.ScoreChain;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager;
 import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeModules;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
@@ -51,6 +53,8 @@ public class ScoreChainManager {
                 ()->{
                     modules.grip.close();
                     modules.grip.out();
+                    modules.innerTransfer.out();
+
                     liftRequest = LiftPosition.HIGHEST_AXIS;
                     if((isLiftAtTarget || timer.seconds()>2) && timer.seconds()>0.1){
                         timer.reset();
@@ -62,7 +66,7 @@ public class ScoreChainManager {
                 ()->{
                     if(isTargeted) {
                         liftRequest = LiftPosition.SCORE_AXIS;
-                        if ((isLiftAtTarget || timer.seconds() > 2) && timer.seconds() > 0.1) {
+                        if ((isLiftAtTarget || timer.seconds() > 2) && timer.seconds() > 0.5) {
                             modules.grip.open();
                             timer.reset();
                             task = ScoreTask.END_SCORE;
@@ -79,6 +83,8 @@ public class ScoreChainManager {
                 ()->{
                     modules.grip.close();
                     modules.grip.out();
+                    modules.innerTransfer.out();
+
                     liftRequest = LiftPosition.LOWEST_BASKET;
                     if((isLiftAtTarget || timer.seconds()>2) && timer.seconds()>0.1){
                         timer.reset();
@@ -86,6 +92,7 @@ public class ScoreChainManager {
                     }
                 }
         );
+
         ScoreTask.SCORE_BASKET.init(
                 ()->{
                     if(isTargeted) {
@@ -117,6 +124,8 @@ public class ScoreChainManager {
         );
         ScoreTask.MOVE.init(
                 ()->{
+                    IntakeManager.setState(IntakeManager.IntakeState.DOWN);
+
                     liftRequest = LiftPosition.DOWN;
 
                     modules.innerTransfer.centre();

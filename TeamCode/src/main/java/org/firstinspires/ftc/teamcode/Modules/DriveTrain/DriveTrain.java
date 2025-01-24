@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.Modules.DriveTrain;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.DriveTrainVoltageController;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.PositionPidController;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.PurePursuit;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.PurePursuitController;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.VelocityPidController;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Listeners.DeviceValueMap;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Listeners.PositionListener.DevicePositionListener;
@@ -17,15 +17,26 @@ import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.WayPoint;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.DriveTrainSimulation;
 
+/*
+  Writing by EgorKhvostikov
+*/
 abstract class DriveTrain {
 
     private final Position pidTarget = new Position();
     public Position getPidTarget() {return pidTarget;}
-    //TODO private
-    public final Position pidPositionResult = new Position();
-    public final Position position      = new Position().copyFrom(Robot.myTeam.startPos);  //actual robot position
-    public final Position localVelocity = new Position();
-    public final Position localPosition = new Position();
+
+    private final Position pidPositionResult = new Position();
+    private final Position position      = new Position().copyFrom(Robot.myTeam.startPos);  //actual robot position
+    private final Position localVelocity = new Position();
+    private final Position localPosition = new Position();
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public Position getLocalVelocity() {
+        return localVelocity;
+    }
 
     protected enum DriveTrainState {PURE_PURSUIT,PID_CONTROL,TELE_OP}
     private DriveTrainState driveTrainState = DriveTrainState.PID_CONTROL;
@@ -36,7 +47,7 @@ abstract class DriveTrain {
         deviceVelocityListener.init();
         driveTrainVoltageController.init();
         positionListener.init();
-        purePursuit.resetPoints();
+        purePursuitController.resetPoints();
 
         pidPositionResult.copyFrom(new Position());
         pidTarget     .copyFrom(new Position());
@@ -45,7 +56,6 @@ abstract class DriveTrain {
         localPosition .copyFrom(new Position());
 
         localPositionListener.reset();
-        LineSegmentFollower.targetLineSegment = new LineSegment();
     }
 
     protected void moveUpdate() {
@@ -60,9 +70,9 @@ abstract class DriveTrain {
                 setVoltages();
                 break;
             case PURE_PURSUIT:
-                purePursuit.setPosition(position);
-                purePursuit.computeTarget();
-                pidTarget.copyFrom(purePursuit.getPidTarget());
+                purePursuitController.setPosition(position);
+                purePursuitController.computeTarget();
+                pidTarget.copyFrom(purePursuitController.getPidTarget());
                 setVoltages();
                 break;
             case TELE_OP:
@@ -79,17 +89,18 @@ abstract class DriveTrain {
 
     private final Position manualTarget = new Position();
     public void setManualPosition(Position p) {this.manualTarget .copyFrom(p);}
-    public void addWayPoints(WayPoint... t){purePursuit.addWayPoints(t);}
+    public void addWayPoints(WayPoint... t){
+        purePursuitController.addWayPoints(t);}
 
-    DriveTrainVoltageController driveTrainVoltageController = new DriveTrainVoltageController();
+    private final DriveTrainVoltageController driveTrainVoltageController = new DriveTrainVoltageController();
 
-    DevicePositionListener devicePositionListener   = new DevicePositionListener ();
-    LocalPositionListener  localPositionListener    = new LocalPositionListener  ();
-    PositionListener       positionListener         = new PositionListener       ();
+    private final DevicePositionListener devicePositionListener   = new DevicePositionListener();
+    private final LocalPositionListener  localPositionListener    = new LocalPositionListener ();
+    private final PositionListener       positionListener         = new PositionListener      ();
 
-    DeviceVelocityListener deviceVelocityListener   = new DeviceVelocityListener();
-    LocalVelocityListener  localVelocityListener    = new LocalVelocityListener ();
-    VelocityListener       velocityListener         = new VelocityListener      ();
+    private final DeviceVelocityListener deviceVelocityListener   = new DeviceVelocityListener();
+    private final LocalVelocityListener  localVelocityListener    = new LocalVelocityListener ();
+    private final VelocityListener       velocityListener         = new VelocityListener      ();
 
     private void computePosition(){
         driveTrainVoltageController.updateData();
@@ -123,9 +134,9 @@ abstract class DriveTrain {
         this.localVelocity.copyFrom(localVelocity);
     }
 
-    protected PurePursuit purePursuit = new PurePursuit();
-    PositionPidController  positionPidController    = new PositionPidController();
-    VelocityPidController  velocityPidController    = new VelocityPidController();
+    protected final PurePursuitController purePursuitController   = new PurePursuitController();
+    private final PositionPidController  positionPidController    = new PositionPidController();
+    private final VelocityPidController  velocityPidController    = new VelocityPidController();
     protected void setVoltages(){
         if(Robot.isDebug){
             localPosition.copyFrom(DriveTrainSimulation.localPosition);

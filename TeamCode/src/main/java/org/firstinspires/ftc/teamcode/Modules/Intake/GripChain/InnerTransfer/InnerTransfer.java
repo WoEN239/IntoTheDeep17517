@@ -5,6 +5,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.Devices.IntakeDevices;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.InnerTransferPosition;
 
+/*
+  Writing by EgorKhvostikov
+*/
 public class InnerTransfer {
     private Servo innerTransferServo;
     public void init(){
@@ -12,12 +15,12 @@ public class InnerTransfer {
     }
 
     public void in(){
-        innerTransferServo.setPosition(InnerTransferPosition.IN_ROBOT.get());
+        innerTransferServo.setPosition(InnerTransferPosition.inRobot);
     }
     public void out(){
-        innerTransferServo.setPosition(InnerTransferPosition.OUT_ROBOT.get());}
+        innerTransferServo.setPosition(InnerTransferPosition.outRobot);}
     public void centre(){
-        innerTransferServo.setPosition(InnerTransferPosition.CENTER.get());
+        innerTransferServo.setPosition(InnerTransferPosition.center);
     }
 
 }

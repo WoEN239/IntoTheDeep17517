@@ -12,16 +12,16 @@ import java.util.Arrays;
   Writing by EgorKhvostikov
 */
 public class Filter {
-    FilterStatus status;
-    double velocityTrue = 0;
+    private FilterStatus status;
+    private double velocityTrue = 0;
 
     public String name;
 
     public void setName(String n) {
         name = n;
     }
-    boolean isInit = false;
-    double[] reads;
+    private boolean isInit = false;
+    private double[] reads;
     public Filter init(FilterStatus status) {
         this.status = status;
         reads = new double[]{0.0,0.0,0.0,0.0,0.0,0.0};
@@ -50,7 +50,7 @@ public class Filter {
     private double velMathNew = 0;
     private double medianVelNow = 0;
     private double medianVelOld = 0;
-    ElapsedTime timer = new ElapsedTime();
+    private final ElapsedTime timer = new ElapsedTime();
 
     public void setPos(double posNew) {
         this.posNew = posNew;
@@ -115,7 +115,7 @@ public class Filter {
         }
     }
 
-    double[] dvBuffer = new double[5];
+    private final double[] dvBuffer = new double[5];
 
     private void updateDvBuffer(double val) {
         ArrayExtra.updateLikeBuffer(val,dvBuffer);

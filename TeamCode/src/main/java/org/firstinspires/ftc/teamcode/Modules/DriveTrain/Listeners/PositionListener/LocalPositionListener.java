@@ -34,7 +34,7 @@ public class LocalPositionListener {
     public Position getDeltaPos() {return deltaPos;}
 
     ExponentFilter filter = new ExponentFilter();
-    public static double k = 15.25;
+    public static double k = 0;
 
     double s1Old = 0;
     double xHOld = 0;
@@ -50,7 +50,7 @@ public class LocalPositionListener {
 
         hClean = Position.normalizeAngle(hClean);
 
-        double d1 = hClean          - s1Old;
+        double d1 = hClean           - s1Old;
         double d2 = deviceValue.gyro - xHOld;
         d2 = Position.normalizeAngle(d2);
         filter.update(d1,d2);

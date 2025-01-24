@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain.Listeners;
 
+/*
+  Writing by EgorKhvostikov
+*/
 public class DeviceValueMap {
     public double rightOdometer = 0;
     public double leftOdometer  = 0;

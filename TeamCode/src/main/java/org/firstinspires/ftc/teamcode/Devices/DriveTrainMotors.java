@@ -10,12 +10,12 @@ import org.firstinspires.ftc.teamcode.Math.PidStatus;
  */
 public class DriveTrainMotors {
     public static Motor rightForwardDrive = new Motor();
-    public static Motor rightBackDrive = new Motor();
-    public static Motor leftForwardDrive = new Motor();
-    public static Motor leftBackDrive = new Motor();
-    public static Motor yOdometer = new Motor();
-    public static Motor rightOdometer = new Motor();
-    public static Motor leftOdometer = new Motor();
+    public static Motor rightBackDrive    = new Motor();
+    public static Motor leftForwardDrive  = new Motor();
+    public static Motor leftBackDrive     = new Motor();
+    public static Motor yOdometer         = new Motor();
+    public static Motor rightOdometer     = new Motor();
+    public static Motor leftOdometer      = new Motor();
 
     public static void init(HardwareMap hardwareMap) {
 
@@ -24,9 +24,9 @@ public class DriveTrainMotors {
         rightBackDrive   .init("motorRB", hardwareMap);
         leftForwardDrive .init("motorLF", hardwareMap);
 
-        yOdometer.init("motorRB", hardwareMap);
-        leftOdometer.init("motorLB", hardwareMap);
-        rightOdometer.init("motorRF", hardwareMap);
+        yOdometer         .init("motorRB", hardwareMap);
+        leftOdometer      .init("motorLB", hardwareMap);
+        rightOdometer     .init("motorRF", hardwareMap);
         reset();
         initPid();
     }
@@ -37,27 +37,27 @@ public class DriveTrainMotors {
         rightBackDrive   .setDir(MotorDirection.BACK);
         rightForwardDrive.setDir(MotorDirection.BACK);
 
-        rightOdometer.setDir(MotorDirection.BACK);
-        leftOdometer .setDir(MotorDirection.FORWARD);
-        yOdometer    .setDir(MotorDirection.BACK);
+        rightOdometer    .setDir(MotorDirection.BACK);
+        leftOdometer     .setDir(MotorDirection.FORWARD);
+        yOdometer        .setDir(MotorDirection.BACK);
 
-        leftBackDrive.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftBackDrive.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftBackDrive.dev    .setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftBackDrive.dev    .setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        leftForwardDrive.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftForwardDrive.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftForwardDrive.dev .setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftForwardDrive.dev .setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        rightBackDrive.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightBackDrive.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightBackDrive.dev   .setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBackDrive.dev   .setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         rightForwardDrive.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightForwardDrive.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         leftForwardDrive.dev.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftBackDrive.dev.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftBackDrive.dev   .setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         rightForwardDrive.dev.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightBackDrive.dev.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightBackDrive.dev   .setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public static void initPid(){
@@ -77,6 +77,6 @@ public class DriveTrainMotors {
     public static double kp          = 0; //= 0.0035;
     public static double kd          = 0; //= 0;
     public static double maxI        = 0; //= 4;
-    public static double zeroBorder  = 1; //= 3;
+    public static double zeroBorder  = 0; //= 3;
 
 }

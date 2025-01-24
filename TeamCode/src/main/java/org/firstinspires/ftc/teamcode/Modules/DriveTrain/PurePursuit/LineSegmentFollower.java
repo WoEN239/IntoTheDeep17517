@@ -10,16 +10,31 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
 /*
   Writing by EgorKhvostikov
 */
+
 @Config
 public class LineSegmentFollower {
-    public static LineSegment targetLineSegment = new LineSegment();
-    public static double localRadius = 55;
-    public static double endDetect = 5;
-    public static double targetLineAngle = 0;
-    public static double targetEndAngle = 0;
+    public LineSegment targetLineSegment;
+    public double localRadius = 20;
+    public double endDetect = 5;
 
-    public static boolean isEndNear = false;
-    public static Position getVirtualTarget(Position pos){
+    public double targetLineAngle = 0;
+    public double targetEndAngle = 0;
+
+    public boolean isEndNear = false;
+
+    public LineSegmentFollower(LineSegment targetLineSegment, double localRadius, double endDetect, double targetLineAngle, double targetEndAngle) {
+        this.targetLineSegment = targetLineSegment;
+        this.localRadius = localRadius;
+        this.endDetect = endDetect;
+        this.targetLineAngle = targetLineAngle;
+        this.targetEndAngle = targetEndAngle;
+    }
+
+    public LineSegmentFollower(LineSegment targetLineSegment) {
+        this.targetLineSegment = targetLineSegment;
+    }
+
+    public Position getVirtualTarget(Position pos){
         Position projection = targetLineSegment.findProjection(pos);
 
         LineSegment unUnitTargetVector = new LineSegment().makeWithTwoPoint(projection,targetLineSegment.end);
@@ -33,6 +48,7 @@ public class LineSegmentFollower {
         if( abs(error.x) < endDetect && abs(error.y) < endDetect  ) {
             isEndNear = true;
             targetLineSegment.end.h = targetEndAngle;
+
             return targetLineSegment.end;
         }else {
             isEndNear = false ;

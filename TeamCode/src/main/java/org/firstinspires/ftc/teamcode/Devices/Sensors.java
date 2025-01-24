@@ -22,18 +22,19 @@ public class Sensors {
 
 
     public static void init(HardwareMap hardwareMap) {
-        leftColorSensor = hardwareMap.get(AnalogInput.class, "leftColorSensor");
-        downLeftButton = hardwareMap.get(DigitalChannel.class, "downLeftButton");
-        upLeftButton = hardwareMap.get(DigitalChannel.class, "upLeftButton");
-        rightColorSensor = hardwareMap.get(AnalogInput.class, "rightColorSensor");
-        downRightButton = hardwareMap.get(DigitalChannel.class, "downRightButton");
-        upRightButton = hardwareMap.get(DigitalChannel.class,"upRightButton");
-        sampleSensor = fix(hardwareMap.get(AdafruitI2cColorSensor.class, "puckSensor"));
+        leftColorSensor  = hardwareMap.get(AnalogInput.class, "leftColorSensor"         );
+        downLeftButton   = hardwareMap.get(DigitalChannel.class, "downLeftButton"       );
+        upLeftButton     = hardwareMap.get(DigitalChannel.class, "upLeftButton"         );
+        rightColorSensor = hardwareMap.get(AnalogInput.class, "rightColorSensor"        );
+        downRightButton  = hardwareMap.get(DigitalChannel.class, "downRightButton"      );
+        upRightButton    = hardwareMap.get(DigitalChannel.class,"upRightButton"         );
+        sampleSensor     = fix(hardwareMap.get(AdafruitI2cColorSensor.class, "puckSensor"));
         reset();
     }
 
     public static void reset() {
-        downLeftButton.setMode(DigitalChannel.Mode.INPUT);
+        downLeftButton .setMode(DigitalChannel.Mode.INPUT);
+        downRightButton.setMode(DigitalChannel.Mode.INPUT);
     }
 
 }

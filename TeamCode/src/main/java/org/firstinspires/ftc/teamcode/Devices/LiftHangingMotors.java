@@ -14,7 +14,7 @@ public class LiftHangingMotors {
 
     public static void init(HardwareMap hardwareMap) {
 
-        liftLeftMotor.init("liftLeftMotor", hardwareMap);
+        liftLeftMotor .init("liftLeftMotor", hardwareMap );
         liftRightMotor.init("liftRightMotor", hardwareMap);
 
 

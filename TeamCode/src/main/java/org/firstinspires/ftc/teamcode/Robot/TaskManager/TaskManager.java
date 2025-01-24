@@ -1,4 +1,6 @@
-package org.firstinspires.ftc.teamcode.Robot;
+package org.firstinspires.ftc.teamcode.Robot.TaskManager;
+import org.firstinspires.ftc.teamcode.Robot.Robot;
+
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -21,5 +23,4 @@ public class TaskManager {
         }
         tasks.removeIf(PurePursuitTask::isDone);
     }
-
 }

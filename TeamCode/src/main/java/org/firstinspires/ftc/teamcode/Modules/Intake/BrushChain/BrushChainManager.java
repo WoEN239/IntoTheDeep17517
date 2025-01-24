@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain.ColorSensor.ColorDetective;
+import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager;
 import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeModules;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
@@ -160,6 +161,8 @@ public class BrushChainManager {
 
         BrushTask.MOVE.init(
                 ()->{
+                    IntakeManager.setState(IntakeManager.IntakeState.SAMPLE_IN_GRIP);
+
                     modules.innerTransfer.out();
                     modules.transfer.normal();
 
@@ -172,14 +175,11 @@ public class BrushChainManager {
                 }
         );
 
-
     }
 
-    /* modules */
     public void setModules(IntakeModules modules) {this.modules = modules;}
     private IntakeModules modules = new IntakeModules();
 
-    /* main update */
     ElapsedTime timer = new ElapsedTime();
 
     public void update(){
@@ -196,6 +196,4 @@ public class BrushChainManager {
     public boolean isDone(){
         return task == BrushTask.MOVE;
     }
-
-    /* end */
 }

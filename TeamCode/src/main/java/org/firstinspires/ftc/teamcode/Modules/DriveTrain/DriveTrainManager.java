@@ -1,12 +1,12 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain;
 
-import org.firstinspires.ftc.teamcode.Robot.PurePursuitTask;
+import org.firstinspires.ftc.teamcode.Robot.TaskManager.PurePursuitTask;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
-import org.firstinspires.ftc.teamcode.Robot.TaskManager;
+import org.firstinspires.ftc.teamcode.Robot.TaskManager.TaskManager;
 
 public class DriveTrainManager extends DriveTrain{
     public enum RobotState {
-        POINT,TRAVELING,TELE_OP
+        POINT,TRAVELING, TELEOP
     }
     private RobotState state = RobotState.TRAVELING;
     public void setState(RobotState state) {this.state = state;}
@@ -19,33 +19,33 @@ public class DriveTrainManager extends DriveTrain{
         switch (state){
             case POINT:
                 setDriveTrainState(DriveTrain.DriveTrainState.PID_CONTROL);
-                PurePursuitTask task1 = purePursuit.getOnPointTask();
+                PurePursuitTask task1 = purePursuitController.getOnPointTask();
                 if (isNeedToAddTask) {
                     isNeedToAddTask = false;
                     TaskManager.getInstance().addTask(task1);
                 }
 
-                if(task1.isDone() && task1.isRunOnce && !purePursuit.isEndOfTrajectory){
-                    purePursuit.changeTrajectorySegment();
-                    purePursuit.computeTarget();
+                if(task1.isDone() && task1.isRunOnce && !purePursuitController.isEndOfTrajectory){
+                    purePursuitController.changeTrajectorySegment();
+                    purePursuitController.computeTarget();
                     changeState(RobotState.TRAVELING);
                 }
                 break;
 
             case TRAVELING:
                 setDriveTrainState(DriveTrain.DriveTrainState.PURE_PURSUIT);
-                PurePursuitTask task2 = purePursuit.getOnLineTask();
+                PurePursuitTask task2 = purePursuitController.getOnLineTask();
 
                 if(isNeedToAddTask) {
                     isNeedToAddTask = false;
                     TaskManager.getInstance().addTask(task2);
                 }
-                if((task2.isRunOnce && task2.isDone() && purePursuit.onPoint()) || purePursuit.isEndOfTrajectory){
+                if((task2.isRunOnce && task2.isDone() && purePursuitController.onPoint()) || purePursuitController.isEndOfTrajectory){
                     changeState(RobotState.POINT);
                 }
                 break;
 
-            case TELE_OP:
+            case TELEOP:
                 setDriveTrainState(DriveTrainState.TELE_OP);
                 break;
         }

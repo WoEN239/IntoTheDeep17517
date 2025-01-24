@@ -9,6 +9,9 @@ import org.firstinspires.ftc.teamcode.Math.ArrayExtra;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 import org.firstinspires.ftc.teamcode.Robot.Team;
 
+/*
+  Writing by EgorKhvostikov
+*/
 @Config
 public class ColorSensor {
     public static AdafruitI2cColorSensor sensor;

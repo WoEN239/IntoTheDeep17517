@@ -1,8 +1,6 @@
-package org.firstinspires.ftc.teamcode.Robot;
+package org.firstinspires.ftc.teamcode.Robot.TaskManager;
 
 import androidx.annotation.NonNull;
-
-import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager;
 
 import java.util.function.Supplier;
 

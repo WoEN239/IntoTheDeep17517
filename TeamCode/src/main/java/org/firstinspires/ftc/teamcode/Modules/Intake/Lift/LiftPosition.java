@@ -8,7 +8,7 @@ public enum LiftPosition {
 
 
     public static double down = 0;
-    public static double eatWait = 600;
+    public static double eatWait = 610;
     public static double highestAxis = 1900;
     public static double highestBasket = 2500;
     public static double lowestBasket = 2200;
