@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Modules.Intake;
+package org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager;
 
 import org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain.Brush.Brush;
 import org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain.ColorSensor.ColorSensor;

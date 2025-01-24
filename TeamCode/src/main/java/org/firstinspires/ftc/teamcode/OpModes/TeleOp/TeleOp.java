@@ -1,15 +1,12 @@
 package org.firstinspires.ftc.teamcode.OpModes.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Devices.IntakeDevices;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.DriveTrainManager;
 import org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain.Transfer.Transfer;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.BrushMotorPowers;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Config.GripPositions;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 import org.firstinspires.ftc.teamcode.Robot.Team;
-import org.firstinspires.ftc.teamcode.Telemetry.FieldView;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp
 public class TeleOp extends BaseMode {
@@ -29,20 +26,20 @@ public class TeleOp extends BaseMode {
         );
 
         if(gamepad1.right_bumper){
-            telemetry.addData("Driver's error",!robot.intake.brushEat());
+            telemetry.addData("Driver is a crocodile",!robot.intake.brushEat());
         }
 
         if(gamepad1.left_bumper){
-            telemetry.addData("Driver's error",!robot.intake.wallEat());
+            telemetry.addData("Driver is a crocodile",!robot.intake.wallEat());
         }
 
 
         if(gamepad1.dpad_up){
-            telemetry.addData("Driver's error",!robot.intake.scoreAxis());
+            telemetry.addData("Driver is a crocodile",!robot.intake.scoreAxis());
         }
 
         if(gamepad1.triangle){
-            telemetry.addData("Driver's error",!robot.intake.scoreBasket());
+            telemetry.addData("Driver is a crocodile",!robot.intake.scoreBasket());
         }
         robot.intake.setTargeted(gamepad1.dpad_down);
 

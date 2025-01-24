@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Devices.Battery;
 import org.firstinspires.ftc.teamcode.Devices.DevicePool;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.DriveTrainManager;
-import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager;
+import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager.IntakeManager;
 import org.firstinspires.ftc.teamcode.Robot.TaskManager.TaskManager;
 import org.firstinspires.ftc.teamcode.Telemetry.FieldView;
 

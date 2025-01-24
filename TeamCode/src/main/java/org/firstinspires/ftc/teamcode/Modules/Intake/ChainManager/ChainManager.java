@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Modules.Intake;
+package org.firstinspires.ftc.teamcode.Modules.Intake.ChainManager;
 
 /*
  Writing by EgorKhvostikov
@@ -6,10 +6,11 @@ package org.firstinspires.ftc.teamcode.Modules.Intake;
 
 import org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain.BrushChainManager;
 import org.firstinspires.ftc.teamcode.Modules.Intake.GripChain.GripChainManager;
+import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager.IntakeModules;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftManager;
 import org.firstinspires.ftc.teamcode.Modules.Intake.ScoreChain.ScoreChainManager;
 
-public abstract class GripsManager {
+public abstract class ChainManager {
     private final BrushChainManager brushChainManager = new BrushChainManager();
     private final GripChainManager  gripChainManager  = new GripChainManager ();
     private final ScoreChainManager scoreChainManager = new ScoreChainManager();

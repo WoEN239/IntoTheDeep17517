@@ -2,11 +2,9 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.GripChain;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain.BrushChainManager;
-import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager;
-import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeModules;
+import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager.IntakeManager;
+import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager.IntakeModules;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
-import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 public class GripChainManager {
     private GripTask task = GripTask.MOVE;

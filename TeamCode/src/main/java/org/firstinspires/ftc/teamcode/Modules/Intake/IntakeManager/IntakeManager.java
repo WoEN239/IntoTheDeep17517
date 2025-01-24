@@ -1,9 +1,11 @@
-package org.firstinspires.ftc.teamcode.Modules.Intake;
+package org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager;
+
+import org.firstinspires.ftc.teamcode.Modules.Intake.ChainManager.ChainManager;
 
 /*
  Writing by EgorKhvostikov
 */
-public class IntakeManager extends GripsManager{
+public class IntakeManager extends ChainManager {
     private static IntakeState  state  = IntakeState.DOWN;
     public static void setState(IntakeState state) {
         IntakeManager.state = state;

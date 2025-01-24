@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.ScoreChain;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager;
-import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeModules;
+import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager.IntakeManager;
+import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager.IntakeModules;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
