@@ -2,16 +2,19 @@ package org.firstinspires.ftc.teamcode.Devices;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorImplEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.teamcode.Math.Filter;
 import org.firstinspires.ftc.teamcode.Math.FilterStatus;
 import org.firstinspires.ftc.teamcode.Math.Pid;
 import org.firstinspires.ftc.teamcode.Math.PidStatus;
-import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Robot.Robot;
 
+/*
+  Writing by EgorKhvostikov
+*/
 public class Motor {
     public DcMotorEx dev;
     private double velocity = 0;
@@ -25,6 +28,7 @@ public class Motor {
         this.dev = map.get(DcMotorEx.class, name);
         dev.setDirection(DcMotorSimple.Direction.FORWARD);
         dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         this.name = name;
         filter.setName(name);
         pidF.setName(name + " F");
@@ -46,7 +50,7 @@ public class Motor {
     public PidStatus pidStatusB = new PidStatus(0, 0, 0, 0,0,0,0, 0, 0);
     Pid pidB = new Pid(pidStatusB);
 
-    public FilterStatus filterStatus = new FilterStatus(6, 150, 30, 1, 0.1, 0.3);
+    public FilterStatus filterStatus = new FilterStatus(6, 150, 30, 0.5, 0.1, 0.3);
     Filter filter = new Filter().init(filterStatus);
 
     public void setVel(double velTar) {
@@ -73,8 +77,11 @@ public class Motor {
     }
 
     public void setVoltage(double voltage) {
-        double u = ((voltage ) / (Robot.voltage));;
-        Robot.telemetry.addData("Voltage motor " + name, u);
+        double u = 0;
+        if(Robot.voltage!=0) {
+            u = ((voltage) / (Robot.voltage));
+        }
+        Robot.telemetryPacket.put("Voltage "+name+" ", voltage);
         setPower(u);
     }
 

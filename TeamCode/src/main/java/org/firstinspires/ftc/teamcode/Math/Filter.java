@@ -4,21 +4,24 @@ import static java.lang.Math.abs;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 import java.util.Arrays;
 
+/*
+  Writing by EgorKhvostikov
+*/
 public class Filter {
-    FilterStatus status;
-    double velocityTrue = 0;
+    private FilterStatus status;
+    private double velocityTrue = 0;
 
     public String name;
 
     public void setName(String n) {
         name = n;
     }
-    boolean isInit = false;
-    double[] reads;
+    private boolean isInit = false;
+    private double[] reads;
     public Filter init(FilterStatus status) {
         this.status = status;
         reads = new double[]{0.0,0.0,0.0,0.0,0.0,0.0};
@@ -28,11 +31,6 @@ public class Filter {
 
     public void update() {
         if(isInit) {
-//            if (status.medianSize > 0) {
-//                Double[] nReads = new Double[status.medianSize];
-//                System.arraycopy(reads.arr, 0, nReads, 0, reads.arr.length - 1);
-//                reads = new ArrayExtra<>(nReads);
-//            }
             calcNewVel();
             updateReads();
             calcMedian();
@@ -52,7 +50,7 @@ public class Filter {
     private double velMathNew = 0;
     private double medianVelNow = 0;
     private double medianVelOld = 0;
-    ElapsedTime timer = new ElapsedTime();
+    private final ElapsedTime timer = new ElapsedTime();
 
     public void setPos(double posNew) {
         this.posNew = posNew;
@@ -72,12 +70,12 @@ public class Filter {
     }
 
     private void updateTelemetry() {
-        Robot.telemetry.addData("Median vel " + name, medianVelNow);
-        Robot.telemetry.addData("Math vel " + name, reads[reads.length - 1]);
-        Robot.telemetry.addData("Velocity " + name, velocityTrue);
-        Robot.telemetry.addData("time " + name, System.nanoTime());
-        Robot.telemetry.addData("medianSize " + name, reads.length);
-        Robot.telemetry.addData("reads " + name, Arrays.toString(reads));
+        Robot.telemetryPacket.put("Median vel " + name, medianVelNow);
+        Robot.telemetryPacket.put("Math vel " + name, reads[reads.length - 1]);
+        Robot.telemetryPacket.put("Velocity " + name, velocityTrue);
+        Robot.telemetryPacket.put("time " + name, System.nanoTime());
+        Robot.telemetryPacket.put("medianSize " + name, reads.length);
+        Robot.telemetryPacket.put("reads " + name, Arrays.toString(reads));
     }
 
     private void calcMedian() {
@@ -115,17 +113,16 @@ public class Filter {
                     noZeroReads[2] * 3.5 + noZeroReads[3] * 4
             ) / 11.5;
         }
-        //this.medianVelNow = sortReads[(sortReads.length)  / 2];
     }
 
-    double[] dvBuffer = new double[5];
+    private final double[] dvBuffer = new double[5];
 
     private void updateDvBuffer(double val) {
         ArrayExtra.updateLikeBuffer(val,dvBuffer);
     }
 
     private void calcVel() {
-        double k = 0;
+        double k;
         double dv = medianVelNow - medianVelOld;
         medianVelOld = velocityTrue;
         updateDvBuffer(dv);
@@ -141,6 +138,5 @@ public class Filter {
             k = status.bigK;
         }
         velocityTrue = velocityTrue + k * (medianVelNow - velocityTrue);
-
     }
 }

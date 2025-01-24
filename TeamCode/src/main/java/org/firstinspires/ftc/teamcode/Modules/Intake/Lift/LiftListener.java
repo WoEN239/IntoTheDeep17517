@@ -1,53 +1,33 @@
 package org.firstinspires.ftc.teamcode.Modules.Intake.Lift;
 
-import com.qualcomm.robotcore.hardware.DigitalChannel;
+public class LiftListener{
 
-import org.firstinspires.ftc.teamcode.Devices.LiftHangingMotors;
-import org.firstinspires.ftc.teamcode.Devices.Motor;
-import org.firstinspires.ftc.teamcode.Devices.Sensors;
-import org.firstinspires.ftc.teamcode.Math.Button;
-import org.firstinspires.ftc.teamcode.Modules.Listener;
-import org.firstinspires.ftc.teamcode.Robot;
-
-public class LiftListener implements Listener {
-
-    Robot robot;
-
-    DigitalChannel buttonDown;
-    Button upBorderButt = new Button();
-    Motor liftMotor;
-
-    private double liftPosition = 0;
-    private double liftStaticErr = 0;
-    private double encoderPosition = 0;
-
-    @Override
-    public void init(Robot robot) {
-        this.robot = robot;
-        buttonDown = Sensors.downLeftButton;
-        liftMotor  = LiftHangingMotors.liftLeftMotor;
+    private LiftDevicesValueMap liftDevicesValueMap = new LiftDevicesValueMap();
+    public void setDevicesValueMap(LiftDevicesValueMap lD){
+        liftDevicesValueMap.copyFrom(lD);
     }
+
+    private static double liftPosition = 0;
+    private static double liftStaticErrLeft = 0;
+    private static double liftStaticErrRight = 0;
+    private static double errSync = 0;
 
     public double getPosition() {
         return liftPosition;
     }
+    public double getErrSync(){return errSync;}
 
-    public double getRawPosition() {
-        return encoderPosition;
-    }
+    public void computePosition() {
+        boolean isDownLeft  = liftDevicesValueMap.leftDownButton;
+        boolean isDownRight = liftDevicesValueMap.rightDownButton;
 
-    private void updatePosition() {
-        encoderPosition = liftMotor.getPosition();
-        boolean isDown = upBorderButt.update(buttonDown.getState());
-        if (isDown) {
-            liftStaticErr = encoderPosition - LiftPosition.down;
-        }
-        liftPosition = encoderPosition - liftStaticErr;
-    }
+        if(isDownLeft)
+            liftStaticErrLeft = liftDevicesValueMap.leftMotorPos   - LiftPosition.down;
+        if(isDownRight)
+            liftStaticErrRight = liftDevicesValueMap.rightMotorPos - LiftPosition.down;
 
-    @Override
-    public void read() {
-        updatePosition();
+        liftPosition = (( liftDevicesValueMap.rightMotorPos - liftStaticErrRight) + (liftDevicesValueMap.leftMotorPos - liftStaticErrLeft)) / 2.0;
+        errSync = (liftDevicesValueMap.leftMotorPos - liftStaticErrLeft) - (liftDevicesValueMap.rightMotorPos - liftStaticErrRight);
     }
 
 }

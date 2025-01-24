@@ -4,107 +4,52 @@ import static java.lang.Math.abs;
 
 import com.acmerobotics.dashboard.config.Config;
 
-import org.firstinspires.ftc.teamcode.Devices.LiftHangingMotors;
-import org.firstinspires.ftc.teamcode.Devices.Motor;
 import org.firstinspires.ftc.teamcode.Math.Pid;
 import org.firstinspires.ftc.teamcode.Math.PidStatus;
-import org.firstinspires.ftc.teamcode.Modules.Controller;
-import org.firstinspires.ftc.teamcode.Robot;
 
 /**
  * Writing by @MrFrosty1234
  */
+
 @Config
-public class LiftController implements Controller {
-    LiftPosition liftPosition;
-    Robot robot;
+public class LiftController { ;
 
-    Motor liftLeftMotor;
-    Motor liftRightMotor;
+    private double errSync;
+    private double pos;
+    private double targetPos;
 
-    LiftListener liftListener;
+    private double uMove;
+    private double uSync;
 
-    LiftPosition targetPosition = LiftPosition.DOWN;
+    public void setErrSync(double err){
+        errSync = err;
+    }
+    public void setTargetPos(double target){targetPos = target;}
+    public void setPos(double posLift){
+        pos = posLift;
+    }
 
-    public static PidStatus pidStatus = new PidStatus(0, 0, 0, 0,0,0,0, 0, 0);
+    public double getUMove(){return uMove;}
+    public double getUSync(){
+        return uSync;
+    }
+
+    public static PidStatus pidStatus = new PidStatus(0.06, 0.5, 0.002, 0, 0, 0, 0, 3, 0);
     Pid pid = new Pid(pidStatus);
-    public static double gravity = 0.1;
 
-    @Override
-    public void init(Robot robot) {
-        this.robot = robot;
-        liftListener = robot.liftListener;
+    public static PidStatus pidStatusSync = new PidStatus(0.05, 0.2, 0, 0, 0, 0, 0, 4, 0);
+    Pid pidSync = new Pid(pidStatusSync);
 
-        liftLeftMotor = LiftHangingMotors.liftLeftMotor;
-        liftRightMotor= LiftHangingMotors.liftRightMotor;
+    public void computeVoltage(){
+        pidSync.setTarget(0);
+        pidSync.setPos(-errSync);
+        pidSync.update();
+        uSync = pidSync.getU();
+
+
+        pid.setTarget(targetPos);
+        pid.setPos(pos);
+        pid.update();
+        uMove = pid.getU();
     }
-
-    public void setPower(double powerToSet) {
-        liftLeftMotor.setVoltage(powerToSet);
-        liftRightMotor.setVoltage(powerToSet);
-    }
-
-
-    private double powerToSet = 0;
-
-    private boolean isManual = true;
-
-    private double manPower = 0;
-
-    public void manual(double power) {
-        isManual = true;
-        manPower = power;
-    }
-
-    public void auto() {
-        isManual = false;
-    }
-
-    private boolean isAtTarget() {
-        return abs(liftListener.getPosition() - targetPosition.get()) > 5;
-    }
-
-    public void updateLift() {
-        if ((liftListener.getPosition() > -10) && !liftListener.buttonDown.getState()) {
-            if (!isAtTarget()) {
-                powerToSet = pid.getU();
-            } else {
-                if (liftListener.buttonDown.getState())
-                    powerToSet = 0;
-                else
-                    powerToSet = gravity;
-            }
-        } else {
-            powerToSet = 0.1;
-        }
-        if (isManual) {
-            powerToSet = manPower;
-        }
-    }
-
-    @Override
-    public void update() {
-        setPower(powerToSet);
-    }
-
-    public void setDownPos() {
-        targetPosition = LiftPosition.DOWN;
-    }
-
-    public void setLowAxis() {
-        targetPosition = LiftPosition.LOW_AXIS_GET;
-    }
-
-    public void setHighAxis() {
-        targetPosition = LiftPosition.HIGHEST_AXIS;
-    }
-
-    public void setLowBasket() {
-        targetPosition = LiftPosition.LOWEST_BASKET;
-    }
-
-    public void setHighBasket() {
-        targetPosition = LiftPosition.HIGHEST_BASKET;
-    }
-
 }
