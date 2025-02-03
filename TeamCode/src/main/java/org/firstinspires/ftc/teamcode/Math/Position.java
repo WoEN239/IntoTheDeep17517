@@ -5,20 +5,41 @@ import static java.lang.Math.cos;
 import static java.lang.Math.signum;
 import static java.lang.Math.sin;
 
+import androidx.annotation.NonNull;
+
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.PoseVelocity2d;
 import com.acmerobotics.roadrunner.PoseVelocity2dDual;
 import com.acmerobotics.roadrunner.Time;
 import com.acmerobotics.roadrunner.Vector2d;
 
-/**
- * Writing by EgorKhvostikov
- */
+/*
+  Writing by EgorKhvostikov
+*/
 
+/*                          x
+                            ^
+                            |
+                            |
+                            |
+                            |
+                            |
+                            |
+----------------------------|---------------------------->y
+                            |
+                            |
+                            |
+                            |
+                            |
+*/
 public class Position {
     public double x;
     public double y;
     public double h;
+
+    public void setH(double h) {
+        this.h = h;
+    }
 
     public Position(double x, double y, double h) {
         this.x = x;
@@ -32,36 +53,47 @@ public class Position {
         this.h = 0;
     }
 
-    public void rotateIt(double angle1) {
-        double x1 = x * cos(angle1) - y * sin(angle1);
-        double y1 = x * sin(angle1) + y * cos(angle1);
-        x = x1;
+    public void rotateVector(double angle) {
+        double angle1 = Math.toRadians(angle);
+        double y1 = y * cos(angle1) - x * sin(angle1);
+        x = y * sin(angle1) + x * cos(angle1);
         y = y1;
     }
 
-    public void minus(Position pos) {
+    public Position vectorMinus(Position pos) {
+        x -= pos.x;
+        y -= pos.y;
+        return this;
+    }
+
+    public void positionMinus(Position pos){
         x -= pos.x;
         y -= pos.y;
         h -= pos.h;
-        h = normalizeAngle(h);
     }
-
-    public void plus(Position pos) {
+    public Position positionPlus(Position pos){
         x += pos.x;
         y += pos.y;
         h += pos.h;
-        h = normalizeAngle(h);
+        return this;
+    }
+
+    public Position vectorPlus(Position pos) {
+        x += pos.x;
+        y += pos.y;
+        return this;
     }
 
     public static double normalizeAngle(double error){
-        while (abs(error)>180) error-=360*signum(error);
+        while (abs(error)>180) error -=360*signum(error);
         return error;
     }
-    public void copyFrom(Position p){
+
+    public Position copyFrom(Position p){
         this.x = p.x;
         this.h = p.h;
         this.y = p.y;
-
+        return this;
     }
 
     public Pose2d toRRPose() {
@@ -74,5 +106,29 @@ public class Position {
 
     public static Position fromRRVelocity(PoseVelocity2dDual<Time> p) {
         return new Position(p.linearVel.x.value(), p.linearVel.y.value(), p.angVel.value());
+    }
+
+    public void angleMultiply(double k){
+        this.h = h*k;
+    }
+
+    public Position linearMultiply(double k) {
+        this.x = x*k;
+        this.y = y*k;
+        return this;
+    }
+
+    public double getLength(){
+        return Math.sqrt(x*x+y*y) ;
+    }
+
+    public static double length(Position s, Position e){
+        return Math.sqrt((s.x-e.x)*(s.x-e.x) - (s.y-e.y)*(s.y-e.y));
+    }
+
+    @NonNull
+    @Override
+    public String toString(){
+        return "x: " + x + " y: " + y;
     }
 }

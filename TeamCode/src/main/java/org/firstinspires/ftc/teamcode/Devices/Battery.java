@@ -1,31 +1,43 @@
 package org.firstinspires.ftc.teamcode.Devices;
 
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Math.ArrayExtra;
-import org.firstinspires.ftc.teamcode.Modules.Listener;
-import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Robot.Robot;
 
-public class Battery implements Listener {
-
-
-    Robot robot;
-    public VoltageSensor battery;
+/*
+  Writing by EgorKhvostikov
+*/
+public class Battery {
+    private static Battery instance;
+    public static Battery getInstance() {
+        if(instance == null){
+            instance = new Battery();
+        }
+        return instance;
+    }
+    private Battery(){}
+    private VoltageSensor battery;
     private final ElapsedTime timer = new ElapsedTime();
-    @Override
-    public void init(Robot robot) {
-        this.robot = robot;
-        battery = robot.hardwareMap.voltageSensor.get("Control Hub");
+
+    private boolean isUnInit = true;
+    public void init(HardwareMap hardwareMap) {
+        if(isUnInit) {
+            battery = hardwareMap.voltageSensor.get("Control Hub");
+        }
+        isUnInit = false;
     }
     private final double [] reads = new double[5];
 
-    @Override
-    public void read(){
-        if(timer.seconds()>0.5) {
-            ArrayExtra.updateLikeBuffer(battery.getVoltage(),reads);
-            Robot.voltage = ArrayExtra.findMedian(reads);
-            timer.reset();
+    public void update(){
+        if(!Robot.isDebug) {
+            if (timer.seconds() > 0.5) {
+                ArrayExtra.updateLikeBuffer(battery.getVoltage(), reads);
+                Robot.voltage = ArrayExtra.findMedian(reads);
+                timer.reset();
+            }
         }
     }
 }

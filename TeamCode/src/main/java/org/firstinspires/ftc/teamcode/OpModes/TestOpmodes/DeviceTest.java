@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.OpModes.TestOpmodes;
 
 import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGREES;
+import static org.firstinspires.ftc.teamcode.Devices.ColorSensorFix.fix;
 import static org.firstinspires.ftc.teamcode.OpModes.TestOpmodes.DeviceTest.DeviceType.ANALOG_INPUT;
 import static org.firstinspires.ftc.teamcode.OpModes.TestOpmodes.DeviceTest.DeviceType.BATTERY_VOLTAGE;
 import static org.firstinspires.ftc.teamcode.OpModes.TestOpmodes.DeviceTest.DeviceType.DISTANCE_SENSOR;
@@ -10,6 +11,7 @@ import static org.firstinspires.ftc.teamcode.OpModes.TestOpmodes.DeviceTest.Devi
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.qualcomm.hardware.adafruit.AdafruitI2cColorSensor;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -121,19 +123,19 @@ public class DeviceTest extends LinearOpMode {
                         break;
                     case GYRO:
                         IMU imu = (IMU) hardwareDevice;
-                        YawPitchRollAngles ypra = imu.getRobotYawPitchRollAngles();
+                        YawPitchRollAngles gyro = imu.getRobotYawPitchRollAngles();
                         telemetry.addLine("NOTE: REV IMU orietnation may be off");
                         telemetry.addLine("Angle units are Degrees");
-                        telemetry.addData("yaw", ypra.getYaw(DEGREES));
-                        telemetry.addData("pitch", ypra.getPitch(DEGREES));
-                        telemetry.addData("roll", ypra.getRoll(DEGREES));
+                        telemetry.addData("yaw", gyro.getYaw(DEGREES));
+                        telemetry.addData("pitch", gyro.getPitch(DEGREES));
+                        telemetry.addData("roll", gyro.getRoll(DEGREES));
                         break;
                     case BATTERY_VOLTAGE:
                         VoltageSensor voltageSensor = (VoltageSensor) hardwareDevice;
                         telemetry.addData("Voltage", voltageSensor.getVoltage());
                         break;
                     case COLOR_SENSOR:
-                        ColorSensor colorSensor = (ColorSensor) hardwareDevice;
+                        AdafruitI2cColorSensor colorSensor = fix((AdafruitI2cColorSensor) hardwareDevice);
                         telemetry.addData("red", colorSensor.red());
                         telemetry.addData("green", colorSensor.green());
                         telemetry.addData("blue", colorSensor.blue());

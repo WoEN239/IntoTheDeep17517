@@ -5,14 +5,14 @@ import static java.lang.Math.signum;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 /**
  * Writing by EgorKhvostikov
  */
 
 public class Pid {
-    PidStatus status;
+    private final PidStatus status;
 
     public Pid(PidStatus status) {
         this.status = status;
@@ -20,6 +20,7 @@ public class Pid {
 
     public String name;
 
+    public boolean isAngle = false;
     public void setName(String n) {
         name = n;
     }
@@ -48,15 +49,16 @@ public class Pid {
 
     public void update() {
         calc();
+
         if (status.isTelemetry) {
-            Robot.telemetry.addData(name + " P", P);
-            Robot.telemetry.addData(name + " I", I);
-            Robot.telemetry.addData(name + " D", D);
-            Robot.telemetry.addData(name + " F", F);
-            Robot.telemetry.addData(name + " Target", target);
-            Robot.telemetry.addData(name + " position", pos);
-            Robot.telemetry.addData(name + " err", err);
-            Robot.telemetry.addData(name + " pidU", u);
+            Robot.telemetryPacket.put(name + " P", P);
+            Robot.telemetryPacket.put(name + " I", I);
+            Robot.telemetryPacket.put(name + " D", D);
+            Robot.telemetryPacket.put(name + " F", F);
+            Robot.telemetryPacket.put(name + " Target", target);
+            Robot.telemetryPacket.put(name + " position", pos);
+            Robot.telemetryPacket.put(name + " err", err);
+            Robot.telemetryPacket.put(name + " pidU", u);
         }
     }
 
@@ -64,6 +66,11 @@ public class Pid {
 
     private void calc() {
         err = target - pos;
+
+        if(isAngle){
+            err = Position.normalizeAngle(err);
+        }
+
         double dErr = err - errLast;
         errLast = err;
 
