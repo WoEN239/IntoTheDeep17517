@@ -8,6 +8,6 @@ import com.acmerobotics.dashboard.config.Config;
 
 @Config
 public class BackWallPosition {
-    public static double open  = 1;
-    public static double close = 0;
+    public static double open  = 0.05;
+    public static double close = 0.7;
 }

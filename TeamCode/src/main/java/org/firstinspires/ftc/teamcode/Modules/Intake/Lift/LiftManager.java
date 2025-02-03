@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.Modules.Intake.Lift;
-
-import org.firstinspires.ftc.teamcode.Devices.LiftHangingMotors;
+import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 public class LiftManager {
     LiftController liftController = new LiftController();
@@ -15,7 +14,7 @@ public class LiftManager {
     public double errSync = 0;
 
     public boolean isDone(){
-        return Math.abs(position - target.get())<10.0;
+        return Math.abs(position - target.get()) < 15.0;
     }
 
     public void setTarget(LiftPosition target){
@@ -46,13 +45,27 @@ public class LiftManager {
         liftController.computeVoltage();
     }
 
+    private boolean isManual = false;
+    public void setManual(boolean manual) {
+        isManual = manual;
+    }
 
+    private double manTarget = 0;
+    public void setManTarget(double manTarget) {
+        this.manTarget = manTarget;
+    }
 
     public void update(){
+        Robot.telemetryPacket.put("lift pos   ", position    );
+        Robot.telemetryPacket.put("lift target", target.get());
+
         computePosition();
         computeVoltage();
 
-        voltageController.setVoltage(liftController.getUSync(), liftController.getUMove());
-
+        if(isManual){
+            voltageController.setVoltage(0,manTarget);
+        }else {
+            voltageController.setVoltage(liftController.getUSync(), liftController.getUMove());
+        }
     }
 }

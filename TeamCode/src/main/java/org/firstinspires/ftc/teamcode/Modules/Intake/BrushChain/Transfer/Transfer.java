@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.Modules.Intake.Config.TransferPosition;
 public class Transfer {
     private Servo transferServoLeft ;
     private Servo transferServoRight;
-    public static double eatPos;
+    public static double eatPos = 1;
 
     public void init(){
         transferServoRight = IntakeDevices.transferServoRight;

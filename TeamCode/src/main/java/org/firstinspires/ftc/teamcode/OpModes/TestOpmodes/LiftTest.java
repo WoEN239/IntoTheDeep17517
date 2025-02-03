@@ -10,7 +10,8 @@ import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 public class LiftTest extends BaseMode {
     @Override
     public void loopRun() {
-
+        LiftHangingMotors.liftRightMotor.setPower(1);
+        LiftHangingMotors.liftLeftMotor.setPower(1);
     }
 
     boolean pos = true;

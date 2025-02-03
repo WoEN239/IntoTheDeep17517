@@ -43,10 +43,10 @@ public class DriveTrainVoltageController {
         target.linearMultiply(RobotConstant.ENC_TIK_PER_SM);
         target.angleMultiply(RobotConstant.TIK_PER_ANGLE);
 
-        double rightBackVel    = target.x - target.y*yMultiplier + target.h;
-        double rightForwardVel = target.x + target.y*yMultiplier + target.h;
-        double leftBackVel     = target.x + target.y*yMultiplier - target.h;
-        double leftForwardVel  = target.x - target.y*yMultiplier - target.h;
+        double rightBackVel    = target.x - target.y*yMultiplier - target.h;
+        double rightForwardVel = target.x + target.y*yMultiplier - target.h;
+        double leftBackVel     = target.x + target.y*yMultiplier + target.h;
+        double leftForwardVel  = target.x - target.y*yMultiplier + target.h;
 
         double maxTargetVel = max(
                 max(abs(rightBackVel), abs(rightForwardVel)),

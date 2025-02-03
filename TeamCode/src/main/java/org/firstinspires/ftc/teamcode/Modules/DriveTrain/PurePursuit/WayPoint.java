@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit;
 
+import androidx.annotation.NonNull;
+
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Robot.TaskManager.PurePursuitTask;
 
@@ -27,5 +29,11 @@ public class WayPoint {
         this.onLineTask = PurePursuitTask.Stub;
         this.onPointTask = PurePursuitTask.Stub;
         this.position = position;
+    }
+
+    @NonNull
+    @Override
+    public String toString(){
+        return position.toString();
     }
 }

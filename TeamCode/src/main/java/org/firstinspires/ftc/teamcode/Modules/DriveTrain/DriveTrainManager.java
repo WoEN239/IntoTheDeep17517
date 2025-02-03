@@ -20,6 +20,7 @@ public class DriveTrainManager extends DriveTrain{
             case POINT:
                 setDriveTrainState(DriveTrain.DriveTrainState.PID_CONTROL);
                 PurePursuitTask task1 = purePursuitController.getOnPointTask();
+
                 if (isNeedToAddTask) {
                     isNeedToAddTask = false;
                     TaskManager.getInstance().addTask(task1);
@@ -40,6 +41,7 @@ public class DriveTrainManager extends DriveTrain{
                     isNeedToAddTask = false;
                     TaskManager.getInstance().addTask(task2);
                 }
+
                 if((task2.isRunOnce && task2.isDone() && purePursuitController.onPoint()) || purePursuitController.isEndOfTrajectory){
                     changeState(RobotState.POINT);
                 }

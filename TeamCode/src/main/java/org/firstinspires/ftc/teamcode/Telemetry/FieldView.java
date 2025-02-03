@@ -10,8 +10,8 @@ public class FieldView {
     public TelemetryPacket packet = new TelemetryPacket();
     private final double smPerInch = 1.0/2.54;
 
-    public double height = 36.5 / 2.0;
-    public double width = 20.0 / 2.0;
+    public double height = 40.24 / 2.0;
+    public double width =  39. / 2.0;
 
     public Position circle = new Position();
     public Position position = new Position();
@@ -55,14 +55,13 @@ public class FieldView {
         plusVector(xPoints,yPoints,position);
 
         Robot.telemetryPacket.fieldOverlay().setScale(smPerInch, smPerInch);
-        Robot.telemetryPacket.fieldOverlay().setFill("green");
-
-        Robot.telemetryPacket.fieldOverlay().fillCircle(circle.x, circle.y,5);
 
         Robot.telemetryPacket.fieldOverlay().setFill("blue");
         Robot.telemetryPacket.fieldOverlay().fillPolygon(xPoints, yPoints);
 
-        Robot.telemetryPacket.field().fillCircle(100,100,5);
+        Robot.telemetryPacket.fieldOverlay().setFill("green");
+        Robot.telemetryPacket.fieldOverlay().fillCircle(circle.x, circle.y,5);
+
         Robot.telemetryPacket.fieldOverlay().setFill("green");
         Robot.telemetryPacket.fieldOverlay().strokeLine(position.x,position.y, position.x + rect.x, position.y + rect.y);
     }

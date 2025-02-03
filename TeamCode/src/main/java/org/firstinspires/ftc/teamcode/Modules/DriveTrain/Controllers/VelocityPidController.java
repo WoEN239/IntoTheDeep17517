@@ -28,7 +28,7 @@ public class VelocityPidController{
     public static PidStatus pidStatusX = new PidStatus(0.15, 3, 0, 0,1.25,0,0, 4, 0);
     Pid pidX = new Pid(pidStatusX);
 
-    public static PidStatus pidStatusH = new PidStatus(0.05, 0.05, 0, 0,0.07,0,0, 3, 0);
+    public static PidStatus pidStatusH = new PidStatus(0.03, 0.025, 0.0025, 0,0.05,0,0, 1, 0);
     Pid pidH = new Pid(pidStatusH);
 
     public void computePidResult() {

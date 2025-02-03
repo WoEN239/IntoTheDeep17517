@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Modules.Intake.Lift;
 
+import org.firstinspires.ftc.teamcode.Robot.Robot;
+
 public class LiftListener{
 
     private LiftDevicesValueMap liftDevicesValueMap = new LiftDevicesValueMap();
@@ -28,6 +30,8 @@ public class LiftListener{
 
         liftPosition = (( liftDevicesValueMap.rightMotorPos - liftStaticErrRight) + (liftDevicesValueMap.leftMotorPos - liftStaticErrLeft)) / 2.0;
         errSync = (liftDevicesValueMap.leftMotorPos - liftStaticErrLeft) - (liftDevicesValueMap.rightMotorPos - liftStaticErrRight);
+
+        Robot.telemetryPacket.put("error sync",errSync);
     }
 
 }

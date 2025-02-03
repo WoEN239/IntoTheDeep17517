@@ -7,6 +7,11 @@ import org.firstinspires.ftc.teamcode.Modules.Intake.ChainManager.ChainManager;
 */
 public class IntakeManager extends ChainManager {
     private static IntakeState  state  = IntakeState.DOWN;
+
+    public static IntakeState getState() {
+        return state;
+    }
+
     public static void setState(IntakeState state) {
         IntakeManager.state = state;
     }
@@ -15,6 +20,10 @@ public class IntakeManager extends ChainManager {
         BRUSH_EAT,DOWN,SAMPLE_IN_GRIP, WALL_EAT, SCORE
     }
 
+    public void cancel(){
+        castCancel();
+        state = IntakeState.DOWN;
+    }
     public boolean brushEat(){
         if(state == IntakeState.BRUSH_EAT || state == IntakeState.DOWN){
             castBrushEat();

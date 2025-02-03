@@ -18,8 +18,9 @@ public class ColorSensor {
     private ColorDetective colorDetective = ColorDetective.NOTHING;
     private ColorDetective filterColorDetective = ColorDetective.NOTHING;
 
-    public static double yellowGreenDetect = 60;
-    public static double detect            = 20;
+    public static double yellowGreenDetect = 50;
+    public static double detect            = 35;
+    public static double blueDetect        = 20;
 
     public ColorDetective getColor(){
         return filterColorDetective;
@@ -29,9 +30,9 @@ public class ColorSensor {
         sensor = Sensors.sampleSensor;
     }
 
-    private final double [] redReads = new double[5];
-    private final double [] greenReads = new double[5];
-    private final double [] blueReads = new double[5];
+    private final double [] redReads   = new double[9];
+    private final double [] greenReads = new double[9];
+    private final double [] blueReads  = new double[9];
 
     private double green = 0;
     private double blue = 0;
@@ -55,6 +56,7 @@ public class ColorSensor {
 
             timer.reset();
         }
+
         Robot.telemetryPacket.put("green",green);
         Robot.telemetryPacket.put("blue",blue);
         Robot.telemetryPacket.put("red",red);
@@ -64,7 +66,7 @@ public class ColorSensor {
             timerDetect.reset();
         }
 
-        if(timerDetect.seconds()>0.5){
+        if(timerDetect.seconds()>0.2){
             filterColorDetective = colorDetective;
         }
     }
@@ -72,7 +74,7 @@ public class ColorSensor {
     ColorDetective lastDetect = ColorDetective.NOTHING;
     private void computeColorDetect(){
 
-        if(blue<detect && red < detect){
+        if(blue<blueDetect && red < detect){
             lastDetect = colorDetective;
             colorDetective = ColorDetective.NOTHING;
             return;

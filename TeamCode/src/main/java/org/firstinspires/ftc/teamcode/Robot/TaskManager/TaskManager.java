@@ -8,7 +8,7 @@ public class TaskManager {
     public static TaskManager getInstance() {return instance;}
 
     private final ArrayList<PurePursuitTask> tasks = new ArrayList<>();
-    public void addTask(PurePursuitTask t ){tasks.add(t);}
+    public void addTask(PurePursuitTask t){tasks.add(t);}
 
     public void updateTasks() {
         Robot.telemetryPacket.put("taskInQueue", tasks.toString());
@@ -21,6 +21,7 @@ public class TaskManager {
                 i.end();
             }
         }
+
         tasks.removeIf(PurePursuitTask::isDone);
     }
 }

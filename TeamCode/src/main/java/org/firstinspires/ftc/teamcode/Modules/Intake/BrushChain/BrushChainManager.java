@@ -2,7 +2,10 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
+import org.firstinspires.ftc.teamcode.Devices.IntakeDevices;
 import org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain.ColorSensor.ColorDetective;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Config.BrushMotorPowers;
 import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager.IntakeManager;
 import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager.IntakeModules;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
@@ -41,6 +44,7 @@ public class BrushChainManager {
         BrushTask.TO_EAT.init(
             ()->liftRequest = LiftPosition.DOWN,
             ()-> {
+                modules.brush.closeWall();
 
                 modules.transfer.eat();
                 modules.brush.openWall();
@@ -58,10 +62,14 @@ public class BrushChainManager {
         BrushTask.EAT.init(
                 ()->{
                 if(modules.sampleDetect.getColor() == ColorDetective.NOTHING) {
-                    modules.brush.openWall();
+                    modules.brush.closeWall();
                     modules.brush.down();
+
                     modules.brush.on();
+
                     modules.transfer.eat();
+                    modules.innerTransfer.in();
+
 
                     modules.grip.in();
                     modules.grip.open();
@@ -81,7 +89,9 @@ public class BrushChainManager {
                     if(modules.sampleDetect.getColor() == ColorDetective.OPPONENT || timer.seconds() < 0.4){
                         modules.brush.on();
                         modules.brush.clear();
+                        modules.brush.openWall();
                     }else{
+                        modules.brush.closeWall();
                         task = BrushTask.EAT;
                         timer.reset();
                     }
@@ -91,12 +101,9 @@ public class BrushChainManager {
         BrushTask.END_EAT.init(
                 ()->{
                     modules.innerTransfer.in();
-
-                   // modules.grip.close();
                     modules.grip.in();
 
                     modules.brush.closeWall();
-                    modules.brush.off();
                     modules.transfer.normal();
 
                     if(timer.seconds()<0.7) {
@@ -104,7 +111,7 @@ public class BrushChainManager {
                     }
 
                     if(timer.seconds()>0.75) {
-                        modules.brush.down();
+                        modules.brush.in();
                     }
 
 
@@ -118,7 +125,7 @@ public class BrushChainManager {
 
         BrushTask.RE_GRIP.init(
                 ()->{
-                    modules.brush.down();
+                    modules.brush.in();
 
                     modules.innerTransfer.in();
                     modules.grip.in();
@@ -129,6 +136,7 @@ public class BrushChainManager {
                     }
 
                     if( timer.seconds()>0.5){
+                        modules.brush.openWall();
                         modules.grip.close();
                     }
 
