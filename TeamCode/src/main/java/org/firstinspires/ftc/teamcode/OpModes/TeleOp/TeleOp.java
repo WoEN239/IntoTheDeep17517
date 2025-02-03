@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.Robot.Team;
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp
 public class TeleOp extends BaseMode {
     public void callRun(){
-        Robot.myTeam = Team.BLUE;
+
         BaseMode.isField = true;
         isNeedToCall = false;
     }

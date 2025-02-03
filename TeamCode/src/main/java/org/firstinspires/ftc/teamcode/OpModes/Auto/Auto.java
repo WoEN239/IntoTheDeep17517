@@ -34,7 +34,7 @@ public class Auto extends BaseMode {
     public void callRun() {
         robot.driveTrain.setState(DriveTrainManager.RobotState.TRAVELING);
         IntakeManager.setState(IntakeManager.IntakeState.SAMPLE_IN_GRIP);
-        Robot.myTeam = Team.BLUE;
+
         LineSegmentFollower.localRadius = 15;
         TransferPosition.eat = 0.7;
         robot.intake.update();

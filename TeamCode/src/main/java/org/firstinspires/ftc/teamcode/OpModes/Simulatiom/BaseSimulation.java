@@ -5,13 +5,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.PositionPool;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.DriveTrainSimulation;
-import org.firstinspires.ftc.teamcode.Robot.Team;
 
 public abstract class BaseSimulation extends LinearOpMode {
     {
-        Robot.myTeam = Team.RED;
         Robot.isDebug = true;
-
     }
     boolean isNeedToCall = true;
     protected Robot robot;
@@ -36,8 +33,8 @@ public abstract class BaseSimulation extends LinearOpMode {
             loopRun();
             robot.update();
         }
-      //  System.exit(0);
+
     }
-    public abstract void loopRun()   ;
-    public void callRun(){};
+    public abstract void loopRun();
+    public void callRun(){}
 }
