@@ -61,8 +61,16 @@ public class LocalPositionListener {
         double h = filter.getX();
         h = Position.normalizeAngle(h);
 
+        h = -h;
+
+        h += Robot.myTeam.startPos.h;
+
+        h = Position.normalizeAngle(h);
+
+
         Robot.telemetryPacket.put("clean h", hClean);
-        Robot.telemetryPacket.put("filter", h);
+
+        Robot.telemetryPacket.put("true H ",h);
 
 
         deltaPos.copyFrom(new Position(x, y, h));

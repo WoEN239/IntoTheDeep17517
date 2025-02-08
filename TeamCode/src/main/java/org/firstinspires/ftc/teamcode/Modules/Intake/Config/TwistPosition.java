@@ -4,7 +4,7 @@ import com.acmerobotics.dashboard.config.Config;
 
 @Config
 public class TwistPosition {
-    public static double in = 0.85;
-    public static double out = 0.1;
+    public static double in  = 0.63;
+    public static double out = 0;
 }
 

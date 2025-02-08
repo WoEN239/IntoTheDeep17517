@@ -50,8 +50,8 @@ public class DriveTrainMotors {
         rightBackDrive.dev   .setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightBackDrive.dev   .setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        rightForwardDrive.dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightForwardDrive.dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightForwardDrive .dev.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightForwardDrive .dev.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         leftForwardDrive.dev.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBackDrive.dev   .setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

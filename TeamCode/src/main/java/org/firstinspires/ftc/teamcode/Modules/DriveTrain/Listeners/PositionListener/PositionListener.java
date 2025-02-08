@@ -26,6 +26,7 @@ public class PositionListener{
         positionTik.copyFrom(Robot.myTeam.startPos).
                 linearMultiply(1 / RobotConstant.SM_PER_ODOMETER_TIK);
         position   .copyFrom(Robot.myTeam.startPos);
+
     }
 
     private final Position deltaPos = new Position();
@@ -34,10 +35,11 @@ public class PositionListener{
     public void computePosition() {
         Position dp = new Position();
         dp.copyFrom(deltaPos);
-        dp.rotateVector(deltaPos.h);
+
+        dp.rotateVector(dp.h);
 
         positionTik.vectorPlus(dp);
-        positionTik.h = deltaPos.h;
+        positionTik.h = (dp.h);
         
         position.copyFrom(positionTik);
         position.linearMultiply(RobotConstant.SM_PER_ODOMETER_TIK);

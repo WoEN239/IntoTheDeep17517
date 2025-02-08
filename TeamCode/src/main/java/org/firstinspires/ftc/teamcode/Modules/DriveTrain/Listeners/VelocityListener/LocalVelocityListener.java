@@ -30,7 +30,7 @@ public class LocalVelocityListener {
 
         velocityTick.x = x;
         velocityTick.y = y;
-        velocityTick.h = h;
+        velocityTick.h = -h;
 
         velocity.copyFrom(velocityTick);
         velocity.linearMultiply(RobotConstant.SM_PER_ODOMETER_TIK);

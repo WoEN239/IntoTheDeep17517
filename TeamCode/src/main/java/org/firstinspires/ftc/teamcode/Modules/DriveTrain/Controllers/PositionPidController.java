@@ -20,7 +20,9 @@ public class PositionPidController{
     public void setGlobalPosition(Position p) {this.globalPosition.copyFrom(p);}
 
     private final Position localPosition = new Position();
-    public void setLocalPosition(Position p) {this.localPosition.copyFrom(p);}
+    public void setLocalPosition(Position p) {
+        this.localPosition.copyFrom(p);
+    }
 
     private final Position pidResult = new Position();
     public Position getPidResult() {return pidResult;}
@@ -32,8 +34,11 @@ public class PositionPidController{
     public static PidStatus pidStatusX = new PidStatus(2, 5, 0.2, 0, 0, 0, 0, 5, 0);
     Pid pidX = new Pid(pidStatusX);
 
-    public static PidStatus pidStatusH = new PidStatus(2, 3, 0.15, 0, 0, 0, 0, 3, 0);
+    public static PidStatus pidStatusH = new PidStatus(3.5, 5, 0.001, 0, 0, 0, 0, 50, 0);
     Pid pidH = new Pid(pidStatusH);
+    {
+        pidH.isAngle = true;
+    }
 
     private final Position targetForPid = new Position();
     private void computePidTarget(){
@@ -41,13 +46,14 @@ public class PositionPidController{
         localTarget.vectorMinus(globalPosition);
 
         localTarget.rotateVector(-globalPosition.h);
-        localTarget.vectorPlus(localPosition);
 
+        localTarget.vectorPlus(localPosition);
         this.targetForPid.copyFrom(localTarget);
     }
 
     public void computePidResult() {
         computePidTarget();
+        pidH.isAngle = true;
 
         Position pidResult = new Position();
 
@@ -61,7 +67,7 @@ public class PositionPidController{
         pidY.update();
         pidResult.y = pidY.getU();
 
-        pidH.setPos(localPosition.h);
+        pidH.setPos (localPosition.h);
         pidH.setTarget(targetForPid.h);
         pidH.update();
         pidResult.h = pidH.getU();

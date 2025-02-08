@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers;
 
+
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.LineSegment;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.LineSegmentFollower;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.WayPoint;
 import org.firstinspires.ftc.teamcode.Robot.TaskManager.PurePursuitTask;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
-import org.firstinspires.ftc.teamcode.Telemetry.FieldView;
+import org.firstinspires.ftc.teamcode.Robot.Team;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,16 +28,15 @@ public class PurePursuitController {
     private final ArrayList<LineSegment> trajectory = new ArrayList<>();
     public boolean isEndOfTrajectory = false;
 
-    public void addWayPoints(WayPoint... p){
+    public void addWayPoints(WayPoint... p) {
         wayPoints.addAll(Arrays.asList(p));
 
-        for(int i = 1; i < wayPoints.size(); i++){
+        for (int i = 1; i < wayPoints.size(); i++) {
             trajectory.add(new LineSegment().
-            makeWithTwoPoint(wayPoints.get(i-1).position, wayPoints.get(i).position)
+                    makeWithTwoPoint(wayPoints.get(i - 1).position, wayPoints.get(i).position)
             );
         }
     }
-
     public void resetPoints(){
         isEndOfTrajectory = false;
         wayPoints = new ArrayList<>();
@@ -63,6 +63,7 @@ public class PurePursuitController {
         if(wayPoints.size()==1){
             return wayPoints.get(0).onLineTask;
         }
+
         return wayPoints.get(1).onLineTask;
     }
 
@@ -73,9 +74,6 @@ public class PurePursuitController {
         if(!trajectory.isEmpty()) {
             isEndOfTrajectory = false;
             nowLineSegment = trajectory.get(0);
-            Robot.telemetryPacket.fieldOverlay().
-                    strokeLine(nowLineSegment.start.x, nowLineSegment.start.y,
-                            nowLineSegment.end.x, nowLineSegment.end.y);
 
 
             lineSegmentFollower.targetLineSegment = nowLineSegment;

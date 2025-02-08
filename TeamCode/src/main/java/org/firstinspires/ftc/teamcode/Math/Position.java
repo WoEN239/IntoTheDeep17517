@@ -85,7 +85,7 @@ public class Position {
     }
 
     public static double normalizeAngle(double error){
-        while (abs(error)>180) error-=360*signum(error);
+        while (abs(error)>180) error -=360*signum(error);
         return error;
     }
 

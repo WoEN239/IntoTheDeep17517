@@ -8,8 +8,8 @@ import com.acmerobotics.dashboard.config.Config;
 
 @Config
 public class FlipGrabberPosition{
-    public static double up   = 0.15;
-    public static double down = 0.07;
-    public static double clear = 0.25   ;
-    public static double in = 0.1;
+    public static double up   = 0.325;
+    public static double down = 0.215;
+    public static double clear = 0.45;
+    public static double in = 0.25;
 }

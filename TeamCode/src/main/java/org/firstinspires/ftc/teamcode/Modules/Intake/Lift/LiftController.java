@@ -34,7 +34,7 @@ public class LiftController { ;
         return uSync;
     }
 
-    public static PidStatus pidStatus = new PidStatus(0.06, 0.5, 0.002, 0, 0, 0, 0, 3, 0);
+    public static PidStatus pidStatus     = new PidStatus(0.06, 1, 0.002, 0, 0, 0, 0, 6, 0);
     Pid pid = new Pid(pidStatus);
 
     public static PidStatus pidStatusSync = new PidStatus(0.05, 0.2, 0, 0, 0, 0, 0, 4, 0);
@@ -51,5 +51,6 @@ public class LiftController { ;
         pid.setPos(pos);
         pid.update();
         uMove = pid.getU();
+
     }
 }

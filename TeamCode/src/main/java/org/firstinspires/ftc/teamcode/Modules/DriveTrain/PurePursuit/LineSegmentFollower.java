@@ -14,8 +14,8 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
 @Config
 public class LineSegmentFollower {
     public LineSegment targetLineSegment;
-    public double localRadius = 20;
-    public double endDetect = 5;
+    public static double localRadius = 15;
+    public static double endDetect = 10;
 
     public double targetLineAngle = 0;
     public double targetEndAngle = 0;
@@ -25,7 +25,7 @@ public class LineSegmentFollower {
     public LineSegmentFollower(LineSegment targetLineSegment, double localRadius, double endDetect, double targetLineAngle, double targetEndAngle) {
         this.targetLineSegment = targetLineSegment;
         this.localRadius = localRadius;
-        this.endDetect = endDetect;
+        this.endDetect   = endDetect;
         this.targetLineAngle = targetLineAngle;
         this.targetEndAngle = targetEndAngle;
     }
@@ -44,6 +44,11 @@ public class LineSegmentFollower {
         target.h = targetLineAngle;
 
         Position error = new Position().copyFrom(pos).vectorMinus(targetLineSegment.end);
+
+        Robot.telemetryPacket.fieldOverlay().
+                strokeLine(targetLineSegment.start.x, targetLineSegment.start.y,
+                        targetLineSegment.end.x, targetLineSegment.end.y);
+
 
         if( abs(error.x) < endDetect && abs(error.y) < endDetect  ) {
             isEndNear = true;

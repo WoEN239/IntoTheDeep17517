@@ -20,6 +20,7 @@ public class Pid {
 
     public String name;
 
+    public boolean isAngle = false;
     public void setName(String n) {
         name = n;
     }
@@ -48,6 +49,7 @@ public class Pid {
 
     public void update() {
         calc();
+
         if (status.isTelemetry) {
             Robot.telemetryPacket.put(name + " P", P);
             Robot.telemetryPacket.put(name + " I", I);
@@ -64,6 +66,11 @@ public class Pid {
 
     private void calc() {
         err = target - pos;
+
+        if(isAngle){
+            err = Position.normalizeAngle(err);
+        }
+
         double dErr = err - errLast;
         errLast = err;
 

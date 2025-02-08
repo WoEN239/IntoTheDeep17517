@@ -97,7 +97,7 @@ public class ScoreChainManager {
                 ()->{
                     if(isTargeted) {
                         modules.grip.open();
-                        if (timer.seconds() > 0.2) {
+                        if (timer.seconds() > 0.5) {
                             timer.reset();
                             task = ScoreTask.END_SCORE;
                         }

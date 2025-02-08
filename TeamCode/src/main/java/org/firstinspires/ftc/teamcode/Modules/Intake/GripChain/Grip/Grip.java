@@ -19,8 +19,8 @@ public class Grip {
     public void open(){
         gripServo.setPosition(GripPositions.open);
     }
-    public void close(){gripServo.setPosition(GripPositions.open);}
+    public void close(){gripServo.setPosition(GripPositions.close);}
 
     public void in(){twistServo.setPosition(TwistPosition.in);}
-    public void out(){twistServo.setPosition(TwistPosition.in);}
+    public void out(){twistServo.setPosition(TwistPosition.out);}
 }

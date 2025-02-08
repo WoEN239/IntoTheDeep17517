@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.LineSegment
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.WayPoint;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.DriveTrainSimulation;
+import org.firstinspires.ftc.teamcode.Robot.Team;
 
 /*
   Writing by EgorKhvostikov
@@ -88,7 +89,10 @@ abstract class DriveTrain {
 
 
     private final Position manualTarget = new Position();
-    public void setManualPosition(Position p) {this.manualTarget .copyFrom(p);}
+    public void setManualPosition(Position p) {
+            this.manualTarget.copyFrom(p);
+
+    }
     public void addWayPoints(WayPoint... t){
         purePursuitController.addWayPoints(t);}
 
@@ -142,6 +146,7 @@ abstract class DriveTrain {
             localPosition.copyFrom(DriveTrainSimulation.localPosition);
             position.copyFrom(DriveTrainSimulation.position);
         }
+
         positionPidController.setLocalPosition(localPosition);
         positionPidController.setGlobalPosition(position);
         positionPidController.setTarget(pidTarget);

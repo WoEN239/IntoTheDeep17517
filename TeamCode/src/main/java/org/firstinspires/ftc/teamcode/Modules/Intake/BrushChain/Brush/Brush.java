@@ -57,6 +57,10 @@ public class Brush {
         brushMotor.setVoltage(BrushMotorPowers.forward);
     }
 
+    public void revers() {
+        brushMotor.setVoltage(BrushMotorPowers.reverse);
+    }
+
     public void off() {
         brushMotor.setVoltage(BrushMotorPowers.stop);
     }
