@@ -23,14 +23,15 @@ public class SimplesAndTagsDetectPipeline extends OpenCvPipeline {
     }
 
     public Mat frame = new Mat();
+    Mat h = new Mat();
+    Mat bin = new Mat();
 
     Point[] c1 ;
     Point[] c2 ;
     @Override
     public Mat processFrame(Mat input) {
         List<MatOfPoint> contr = new ArrayList<>();
-        Mat h = new Mat();
-        Mat bin = new Mat();
+
         Imgproc.cvtColor(input,bin,Imgproc.COLOR_BGR2GRAY);
         Imgproc.GaussianBlur(bin,bin,new Size(PipeLineConfig.blurA,PipeLineConfig.blurB),0,0);
         Imgproc.adaptiveThreshold(bin,bin,255,Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C,Imgproc.THRESH_BINARY,

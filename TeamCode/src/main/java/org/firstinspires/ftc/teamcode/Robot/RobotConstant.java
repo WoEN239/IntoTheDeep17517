@@ -33,16 +33,16 @@ public class RobotConstant {
     public static double GEAR_RATIO = 1;
     public static double TRACK_WIDTH = 1;
 
-    public static double encoderConstant = 480;
-    public static double transmission    = 21d/27;
-    public static double lightOfWheel    = 9.6d*PI;
+    public static double ENCODER_CONSTANT = 480;
+    public static double TRANSMISSION = 21d/27;
+    public static double LENGTH_OF_WHEEL = 9.6d*PI;
 
     public static double TIK_PER_ANGLE = 97.09166;//TODO
-    public static double ENC_TIK_PER_SM = (transmission*encoderConstant)/lightOfWheel;
+    public static double ENC_TIK_PER_SM = (TRANSMISSION * ENCODER_CONSTANT)/ LENGTH_OF_WHEEL;
 
-    public static double odometerConstant = 8192;
-    public static double lightOfOdometer = 4.8d*PI;
-    public static double SM_PER_ODOMETER_TIK = lightOfOdometer/odometerConstant;
+    public static double ODOMETER_CONSTANT = 8192;
+    public static double LENGTH_OF_ODOMETER = 4.8d*PI;
+    public static double SM_PER_ODOMETER_TIK = LENGTH_OF_ODOMETER / ODOMETER_CONSTANT;
 
 
 
