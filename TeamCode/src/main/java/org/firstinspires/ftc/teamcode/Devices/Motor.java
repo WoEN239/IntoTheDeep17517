@@ -77,10 +77,12 @@ public class Motor {
     }
 
     public void setVoltage(double voltage) {
-        double u = 0;
+        double u;
         if(Robot.voltage!=0) {
             u = ((voltage) / (Robot.voltage));
         }
+        else
+            u = ((voltage) / 12.0);
         //Robot.telemetryPacket.put("Voltage "+name+" ", voltage);
         setPower(u);
     }

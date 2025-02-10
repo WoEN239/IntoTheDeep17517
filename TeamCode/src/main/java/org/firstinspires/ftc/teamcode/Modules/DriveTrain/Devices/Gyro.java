@@ -28,13 +28,14 @@ public class Gyro{
     private  final ElapsedTime timer = new ElapsedTime();
 
     public void init(HardwareMap hardwareMap) {
-        if(isUnInit) {
-            imu = hardwareMap.get(IMU.class, "imu");
-            RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot
-                    (RevHubOrientationOnRobot.LogoFacingDirection.RIGHT, RevHubOrientationOnRobot.UsbFacingDirection.UP);
-            imu.initialize(new IMU.Parameters(orientationOnRobot));
-            reset();
+        if(!isUnInit) {
+          return;
         }
+        imu = hardwareMap.get(IMU.class, "imu");
+        RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot
+                (RevHubOrientationOnRobot.LogoFacingDirection.RIGHT, RevHubOrientationOnRobot.UsbFacingDirection.UP);
+        imu.initialize(new IMU.Parameters(orientationOnRobot));
+        reset();
         isUnInit = false;
     }
 
