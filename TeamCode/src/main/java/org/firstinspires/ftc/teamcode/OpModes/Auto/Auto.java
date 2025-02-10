@@ -16,7 +16,6 @@ import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 import org.firstinspires.ftc.teamcode.Robot.TaskManager.PurePursuitTask;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.TaskDelay;
-import org.firstinspires.ftc.teamcode.Robot.Team;
 
 /**
  * Writing by EgorKhvostikov and @MrFrosty1234
@@ -41,11 +40,11 @@ public class Auto extends BaseMode {
         robot.driveTrain.addWayPoints(
                 /*lift up*/
                 new WayPoint(
-                        PositionPool.blueStart,
+                        PositionPool.start,
                         new PurePursuitTask(
                                 "first up lift",
                                 ()->robot.intake.isLiftDone() && robot.intake.getLiftPos()>100,
-                                ()->robot.driveTrain.setManualPosition(PositionPool.blueStart),
+                                ()->robot.driveTrain.setManualPosition(PositionPool.start),
                                 ()->
                                 {
                                     robot.intake.setTargeted(false);
@@ -55,22 +54,22 @@ public class Auto extends BaseMode {
                 ),
                 //move to basket
                 new WayPoint(
-                        PositionPool.blueBasketScoring,
+                        PositionPool.basketScoring,
                         new PurePursuitTask(
                                 "move to basket",
                                 ()->true,
-                                ()->robot.driveTrain.setManualPosition(PositionPool.blueBasketScoring)
+                                ()->robot.driveTrain.setManualPosition(PositionPool.basketScoring)
                         )
                 ),
 
                 //score 1
                 new WayPoint(
-                        PositionPool.blueFirstElement,
+                        PositionPool.firstElement,
                         new PurePursuitTask(
                                 "score",
                                 ()->robot.intake.isDone(),
                                 ()->robot.intake.setTargeted(true),
-                                ()->robot.driveTrain.setManualPosition(PositionPool.blueFirstElement)
+                                ()->robot.driveTrain.setManualPosition(PositionPool.firstElement)
                         ),
 
                         //brush start
@@ -80,13 +79,13 @@ public class Auto extends BaseMode {
                                 ()->TaskDelay.isDone(),
 
                                 ()-> TaskDelay.setDelay(2),
-                                ()->robot.driveTrain.setManualPosition(PositionPool.blueFirstElement),
+                                ()->robot.driveTrain.setManualPosition(PositionPool.firstElement),
                                 ()->robot.intake.brushEat()
                         )
                 ),
                 // move for eat
                 new WayPoint(
-                        new Position().copyFrom(PositionPool.blueFirstElement).positionPlus(new Position(2,-35,0)),
+                        new Position().copyFrom(PositionPool.firstElement).positionPlus(new Position(2,-35,0)),
                         new PurePursuitTask(
                                 "Move forward to eat",
                                 ()->true
@@ -95,18 +94,18 @@ public class Auto extends BaseMode {
                                 " wait sample",
                                 ()->robot.intake.isDone(),
                                 ()->robot.driveTrain.setManualPosition(
-                                        new Position().copyFrom(PositionPool.blueFirstElement).positionPlus(new Position(2,-35,0)))
+                                        new Position().copyFrom(PositionPool.firstElement).positionPlus(new Position(2,-35,0)))
                         )
                 ),
 
                 // up lift
                 new WayPoint(
-                        new Position().copyFrom(PositionPool.blueFirstElement).positionPlus(new Position(0,0,45)),
+                        new Position().copyFrom(PositionPool.firstElement).positionPlus(new Position(0,0,45)),
                         new PurePursuitTask(
                                 "up lift",
                                 ()->robot.intake.isLiftDone() && robot.intake.getLiftPos()>1000,
                                 ()->robot.driveTrain.setManualPosition(
-                                        new Position().copyFrom(PositionPool.blueFirstElement).positionPlus(new Position(0,0,45))
+                                        new Position().copyFrom(PositionPool.firstElement).positionPlus(new Position(0,0,45))
                                 ),
                                 ()->
                                 {
@@ -118,33 +117,33 @@ public class Auto extends BaseMode {
                         "",
                         ()->true,
                         ()->robot.driveTrain.setManualPosition(
-                                new Position().copyFrom(PositionPool.blueFirstElement).positionPlus(new Position(0,0,45))
+                                new Position().copyFrom(PositionPool.firstElement).positionPlus(new Position(0,0,45))
                         )
                 )
                 ),
 
                 //move to basket
                 new WayPoint(
-                        new Position().copyFrom(PositionPool.blueBasketScoring).positionPlus(new Position(5,0,0)),
+                        new Position().copyFrom(PositionPool.basketScoring).positionPlus(new Position(5,0,0)),
                         new PurePursuitTask(
                                 "",
                                 ()->true,
                                 ()->robot.intake.setTargeted(true),
                                 ()->robot.driveTrain.setManualPosition(
-                                        new Position().copyFrom(PositionPool.blueBasketScoring).positionPlus(new Position(5,0,0))
+                                        new Position().copyFrom(PositionPool.basketScoring).positionPlus(new Position(5,0,0))
                                 )
                         )
                 ),
 
                 //score 2
                 new WayPoint(
-                        new Position().copyFrom(PositionPool.blueFirstElement).positionPlus(new Position(25,0,0)),
+                        new Position().copyFrom(PositionPool.firstElement).positionPlus(new Position(25,0,0)),
                         new PurePursuitTask(
                                 "score two",
                                 ()->robot.intake.isDone(),
                                 ()->robot.intake.setTargeted(true),
                                 ()->robot.driveTrain.setManualPosition(
-                                        new Position().copyFrom(PositionPool.blueFirstElement).positionPlus(new Position(25,0,0))
+                                        new Position().copyFrom(PositionPool.firstElement).positionPlus(new Position(25,0,0))
                                 )
                         ),
 
@@ -156,7 +155,7 @@ public class Auto extends BaseMode {
 
                                 ()-> TaskDelay.setDelay(2),
                                 ()->robot.driveTrain.setManualPosition(
-                                        new Position().copyFrom(PositionPool.blueFirstElement).positionPlus(new Position(30,0,0))
+                                        new Position().copyFrom(PositionPool.firstElement).positionPlus(new Position(30,0,0))
                                 ),
                                 ()->robot.intake.brushEat()
                         )
@@ -167,7 +166,7 @@ public class Auto extends BaseMode {
 
                 // move for eat
                 new WayPoint(
-                        new Position().copyFrom(PositionPool.blueFirstElement).positionPlus(new Position(32,-35,0)),
+                        new Position().copyFrom(PositionPool.firstElement).positionPlus(new Position(32,-35,0)),
                         new PurePursuitTask(
                                 "Move forward to eat",
                                 ()->true
@@ -176,18 +175,18 @@ public class Auto extends BaseMode {
                                 " wait sample",
                                 ()->robot.intake.isDone(),
                                 ()->robot.driveTrain.setManualPosition(
-                                        new Position().copyFrom(PositionPool.blueFirstElement).positionPlus(new Position(32,-35,0)))
+                                        new Position().copyFrom(PositionPool.firstElement).positionPlus(new Position(32,-35,0)))
                         )
                 ),
 
                 // up lift
                 new WayPoint(
-                        new Position().copyFrom(PositionPool.blueFirstElement).positionPlus(new Position(0,0,45)),
+                        new Position().copyFrom(PositionPool.firstElement).positionPlus(new Position(0,0,45)),
                         new PurePursuitTask(
                                 "up lift",
                                 ()->robot.intake.isLiftDone() && robot.intake.getLiftPos()>1000,
                                 ()->robot.driveTrain.setManualPosition(
-                                        new Position().copyFrom(PositionPool.blueFirstElement).positionPlus(new Position(0,0,45))
+                                        new Position().copyFrom(PositionPool.firstElement).positionPlus(new Position(0,0,45))
                                 ),
                                 ()->
                                 {
@@ -199,7 +198,7 @@ public class Auto extends BaseMode {
                         "",
                         ()->true,
                         ()->robot.driveTrain.setManualPosition(
-                                new Position().copyFrom(PositionPool.blueFirstElement).positionPlus(new Position(0,0,45))
+                                new Position().copyFrom(PositionPool.firstElement).positionPlus(new Position(0,0,45))
                         )
                 )
                 ),
@@ -207,13 +206,13 @@ public class Auto extends BaseMode {
 
                 //move to basket
                 new WayPoint(
-                        new Position().copyFrom(PositionPool.blueBasketScoring).positionPlus(new Position(9,0,0)),
+                        new Position().copyFrom(PositionPool.basketScoring).positionPlus(new Position(9,0,0)),
                         new PurePursuitTask(
                                 "",
                                 ()->true,
                                 ()->robot.intake.setTargeted(false),
                                 ()->robot.driveTrain.setManualPosition(
-                                    new Position().copyFrom(PositionPool.blueBasketScoring).positionPlus(new Position(9,0,0))
+                                    new Position().copyFrom(PositionPool.basketScoring).positionPlus(new Position(9,0,0))
                                 )
                         )
                 ),
@@ -221,14 +220,14 @@ public class Auto extends BaseMode {
 
                 //score 3
                 new WayPoint(
-                        new Position().copyFrom(PositionPool.bluePark).positionPlus(new Position(0,0,0)),
+                        new Position().copyFrom(PositionPool.park).positionPlus(new Position(0,0,0)),
                         new PurePursuitTask(
                                 "score",
                                 ()->robot.intake.isDone(),
                                 ()->robot.intake.setTargeted(true),
                                 ()-> LineSegmentFollower.localRadius = 50,
                                 ()->robot.driveTrain.setManualPosition(
-                                        new Position().copyFrom(PositionPool.bluePark).positionPlus(new Position(0,0,0))
+                                        new Position().copyFrom(PositionPool.park).positionPlus(new Position(0,0,0))
                                 )
                         ),
 
@@ -239,7 +238,7 @@ public class Auto extends BaseMode {
 
                                 ()-> TaskDelay.setDelay(2),
                                 ()->robot.driveTrain.setManualPosition(
-                                        new Position().copyFrom(PositionPool.bluePark).positionPlus(new Position(0,0,0)))
+                                        new Position().copyFrom(PositionPool.park).positionPlus(new Position(0,0,0)))
 
                         )
                 )

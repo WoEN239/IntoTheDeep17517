@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.PositionPoo
   Writing by EgorKhvostikov
 */
 public enum Team {
-    BLUE(PositionPool.blueStart), RED(PositionPool.blueStart);
+    BLUE(PositionPool.start), RED(PositionPool.start);
 
     public final Position startPos = new Position();
     Team(Position p){
