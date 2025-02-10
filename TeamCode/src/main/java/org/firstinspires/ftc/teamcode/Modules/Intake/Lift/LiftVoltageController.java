@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Modules.Intake.Lift.Lift;
+package org.firstinspires.ftc.teamcode.Modules.Intake.Lift;
 
 import org.firstinspires.ftc.teamcode.Devices.LiftHangingMotors;
 import org.firstinspires.ftc.teamcode.Devices.Motor;
@@ -12,7 +12,8 @@ public class LiftVoltageController {
         leftLiftMotor.update();
     }
     public void init(){
-        leftLiftMotor = LiftHangingMotors.liftMotor;
+        leftLiftMotor = LiftHangingMotors.liftLeftMotor;
+        rightLiftMotor = LiftHangingMotors.liftRightMotor;
 
     }
     public void setVoltage(double s, double m){
