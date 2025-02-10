@@ -1,10 +1,6 @@
 package org.firstinspires.ftc.teamcode.OpModes.Simulatiom;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.PositionPool;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
-import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.DriveTrainSimulation;
 
 public abstract class BaseSimulation extends LinearOpMode {
     {
@@ -15,7 +11,7 @@ public abstract class BaseSimulation extends LinearOpMode {
     void initOpMode(){
         robot = Robot.getInstance();
         robot.init(this);
-        DriveTrainSimulation.position.copyFrom(PositionPool.redStart);
+
     }
 
     boolean firstInit = true;
