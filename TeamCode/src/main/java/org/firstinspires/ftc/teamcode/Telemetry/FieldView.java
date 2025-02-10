@@ -66,5 +66,12 @@ public class FieldView {
         Robot.telemetryPacket.fieldOverlay().strokeLine(position.x,position.y, position.x + rect.x, position.y + rect.y);
     }
 
+    private void drawCircle(double[] xPos, double[] yPos) {
+        for (int i = 0; i < xPos.length; i++) {
+            Robot.telemetryPacket.fieldOverlay().setFill("green");
+            Robot.telemetryPacket.fieldOverlay().fillCircle(xPos[i], yPos[i],5);
+        }
+    }
+
 }
 
