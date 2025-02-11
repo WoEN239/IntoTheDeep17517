@@ -33,20 +33,24 @@ public class TeleOp extends BaseMode {
         );
 
         if(gamepad1.right_bumper){
-            telemetry.addData("Driver is a crocodile",!robot.intake.brushEat());
+           //telemetry.addData("Driver is a crocodile",!robot.intake.brushEat());
+            robot.intake.brushEat();
         }
 
         if(gamepad1.left_bumper){
-            telemetry.addData("Driver is a crocodile",!robot.intake.wallEat());
+            //telemetry.addData("Driver is a crocodile",!robot.intake.wallEat());
+            robot.intake.wallEat();
         }
 
 
         if(gamepad1.dpad_up){
-            telemetry.addData("Driver is a crocodile",!robot.intake.scoreBasket());
+            //telemetry.addData("Driver is a crocodile",!robot.intake.scoreBasket());
+            robot.intake.scoreBasket();
         }
 
         if(gamepad1.triangle){
-            telemetry.addData("Driver is a crocodile",!robot.intake.scoreAxis());
+            //telemetry.addData("Driver is a crocodile",!robot.intake.scoreAxis());
+            robot.intake.scoreAxis();
         }
         robot.intake.setTargeted(gamepad1.dpad_down);
 
