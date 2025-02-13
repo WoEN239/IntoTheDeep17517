@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.Robot.TaskManager.TaskManager;
 
 public class DriveTrainManager extends DriveTrain{
     public enum RobotState {
-        POINT,TRAVELING,PEDRO_PEDRO ,TELE_OP
+        POINT,TRAVELING,TELE_OP
     }
     private RobotState state = RobotState.TRAVELING;
     public void setState(RobotState state) {this.state = state;}

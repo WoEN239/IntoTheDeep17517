@@ -25,9 +25,9 @@ public class LiftDeviceListener {
     public void init(){
         leftMotor = LiftHangingMotors.liftLeftMotor;
         rightMotor = LiftHangingMotors.liftRightMotor;
-        leftDownButton = Sensors.downLeftButton;
+        leftDownButton = Sensors.leftButton;
 
-        rightDownButton = Sensors.downRightButton;
+        rightDownButton = Sensors.rightButton;
     }
     private void updateDevices(){
        leftMotor.update();

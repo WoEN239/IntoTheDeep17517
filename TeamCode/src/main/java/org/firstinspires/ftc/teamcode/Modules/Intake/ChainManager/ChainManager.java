@@ -4,19 +4,17 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.ChainManager;
  Writing by EgorKhvostikov
 */
 
-import org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain.BrushChainManager;
-import org.firstinspires.ftc.teamcode.Modules.Intake.GripChain.GripChainManager;
+import org.firstinspires.ftc.teamcode.Modules.Intake.ScorerChain.ScorerChainManager;
+import org.firstinspires.ftc.teamcode.Modules.Intake.EaterChain.EaterChainManager;
 import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager.IntakeManager;
 import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager.IntakeModules;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftManager;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
-import org.firstinspires.ftc.teamcode.Modules.Intake.ScoreChain.ScoreChainManager;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 public abstract class ChainManager {
-    private final BrushChainManager brushChainManager = new BrushChainManager();
-    private final GripChainManager  gripChainManager  = new GripChainManager ();
-    private final ScoreChainManager scoreChainManager = new ScoreChainManager();
+    private final ScorerChainManager scorerChainManager = new ScorerChainManager();
+    private final EaterChainManager eaterChainManager = new EaterChainManager();
     private final IntakeModules modules = new IntakeModules();
 
     private ChainState state = ChainState.MOVE;
@@ -32,42 +30,35 @@ public abstract class ChainManager {
         modules.init();
         liftManager.init();
 
-        brushChainManager.setModules(modules);
-        gripChainManager.setModules(modules);
-        scoreChainManager.setModules(modules);
+        scorerChainManager.setModules(modules);
+        eaterChainManager.setModules(modules);
 
-        brushChainManager.initTasks();
-        gripChainManager .initTasks();
-        scoreChainManager.initTasks();
+        scorerChainManager.initTasks();
+        eaterChainManager .initTasks();
 
     }
 
-    protected void castBrushEat(){
-        brushChainManager.startEat();
-        state = ChainState.BRUSH;
+    protected void castCenterEat(){
+        eaterChainManager.startEat();
+        state = ChainState.EATER;
     }
     protected void castCancel(){
         state = ChainState.MOVE;
     }
 
     protected void castWallEat(){
-        gripChainManager.setEat();
-        state = ChainState.GRIP;
-    }
-
-    protected void castBasketScore(){
-        scoreChainManager.scoreBasket();
-        state  = ChainState.SCORE;
+        scorerChainManager.startEat();
+        state = ChainState.SCORER;
     }
 
     protected void castAxisScore(){
-        scoreChainManager.scoreAxis();
-        state  = ChainState.SCORE;
+        scorerChainManager.score();
+        state  = ChainState.SCORER;
     }
 
     public void setTargeted(boolean t){
-        scoreChainManager.setTargeted(t);
-        gripChainManager.setTargeted(t);
+        eaterChainManager.setTargeted(t);
+        scorerChainManager.setTargeted(t);
     }
 
     public void update(){
@@ -76,38 +67,29 @@ public abstract class ChainManager {
 
         switch (state){
             case MOVE:
-                modules.brush.off();
-                modules.brush.in();
-
-                modules.grip.in();
-                modules.transfer.normal();
-
                 liftManager.setTarget(LiftPosition.DOWN);
                 isDone = true;
                 break;
-            case SCORE:
-                liftManager.setTarget(scoreChainManager.liftRequest);
-                scoreChainManager.setLiftAtTarget(liftManager.isDone());
-                scoreChainManager.update();
+            case SCORER:
+                liftManager.setTarget(scorerChainManager.liftRequest);
+                scorerChainManager.update();
 
-                isDone = scoreChainManager.isDone();
+                isDone = scorerChainManager.isDone();
                 break;
-            case BRUSH:
-                liftManager.setTarget(brushChainManager.liftRequest);
-                brushChainManager.update();
+            case EATER:
+                liftManager.setTarget(eaterChainManager.liftRequest);
+                eaterChainManager.update();
 
-                isDone = brushChainManager.isDone();
-                break;
-            case GRIP:
-                liftManager.setTarget(gripChainManager.liftRequest);
-                gripChainManager.update();
-
-                isDone = gripChainManager.isDone();
+                isDone = eaterChainManager.isDone();
                 break;
         }
 
         liftManager.update();
 
+    }
+
+    public void rotateEater(double y){
+        modules.eater.rotate(y);
     }
 
     public void setLiftManual(boolean liftManual) {

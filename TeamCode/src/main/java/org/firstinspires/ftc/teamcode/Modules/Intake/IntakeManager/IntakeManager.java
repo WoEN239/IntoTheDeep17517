@@ -24,9 +24,10 @@ public class IntakeManager extends ChainManager {
         castCancel();
         state = IntakeState.DOWN;
     }
-    public boolean brushEat(){
+    public boolean centerEat(){
+        castCenterEat();
         if(state == IntakeState.BRUSH_EAT || state == IntakeState.DOWN){
-            castBrushEat();
+            //castBrushEat();
             state = IntakeState.BRUSH_EAT;
             return true;
         }
@@ -34,6 +35,7 @@ public class IntakeManager extends ChainManager {
     }
 
     public boolean wallEat(){
+        castWallEat();
         if(state == IntakeState.WALL_EAT || state == IntakeState.DOWN){
             castWallEat();
             state = IntakeState.WALL_EAT;
@@ -53,7 +55,7 @@ public class IntakeManager extends ChainManager {
 
     public boolean scoreBasket(){
         if(state == IntakeState.SAMPLE_IN_GRIP || state == IntakeState.SCORE){
-            castBasketScore();
+            //castBasketScore();
             state = IntakeState.SCORE;
             return true;
         }

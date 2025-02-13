@@ -2,14 +2,11 @@ package org.firstinspires.ftc.teamcode.OpModes.Auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.Devices.IntakeDevices;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Manager.DriveTrainManager;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.LineFollower.LineSegmentFollower;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.PositionPool;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.WayPoint;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Config.FlipGrabberPosition;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Config.GripPositions;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.TransferPosition;
 import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager.IntakeManager;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
@@ -25,8 +22,7 @@ import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.TaskDelay;
 public class Auto extends BaseMode {
 
     public void initServo(){
-        IntakeDevices.flipServoRight.setPosition(FlipGrabberPosition.clear );
-        IntakeDevices.gripServo.setPosition(GripPositions.close);
+
     }
 
     @Override
@@ -80,7 +76,7 @@ public class Auto extends BaseMode {
 
                                 ()-> TaskDelay.setDelay(2),
                                 ()->robot.driveTrain.setManualPosition(PositionPool.firstElement),
-                                ()->robot.intake.brushEat()
+                                ()->robot.intake.centerEat()
                         )
                 ),
                 // move for eat
@@ -157,7 +153,7 @@ public class Auto extends BaseMode {
                                 ()->robot.driveTrain.setManualPosition(
                                         new Position().copyFrom(PositionPool.firstElement).positionPlus(new Position(30,0,0))
                                 ),
-                                ()->robot.intake.brushEat()
+                                ()->robot.intake.centerEat()
                         )
                 ),
 

@@ -1,9 +1,8 @@
 package org.firstinspires.ftc.teamcode.OpModes.TeleOp;
 
+import org.firstinspires.ftc.teamcode.Math.BorderButton;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Manager.DriveTrainManager;
-import org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain.Transfer.Transfer;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Config.BrushMotorPowers;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
@@ -14,6 +13,8 @@ public class TeleOp extends BaseMode {
         BaseMode.isField = true;
         isNeedToCall = false;
     }
+
+    BorderButton rotateButton = new BorderButton();
 
     public void loopRun() {
         robot.driveTrain.setState(DriveTrainManager.RobotState.TELE_OP);
@@ -29,36 +30,22 @@ public class TeleOp extends BaseMode {
         );
 
         if(gamepad1.right_bumper){
-           //telemetry.addData("Driver is a crocodile",!robot.intake.brushEat());
-            robot.intake.brushEat();
+            robot.intake.centerEat();
         }
-
         if(gamepad1.left_bumper){
-            //telemetry.addData("Driver is a crocodile",!robot.intake.wallEat());
             robot.intake.wallEat();
         }
 
-
-        if(gamepad1.dpad_up){
-            //telemetry.addData("Driver is a crocodile",!robot.intake.scoreBasket());
-            robot.intake.scoreBasket();
+        if(rotateButton.get(gamepad1.dpad_left)){
+            robot.intake.rotateEater(15);
         }
 
-        if(gamepad1.triangle){
-            //telemetry.addData("Driver is a crocodile",!robot.intake.scoreAxis());
-            robot.intake.scoreAxis();
+        if(rotateButton.get(gamepad1.dpad_right)){
+            robot.intake.rotateEater(-15);
         }
+
         robot.intake.setTargeted(gamepad1.dpad_down);
 
-        if(gamepad1.cross) {
-            BrushMotorPowers.forward = -12;
-        }else{
-            BrushMotorPowers.forward = 12;
-        }
-
-        if(gamepad1.dpad_left){
-            robot.intake.cancel();
-        }
 
 
         robot.intake.setLiftManual(gamepad1.ps);
@@ -72,8 +59,6 @@ public class TeleOp extends BaseMode {
             }
             robot.intake.setManualTarget(liftManP);
         }
-
-        Transfer.eatPos = 1;
 
         Robot.telemetryPacket.put("x", robot.driveTrain.getPosition().x);
         Robot.telemetryPacket.put("h", robot.driveTrain.getPosition().h);

@@ -124,7 +124,7 @@ public class TrajectoryFollowController {
 
     public void changeTrajectorySegment(){
        if(!trajectory.isEmpty()) {
-           wayPoints.remove(0);
+           wayPoints .remove(0);
            trajectory.remove(0);
        }
     }

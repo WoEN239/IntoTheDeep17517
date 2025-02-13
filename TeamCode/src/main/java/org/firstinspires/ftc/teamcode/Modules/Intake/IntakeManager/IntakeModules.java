@@ -1,23 +1,26 @@
 package org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager;
 
-import org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain.Brush.Brush;
-import org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain.ColorSensor.ColorSensor;
-import org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain.Transfer.Transfer;
-import org.firstinspires.ftc.teamcode.Modules.Intake.GripChain.Grip.Grip;
-import org.firstinspires.ftc.teamcode.Modules.Intake.GripChain.InnerTransfer.InnerTransfer;
+import org.firstinspires.ftc.teamcode.Modules.Intake.EaterChain.Transfer.Transfer;
+import org.firstinspires.ftc.teamcode.Modules.Intake.EaterChain.Eater.Eater;
+import org.firstinspires.ftc.teamcode.Modules.Intake.EaterChain.EaterGrip.EaterGrip;
+import org.firstinspires.ftc.teamcode.Modules.Intake.ScorerChain.Scorer.Scorer;
+import org.firstinspires.ftc.teamcode.Modules.Intake.ScorerChain.ScorerGrip.ScorerGrip;
 
 public class IntakeModules {
-    public final Brush brush = new Brush();
-    public final Transfer transfer = new Transfer();
-    public final InnerTransfer innerTransfer = new InnerTransfer();
-    public final Grip grip = new Grip();
-    public final ColorSensor sampleDetect = new ColorSensor();
+    public final Transfer  transfer  = new Transfer() ;
+    public final EaterGrip eaterGrip = new EaterGrip();
+    public final Eater     eater     = new Eater()    ;
+
+    public final ScorerGrip scorerGrip = new ScorerGrip();
+    public final Scorer     scorer     = new Scorer()    ;
 
     public void init(){
-        brush.init();
-        transfer.init();
-        innerTransfer.init();
-        grip.init();
-        sampleDetect.init();
+        transfer  .init();
+        eaterGrip .init();
+        eater     .init();
+
+        scorer    .init();
+        scorerGrip.init();
+
     }
 }

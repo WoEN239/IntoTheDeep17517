@@ -1,30 +1,41 @@
 package org.firstinspires.ftc.teamcode.OpModes.TeleOp;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Manager.DriveTrainManager;
-import org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain.Brush.Brush;
-import org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain.ColorSensor.ColorSensor;
-import org.firstinspires.ftc.teamcode.Modules.Intake.BrushChain.Transfer.Transfer;
-import org.firstinspires.ftc.teamcode.Modules.Intake.GripChain.InnerTransfer.InnerTransfer;
+import org.firstinspires.ftc.teamcode.Modules.Intake.EaterChain.Eater.Eater;
+import org.firstinspires.ftc.teamcode.Modules.Intake.EaterChain.EaterChainManager;
+import org.firstinspires.ftc.teamcode.Modules.Intake.EaterChain.Transfer.Transfer;
+import org.firstinspires.ftc.teamcode.Modules.Intake.EaterChain.EaterGrip.EaterGrip;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftManager;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
+import org.firstinspires.ftc.teamcode.Modules.Intake.ScorerChain.Scorer.Scorer;
+import org.firstinspires.ftc.teamcode.Modules.Intake.ScorerChain.ScorerGrip.ScorerGrip;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp
 public class TeleOpManual extends BaseMode {
     Position position = new Position();
-    Brush  brush = new Brush();
+
     Transfer transfer = new Transfer();
-    ColorSensor colorSensor = new ColorSensor();
-    InnerTransfer innerTransfer = new InnerTransfer();
+    EaterGrip eaterGrip = new EaterGrip();
+    Eater eater = new Eater();
+
+    Scorer scorer = new Scorer();
+    ScorerGrip scorerGrip = new ScorerGrip();
+
     LiftManager liftManager = new LiftManager();
+
 
     public void callRun(){
         transfer.init();
-        brush.init();
-        colorSensor.init();
-        innerTransfer.init();
+        eaterGrip.init();
+        eater.init();
+
         liftManager.init();
+
+        scorer.init();
+        scorerGrip.init();
+
         isNeedToCall = false;
     }
 
@@ -37,22 +48,20 @@ public class TeleOpManual extends BaseMode {
         );
 
 
-        Transfer.eatPos = gamepad1.left_trigger;
-        //transfer.eat();
-        colorSensor.update();
-
         if(gamepad1.dpad_up) {
-            brush.up();
+            eater.up();
         }
+
         if(gamepad1.dpad_down) {
-            brush.down();
+            eater.down();
+        }
+
+        if(gamepad1.dpad_left) {
+           scorer.regrip();
         }
 
         if(gamepad1.dpad_right) {
-            innerTransfer.in();
-        }
-        if(gamepad1.dpad_left) {
-            innerTransfer.out();
+            scorer.target();
         }
 
         if(gamepad1.right_bumper){
@@ -69,13 +78,8 @@ public class TeleOpManual extends BaseMode {
         liftManager.update();
 
 
-        Robot.telemetryPacket.put("sample Color", colorSensor.getColor().toString());
 
         Robot.telemetryPacket.put("Voltage ",Robot.voltage);
-
-        Robot.telemetryPacket.put("x", robot.driveTrain.getPosition().x);
-        Robot.telemetryPacket.put("h", robot.driveTrain.getPosition().h);
-        Robot.telemetryPacket.put("y", robot.driveTrain.getPosition().y);
 
         robot.fieldView.position = robot.driveTrain.getPosition();
         robot.fieldView.circle   = robot.driveTrain.getPidTarget();
