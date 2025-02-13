@@ -21,7 +21,7 @@ public class VelocityConfigPID extends BaseMode {
     @Override
     public void loopRun() {
         DriveTrainMotors.initPid();
-        robot.driveTrain.setState(DriveTrainManager.RobotState.TELEOP);
+        robot.driveTrain.setState(DriveTrainManager.RobotState.TELE_OP);
         velPos.copyFrom(robot.driveTrain.getLocalVelocity());
         Robot.telemetryPacket.put("xV", velPos.x);
         Robot.telemetryPacket.put("yV", velPos.y);

@@ -1,6 +1,10 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain;
+import com.acmerobotics.roadrunner.Arclength;
+import com.acmerobotics.roadrunner.CompositePositionPath;
+
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.DriveTrainVoltageController;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.PedroPedroController;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.PositionPidController;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.PurePursuitController;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.VelocityPidController;
@@ -11,12 +15,11 @@ import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Listeners.PositionListe
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Listeners.VelocityListener.DeviceVelocityListener;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Listeners.VelocityListener.LocalVelocityListener;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Listeners.VelocityListener.VelocityListener;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.LineSegment;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.LineSegmentFollower;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.WayPoint;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.DriveTrainSimulation;
-import org.firstinspires.ftc.teamcode.Robot.Team;
+
+import java.util.List;
 
 /*
   Writing by EgorKhvostikov
@@ -39,7 +42,7 @@ abstract class DriveTrain {
         return localVelocity;
     }
 
-    protected enum DriveTrainState {PURE_PURSUIT,PID_CONTROL,TELE_OP}
+    protected enum DriveTrainState {PURE_PURSUIT,PID_CONTROL,PEDRO_PEDRO,TELE_OP}
     private DriveTrainState driveTrainState = DriveTrainState.PID_CONTROL;
     protected void setDriveTrainState(DriveTrainState driveTrainState) {this.driveTrainState = driveTrainState;}
 
@@ -76,6 +79,12 @@ abstract class DriveTrain {
                 pidTarget.copyFrom(purePursuitController.getPidTarget());
                 setVoltages();
                 break;
+            case PEDRO_PEDRO:
+                pedroPedroController.setPosition(position);
+                pedroPedroController.computeTarget();
+                pidTarget.copyFrom(pedroPedroController.getPidTarget());
+                setVoltages();
+                break;
             case TELE_OP:
                 setVoltagesFromVelocity();
                 break;
@@ -93,8 +102,8 @@ abstract class DriveTrain {
             this.manualTarget.copyFrom(p);
 
     }
-    public void addWayPoints(WayPoint... t){
-        purePursuitController.addWayPoints(t);}
+    public void addWayPoints(WayPoint... t){purePursuitController.addWayPoints(t);}
+    public void addTrajectory(List<CompositePositionPath<Arclength>> t){pedroPedroController.addTrajectory(t);}
 
     private final DriveTrainVoltageController driveTrainVoltageController = new DriveTrainVoltageController();
 
@@ -138,9 +147,13 @@ abstract class DriveTrain {
         this.localVelocity.copyFrom(localVelocity);
     }
 
+
     protected final PurePursuitController purePursuitController   = new PurePursuitController();
+    protected final PedroPedroController  pedroPedroController    = new PedroPedroController();
+
     private final PositionPidController  positionPidController    = new PositionPidController();
     private final VelocityPidController  velocityPidController    = new VelocityPidController();
+
     protected void setVoltages(){
         if(Robot.isDebug){
             localPosition.copyFrom(DriveTrainSimulation.localPosition);

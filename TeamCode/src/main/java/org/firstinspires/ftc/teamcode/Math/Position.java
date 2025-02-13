@@ -126,6 +126,10 @@ public class Position {
         return Math.sqrt((s.x-e.x)*(s.x-e.x) - (s.y-e.y)*(s.y-e.y));
     }
 
+    public Pose2d toRRPosition(){
+        return new Pose2d(new Vector2d(x,y), h);
+    }
+
     @NonNull
     @Override
     public String toString(){

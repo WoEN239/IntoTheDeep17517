@@ -9,7 +9,6 @@ import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftManager;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
-import org.firstinspires.ftc.teamcode.Telemetry.FieldView;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp
 public class TeleOpManual extends BaseMode {
@@ -32,7 +31,7 @@ public class TeleOpManual extends BaseMode {
     public void loopRun() {
         BaseMode.isField = true;
 
-        robot.driveTrain.setState(DriveTrainManager.RobotState.TELEOP);
+        robot.driveTrain.setState(DriveTrainManager.RobotState.TELE_OP);
         robot.driveTrain.setVelocityTarget(
                 new Position(-gamepad1.left_stick_y*240, gamepad1.left_stick_x*240, gamepad1.right_stick_x*100)
         );

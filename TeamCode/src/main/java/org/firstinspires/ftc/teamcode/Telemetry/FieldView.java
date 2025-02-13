@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.Telemetry;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Arclength;
+import com.acmerobotics.roadrunner.CompositePositionPath;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
@@ -13,6 +15,7 @@ public class FieldView {
     public double height = 40.24 / 2.0;
     public double width =  39. / 2.0;
 
+    public CompositePositionPath<Arclength> path;
     public Position circle = new Position();
     public Position position = new Position();
 
@@ -55,6 +58,20 @@ public class FieldView {
         plusVector(xPoints,yPoints,position);
 
         Robot.telemetryPacket.fieldOverlay().setScale(smPerInch, smPerInch);
+
+        if(path != null){
+
+            for (int i =0; i < path.paths.get(0).length(); i++){
+
+                    int x  =  (int) path.get(i,1).x.get(0);
+                    int y  =  (int) path.get(i,1).y.get(0);
+
+
+                    Robot.telemetryPacket.fieldOverlay().setFill("black");
+                    Robot.telemetryPacket.fieldOverlay().fillCircle(x, y,2);
+            }
+
+        }
 
         Robot.telemetryPacket.fieldOverlay().setFill("blue");
         Robot.telemetryPacket.fieldOverlay().fillPolygon(xPoints, yPoints);
