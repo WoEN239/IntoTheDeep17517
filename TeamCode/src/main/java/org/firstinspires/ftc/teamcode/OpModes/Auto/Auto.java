@@ -4,10 +4,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Devices.IntakeDevices;
 import org.firstinspires.ftc.teamcode.Math.Position;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.DriveTrainManager;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.LineSegmentFollower;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.PositionPool;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.WayPoint;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Manager.DriveTrainManager;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.LineFollower.LineSegmentFollower;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.PositionPool;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.WayPoint;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.FlipGrabberPosition;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.GripPositions;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.TransferPosition;

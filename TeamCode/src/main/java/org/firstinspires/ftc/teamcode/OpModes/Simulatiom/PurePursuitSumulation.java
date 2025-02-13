@@ -5,10 +5,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.WayPoint;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.WayPoint;
 import org.firstinspires.ftc.teamcode.Robot.TaskManager.PurePursuitTask;
-import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.DriveTrainSimulation;
-import org.firstinspires.ftc.teamcode.Telemetry.FieldView;
+
 @Config
 @TeleOp
 public class PurePursuitSumulation extends BaseSimulation {

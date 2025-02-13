@@ -1,12 +1,9 @@
-package org.firstinspires.ftc.teamcode.Modules.DriveTrain;
-import com.acmerobotics.roadrunner.Arclength;
-import com.acmerobotics.roadrunner.CompositePositionPath;
+package org.firstinspires.ftc.teamcode.Modules.DriveTrain.Manager;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.DriveTrainVoltageController;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.PedroPedroController;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.PositionPidController;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.PurePursuitController;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.TrajectoryFollowController;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.VelocityPidController;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Listeners.DeviceValueMap;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Listeners.PositionListener.DevicePositionListener;
@@ -15,7 +12,7 @@ import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Listeners.PositionListe
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Listeners.VelocityListener.DeviceVelocityListener;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Listeners.VelocityListener.LocalVelocityListener;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Listeners.VelocityListener.VelocityListener;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.WayPoint;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.WayPoint;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.DriveTrainSimulation;
 
@@ -42,7 +39,7 @@ abstract class DriveTrain {
         return localVelocity;
     }
 
-    protected enum DriveTrainState {PURE_PURSUIT,PID_CONTROL,PEDRO_PEDRO,TELE_OP}
+    protected enum DriveTrainState {PURE_PURSUIT,PID_CONTROL,TELE_OP}
     private DriveTrainState driveTrainState = DriveTrainState.PID_CONTROL;
     protected void setDriveTrainState(DriveTrainState driveTrainState) {this.driveTrainState = driveTrainState;}
 
@@ -51,7 +48,7 @@ abstract class DriveTrain {
         deviceVelocityListener.init();
         driveTrainVoltageController.init();
         positionListener.init();
-        purePursuitController.resetPoints();
+        trajectoryFollowController.resetPoints();
 
         pidPositionResult.copyFrom(new Position());
         pidTarget     .copyFrom(new Position());
@@ -74,15 +71,10 @@ abstract class DriveTrain {
                 setVoltages();
                 break;
             case PURE_PURSUIT:
-                purePursuitController.setPosition(position);
-                purePursuitController.computeTarget();
-                pidTarget.copyFrom(purePursuitController.getPidTarget());
-                setVoltages();
-                break;
-            case PEDRO_PEDRO:
-                pedroPedroController.setPosition(position);
-                pedroPedroController.computeTarget();
-                pidTarget.copyFrom(pedroPedroController.getPidTarget());
+                trajectoryFollowController.setPosition(position);
+                trajectoryFollowController.computeTarget();
+
+                pidTarget.copyFrom(trajectoryFollowController.getPidTarget());
                 setVoltages();
                 break;
             case TELE_OP:
@@ -102,8 +94,8 @@ abstract class DriveTrain {
             this.manualTarget.copyFrom(p);
 
     }
-    public void addWayPoints(WayPoint... t){purePursuitController.addWayPoints(t);}
-    public void addTrajectory(List<CompositePositionPath<Arclength>> t){pedroPedroController.addTrajectory(t);}
+    public void addWayPoints(WayPoint... t){
+        trajectoryFollowController.addWayPoints(t);}
 
     private final DriveTrainVoltageController driveTrainVoltageController = new DriveTrainVoltageController();
 
@@ -148,8 +140,7 @@ abstract class DriveTrain {
     }
 
 
-    protected final PurePursuitController purePursuitController   = new PurePursuitController();
-    protected final PedroPedroController  pedroPedroController    = new PedroPedroController();
+    protected final TrajectoryFollowController trajectoryFollowController = new TrajectoryFollowController();
 
     private final PositionPidController  positionPidController    = new PositionPidController();
     private final VelocityPidController  velocityPidController    = new VelocityPidController();

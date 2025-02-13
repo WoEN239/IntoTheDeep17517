@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit;
+package org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory;
 
 import com.acmerobotics.dashboard.config.Config;
 

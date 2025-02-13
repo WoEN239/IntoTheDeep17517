@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit;
+package org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory;
 
 import androidx.annotation.NonNull;
 
@@ -12,6 +12,12 @@ public class WayPoint {
     public PurePursuitTask onLineTask ;
     public PurePursuitTask onPointTask;
     public Position position;
+
+    private boolean isSpline = false;
+    public boolean isSpline() {return isSpline;}
+
+    public double beginTangent = 0;
+    public double endTangent = 0;
 
     public WayPoint(Position position, PurePursuitTask onLineTask, PurePursuitTask onPointTask) {
         this.onLineTask = onLineTask;
@@ -29,6 +35,13 @@ public class WayPoint {
         this.onLineTask = PurePursuitTask.Stub;
         this.onPointTask = PurePursuitTask.Stub;
         this.position = position;
+    }
+
+    public WayPoint toSpline(double begin, double end){
+        beginTangent = begin;
+        endTangent = end;
+        isSpline = true;
+        return this;
     }
 
     @NonNull

@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.Robot;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.PositionPool;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.PositionPool;
 /*
   Writing by EgorKhvostikov
 */

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit;
+package org.firstinspires.ftc.teamcode.Modules.DriveTrain.LineFollower;
 
 
 import static java.lang.Math.cos;
@@ -8,29 +8,28 @@ import static java.lang.Math.toDegrees;
 import androidx.annotation.NonNull;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
-import org.firstinspires.ftc.teamcode.Robot.Robot;
-import org.firstinspires.ftc.teamcode.Telemetry.FieldView;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.TrajectorySegment;
 
 /*
   Writing by EgorKhvostikov
 */
-public class LineSegment {
+public class LineTrajectorySegment extends TrajectorySegment {
     //start.h,end.h - angle of line
     public Position start = new Position();
     public Position end = new Position();
     public double lineAngle = 0;
 
-    Position unitVector = new Position();
+    public Position unitVector = new Position();
     double length = 0;
 
     public double kX = 0;
     public double kY = 0;
     public double c = 0;
 
-    public LineSegment makeWithTwoPoint(Position start, Position end) {
+    public LineTrajectorySegment makeWithTwoPoint(Position start, Position end) {
         return makeWithTwoPoint(start.x, start.y, end.x, end.y);
     }
-    public LineSegment makeWithTwoPoint(double x1, double y1, double x2, double y2){
+    public LineTrajectorySegment makeWithTwoPoint(double x1, double y1, double x2, double y2){
         kX = y2 - y1;
         kY = -(x2 - x1);
         c =  -(kY*y1 + kX*x1) ;

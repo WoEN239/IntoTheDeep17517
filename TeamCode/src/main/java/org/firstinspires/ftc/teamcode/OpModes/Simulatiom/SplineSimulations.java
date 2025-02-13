@@ -1,22 +1,12 @@
 package org.firstinspires.ftc.teamcode.OpModes.Simulatiom;
 
-import android.app.appsearch.PropertyPath;
-
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.roadrunner.CompositePosePath;
 import com.acmerobotics.roadrunner.DualNum;
-import com.acmerobotics.roadrunner.Internal;
-import com.acmerobotics.roadrunner.PathBuilder;
-import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.PositionPath;
 import com.acmerobotics.roadrunner.QuinticSpline1d;
 import com.acmerobotics.roadrunner.QuinticSpline2d;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.DriveTrainManager;
-import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.DriveTrainSimulation;
-import org.firstinspires.ftc.teamcode.Telemetry.FieldView;
 
 
 @Config

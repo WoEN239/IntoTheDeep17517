@@ -4,12 +4,8 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.DriveTrainManager;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.LineSegment;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.PurePursuit.LineSegmentFollower;
-import org.firstinspires.ftc.teamcode.Robot.Robot;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Manager.DriveTrainManager;
 import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.DriveTrainSimulation;
-import org.firstinspires.ftc.teamcode.Telemetry.FieldView;
 
 @Config
 @TeleOp
