@@ -83,7 +83,6 @@ public class Motor {
         }
         else
             u = ((voltage) / 12.0);
-        //Robot.telemetryPacket.put("Voltage "+name+" ", voltage);
         setPower(u);
     }
 
