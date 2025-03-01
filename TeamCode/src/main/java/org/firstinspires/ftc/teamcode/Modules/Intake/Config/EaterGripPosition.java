@@ -4,8 +4,8 @@ import com.acmerobotics.dashboard.config.Config;
 
 @Config
 public class EaterGripPosition {
-    public static double open  = 0.25;
-    public static double close = 0.6;
-    public static double regrip = 0.525;
+    public static double open  = 0.25   ;
+    public static double close = 0.49   ;
+    public static double regrip = 0.46;
 }
 

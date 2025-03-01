@@ -22,14 +22,22 @@ public class VelocityPidController{
     public Position getPidResult(){return pidResult;}
 
 
-    public static PidStatus pidStatusY = new PidStatus(0.25, 2, 0, 0,1.25,0,0, 4, 0);
+    public static PidStatus pidStatusY = new PidStatus(1, 0, 0.1, 0,0.667,0,0, 0, 60);
     Pid pidY = new Pid(pidStatusY);
-
-    public static PidStatus pidStatusX = new PidStatus(0.15, 3, 0, 0,1.25,0,0, 4, 0);
+    {
+        pidStatusY.setG(36.0);
+    }
+    public static PidStatus pidStatusX = new PidStatus(0.2, 0, 0.025, 0,0.61,0,0, 0, 60);
     Pid pidX = new Pid(pidStatusX);
+    {
+        pidStatusX.setG(36.0);
+    }
 
-    public static PidStatus pidStatusH = new PidStatus(0.03, 0.025, 0.0025, 0,0.05,0,0, 1, 0);
+    public static PidStatus pidStatusH = new PidStatus(0.001, 0, 0.001, 0,0.025,0,0, 0, 5.1);
     Pid pidH = new Pid(pidStatusH);
+    {
+        pidStatusH.setG(5.0);
+    }
 
     public void computePidResult() {
         Position pidResult = new Position();

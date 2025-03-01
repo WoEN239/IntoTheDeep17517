@@ -13,6 +13,8 @@ public class PidStatus {
     public double kf2;
     public double kf3;
 
+    public double g = 0;
+
     public double maxI;
     public double zeroBorder;
     public boolean isTelemetry = false;
@@ -43,5 +45,9 @@ public class PidStatus {
         this.kf3 = status.kf3;
         this.maxI = status.maxI;
         this.zeroBorder = status.zeroBorder;
+    }
+
+    public void setG(double g) {
+        this.g = g;
     }
 }

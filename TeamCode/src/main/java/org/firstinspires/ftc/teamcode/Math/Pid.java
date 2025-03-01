@@ -90,7 +90,7 @@ public class Pid {
         if (abs(I) > status.maxI) {
             I = status.maxI * signum(I);
         }
-        double u = P + I + D + F;
+        double u = P + I + D + F + status.g*signum(target);
 
         if (abs(u) < status.zeroBorder) {
             u = 0;

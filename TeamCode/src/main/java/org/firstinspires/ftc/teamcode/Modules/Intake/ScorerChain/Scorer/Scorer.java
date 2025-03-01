@@ -34,8 +34,12 @@ public class Scorer {
         scorer.setTarget(ScorerPosition.scoreYaw, ScorerPosition.scorePitch);
     }
 
+    public void swipe(){
+        scorer.setTarget(ScorerPosition.swipeYaw,ScorerPosition.swipePitch);
+    }
+
     public void human(){
-        scorer.setTarget(ScorerPosition.humanYaw,ScorerPosition.humanPitch);
+        scorer.setTarget(ScorerPosition.swipeYaw,ScorerPosition.swipePitch);
     }
 
 }

@@ -8,6 +8,6 @@ public class EaterPosition {
     public static double upPitch   = 270;
 
     public static double downYaw   = 0  ;
-    public static double downPitch = 70 ;
+    public static double downPitch = 90 ;
 
 }

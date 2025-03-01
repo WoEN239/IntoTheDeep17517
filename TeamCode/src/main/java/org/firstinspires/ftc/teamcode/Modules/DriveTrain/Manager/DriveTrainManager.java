@@ -6,10 +6,14 @@ import org.firstinspires.ftc.teamcode.Robot.TaskManager.TaskManager;
 
 public class DriveTrainManager extends DriveTrain{
     public enum RobotState {
-        POINT,TRAVELING,TELE_OP
+        POINT,TRAVELING,TELE_OP,TELE_OP_ANGLE_CONTROL
     }
     private RobotState state = RobotState.TRAVELING;
     public void setState(RobotState state) {this.state = state;}
+
+    public  RobotState getState() {
+        return state;
+    }
 
     private void changeState(RobotState state){ this.state = state; isNeedToAddTask = true;}
     private boolean isNeedToAddTask = true;
@@ -49,6 +53,9 @@ public class DriveTrainManager extends DriveTrain{
 
             case TELE_OP:
                 setDriveTrainState(DriveTrainState.TELE_OP);
+                break;
+            case TELE_OP_ANGLE_CONTROL:
+                setDriveTrainState(DriveTrainState.ANGEL_CONTROL);
                 break;
         }
         moveUpdate();

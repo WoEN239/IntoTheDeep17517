@@ -18,13 +18,18 @@ public class ScorerChainManager {
         task = ScorerTask.TO_EAT;
         timer.reset();
     }
+    public void swipe(){
+        task = ScorerTask.SWIPE;
+        timer.reset();
+    }
+
 
     public void score(){
         task = ScorerTask.END_EAT;
     }
 
     public enum ScorerTask {
-        TO_EAT,EAT,END_EAT,TARGET,MOVE;
+        TO_EAT,EAT,END_EAT,WALL_TARGETING, TARGETING,SCORE,MOVE, SWIPE;
         private Runnable[] update;
 
         public void init(Runnable... run) {
@@ -52,28 +57,31 @@ public class ScorerChainManager {
 
                     if(timer.seconds()>0.5){
                         timer.reset();
-                        task = ScorerTask.EAT;
+                        task = ScorerTask.WALL_TARGETING;
                     }
 
                 }
         );
-        ScorerTask.EAT.init(
+        ScorerTask.WALL_TARGETING.init(
                 ()->{
+                    modules.scorerGrip.open();
+                    modules.scorer.wall()    ;
                     if(isTargeted){
-                        modules.scorerGrip.close();
-                        if(timer.seconds()>0.2){
-                            modules.scorer.eatAccept() ;
-                        }
-                        if(timer.seconds()>0.5){
-                            timer.reset();
-                            task = ScorerTask.END_EAT;
-                        }
-                    }else {
-                        modules.scorerGrip.open();
-                        modules.scorer.wall();
                         timer.reset();
+                        task = ScorerTask.EAT;
                     }
-
+                }
+        );
+        ScorerTask.EAT.init(
+                ()-> {
+                    modules.scorerGrip.close();
+                    if (timer.seconds() > 0.2) {
+                        modules.scorer.eatAccept();
+                    }
+                    if (timer.seconds() > 0.5) {
+                        timer.reset();
+                        task = ScorerTask.END_EAT;
+                    }
                 }
         );
         ScorerTask.END_EAT.init(
@@ -85,31 +93,44 @@ public class ScorerChainManager {
                     }
                     if(timer.seconds()>1){
                         timer.reset();
-                        task = ScorerTask.TARGET;
+                        task = ScorerTask.TARGETING;
                     }
                 }
         );
-        ScorerTask.TARGET.init(
+        ScorerTask.TARGETING.init(
                 ()->{
                     if(isTargeted){
-                        modules.scorer.score();
-                        if(timer.seconds()>0.5){
-                            modules.scorerGrip.open();
-                        }
-                        if(timer.seconds()>0.7){
-                            timer.reset();
-                            task = ScorerTask.MOVE;
-                        }
+                        task = ScorerTask.SCORE;
+                        timer.reset();
                     }else{
                         modules.scorerGrip.close();
                         modules.scorer.target();
-                        timer.reset();
+
                     }
 
                 }
         );
+        ScorerTask.SCORE.init(
+                ()->{
+                    modules.scorer.score();
+                    if(timer.seconds()>0.7){
+                        modules.scorerGrip.open();
+                    }
+                    if(timer.seconds()>0.7){
+                        timer.reset();
+                        task = ScorerTask.MOVE;
+                    }
+                }
+        );
         ScorerTask.MOVE.init(
                 ()->{
+                    task = ScorerTask.TO_EAT;
+                    timer.reset();
+                }
+        );
+        ScorerTask.SWIPE.init(
+                ()->{
+                    modules.scorer.swipe();
                 }
         );
     }

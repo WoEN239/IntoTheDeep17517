@@ -28,13 +28,13 @@ public class PositionPidController{
     public Position getPidResult() {return pidResult;}
 
 
-    public static PidStatus pidStatusY = new PidStatus(2.35, 5, 0, 0, 0, 0, 0, 3, 0);
+    public static PidStatus pidStatusY = new PidStatus(1.7, 8.5, 0, 0, 0, 0, 0, 25, 26);
     Pid pidY = new Pid(pidStatusY);
 
-    public static PidStatus pidStatusX = new PidStatus(2, 5, 0.2, 0, 0, 0, 0, 5, 0);
+    public static PidStatus pidStatusX = new PidStatus(1.2, 18, 0., 0, 0, 0, 0, 25, 26);
     Pid pidX = new Pid(pidStatusX);
 
-    public static PidStatus pidStatusH = new PidStatus(3.5, 5, 0.001, 0, 0, 0, 0, 50, 0);
+    public static PidStatus pidStatusH = new PidStatus(2, 15, 0, 0, 0, 0, 0, 25, 27);
     Pid pidH = new Pid(pidStatusH);
     {
         pidH.isAngle = true;

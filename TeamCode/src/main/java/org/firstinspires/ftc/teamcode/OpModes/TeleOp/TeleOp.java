@@ -1,40 +1,64 @@
 package org.firstinspires.ftc.teamcode.OpModes.TeleOp;
 
+import static java.lang.Math.abs;
+
+import org.firstinspires.ftc.teamcode.Devices.DevicePool;
+import org.firstinspires.ftc.teamcode.Devices.IntakeDevices;
 import org.firstinspires.ftc.teamcode.Math.BorderButton;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Manager.DriveTrainManager;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Config.TransferPosition;
+import org.firstinspires.ftc.teamcode.Modules.Intake.EaterChain.Transfer.Transfer;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp
 public class TeleOp extends BaseMode {
     public void callRun(){
+        DevicePool.isLiftInit = false;
 
+        robot.driveTrain.setState(DriveTrainManager.RobotState.TELE_OP);
         BaseMode.isField = true;
         isNeedToCall = false;
     }
 
     BorderButton rotateButton = new BorderButton();
+    BorderButton moveStateButton = new BorderButton();
 
+
+    public static boolean isNeedToSlow = false;
+    double trigers = TransferPosition.normal;
     public void loopRun() {
-        robot.driveTrain.setState(DriveTrainManager.RobotState.TELE_OP);
-        double trigers = - gamepad1.right_trigger*100 + gamepad1.left_trigger*100;
-        if(gamepad1.ps){
-            trigers = 0;
-        }
-        robot.driveTrain.setVelocityTarget(
-                new Position(-gamepad1.left_stick_y*240,
-                        -gamepad1.left_stick_x*240 + trigers,
 
-                        gamepad1.right_stick_x*225)
-        );
+        double actTrigers = gamepad1.right_trigger*0.115 - 0.115 * gamepad1.left_trigger;
+        trigers += actTrigers;
+
+        if(trigers > TransferPosition.eat ){
+            trigers = TransferPosition.eat;
+        }
+        if(trigers < TransferPosition.normal ){
+            trigers = TransferPosition.normal;
+        }
+
+        Position targetVel = new Position(-gamepad1.left_stick_y *abs(gamepad1.left_stick_y) *700,
+                             -gamepad1.left_stick_x  * abs(gamepad1.left_stick_x)  *700, //+ trigers,
+                                 gamepad1.right_stick_x  *700);
+        if(isNeedToSlow){
+            targetVel.linearMultiply(0.25);
+            targetVel.angleMultiply(0.5);
+        }
+
+        robot.driveTrain.setVelocityTarget(targetVel);
 
         if(gamepad1.right_bumper){
             robot.intake.centerEat();
         }
+        Transfer.eatPos = trigers;
+
         if(gamepad1.left_bumper){
             robot.intake.wallEat();
         }
+        robot.intake.setTargeted(gamepad1.triangle);
 
         if(rotateButton.get(gamepad1.dpad_left)){
             robot.intake.rotateEater(15);
@@ -44,25 +68,24 @@ public class TeleOp extends BaseMode {
             robot.intake.rotateEater(-15);
         }
 
-        robot.intake.setTargeted(gamepad1.dpad_down);
-
-
-
-        robot.intake.setLiftManual(gamepad1.ps);
-        if(gamepad1.ps){
-            if(gamepad1.left_trigger>0.1){
-                liftManP = -5;
-            }
-            if(gamepad1.right_trigger>0.1){
-
-                liftManP = 8 ;
-            }
-            robot.intake.setManualTarget(liftManP);
+        if(gamepad1.square){
+            robot.intake.swipe();
         }
 
-        Robot.telemetryPacket.put("x", robot.driveTrain.getPosition().x);
-        Robot.telemetryPacket.put("h", robot.driveTrain.getPosition().h);
-        Robot.telemetryPacket.put("y", robot.driveTrain.getPosition().y);
+        if(moveStateButton.get(gamepad1.circle)){
+            if(robot.driveTrain.getState() == DriveTrainManager.RobotState.TELE_OP){
+                robot.driveTrain.setState(DriveTrainManager.RobotState.TELE_OP_ANGLE_CONTROL);
+                robot.driveTrain.setManualPosition(
+                        new Position(
+                        0,0,robot.driveTrain.getPosition().h)
+                );
+            }else{
+                robot.driveTrain.setState(DriveTrainManager.RobotState.TELE_OP);
+            }
+        }
+
+        robot.intake.setLiftManual(gamepad1.ps);
+
 
         telemetry.update();
         robot.fieldView.position = robot.driveTrain.getPosition();

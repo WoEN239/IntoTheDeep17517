@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager.IntakeModules;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
+import org.firstinspires.ftc.teamcode.OpModes.TeleOp.TeleOp;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 public class EaterChainManager {
@@ -22,7 +23,7 @@ public class EaterChainManager {
     }
 
     public enum EaterTask {
-        TO_EAT, EAT, END_EAT, RE_GRIP,TARGET_HUMAN, MOVE;
+        TO_EAT, EAT, END_EAT, SCORE,TARGET, MOVE;
         private Runnable[] update;
 
         public void init(Runnable... run) {
@@ -47,77 +48,73 @@ public class EaterChainManager {
                     liftRequest = LiftPosition.IN_POSITION;
                     if(timer.seconds()>0.5){
                         timer.reset();
-                        task = EaterTask.EAT;
-                    }
-                }
-       );
-       EaterTask.EAT.init(
-               ()->{
-                   modules.eater.down();
-                   modules.transfer.down();
-                   modules.scorerGrip.open();
-                   modules.scorer.regrip();
-
-                   if(isTargeted){
-                       modules.eaterGrip.close();
-                       if(timer.seconds()>0.2){
-                           timer.reset();
-                           task = EaterTask.END_EAT;
-                       }
-                   }else{
-                       modules.eaterGrip.open();
-                       timer.reset();
-                   }
-
-               }
-       );
-       EaterTask.END_EAT.init(
-               ()->{
-
-                    modules.transfer.up();
-                    modules.eater.up();
-                    modules.eaterGrip.regrip();
-                    if(timer.seconds()>0.6){
-                        modules.transfer.normal();
-                    }
-
-                    if(timer.seconds()> 1.2){
-                        timer.reset();
-                        task = EaterTask.RE_GRIP;
-                    }
-               }
-       );
-
-        EaterTask.RE_GRIP.init(
-                ()->{
-                    modules.scorerGrip.regrip();
-                    if(timer.seconds()>0.3){
-                        modules.eaterGrip.open();
-                    }
-                    if(timer.seconds()>0.5){
-                        modules.eater.down();
-                        modules.transfer.down();
-                    }
-                    if(timer.seconds()>0.7){
-                        timer.reset();
-                        task = EaterTask.TARGET_HUMAN;
+                        task = EaterTask.TARGET;
                     }
                 }
         );
 
-       EaterTask.TARGET_HUMAN.init(
+        EaterTask.TARGET.init(
+                ()->{
+                    TeleOp.isNeedToSlow = true;
+
+                    modules.transfer.eat();
+                    modules.transfer.target();
+                    modules.eaterGrip.open();
+
+                    modules.eater.down();
+
+                    modules.scorerGrip.open();
+                    modules.scorer.human();
+
+                    if(isTargeted){
+                        TeleOp.isNeedToSlow = false;
+                        timer.reset();
+                        task = EaterTask.EAT;
+                    }
+
+                }
+        );
+
+        EaterTask.EAT.init(
                ()->{
-                   if(isTargeted){
-                       modules.scorerGrip.open();
-                       task = EaterTask.MOVE;
-                   }else {
-                       modules.scorerGrip.close();
+                   TeleOp.isNeedToSlow = false;
+                   modules.eaterGrip.close();
+                   modules.transfer.down();
+                   if(timer.seconds()>0.4){
+                       timer.reset();
+                       task = EaterTask.END_EAT;
                    }
-                   modules.scorer.human();
-                   if(timer.seconds()>0.3){
-                       modules.eater   .up();
-                       modules.transfer.up();
-                       modules.transfer.normal();
+               }
+       );
+
+       EaterTask.END_EAT.init(
+               ()->{
+                    modules.transfer.in();
+                    modules.scorer.human();
+
+                    modules.transfer.up();
+                    modules.eater.up();
+                    modules.eaterGrip.regrip();
+
+                    if(timer.seconds()> 0.6){
+                        if(isTargeted) {
+                            timer.reset();
+                            task = EaterTask.SCORE;
+                        }
+                    }
+               }
+       );
+
+       EaterTask.SCORE.init(
+               ()->{
+                   modules.transfer.down();
+                   modules.transfer.eatEnd();
+                   modules.eater.down();
+
+                   if(timer.seconds()>0.4){
+                       modules.eaterGrip.open();
+                       timer.reset();
+                       task = EaterTask.MOVE;
                    }
                }
        );
@@ -126,8 +123,8 @@ public class EaterChainManager {
                 liftRequest = LiftPosition.IN_POSITION;
 
                 modules.eater   .up();
-                modules.transfer.up();
-                modules.transfer.normal();
+                modules.transfer.target();
+                modules.transfer.in();
             }
         );
     }

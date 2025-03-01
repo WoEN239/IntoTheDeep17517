@@ -4,23 +4,23 @@ import com.acmerobotics.dashboard.config.Config;
 
 @Config
 public class ScorerPosition {
-    public static double targetPitch = 100;
-    public static double targetYaw   = 120;
+    public static double targetPitch =  90;
+    public static double targetYaw   = -90;
 
-    public static double   wallYaw   = -10;
-    public static double   wallPitch =  20;
+    public static double   wallYaw   =  50;
+    public static double   wallPitch =  5 ;
 
     public static double eatAcceptYaw  = -10;
     public static double eatAcceptPitch = 40;
 
-    public static double scoreYaw    = 120;
-    public static double scorePitch  =  180;
+    public static double scoreYaw    = -90;
+    public static double scorePitch  =  170;
 
     public static double regripYaw    =-10;
     public static double regripPitch  = 10;
 
-    public static double humanYaw    = 180;
-    public static double humanPitch  = 250;
+    public static double swipeYaw   = -90;
+    public static double swipePitch = 130;
 
 
 }

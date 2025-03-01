@@ -39,7 +39,7 @@ public class Gyro{
         isUnInit = false;
     }
 
-    public  void reset() {imu.resetYaw();}
+    public void reset() {imu.resetYaw();}
 
     public  void update() {
         if(timer.seconds()>0.05) {

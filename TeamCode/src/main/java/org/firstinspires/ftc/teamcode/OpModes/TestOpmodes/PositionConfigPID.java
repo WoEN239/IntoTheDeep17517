@@ -5,8 +5,11 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Devices.DriveTrainMotors;
+import org.firstinspires.ftc.teamcode.Devices.IntakeDevices;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Manager.DriveTrainManager;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Config.FlipPosition;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Config.TransferPosition;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
@@ -37,5 +40,10 @@ public class PositionConfigPID extends BaseMode {
             robot.driveTrain.setManualPosition(new Position(-target.x,-target.y,-target.h));
             n = -1;
         }
+    }
+    @Override
+    public void initServo(){
+        IntakeDevices.transferRight.setPosition(TransferPosition.in);
+        IntakeDevices.flipRight.setPosition(FlipPosition.up);
     }
 }

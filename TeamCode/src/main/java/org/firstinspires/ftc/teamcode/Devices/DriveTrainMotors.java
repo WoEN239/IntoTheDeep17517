@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.Math.PidStatus;
 /*
  *Writing by @MrFrosty1234
  */
+
 public class DriveTrainMotors {
     public static Motor rightForwardDrive = new Motor();
     public static Motor rightBackDrive    = new Motor();
@@ -77,6 +78,6 @@ public class DriveTrainMotors {
     public static double kp          = 0; //= 0.0035;
     public static double kd          = 0; //= 0;
     public static double maxI        = 0; //= 4;
-    public static double zeroBorder  = 0; //= 3;
+    public static double zeroBorder  = 1; //= 3;
 
 }

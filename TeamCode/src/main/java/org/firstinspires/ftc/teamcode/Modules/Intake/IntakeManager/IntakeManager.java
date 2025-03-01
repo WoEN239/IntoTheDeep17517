@@ -44,9 +44,10 @@ public class IntakeManager extends ChainManager {
         else return false;
     }
 
-    public boolean scoreAxis(){
+    public boolean swipe(){
+        castSwipe();
         if(state == IntakeState.WALL_EAT || state == IntakeState.SCORE){
-            castAxisScore();
+        //    castAxisScore();
             state = IntakeState.SCORE;
             return true;
         }

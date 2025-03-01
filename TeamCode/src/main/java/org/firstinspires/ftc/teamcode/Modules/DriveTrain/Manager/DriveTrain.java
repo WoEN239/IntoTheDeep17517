@@ -39,7 +39,7 @@ abstract class DriveTrain {
         return localVelocity;
     }
 
-    protected enum DriveTrainState {PURE_PURSUIT,PID_CONTROL,TELE_OP}
+    protected enum DriveTrainState {PURE_PURSUIT,PID_CONTROL,TELE_OP,ANGEL_CONTROL}
     private DriveTrainState driveTrainState = DriveTrainState.PID_CONTROL;
     protected void setDriveTrainState(DriveTrainState driveTrainState) {this.driveTrainState = driveTrainState;}
 
@@ -79,6 +79,10 @@ abstract class DriveTrain {
                 break;
             case TELE_OP:
                 setVoltagesFromVelocity();
+                break;
+            case ANGEL_CONTROL:
+                pidTarget.copyFrom(manualTarget);
+                setVoltagesFromVelocityWithAngleControll();
                 break;
         }
 
@@ -171,6 +175,32 @@ abstract class DriveTrain {
     private Position velocityTarget = new Position();
     public void setVelocityTarget(Position velocityTarget) {
         this.velocityTarget = velocityTarget;
+    }
+
+    protected void setVoltagesFromVelocityWithAngleControll(){
+        if(Robot.isDebug){
+            localPosition.copyFrom(DriveTrainSimulation.localPosition);
+            position.copyFrom(DriveTrainSimulation.position);
+        }
+
+        positionPidController.setLocalPosition(localPosition);
+        positionPidController.setGlobalPosition(position);
+        positionPidController.setTarget(pidTarget);
+        positionPidController.computePidResult();
+
+        Position pidResult = positionPidController.getPidResult();
+        pidPositionResult.copyFrom(pidResult);
+
+        velocityTarget.h = pidResult.h;
+
+        velocityPidController.setVelocity(localVelocity);
+        velocityPidController.setTarget(velocityTarget);
+        velocityPidController.computePidResult();
+
+        if(!Robot.isDebug){
+            Position voltageMap = velocityPidController.getPidResult();
+            driveTrainVoltageController.setVoltage(voltageMap);
+        }
     }
 
     protected void setVoltagesFromVelocity(){

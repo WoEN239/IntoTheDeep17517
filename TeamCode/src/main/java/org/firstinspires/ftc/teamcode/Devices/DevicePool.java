@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Devices.Gyro;
   Writing by @MrFrosty1234
 */
 public class DevicePool {
-    private static boolean isLiftInit = false;
+    public static boolean isLiftInit = false;
     public static void init (HardwareMap hardwareMap) {
         IntakeDevices   .init(hardwareMap);
         DriveTrainMotors.init(hardwareMap);

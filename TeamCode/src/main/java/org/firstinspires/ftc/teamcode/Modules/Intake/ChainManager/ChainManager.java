@@ -38,6 +38,11 @@ public abstract class ChainManager {
 
     }
 
+    protected void castSwipe(){
+        scorerChainManager.swipe();
+        state = ChainState.SCORER;
+    }
+
     protected void castCenterEat(){
         eaterChainManager.startEat();
         state = ChainState.EATER;

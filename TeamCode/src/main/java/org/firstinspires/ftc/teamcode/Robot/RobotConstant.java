@@ -17,7 +17,7 @@ public class RobotConstant {
     public static double Y_MULTIPLIER = 1.25;
 
 
-    public static double MAX_MOTOR_TICKS_VEL = 2400;
+    public static double MAX_MOTOR_TICKS_VEL = 2000;
 
     public static double ENCODER_CONSTANT = 480;
     public static double TRANSMISSION = 21d/27;

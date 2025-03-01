@@ -38,17 +38,29 @@ public class Transfer {
         flipRight.setPosition(FlipPosition.down);
     }
 
+    public void target(){
+        flipLeft.setPosition (FlipPosition.target);
+        flipRight.setPosition(FlipPosition.target);
+    }
+
     public void in(){
         transferServoRight.setPosition(TransferPosition.in);
         transferServoLeft .setPosition(TransferPosition.in);
     }
+
     public void normal(){
         transferServoRight.setPosition(TransferPosition.normal);
         transferServoLeft .setPosition(TransferPosition.normal);
     }
 
+    public void eatEnd(){
+        transferServoRight.setPosition(TransferPosition.eat);
+        transferServoLeft .setPosition(TransferPosition.eat);
+    }
+
     public void eat(){
         double t = Range.clip(eatPos,TransferPosition.normal,TransferPosition.eat);
+
         transferServoRight.setPosition(t);
         transferServoLeft .setPosition(t);
     }

@@ -69,8 +69,8 @@ public class LocalPositionListener {
 
 
         Robot.telemetryPacket.put("clean h", hClean);
-
-        Robot.telemetryPacket.put("true H ",h);
+        Robot.telemetryPacket.put("gyro h ", deviceValue.gyro);
+        Robot.telemetryPacket.put("filtered H ",h);
 
 
         deltaPos.copyFrom(new Position(x, y, h));
