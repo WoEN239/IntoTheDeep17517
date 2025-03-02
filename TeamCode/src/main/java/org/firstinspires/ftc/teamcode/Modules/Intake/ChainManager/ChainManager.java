@@ -42,6 +42,10 @@ public abstract class ChainManager {
         scorerChainManager.swipe();
         state = ChainState.SCORER;
     }
+    protected void castScoreAxis(){
+        scorerChainManager.score();
+        state = ChainState.SCORER;
+    }
 
     protected void castCenterEat(){
         eaterChainManager.startEat();
@@ -55,12 +59,6 @@ public abstract class ChainManager {
         scorerChainManager.startEat();
         state = ChainState.SCORER;
     }
-
-    protected void castAxisScore(){
-        scorerChainManager.score();
-        state  = ChainState.SCORER;
-    }
-
     public void setTargeted(boolean t){
         eaterChainManager.setTargeted(t);
         scorerChainManager.setTargeted(t);

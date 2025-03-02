@@ -10,10 +10,10 @@ import org.firstinspires.ftc.teamcode.Math.Position;
 @Config
 public class PositionPool {
 
-    public static Position start = new Position(0,0,0);
+    public static Position start = new Position(0,-160,90);
     public static Position park = new Position(-150, 150,0);
     public static Position basketScoring = new Position(150,152,135);
-    public static Position firstElement = new Position(122,138,90);
-    public static Position chamberHigh = new Position(100,-20,0);
+    public static Position humanElement = new Position(120,-115,-90);
+    public static Position chamber = new Position(0,-80,90);
 
 }

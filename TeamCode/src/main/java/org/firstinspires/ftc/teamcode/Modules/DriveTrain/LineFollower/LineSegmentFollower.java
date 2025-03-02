@@ -12,10 +12,10 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
   Writing by EgorKhvostikov
 */
 
-
+@Config
 public class LineSegmentFollower extends TrajectoryFollower<LineTrajectorySegment> {
     public LineTrajectorySegment targetLineSegment;
-    public static double localRadius = 15;
+    public static double localRadius = 50;
 
     public double targetLineAngle = 0;
     public double targetEndAngle = 0;

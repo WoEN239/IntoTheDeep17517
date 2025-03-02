@@ -54,6 +54,11 @@ public class PurePursuitTask {
         this.run = run;
     }
 
+    public PurePursuitTask(Supplier<Boolean> isDone,Runnable... run) {
+        this.run = run;
+        this.isDone = isDone;
+    }
+
     @NonNull
     @Override
     public String toString(){

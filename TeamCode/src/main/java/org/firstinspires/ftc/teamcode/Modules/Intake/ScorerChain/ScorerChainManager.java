@@ -22,12 +22,10 @@ public class ScorerChainManager {
         task = ScorerTask.SWIPE;
         timer.reset();
     }
-
-
     public void score(){
-        task = ScorerTask.END_EAT;
+        task = ScorerTask.TARGETING;
+        timer.reset();
     }
-
     public enum ScorerTask {
         TO_EAT,EAT,END_EAT,WALL_TARGETING, TARGETING,SCORE,MOVE, SWIPE;
         private Runnable[] update;
@@ -99,6 +97,7 @@ public class ScorerChainManager {
         );
         ScorerTask.TARGETING.init(
                 ()->{
+                    liftRequest = LiftPosition.SCORE_AXIS;
                     if(isTargeted){
                         task = ScorerTask.SCORE;
                         timer.reset();
@@ -122,12 +121,14 @@ public class ScorerChainManager {
                     }
                 }
         );
+
         ScorerTask.MOVE.init(
                 ()->{
                     task = ScorerTask.TO_EAT;
                     timer.reset();
                 }
         );
+
         ScorerTask.SWIPE.init(
                 ()->{
                     modules.scorer.swipe();

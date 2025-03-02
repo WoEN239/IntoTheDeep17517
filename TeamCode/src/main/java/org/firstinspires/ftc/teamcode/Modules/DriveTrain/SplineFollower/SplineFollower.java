@@ -2,11 +2,13 @@ package org.firstinspires.ftc.teamcode.Modules.DriveTrain.SplineFollower;
 
 import static com.acmerobotics.roadrunner.Curves.project;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Arclength;
 import com.acmerobotics.roadrunner.Vector2dDual;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.TrajectoryFollower;
+
 
 public class SplineFollower extends TrajectoryFollower <SplineTrajectorySegment>{
 

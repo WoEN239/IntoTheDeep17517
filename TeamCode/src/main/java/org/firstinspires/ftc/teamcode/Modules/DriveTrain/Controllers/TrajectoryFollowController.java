@@ -45,7 +45,7 @@ public class TrajectoryFollowController {
                         new SplineTrajectorySegment(
                         new PositionPathSeqBuilder(
                                 wayPoints.get(i-1).position.toRRPosition().position,
-                                wayPoints.get(i-1).beginTangent,1e-6)
+                                wayPoints.get(i).beginTangent,1e-6)
                                 .splineTo(
                                 wayPoints.get(i).position.toRRPosition().position,
                                 wayPoints.get(i).endTangent)

@@ -76,8 +76,8 @@ public class TeleOp extends BaseMode {
             if(robot.driveTrain.getState() == DriveTrainManager.RobotState.TELE_OP){
                 robot.driveTrain.setState(DriveTrainManager.RobotState.TELE_OP_ANGLE_CONTROL);
                 robot.driveTrain.setManualPosition(
-                        new Position(
-                        0,0,robot.driveTrain.getPosition().h)
+                        new Position
+                        (0,0,robot.driveTrain.getPosition().h)
                 );
             }else{
                 robot.driveTrain.setState(DriveTrainManager.RobotState.TELE_OP);
@@ -87,6 +87,7 @@ public class TeleOp extends BaseMode {
         robot.intake.setLiftManual(gamepad1.ps);
 
 
+        Robot.telemetryPacket.put("position robot",robot.driveTrain.getPosition().toString());
         telemetry.update();
         robot.fieldView.position = robot.driveTrain.getPosition();
         robot.fieldView.circle   = robot.driveTrain.getPidTarget();

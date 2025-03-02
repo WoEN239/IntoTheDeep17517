@@ -24,43 +24,20 @@ public class IntakeManager extends ChainManager {
         castCancel();
         state = IntakeState.DOWN;
     }
-    public boolean centerEat(){
+    public void centerEat(){
         castCenterEat();
-        if(state == IntakeState.BRUSH_EAT || state == IntakeState.DOWN){
-            //castBrushEat();
-            state = IntakeState.BRUSH_EAT;
-            return true;
-        }
-        else return false;
     }
 
-    public boolean wallEat(){
+    public void wallEat(){
         castWallEat();
-        if(state == IntakeState.WALL_EAT || state == IntakeState.DOWN){
-            castWallEat();
-            state = IntakeState.WALL_EAT;
-            return true;
-        }
-        else return false;
     }
 
-    public boolean swipe(){
+    public void swipe(){
         castSwipe();
-        if(state == IntakeState.WALL_EAT || state == IntakeState.SCORE){
-        //    castAxisScore();
-            state = IntakeState.SCORE;
-            return true;
-        }
-        else return false;
     }
 
-    public boolean scoreBasket(){
-        if(state == IntakeState.SAMPLE_IN_GRIP || state == IntakeState.SCORE){
-            //castBasketScore();
-            state = IntakeState.SCORE;
-            return true;
-        }
-        else return false;
+    public void scoreAxis(){
+        castScoreAxis();
     }
 
 }
