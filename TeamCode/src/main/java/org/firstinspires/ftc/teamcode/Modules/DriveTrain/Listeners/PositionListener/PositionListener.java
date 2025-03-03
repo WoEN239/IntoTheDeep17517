@@ -31,6 +31,7 @@ public class PositionListener{
         positionTik.copyFrom(Robot.myTeam.startPos).
                 linearMultiply(1 / RobotConstant.SM_PER_ODOMETER_TIK);
         position   .copyFrom(Robot.myTeam.startPos);
+        oldH = Robot.myTeam.startPos.h;
 
     }
 
@@ -50,7 +51,7 @@ public class PositionListener{
 
         dpCorrected.y = dp.x*(1-cos(dH))/dH + dp.y*sin(dH)/dH;
 
-        if(abs(dH)<1){
+        if(abs(dH)<0.0017){
             dpCorrected.copyFrom(dp);
         }
 

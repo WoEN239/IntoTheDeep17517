@@ -9,7 +9,7 @@ import com.acmerobotics.dashboard.config.Config;
 @Config
 public class FlipPosition {
     public static double up   = 0.7;
-    public static double down = 0.88;
+    public static double down = 0.89;
     public static double clear = 0.;
-    public static double target = 0.86;
+    public static double target = 0.83;
 }

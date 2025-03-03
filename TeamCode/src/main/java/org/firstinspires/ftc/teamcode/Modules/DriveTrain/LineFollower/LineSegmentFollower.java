@@ -15,10 +15,12 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
 @Config
 public class LineSegmentFollower extends TrajectoryFollower<LineTrajectorySegment> {
     public LineTrajectorySegment targetLineSegment;
-    public static double localRadius = 50;
+    public static double localRadius       = 100;
+    public static double endDetectAngle    =  5 ;
 
     public double targetLineAngle = 0;
     public double targetEndAngle = 0;
+
 
     public boolean isEndNear = false;
 
@@ -42,21 +44,21 @@ public class LineSegmentFollower extends TrajectoryFollower<LineTrajectorySegmen
         Position target =  projection.vectorPlus(new Position().copyFrom(unitTargetVector).linearMultiply(localRadius));
         target.h = targetLineAngle;
 
-        Position error = new Position().copyFrom(p).vectorMinus(targetLineSegment.end);
+        Position error = new Position().copyFrom(p).positionMinus(targetLineSegment.end);
 
         Robot.telemetryPacket.fieldOverlay().
                 strokeLine(targetLineSegment.start.x, targetLineSegment.start.y,
                         targetLineSegment.end.x, targetLineSegment.end.y);
 
 
-        if( abs(error.x) < endDetect && abs(error.y) < endDetect  ) {
+        if( abs(error.x) < endDetect && abs(error.y) < endDetect  && abs(error.h) < endDetectAngle) {
             isEndNear = true;
             targetLineSegment.end.h = targetEndAngle;
 
             return targetLineSegment.end;
         }else {
             isEndNear = false ;
-            target.h = targetLineAngle;
+            target.h = p.h + localRadiusAngle*Math.signum(targetLineAngle - p.h);
             return target;
         }
     }

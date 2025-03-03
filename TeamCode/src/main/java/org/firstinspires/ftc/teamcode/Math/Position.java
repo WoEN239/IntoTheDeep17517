@@ -66,15 +66,23 @@ public class Position {
         return this;
     }
 
-    public void positionMinus(Position pos){
+    public Position positionMinus(Position pos){
         x -= pos.x;
         y -= pos.y;
         h -= pos.h;
+        return this;
     }
+
     public Position positionPlus(Position pos){
         x += pos.x;
         y += pos.y;
         h += pos.h;
+        return this;
+    }
+    public Position positionPlus(double x,double y, double h){
+        this.x += x;
+        this.y += y;
+        this.h += h;
         return this;
     }
 

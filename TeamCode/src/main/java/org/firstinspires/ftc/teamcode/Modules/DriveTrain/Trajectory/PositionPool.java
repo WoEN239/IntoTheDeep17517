@@ -11,9 +11,15 @@ import org.firstinspires.ftc.teamcode.Math.Position;
 public class PositionPool {
 
     public static Position start = new Position(0,-160,90);
+
     public static Position park = new Position(-150, 150,0);
-    public static Position basketScoring = new Position(150,152,135);
-    public static Position humanElement = new Position(120,-115,-90);
+
+    public static Position humanElement = new Position(124,-115 ,-90);
+    public static Position humanScore = new Position  (124,-115 ,85);
+
+    public static Position wall = new Position  (124,-160 ,90);
+
+
     public static Position chamber = new Position(0,-80,90);
 
 }

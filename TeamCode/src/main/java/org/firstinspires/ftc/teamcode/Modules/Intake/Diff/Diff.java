@@ -14,7 +14,7 @@ public class Diff {
     }
 
     public void setTarget(double yaw, double pitch){
-        plus.setPosition ((yaw   + pitch)/270.0);
+        plus.setPosition (( yaw   + pitch)/270.0);
         minus.setPosition((-yaw  + pitch)/270.0);
     }
 

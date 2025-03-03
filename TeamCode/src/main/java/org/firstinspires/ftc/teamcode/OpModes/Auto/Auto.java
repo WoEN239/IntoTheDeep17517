@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 /**
- * Writing by EgorKhvostikov and @MrFrosty1234
+ * Writing by EgorKhvostikov
  */
 
 @Autonomous
@@ -25,8 +25,18 @@ public class Auto extends BaseMode {
     public void callRun() {
         robot.driveTrain.setState(DriveTrainManager.RobotState.TRAVELING);
         robot.driveTrain.addWayPoints(
-                WayPointsPool.lineScore,
-                WayPointsPool.goToHumanElements
+                wayPointsPool.lineScore,
+                wayPointsPool.goToHumanElements,
+                wayPointsPool.firstHumanElement,
+                wayPointsPool.scoreFirstHumanElement,
+
+                wayPointsPool.secondHumanElement,
+                wayPointsPool.scoreSecondHumanElement,
+
+                wayPointsPool.thirdHumanElement,
+                wayPointsPool.scoreThirdHumanElement,
+
+                wayPointsPool.goToWall
         );
 
         isNeedToCall = false;

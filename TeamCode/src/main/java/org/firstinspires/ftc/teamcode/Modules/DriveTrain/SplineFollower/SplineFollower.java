@@ -29,17 +29,13 @@ public class SplineFollower extends TrajectoryFollower <SplineTrajectorySegment>
         lastDisplacement = displacement;
 
         Vector2dDual<Arclength> target =  path.spline.get(TrajectoryFollower.localRadius + displacement ,1);
-        Vector2dDual<Arclength> project = path.spline.get(displacement,1);
 
         double xT = target.x.get(0);
         double yT = target.y.get(0);
 
-        double xP = project.x.get(0);
-        double yP = project.y.get(0);
-
         isEndNear =  Math.abs(path.spline.length - displacement) < endDetect;
 
-        return new Position(xT,yT, targetAngle);
+        return new Position(xT,yT,  p.h+ localRadiusAngle * Math.signum(targetAngle - p.h));
     }
 
 }

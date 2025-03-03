@@ -26,8 +26,10 @@ public class ScorerChainManager {
         task = ScorerTask.TARGETING;
         timer.reset();
     }
+
     public enum ScorerTask {
         TO_EAT,EAT,END_EAT,WALL_TARGETING, TARGETING,SCORE,MOVE, SWIPE;
+
         private Runnable[] update;
 
         public void init(Runnable... run) {
@@ -134,6 +136,7 @@ public class ScorerChainManager {
                     modules.scorer.swipe();
                 }
         );
+
     }
 
     public void setModules(IntakeModules modules) {this.modules = modules;}

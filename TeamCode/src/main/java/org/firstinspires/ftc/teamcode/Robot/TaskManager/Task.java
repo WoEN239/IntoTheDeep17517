@@ -4,13 +4,14 @@ import androidx.annotation.NonNull;
 
 import java.util.function.Supplier;
 
-public class PurePursuitTask {
+public class Task {
     public final Runnable [] run;
     private Supplier<Boolean> isDone = ()->false;
     private Runnable [] end = new Runnable[]{};
     public boolean isRunOnce = false;
     private String  name = "";
-    public static final PurePursuitTask Stub = new PurePursuitTask(
+
+    public static final Task Stub = new Task(
             ()->true,
             new Runnable[]{},
             new Runnable[]{}
@@ -38,23 +39,23 @@ public class PurePursuitTask {
         return isDone.get();
     }
 
-    public PurePursuitTask( Supplier<Boolean> isDone, Runnable[] end, Runnable... run) {
+    public Task(Supplier<Boolean> isDone, Runnable[] end, Runnable... run) {
         this.run = run;
         this.isDone = isDone;
         this.end = end;
     }
 
-    public PurePursuitTask(String name,Supplier<Boolean> isDone, Runnable... run ) {
+    public Task(String name, Supplier<Boolean> isDone, Runnable... run ) {
         this.run = run;
         this.isDone = isDone;
         this.name = name;
     }
 
-    public PurePursuitTask(Runnable... run) {
+    public Task(Runnable... run) {
         this.run = run;
     }
 
-    public PurePursuitTask(Supplier<Boolean> isDone,Runnable... run) {
+    public Task(Supplier<Boolean> isDone, Runnable... run) {
         this.run = run;
         this.isDone = isDone;
     }

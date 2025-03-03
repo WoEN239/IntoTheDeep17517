@@ -23,7 +23,8 @@ public class EaterChainManager {
     }
 
     public enum EaterTask {
-        TO_EAT, EAT, END_EAT, SCORE,TARGET, MOVE;
+        TO_EAT, EAT, END_EAT, SCORE,TARGET, MOVE,
+        TO_AUTO_EAT,AUTO_TARGETING,AUTO_ACCEPT_EAT,AUTO_HOLD_IN,AUTO_SCORE;
         private Runnable[] update;
 
         public void init(Runnable... run) {
@@ -126,6 +127,70 @@ public class EaterChainManager {
                 modules.transfer.target();
                 modules.transfer.in();
             }
+        );
+
+        EaterTask.TO_AUTO_EAT.init(
+                ()->{
+                    modules.transfer.target();
+                    modules.transfer.eat();
+                    modules.eater.down();
+                    modules.eaterGrip.open();
+                    if(timer.seconds()>0.5){
+                        timer.reset();
+                        task = EaterTask.AUTO_TARGETING;
+                    }
+                }
+        );
+        EaterTask.AUTO_TARGETING.init(
+                ()->{
+                    modules.transfer.eat();
+                    modules.eater.down();
+                    if(isTargeted){
+                        timer.reset();
+                        task = EaterTask.AUTO_ACCEPT_EAT;
+                    }
+                }
+        );
+
+        EaterTask.AUTO_ACCEPT_EAT.init(
+                ()->{
+                    modules.transfer.down();
+                    modules.eater.down();
+                    modules.transfer.eat();
+                    if(timer.seconds()>0.2){
+                        modules.transfer.down();
+                    }
+                    if(timer.seconds()>0.3){
+                        modules.eaterGrip.close();
+                    }
+                    if(timer.seconds()>0.5){
+                        timer.reset();
+                        task = EaterTask.AUTO_HOLD_IN;
+                    }
+                }
+        );
+        EaterTask.AUTO_HOLD_IN.init(
+                ()->{
+                    modules.transfer.target();
+                    modules.eaterGrip.close();
+                    if(isTargeted){
+                        timer.reset();
+                        task = EaterTask.AUTO_SCORE;
+                    }
+                }
+        );
+
+        EaterTask.AUTO_SCORE.init(
+                ()->{
+                    modules.transfer.eatEnd();
+                    if(timer.seconds()>0.2){
+                        modules.eaterGrip.open();
+                    }
+                    if(timer.seconds()>0.4){
+                        timer.reset();
+                        task = EaterTask.MOVE;
+                    }
+                }
         );
     }
 

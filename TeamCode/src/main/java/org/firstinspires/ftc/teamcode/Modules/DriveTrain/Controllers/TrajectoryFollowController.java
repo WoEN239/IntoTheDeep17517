@@ -2,18 +2,15 @@ package org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers;
 
 
 import com.acmerobotics.roadrunner.PositionPathSeqBuilder;
-import com.acmerobotics.roadrunner.Vector2d;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.LineFollower.LineTrajectorySegment;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.LineFollower.LineSegmentFollower;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.SplineFollower.SplineFollower;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.SplineFollower.SplineTrajectorySegment;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.PositionPool;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.TrajectoryFollower;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.TrajectorySegment;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.WayPoint;
-import org.firstinspires.ftc.teamcode.Robot.TaskManager.PurePursuitTask;
+import org.firstinspires.ftc.teamcode.Robot.TaskManager.Task;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 import java.util.ArrayList;
@@ -76,14 +73,14 @@ public class TrajectoryFollowController {
     private boolean onPoint = false;
     public  boolean onPoint(){return onPoint;}
 
-    public PurePursuitTask getOnPointTask(){
+    public Task getOnPointTask(){
         if(wayPoints.size()==1){
             return wayPoints.get(0).onPointTask;
         }
         return wayPoints.get(1).onPointTask;
     }
 
-    public PurePursuitTask getOnLineTask(){
+    public Task getOnLineTask(){
         if(wayPoints.size()==1){
             return wayPoints.get(0).onLineTask;
         }

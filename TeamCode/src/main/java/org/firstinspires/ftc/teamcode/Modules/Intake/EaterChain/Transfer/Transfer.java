@@ -59,9 +59,7 @@ public class Transfer {
     }
 
     public void eat(){
-        double t = Range.clip(eatPos,TransferPosition.normal,TransferPosition.eat);
-
-        transferServoRight.setPosition(t);
-        transferServoLeft .setPosition(t);
+        transferServoRight.setPosition(eatPos);
+        transferServoLeft .setPosition(eatPos);
     }
 }

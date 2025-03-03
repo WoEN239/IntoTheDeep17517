@@ -28,7 +28,7 @@ public class PositionPidController{
     public Position getPidResult() {return pidResult;}
 
 
-    public static PidStatus pidStatusY = new PidStatus(1.7, 8.5, 0, 0, 0, 0, 0, 25, 26);
+    public static PidStatus pidStatusY = new PidStatus(1.7, 8.5, 0, 0, 0, 0, 0, 25, 30);
     Pid pidY = new Pid(pidStatusY);
 
     public static PidStatus pidStatusX = new PidStatus(1.2, 18, 0., 0, 0, 0, 0, 25, 26);

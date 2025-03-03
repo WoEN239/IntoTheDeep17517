@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.WayPoint;
-import org.firstinspires.ftc.teamcode.Robot.TaskManager.PurePursuitTask;
+import org.firstinspires.ftc.teamcode.Robot.TaskManager.Task;
 
 @Config
 @TeleOp
@@ -19,14 +19,14 @@ public class PurePursuitSumulation extends BaseSimulation {
     public void callRun() {
         timer.reset();
         robot.driveTrain.addWayPoints(new WayPoint(new Position(100,0,0),
-                        new PurePursuitTask(
+                        new Task(
                                 "edf",
                                 ()->true,
                                 ()->robot.driveTrain.setManualPosition(new Position(100,0,0))
                         ))
                 ,
                 new WayPoint(new Position(100,50,10),
-                        new PurePursuitTask(
+                        new Task(
                                 "edf",
                                 ()->true,
                                 ()->robot.driveTrain.setManualPosition(new Position(100,50,0))
