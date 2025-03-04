@@ -70,7 +70,7 @@ public class EaterChainManager {
                     modules.eater.down();
 
                     modules.scorerGrip.open();
-                    modules.scorer.human();
+                    modules.scorer.regrip();
 
                     if(isTargeted){
                         TeleOp.isNeedToSlow = false;
@@ -96,7 +96,7 @@ public class EaterChainManager {
        EaterTask.END_EAT.init(
                ()->{
                     modules.transfer.in();
-                    modules.scorer.human();
+                    modules.scorer.regrip();
 
                     modules.transfer.up();
                     modules.eater.up();

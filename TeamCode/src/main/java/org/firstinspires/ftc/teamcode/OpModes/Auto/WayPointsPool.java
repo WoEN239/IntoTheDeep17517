@@ -23,11 +23,12 @@ public class WayPointsPool {
               ()->robot.intake.setTargeted(false)
       ),
       new Task(
-              () -> robot.intake.isDone(),
+              ()->TaskDelay.isDone(),
               new Runnable[]{
-                      ()->robot.intake.setTargeted(false)
+                  ()->robot.intake.setTargeted(false)
               },
               () -> robot.intake.setTargeted(true),
+              ()->TaskDelay.setDelay(1),
               () -> robot.driveTrain.setManualPosition(PositionPool.chamber)
       )
     );
@@ -38,7 +39,7 @@ public class WayPointsPool {
                     ()->true,
                     ()->{
                         robot.intake.setTargeted(false);
-                        robot.intake.centerEat();
+                        robot.intake.autoEat();
                         Transfer.eatPos = 0.27;
                     }
             ),
@@ -70,7 +71,7 @@ public class WayPointsPool {
                   ()->true,
                   new Runnable[]{
                           ()->robot.intake.setTargeted(false),
-                          ()->robot.intake.centerEat(),
+                          ()->robot.intake.autoEat(),
                           ()->robot.intake.rotateEater(15),
                           ()->Transfer.eatPos = 0.28
                   },
@@ -99,7 +100,7 @@ public class WayPointsPool {
             new Task(
                     ()->true,
                     new Runnable[]{
-                            ()->robot.intake.centerEat(),
+                            ()->robot.intake.autoEat(),
                             ()->Transfer.eatPos = 0.36,
                             ()->robot.intake.rotateEater(15),
                             ()->robot.intake.setTargeted(true)

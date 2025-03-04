@@ -106,7 +106,6 @@ public class ScorerChainManager {
                     }else{
                         modules.scorerGrip.close();
                         modules.scorer.target();
-
                     }
 
                 }
@@ -114,10 +113,10 @@ public class ScorerChainManager {
         ScorerTask.SCORE.init(
                 ()->{
                     modules.scorer.score();
-                    if(timer.seconds()>0.7){
+                    if(timer.seconds()>0.4){
                         modules.scorerGrip.open();
                     }
-                    if(timer.seconds()>0.7){
+                    if(timer.seconds()>0.6){
                         timer.reset();
                         task = ScorerTask.MOVE;
                     }
@@ -126,8 +125,11 @@ public class ScorerChainManager {
 
         ScorerTask.MOVE.init(
                 ()->{
-                    task = ScorerTask.TO_EAT;
-                    timer.reset();
+                    modules.scorer.eatAccept();
+                    if(timer.seconds()>1) {
+                        task = ScorerTask.TO_EAT;
+                        timer.reset();
+                    }
                 }
         );
 

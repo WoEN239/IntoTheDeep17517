@@ -33,9 +33,16 @@ public class SplineFollower extends TrajectoryFollower <SplineTrajectorySegment>
         double xT = target.x.get(0);
         double yT = target.y.get(0);
 
+        double hT = p.h + localRadiusAngle * Math.signum(targetAngle - p.h);
+
+        if(Math.abs(targetAngle - p.h) < endDetectAngle){
+            hT = targetAngle;
+        }
+
         isEndNear =  Math.abs(path.spline.length - displacement) < endDetect;
 
-        return new Position(xT,yT,  p.h+ localRadiusAngle * Math.signum(targetAngle - p.h));
+
+        return new Position(xT,yT,hT);
     }
 
 }

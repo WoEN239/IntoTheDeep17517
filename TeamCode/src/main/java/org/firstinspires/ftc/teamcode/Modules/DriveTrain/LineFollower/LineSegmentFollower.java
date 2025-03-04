@@ -51,13 +51,13 @@ public class LineSegmentFollower extends TrajectoryFollower<LineTrajectorySegmen
                         targetLineSegment.end.x, targetLineSegment.end.y);
 
 
-        if( abs(error.x) < endDetect && abs(error.y) < endDetect  && abs(error.h) < endDetectAngle) {
+        if( abs(error.x) < endDetect && abs(error.y) < endDetect  && abs(targetEndAngle - p.h) < endDetectAngle) {
             isEndNear = true;
             targetLineSegment.end.h = targetEndAngle;
-
+            target.h = p.h;
             return targetLineSegment.end;
         }else {
-            isEndNear = false ;
+            isEndNear = false;
             target.h = p.h + localRadiusAngle*Math.signum(targetLineAngle - p.h);
             return target;
         }
