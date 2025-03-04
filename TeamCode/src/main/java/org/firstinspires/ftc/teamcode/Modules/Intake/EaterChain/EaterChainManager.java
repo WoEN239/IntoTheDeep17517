@@ -17,6 +17,11 @@ public class EaterChainManager {
         timer.reset();
     }
 
+    public void autoEat(){
+        task = EaterTask.TO_AUTO_EAT;
+        timer.reset();
+    }
+
     public LiftPosition liftRequest = LiftPosition.DOWN;
     public void setTargeted(boolean targeted) {
         isTargeted = targeted;

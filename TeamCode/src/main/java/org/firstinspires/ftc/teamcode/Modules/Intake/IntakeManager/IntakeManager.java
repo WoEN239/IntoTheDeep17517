@@ -24,8 +24,12 @@ public class IntakeManager extends ChainManager {
         castCancel();
         state = IntakeState.DOWN;
     }
+
     public void centerEat(){
         castCenterEat();
+    }
+    public void autoEat(){
+        castAutoCenterEat();
     }
 
     public void wallEat(){

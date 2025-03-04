@@ -13,8 +13,8 @@ public enum LiftPosition {
     public static double highestBasket = 2500;
     public static double lowestBasket = 3300;
 
-    public static double score = 650;
-    public static double inPos = 0;
+    public static double score = 550;
+    public static double inPos = 150;
 
     public double get() {
         switch (this) {

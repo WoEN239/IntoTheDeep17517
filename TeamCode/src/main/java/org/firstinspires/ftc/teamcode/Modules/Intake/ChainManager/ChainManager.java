@@ -37,8 +37,9 @@ public abstract class ChainManager {
         eaterChainManager .initTasks();
 
     }
+
     protected void castAutoCenterEat(){
-        //scorerChainManager.
+        eaterChainManager.autoEat();
         state = ChainState.EATER;
     }
 
