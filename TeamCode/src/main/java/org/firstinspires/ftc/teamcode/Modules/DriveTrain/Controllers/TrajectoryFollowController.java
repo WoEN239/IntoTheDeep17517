@@ -98,15 +98,19 @@ public class TrajectoryFollowController {
 
             if(trajectorySegment instanceof LineTrajectorySegment){
                 lineSegmentFollower.setTrajectorySegment((LineTrajectorySegment) trajectorySegment);
-                lineSegmentFollower.targetLineAngle = wayPoints.get(1).position.h;
-                lineSegmentFollower.targetEndAngle  = wayPoints.get(1).position.h;
+                lineSegmentFollower.targetAngle = wayPoints.get(1).position.h;
+
                 target = lineSegmentFollower.getVirtualTarget(position);
+
                 onPoint = lineSegmentFollower.isEndNear;
 
+                Robot.getInstance().fieldView.line = ((LineTrajectorySegment) trajectorySegment);
             } else {
                 splineFollower.setTrajectorySegment((SplineTrajectorySegment) trajectorySegment);
                 splineFollower.targetAngle = wayPoints.get(1).position.h;
+
                 target = splineFollower.getVirtualTarget(position);
+
                 onPoint = splineFollower.isEndNear;
 
                 Robot.getInstance().fieldView.path =  ((SplineTrajectorySegment) trajectorySegment).spline;

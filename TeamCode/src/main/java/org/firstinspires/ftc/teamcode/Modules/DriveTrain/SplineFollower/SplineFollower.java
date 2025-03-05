@@ -41,7 +41,6 @@ public class SplineFollower extends TrajectoryFollower <SplineTrajectorySegment>
 
         isEndNear =  Math.abs(path.spline.length - displacement) < endDetect;
 
-
         return new Position(xT,yT,hT);
     }
 

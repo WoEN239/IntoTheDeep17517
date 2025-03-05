@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.OpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.OpModes.Auto.WayPointsPool;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.WayPointsPool;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 /*
   Writing by EgorKhvostikov
@@ -11,7 +11,6 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
 public abstract class BaseMode extends LinearOpMode {
     protected Robot robot;
     protected WayPointsPool wayPointsPool;
-    public static boolean isCamera = false;
     public static boolean isField = true;
     {
         Robot.isDebug = false;
@@ -26,6 +25,7 @@ public abstract class BaseMode extends LinearOpMode {
 
     private   boolean firstInit  = true;
     protected boolean isNeedToCall = true;
+
     @Override
     public void runOpMode(){
         if(firstInit) {
@@ -45,7 +45,6 @@ public abstract class BaseMode extends LinearOpMode {
         firstInit = true;
         isNeedToCall = true;
 
-//        System.exit(0);
     }
 
     public void callRun(){};

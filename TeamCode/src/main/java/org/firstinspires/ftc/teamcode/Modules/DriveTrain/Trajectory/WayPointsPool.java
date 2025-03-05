@@ -1,8 +1,6 @@
-package org.firstinspires.ftc.teamcode.OpModes.Auto;
+package org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.PositionPool;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.WayPoint;
 import org.firstinspires.ftc.teamcode.Modules.Intake.EaterChain.Transfer.Transfer;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.TaskDelay;
@@ -152,7 +150,6 @@ public class WayPointsPool {
                             ()->robot.intake.setTargeted(true)
                     },
                     ()->robot.driveTrain.setManualPosition(PositionPool.wall)
-
             )
     );
 

@@ -5,17 +5,18 @@ import com.acmerobotics.roadrunner.Arclength;
 import com.acmerobotics.roadrunner.CompositePositionPath;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.LineFollower.LineTrajectorySegment;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 public class FieldView {
 
-    public TelemetryPacket packet = new TelemetryPacket();
     private final double smPerInch = 1.0/2.54;
 
     public double height = 40.24 / 2.0;
     public double width =  39. / 2.0;
 
     public CompositePositionPath<Arclength> path;
+    public LineTrajectorySegment line;
     public Position circle = new Position();
     public Position position = new Position();
 
@@ -66,11 +67,14 @@ public class FieldView {
                     int x  =  (int) path.get(i,1).x.get(0);
                     int y  =  (int) path.get(i,1).y.get(0);
 
-
                     Robot.telemetryPacket.fieldOverlay().setFill("black");
                     Robot.telemetryPacket.fieldOverlay().fillCircle(x, y,2);
             }
 
+        }
+
+        if(line != null){
+            Robot.telemetryPacket.fieldOverlay().strokeLine(line.start.x,line.start.y,line.end.x,line.end.y);
         }
 
         Robot.telemetryPacket.fieldOverlay().setFill("blue");
@@ -79,15 +83,7 @@ public class FieldView {
         Robot.telemetryPacket.fieldOverlay().setFill("green");
         Robot.telemetryPacket.fieldOverlay().fillCircle(circle.x, circle.y,5);
 
-        Robot.telemetryPacket.fieldOverlay().setFill("green");
         Robot.telemetryPacket.fieldOverlay().strokeLine(position.x,position.y, position.x + rect.x, position.y + rect.y);
-    }
-
-    private void drawCircle(double[] xPos, double[] yPos) {
-        for (int i = 0; i < xPos.length; i++) {
-            Robot.telemetryPacket.fieldOverlay().setFill("green");
-            Robot.telemetryPacket.fieldOverlay().fillCircle(xPos[i], yPos[i],5);
-        }
     }
 
 }

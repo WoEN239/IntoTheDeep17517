@@ -104,18 +104,6 @@ public class Position {
         return this;
     }
 
-    public Pose2d toRRPose() {
-        return new Pose2d(x, y, h);
-    }
-
-    public PoseVelocity2d toRRVelocity() {
-        return new PoseVelocity2d(new Vector2d(x, y), h);
-    }
-
-    public static Position fromRRVelocity(PoseVelocity2dDual<Time> p) {
-        return new Position(p.linearVel.x.value(), p.linearVel.y.value(), p.angVel.value());
-    }
-
     public void angleMultiply(double k){
         this.h = h*k;
     }
@@ -126,14 +114,6 @@ public class Position {
         return this;
     }
 
-    public double getLength(){
-        return Math.sqrt(x*x+y*y) ;
-    }
-
-    public static double length(Position s, Position e){
-        return Math.sqrt((s.x-e.x)*(s.x-e.x) - (s.y-e.y)*(s.y-e.y));
-    }
-
     public Pose2d toRRPosition(){
         return new Pose2d(new Vector2d(x,y), h);
     }
@@ -141,6 +121,6 @@ public class Position {
     @NonNull
     @Override
     public String toString(){
-        return "x: " + x + " y: " + y;
+        return "x: " + x + " y: " + y + "h" + h;
     }
 }

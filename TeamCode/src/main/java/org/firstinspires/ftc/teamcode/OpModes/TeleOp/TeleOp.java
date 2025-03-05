@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.OpModes.TeleOp;
 import static java.lang.Math.abs;
 
 import org.firstinspires.ftc.teamcode.Devices.DevicePool;
-import org.firstinspires.ftc.teamcode.Devices.IntakeDevices;
 import org.firstinspires.ftc.teamcode.Math.BorderButton;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Manager.DriveTrainManager;
@@ -86,11 +85,9 @@ public class TeleOp extends BaseMode {
 
         robot.intake.setLiftManual(gamepad1.ps);
 
-
         Robot.telemetryPacket.put("position robot",robot.driveTrain.getPosition().toString());
         telemetry.update();
         robot.fieldView.position = robot.driveTrain.getPosition();
         robot.fieldView.circle   = robot.driveTrain.getPidTarget();
     }
-    double liftManP = 0;
 }

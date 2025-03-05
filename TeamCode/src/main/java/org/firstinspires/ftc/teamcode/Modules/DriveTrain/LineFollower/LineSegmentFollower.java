@@ -18,9 +18,7 @@ public class LineSegmentFollower extends TrajectoryFollower<LineTrajectorySegmen
     public static double localRadius       = 100;
     public static double endDetectAngle    =  5 ;
 
-    public double targetLineAngle = 0;
-    public double targetEndAngle = 0;
-
+    public double targetAngle = 0;
 
     public boolean isEndNear = false;
 
@@ -42,23 +40,19 @@ public class LineSegmentFollower extends TrajectoryFollower<LineTrajectorySegmen
         Position unitTargetVector = unUnitTargetVector.unitVector;
 
         Position target =  projection.vectorPlus(new Position().copyFrom(unitTargetVector).linearMultiply(localRadius));
-        target.h = targetLineAngle;
+        target.h = targetAngle;
 
         Position error = new Position().copyFrom(p).positionMinus(targetLineSegment.end);
 
-        Robot.telemetryPacket.fieldOverlay().
-                strokeLine(targetLineSegment.start.x, targetLineSegment.start.y,
-                        targetLineSegment.end.x, targetLineSegment.end.y);
-
-
-        if( abs(error.x) < endDetect && abs(error.y) < endDetect  && abs(targetEndAngle - p.h) < endDetectAngle) {
+        if( abs(error.x) < endDetect && abs(error.y) < endDetect  && abs(targetAngle - p.h) < endDetectAngle) {
             isEndNear = true;
-            targetLineSegment.end.h = targetEndAngle;
+            targetLineSegment.end.h = targetAngle;
             target.h = p.h;
+
             return targetLineSegment.end;
         }else {
             isEndNear = false;
-            target.h = p.h + localRadiusAngle*Math.signum(targetLineAngle - p.h);
+            target.h = p.h + localRadiusAngle*Math.signum(targetAngle - p.h);
             return target;
         }
     }
