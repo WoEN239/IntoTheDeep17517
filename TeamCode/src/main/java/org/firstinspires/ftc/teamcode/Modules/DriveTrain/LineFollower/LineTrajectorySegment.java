@@ -35,8 +35,10 @@ public class LineTrajectorySegment extends TrajectorySegment {
         c =  -(kY*y1 + kX*x1) ;
 
         double h = Math.atan2(x2 - x1, y2 - y1);
+
         start = new Position(x1,y1,h);
         end   = new Position(x2,y2,h);
+
         lineAngle = toDegrees(h);
 
         unitVector = new Position(sin(h), cos(h), toDegrees(h));
@@ -58,7 +60,7 @@ public class LineTrajectorySegment extends TrajectorySegment {
 
 
         if(Double.isNaN(x) || Double.isNaN(y)){
-            return new Position();
+            return new Position().copyFrom(p);
         }
 
 

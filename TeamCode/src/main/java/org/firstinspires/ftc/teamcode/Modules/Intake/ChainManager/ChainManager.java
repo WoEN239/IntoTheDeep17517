@@ -6,7 +6,6 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.ChainManager;
 
 import org.firstinspires.ftc.teamcode.Modules.Intake.ScorerChain.ScorerChainManager;
 import org.firstinspires.ftc.teamcode.Modules.Intake.EaterChain.EaterChainManager;
-import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager.IntakeManager;
 import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager.IntakeModules;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftManager;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
@@ -70,7 +69,6 @@ public abstract class ChainManager {
     }
 
     public void update(){
-        Robot.telemetryPacket.put("intake state",IntakeManager.getState());
         Robot.telemetryPacket.put("chain state", state.toString());
 
         switch (state){
@@ -100,10 +98,10 @@ public abstract class ChainManager {
         modules.eater.rotate(y);
     }
 
-    public void setLiftManual(boolean liftManual) {
+    public void setLiftManualMode(boolean liftManual) {
         liftManager.setManual(liftManual);
     }
-    public void setManualTarget(double manualTarget){
+    public void setManualLiftVoltage(double manualTarget){
         liftManager.setManTarget(manualTarget);
     }
 

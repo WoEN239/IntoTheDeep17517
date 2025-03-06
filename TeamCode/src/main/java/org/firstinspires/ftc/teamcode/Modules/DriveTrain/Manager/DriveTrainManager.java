@@ -46,7 +46,7 @@ public class DriveTrainManager extends DriveTrain{
                     TaskManager.getInstance().addTask(task2);
                 }
 
-                if((task2.isRunOnce && task2.isDone() && trajectoryFollowController.onPoint()) || trajectoryFollowController.isEndOfTrajectory){
+                if((task2.isRunOnce && task2.isDone() && trajectoryFollowController.onPoint()) || trajectoryFollowController.isEndOfTrajectory ){
                     changeState(RobotState.POINT);
                 }
                 break;

@@ -74,17 +74,10 @@ public class TrajectoryFollowController {
     public  boolean onPoint(){return onPoint;}
 
     public Task getOnPointTask(){
-        if(wayPoints.size()==1){
-            return wayPoints.get(0).onPointTask;
-        }
         return wayPoints.get(1).onPointTask;
     }
 
     public Task getOnLineTask(){
-        if(wayPoints.size()==1){
-            return wayPoints.get(0).onLineTask;
-        }
-
         return wayPoints.get(1).onLineTask;
     }
 
@@ -117,6 +110,7 @@ public class TrajectoryFollowController {
             }
 
             Robot.getInstance().fieldView.circle = target;
+
             this.target.copyFrom(target);
         }else {
             isEndOfTrajectory = true;

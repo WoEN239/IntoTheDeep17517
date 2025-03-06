@@ -15,11 +15,8 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
 @Config
 public class LineSegmentFollower extends TrajectoryFollower<LineTrajectorySegment> {
     public LineTrajectorySegment targetLineSegment;
-    public static double localRadius       = 100;
-    public static double endDetectAngle    =  5 ;
 
     public double targetAngle = 0;
-
     public boolean isEndNear = false;
 
 
@@ -39,21 +36,27 @@ public class LineSegmentFollower extends TrajectoryFollower<LineTrajectorySegmen
         LineTrajectorySegment unUnitTargetVector = new LineTrajectorySegment().makeWithTwoPoint(projection,targetLineSegment.end);
         Position unitTargetVector = unUnitTargetVector.unitVector;
 
-        Position target =  projection.vectorPlus(new Position().copyFrom(unitTargetVector).linearMultiply(localRadius));
-        target.h = targetAngle;
+        Position linearTarget =  projection.vectorPlus(new Position().copyFrom(unitTargetVector).linearMultiply(localRadius));
 
-        Position error = new Position().copyFrom(p).positionMinus(targetLineSegment.end);
+        Position linearError = new Position().copyFrom(p).vectorMinus(targetLineSegment.end);
+        boolean linearEndNear = false;
 
-        if( abs(error.x) < endDetect && abs(error.y) < endDetect  && abs(targetAngle - p.h) < endDetectAngle) {
-            isEndNear = true;
-            targetLineSegment.end.h = targetAngle;
-            target.h = p.h;
-
-            return targetLineSegment.end;
-        }else {
-            isEndNear = false;
-            target.h = p.h + localRadiusAngle*Math.signum(targetAngle - p.h);
-            return target;
+        if( abs(linearError.x) < endDetect && abs(linearError.y) < endDetect){
+            linearEndNear = true;
+            linearTarget.copyFrom(targetLineSegment.end);
         }
+
+        double angleTarget =  p.h + localRadiusAngle * Math.signum(targetAngle - p.h);
+        boolean angleEndNear = false;
+
+        if( abs(targetAngle - p.h) < endDetectAngle ) {
+            angleEndNear = true;
+            angleTarget = targetAngle;
+        }
+
+        isEndNear = angleEndNear&&linearEndNear;
+        return new Position(
+                linearTarget.x,linearTarget.y,angleTarget
+        );
     }
 }

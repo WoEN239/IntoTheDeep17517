@@ -24,35 +24,38 @@ public class TeleOp extends BaseMode {
     BorderButton rotateButton = new BorderButton();
     BorderButton moveStateButton = new BorderButton();
 
-
     public static boolean isNeedToSlow = false;
-    double trigers = TransferPosition.normal;
+    double trigers = TransferPosition.eat;
     public void loopRun() {
 
-        double actTrigers = gamepad1.right_trigger*0.115 - 0.115 * gamepad1.left_trigger;
+        double actTrigers = gamepad1.right_trigger * 0.03 - 0.03 * gamepad1.left_trigger;
         trigers += actTrigers;
 
-        if(trigers > TransferPosition.eat ){
+        if(trigers > TransferPosition.eat){
             trigers = TransferPosition.eat;
         }
-        if(trigers < TransferPosition.normal ){
-            trigers = TransferPosition.normal;
+        if(trigers < TransferPosition.in){
+            trigers = TransferPosition.in;
         }
+
+        Transfer.eatPos = trigers;
 
         Position targetVel = new Position(-gamepad1.left_stick_y *abs(gamepad1.left_stick_y) *700,
                              -gamepad1.left_stick_x  * abs(gamepad1.left_stick_x)  *700, //+ trigers,
                                  gamepad1.right_stick_x  *700);
+
         if(isNeedToSlow){
-            targetVel.linearMultiply(0.25);
-            targetVel.angleMultiply(0.5);
+            targetVel.linearMultiply(0.1);
+            targetVel.angleMultiply(0.1 );
         }
 
         robot.driveTrain.setVelocityTarget(targetVel);
 
         if(gamepad1.right_bumper){
+            trigers = TransferPosition.eat;
             robot.intake.centerEat();
         }
-        Transfer.eatPos = trigers;
+
 
         if(gamepad1.left_bumper){
             robot.intake.wallEat();
@@ -60,11 +63,11 @@ public class TeleOp extends BaseMode {
         robot.intake.setTargeted(gamepad1.triangle);
 
         if(rotateButton.get(gamepad1.dpad_left)){
-            robot.intake.rotateEater(15);
+            robot.intake.rotateEater(10);
         }
 
         if(rotateButton.get(gamepad1.dpad_right)){
-            robot.intake.rotateEater(-15);
+            robot.intake.rotateEater(-10);
         }
 
         if(gamepad1.square){
@@ -83,7 +86,14 @@ public class TeleOp extends BaseMode {
             }
         }
 
-        robot.intake.setLiftManual(gamepad1.ps);
+        robot.intake.setLiftManualMode(gamepad1.ps);
+        if(gamepad1.dpad_up){
+            robot.intake.setManualLiftVoltage(8);
+        }
+        if(gamepad1.dpad_down){
+            robot.intake.setManualLiftVoltage(-8);
+        }
+
 
         Robot.telemetryPacket.put("position robot",robot.driveTrain.getPosition().toString());
         telemetry.update();

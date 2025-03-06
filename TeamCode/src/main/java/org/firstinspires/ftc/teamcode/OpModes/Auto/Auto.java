@@ -3,7 +3,9 @@ package org.firstinspires.ftc.teamcode.OpModes.Auto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Devices.IntakeDevices;
+import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Manager.DriveTrainManager;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.WayPoint;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.FlipPosition;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.TransferPosition;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
@@ -27,16 +29,17 @@ public class Auto extends BaseMode {
         robot.driveTrain.addWayPoints(
                 wayPointsPool.lineScore,
                 wayPointsPool.goToHumanElements,
-                wayPointsPool.firstHumanElement,
-                wayPointsPool.scoreFirstHumanElement,
+                wayPointsPool.firstHumanElementEat,
+                wayPointsPool.bringFirstHumanElement
 
-                wayPointsPool.secondHumanElement,
-                wayPointsPool.scoreSecondHumanElement,
-
-                wayPointsPool.thirdHumanElement,
-                wayPointsPool.scoreThirdHumanElement,
-
-                wayPointsPool.goToWall
+//
+                //wayPointsPool.secondHumanElement,
+                //wayPointsPool.scoreSecondHumanElement,
+//
+                //wayPointsPool.thirdHumanElement,
+                //wayPointsPool.scoreThirdHumanElement,
+//
+                //wayPointsPool.goToWall
         );
 
         isNeedToCall = false;

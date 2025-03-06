@@ -49,7 +49,7 @@ public class WayPointsPool {
     ).toSpline(-Math.PI*3.0/8.0,Math.PI/2.0);
 
 
-    public WayPoint firstHumanElement = new WayPoint(
+    public WayPoint firstHumanElementEat = new WayPoint(
             PositionPool.humanElement,
             new Task(
                     ()->true,
@@ -63,7 +63,7 @@ public class WayPointsPool {
             )
     );
 
-    public WayPoint scoreFirstHumanElement = new WayPoint(
+    public WayPoint bringFirstHumanElement = new WayPoint(
       PositionPool.humanScore,
           new Task(
                   ()->true,

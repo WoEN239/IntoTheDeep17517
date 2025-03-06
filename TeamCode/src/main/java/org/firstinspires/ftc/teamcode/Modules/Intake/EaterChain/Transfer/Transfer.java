@@ -59,6 +59,14 @@ public class Transfer {
     }
 
     public void eat(){
+
+        if(eatPos>TransferPosition.eat){
+            eatPos = TransferPosition.eat;
+        }
+        if(eatPos<TransferPosition.in){
+            eatPos = TransferPosition.in;
+        }
+
         transferServoRight.setPosition(eatPos);
         transferServoLeft .setPosition(eatPos);
     }

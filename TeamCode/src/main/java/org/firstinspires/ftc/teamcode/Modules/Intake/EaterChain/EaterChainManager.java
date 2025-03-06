@@ -117,8 +117,10 @@ public class EaterChainManager {
                    modules.transfer.eatEnd();
                    modules.eater.down();
 
-                   if(timer.seconds()>0.4){
+                   if(timer.seconds()>0.7) {
                        modules.eaterGrip.open();
+                   }
+                   if(timer.seconds()>1){
                        timer.reset();
                        task = EaterTask.MOVE;
                    }
@@ -140,6 +142,8 @@ public class EaterChainManager {
                     modules.transfer.eat();
                     modules.eater.down();
                     modules.eaterGrip.open();
+
+                    modules.scorer.regrip();
                     if(timer.seconds()>0.5){
                         timer.reset();
                         task = EaterTask.AUTO_TARGETING;

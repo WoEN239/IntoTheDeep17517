@@ -121,6 +121,6 @@ public class Position {
     @NonNull
     @Override
     public String toString(){
-        return "x: " + x + " y: " + y + "h" + h;
+        return "x: " + x + " y: " + y + " h: " + h;
     }
 }
