@@ -32,7 +32,10 @@ public class DriveTrainManager extends DriveTrain{
 
                 if(task1.isDone() && task1.isRunOnce && !trajectoryFollowController.isEndOfTrajectory){
                     trajectoryFollowController.changeTrajectorySegment();
-                    trajectoryFollowController.computeTarget();
+
+                    setDriveTrainState(DriveTrainState.PURE_PURSUIT);
+                    moveUpdate();
+
                     changeState(RobotState.TRAVELING);
                 }
                 break;

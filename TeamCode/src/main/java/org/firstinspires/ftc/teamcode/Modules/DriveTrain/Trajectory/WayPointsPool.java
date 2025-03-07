@@ -66,6 +66,10 @@ public class WayPointsPool {
     public WayPoint bringFirstHumanElement = new WayPoint(
       PositionPool.humanScore,
           new Task(
+                  ()->true
+          ),
+
+          new Task(
                   ()->true,
                   new Runnable[]{
                           ()->robot.intake.setTargeted(false),
@@ -79,7 +83,7 @@ public class WayPointsPool {
     );
 
     public WayPoint secondHumanElement = new WayPoint(
-            new Position().copyFrom(PositionPool.humanElement).positionPlus(0,5,22),
+            new Position().copyFrom     (PositionPool.humanElement).positionPlus(0,5,22),
             new Task(
                     ()->true,
                     ()->robot.intake.setTargeted(false),

@@ -32,31 +32,37 @@ public class LineSegmentFollower extends TrajectoryFollower<LineTrajectorySegmen
     @Override
     public Position getVirtualTarget(Position p){
         Position projection = targetLineSegment.findProjection(p);
+        Robot.telemetryPacket.put("angle p I",p.h);
 
         LineTrajectorySegment unUnitTargetVector = new LineTrajectorySegment().makeWithTwoPoint(projection,targetLineSegment.end);
         Position unitTargetVector = unUnitTargetVector.unitVector;
 
-        Position linearTarget =  projection.vectorPlus(new Position().copyFrom(unitTargetVector).linearMultiply(localRadius));
+        Position linearU =  projection.vectorPlus(new Position().copyFrom(unitTargetVector).linearMultiply(localRadius));
 
         Position linearError = new Position().copyFrom(p).vectorMinus(targetLineSegment.end);
         boolean linearEndNear = false;
 
         if( abs(linearError.x) < endDetect && abs(linearError.y) < endDetect){
             linearEndNear = true;
-            linearTarget.copyFrom(targetLineSegment.end);
+            linearU.copyFrom(targetLineSegment.end);
         }
 
-        double angleTarget =  p.h + localRadiusAngle * Math.signum(targetAngle - p.h);
+        double angleU =  p.h + localRadiusAngle * Math.signum(targetAngle - p.h);
         boolean angleEndNear = false;
 
-        if( abs(targetAngle - p.h) < endDetectAngle ) {
+        if( abs(Position.normalizeAngle(targetAngle - p.h)) < endDetectAngle ) {
             angleEndNear = true;
-            angleTarget = targetAngle;
+            angleU = targetAngle;
         }
+
+        Robot.telemetryPacket.put("angle end",angleEndNear);
+        Robot.telemetryPacket.put("angle target",targetAngle);
+        Robot.telemetryPacket.put("angle p U",p.h);
+
 
         isEndNear = angleEndNear&&linearEndNear;
         return new Position(
-                linearTarget.x,linearTarget.y,angleTarget
+                linearU.x,linearU.y,angleU
         );
     }
 }

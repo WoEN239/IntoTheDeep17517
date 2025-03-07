@@ -30,7 +30,8 @@ public class Auto extends BaseMode {
                 wayPointsPool.lineScore,
                 wayPointsPool.goToHumanElements,
                 wayPointsPool.firstHumanElementEat,
-                wayPointsPool.bringFirstHumanElement
+                wayPointsPool.bringFirstHumanElement,
+                new WayPoint(new Position())
 
 //
                 //wayPointsPool.secondHumanElement,

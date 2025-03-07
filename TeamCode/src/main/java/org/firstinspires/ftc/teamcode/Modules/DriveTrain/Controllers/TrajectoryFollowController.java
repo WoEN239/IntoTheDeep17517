@@ -84,7 +84,7 @@ public class TrajectoryFollowController {
 
     public void computeTarget() {
         Robot.telemetryPacket.put("way points",wayPoints.toString());
-        if(!trajectory.isEmpty()) {
+        if(trajectory.size() > 1) {
             isEndOfTrajectory = false;
             TrajectorySegment trajectorySegment = trajectory.get(0);
             Position target;
@@ -110,6 +110,7 @@ public class TrajectoryFollowController {
             }
 
             Robot.getInstance().fieldView.circle = target;
+            Robot.telemetryPacket.put("on point ?", onPoint);
 
             this.target.copyFrom(target);
         }else {
