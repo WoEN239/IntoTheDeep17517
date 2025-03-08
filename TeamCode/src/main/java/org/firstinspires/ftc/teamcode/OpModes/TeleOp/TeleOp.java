@@ -41,12 +41,12 @@ public class TeleOp extends BaseMode {
         Transfer.eatPos = trigers;
 
         Position targetVel = new Position(-gamepad1.left_stick_y *abs(gamepad1.left_stick_y) *700,
-                             -gamepad1.left_stick_x  * abs(gamepad1.left_stick_x)  *700, //+ trigers,
-                                 gamepad1.right_stick_x  *700);
+                               -gamepad1.left_stick_x  * abs(gamepad1.left_stick_x) * 700,
+                                 gamepad1.right_stick_x  *600);
 
         if(isNeedToSlow){
             targetVel.linearMultiply(0.1);
-            targetVel.angleMultiply(0.1 );
+            targetVel.angleMultiply(0.15 );
         }
 
         robot.driveTrain.setVelocityTarget(targetVel);

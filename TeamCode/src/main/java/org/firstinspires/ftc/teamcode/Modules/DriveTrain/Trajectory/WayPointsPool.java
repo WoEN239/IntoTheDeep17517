@@ -1,6 +1,9 @@
 package org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory;
 
+import org.firstinspires.ftc.teamcode.Devices.IntakeDevices;
 import org.firstinspires.ftc.teamcode.Math.Position;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Config.ScorerGripPosition;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Config.ScorerPosition;
 import org.firstinspires.ftc.teamcode.Modules.Intake.EaterChain.Transfer.Transfer;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.TaskDelay;
@@ -14,7 +17,7 @@ public class WayPointsPool {
     }
 
     public WayPoint lineScore = new WayPoint(
-      PositionPool.chamber,
+      PositionPool.fChamber,
       new Task(
               ()->true,
               ()->robot.intake.scoreAxis(),
@@ -27,7 +30,7 @@ public class WayPointsPool {
               },
               () -> robot.intake.setTargeted(true),
               ()->TaskDelay.setDelay(1),
-              () -> robot.driveTrain.setManualPosition(PositionPool.chamber)
+              () -> robot.driveTrain.setManualPosition(PositionPool.fChamber)
       )
     );
 
@@ -38,7 +41,7 @@ public class WayPointsPool {
                     ()->{
                         robot.intake.setTargeted(false);
                         robot.intake.autoEat();
-                        Transfer.eatPos = 0.27;
+                        Transfer.eatPos = 0.3;
                     }
             ),
             new Task(
@@ -73,8 +76,8 @@ public class WayPointsPool {
                   new Runnable[]{
                           ()->robot.intake.setTargeted(false),
                           ()->robot.intake.autoEat(),
-                          ()->robot.intake.rotateEater(-15),
-                          ()->Transfer.eatPos = 0.28
+                          ()->robot.intake.rotateEater(25),
+                          ()->Transfer.eatPos = 0.36
                   },
                   ()->robot.intake.setTargeted(true),
                   ()->robot.driveTrain.setManualPosition(PositionPool.humanScore)
@@ -82,12 +85,13 @@ public class WayPointsPool {
     );
 
     public WayPoint secondHumanElement = new WayPoint(
-            new Position().copyFrom(PositionPool.humanElement).positionPlus(0,0,22),
+            new Position().copyFrom(PositionPool.humanElement).positionPlus(0,0,14),
             new Task(
-                    ()->true,
+                    TaskDelay::isDone,
+                    ()->TaskDelay.setDelay(0.5),
                     ()->robot.intake.setTargeted(true),
                     ()->robot.driveTrain.setManualPosition(
-                            new Position().copyFrom(PositionPool.humanElement).positionPlus(0,0,22)
+                            new Position().copyFrom(PositionPool.humanElement).positionPlus(0,0,14)
                     )
             )
     );
@@ -99,13 +103,12 @@ public class WayPointsPool {
                     ()->robot.intake.setTargeted(false)
             ),
             new Task(
-                    ()->true,
+                    TaskDelay::isDone,
                     new Runnable[]{
                             ()->robot.intake.setTargeted(false),
-                            ()->robot.intake.autoEat(),
-                            ()->robot.intake.rotateEater(-15),
-                            ()->Transfer.eatPos = 0.32
+                            ()->robot.intake.wallEat(),
                     },
+                    ()->TaskDelay.setDelay(0.6),
                     ()->robot.intake.setTargeted(true),
                     ()->robot.driveTrain.setManualPosition(PositionPool.humanScore)
             )
@@ -145,10 +148,16 @@ public class WayPointsPool {
     public WayPoint goToWallFromHuman = new WayPoint(
             PositionPool.wall,
             new Task(
-                    ()->true,
+                    TaskDelay::isDone,
+                    ()-> TaskDelay.setDelay(1)
+            ),
+            new Task(
+                    TaskDelay::isDone,
                     new Runnable[]{
                             ()->robot.intake.setTargeted(true)
                     },
+                    ()->TaskDelay.setDelay(0.5),
+                    ()->IntakeDevices.scorerGrip.setPosition(ScorerGripPosition.close),
                     ()->robot.driveTrain.setManualPosition(PositionPool.wall)
             )
     );
@@ -174,10 +183,12 @@ public class WayPointsPool {
     public WayPoint goToWall = new WayPoint(
             PositionPool.wall,
             new Task(
-                    ()->true,
+                    TaskDelay::isDone,
                     new Runnable[]{
                             ()->robot.intake.setTargeted(true)
                     },
+                    ()->IntakeDevices.scorerGrip.setPosition(ScorerGripPosition.close),
+                    ()->TaskDelay.setDelay(0.3),
                     ()->robot.driveTrain.setManualPosition(PositionPool.wall)
             )
     ).toSpline(-Math.PI*3.0/8.0,-Math.PI*0.5);
@@ -203,10 +214,12 @@ public class WayPointsPool {
     public WayPoint goToWall2 = new WayPoint(
             PositionPool.wall,
             new Task(
-                    ()->true,
+                    TaskDelay::isDone,
                     new Runnable[]{
                             ()->robot.intake.setTargeted(true)
                     },
+                    ()->TaskDelay.setDelay(0.3),
+                    ()->IntakeDevices.scorerGrip.setPosition(ScorerGripPosition.close),
                     ()->robot.driveTrain.setManualPosition(PositionPool.wall)
             )
     ).toSpline(-Math.PI*3.0/8.0,-Math.PI*0.5);
@@ -231,10 +244,12 @@ public class WayPointsPool {
     public WayPoint goToWall3 = new WayPoint(
             PositionPool.wall,
             new Task(
-                    ()->true,
+                    TaskDelay::isDone,
                     new Runnable[]{
                             ()->robot.intake.setTargeted(true)
                     },
+                    ()->TaskDelay.setDelay(0.3),
+                    ()->IntakeDevices.scorerGrip.setPosition(ScorerGripPosition.close),
                     ()->robot.driveTrain.setManualPosition(PositionPool.wall)
             )
     ).toSpline(-Math.PI*3.0/8.0,-Math.PI*0.5);
@@ -259,10 +274,12 @@ public class WayPointsPool {
     public WayPoint goToWall4 = new WayPoint(
             PositionPool.wall,
             new Task(
-                    ()->true,
+                    TaskDelay::isDone,
                     new Runnable[]{
                             ()->robot.intake.setTargeted(true)
                     },
+                    ()->TaskDelay.setDelay(0.3),
+                    ()->IntakeDevices.scorerGrip.setPosition(ScorerGripPosition.close),
                     ()->robot.driveTrain.setManualPosition(PositionPool.wall)
             )
     ).toSpline(-Math.PI*3.0/8.0,-Math.PI*0.5);
@@ -287,10 +304,12 @@ public class WayPointsPool {
     public WayPoint goToWall5 = new WayPoint(
             PositionPool.wall,
             new Task(
-                    ()->true,
+                    TaskDelay::isDone,
                     new Runnable[]{
                             ()->robot.intake.setTargeted(true)
                     },
+                    ()->TaskDelay.setDelay(0.3),
+                    ()->IntakeDevices.scorerGrip.setPosition(ScorerGripPosition.close),
                     ()->robot.driveTrain.setManualPosition(PositionPool.wall)
             )
     ).toSpline(-Math.PI*3.0/8.0,-Math.PI*0.5);

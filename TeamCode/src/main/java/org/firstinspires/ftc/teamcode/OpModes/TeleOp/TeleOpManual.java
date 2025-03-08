@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.OpModes.TeleOp;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Manager.DriveTrainManager;
 import org.firstinspires.ftc.teamcode.Modules.Intake.EaterChain.Eater.Eater;
-import org.firstinspires.ftc.teamcode.Modules.Intake.EaterChain.EaterChainManager;
 import org.firstinspires.ftc.teamcode.Modules.Intake.EaterChain.Transfer.Transfer;
 import org.firstinspires.ftc.teamcode.Modules.Intake.EaterChain.EaterGrip.EaterGrip;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftManager;
@@ -65,7 +64,7 @@ public class TeleOpManual extends BaseMode {
         }
 
         if(gamepad1.right_bumper){
-            liftManager.setTarget(LiftPosition.LOWEST_BASKET);
+            liftManager.setTarget(LiftPosition.SWIPE);
         }
 
         if(gamepad1.left_bumper){

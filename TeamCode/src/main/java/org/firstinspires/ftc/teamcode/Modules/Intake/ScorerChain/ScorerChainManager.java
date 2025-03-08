@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 public class ScorerChainManager {
     private ScorerTask task = ScorerTask.EAT;
-    public LiftPosition liftRequest = LiftPosition.DOWN;
+    public LiftPosition liftRequest = LiftPosition.IN_POSITION;
     private boolean isTargeted = false;
 
     public void setTargeted(boolean targeted) {
@@ -52,7 +52,7 @@ public class ScorerChainManager {
                     modules.scorerGrip.open();
 
                     modules.eater.down();
-                    modules.transfer.down();
+                    modules.transfer.target();
                     modules.transfer.in();
 
                     if(timer.seconds()>0.5){
@@ -64,8 +64,7 @@ public class ScorerChainManager {
         );
         ScorerTask.WALL_TARGETING.init(
                 ()->{
-                    modules.scorerGrip.open();
-                    modules.scorer.wall()    ;
+                    modules.scorer.wall();
                     if(isTargeted){
                         timer.reset();
                         task = ScorerTask.EAT;
@@ -75,10 +74,10 @@ public class ScorerChainManager {
         ScorerTask.EAT.init(
                 ()-> {
                     modules.scorerGrip.close();
-                    if (timer.seconds() > 0.2) {
+                    if (timer.seconds() > 0.5) {
                         modules.scorer.eatAccept();
                     }
-                    if (timer.seconds() > 0.5) {
+                    if (timer.seconds() > 0.8) {
                         timer.reset();
                         task = ScorerTask.END_EAT;
                     }
@@ -113,10 +112,10 @@ public class ScorerChainManager {
         ScorerTask.SCORE.init(
                 ()->{
                     modules.scorer.score();
-                    if(timer.seconds()>0.4){
+                    if(timer.seconds()>0.7){
                         modules.scorerGrip.open();
                     }
-                    if(timer.seconds()>0.6){
+                    if(timer.seconds()>0.9){
                         timer.reset();
                         task = ScorerTask.MOVE;
                     }
@@ -135,6 +134,7 @@ public class ScorerChainManager {
 
         ScorerTask.SWIPE.init(
                 ()->{
+                    liftRequest = LiftPosition.SWIPE;
                     modules.scorerGrip.close();
                     modules.scorer.swipe();
                 }

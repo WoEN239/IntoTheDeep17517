@@ -7,6 +7,8 @@ import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Manager.DriveTrainManager;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.WayPoint;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.FlipPosition;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Config.ScorerGripPosition;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Config.ScorerPosition;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.TransferPosition;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
@@ -21,6 +23,8 @@ public class Auto extends BaseMode {
     public void initServo(){
         IntakeDevices.flipRight.setPosition(FlipPosition.up);
         IntakeDevices.transferRight.setPosition(TransferPosition.in);
+
+        IntakeDevices.scorerGrip.setPosition(ScorerGripPosition.close);
     }
 
     @Override
@@ -35,8 +39,6 @@ public class Auto extends BaseMode {
                 wayPointsPool.secondHumanElement,
                 wayPointsPool.bringSecondHumanElement,
 
-                wayPointsPool.thirdHumanElement,
-                wayPointsPool.bringThirdHumanElement,
 
                 wayPointsPool.goToWallFromHuman,
 
@@ -58,15 +60,7 @@ public class Auto extends BaseMode {
 
                 new WayPoint(new Position())
 
-//
-                //wayPointsPool.secondHumanElement,
-                //wayPointsPool.scoreSecondHumanElement,
-//
-                //wayPointsPool.thirdHumanElement,
-                //wayPointsPool.scoreThirdHumanElement,
-//
-                //wayPointsPool.goToWall
-        );
+       );
 
         isNeedToCall = false;
     }

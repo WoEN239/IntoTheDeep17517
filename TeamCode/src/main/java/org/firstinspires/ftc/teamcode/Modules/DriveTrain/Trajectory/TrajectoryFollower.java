@@ -6,11 +6,11 @@ import org.firstinspires.ftc.teamcode.Math.Position;
 
 @Config
 public abstract class TrajectoryFollower <T extends TrajectorySegment> {
-    public static double localRadius        = 5;
+    public static double localRadius        = 60;
     public static double endDetect          = 10 ;
 
     public static double endDetectAngle    =  10 ;
-    public static double localRadiusAngle   = 2 ;
+    public static double localRadiusAngle   = 90 ;
 
     public abstract void setTrajectorySegment(T trajectorySegment);
 

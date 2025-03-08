@@ -8,7 +8,7 @@ public class ScorerPosition {
     public static double targetYaw   = 0;
 
     public static double   wallYaw   = -115;
-    public static double   wallPitch = 125 ;
+    public static double   wallPitch = 130 ;
 
     public static double eatAcceptYaw   = -115;
     public static double eatAcceptPitch = 70;

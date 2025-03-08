@@ -22,7 +22,7 @@ public class EaterChainManager {
         timer.reset();
     }
 
-    public LiftPosition liftRequest = LiftPosition.DOWN;
+    public LiftPosition liftRequest = LiftPosition.IN_POSITION;
     public void setTargeted(boolean targeted) {
         isTargeted = targeted;
     }
@@ -138,6 +138,7 @@ public class EaterChainManager {
 
         EaterTask.TO_AUTO_EAT.init(
                 ()->{
+                    liftRequest = LiftPosition.IN_POSITION;
                     modules.transfer.target();
                     modules.transfer.normal();
                     modules.eater.down();
@@ -165,7 +166,7 @@ public class EaterChainManager {
                 ()->{
                     modules.transfer.down();
                     modules.eater.down();
-                    modules.transfer.eat();
+                    //modules.transfer.eat();
                     if(timer.seconds()>0.5){
                         modules.transfer.down();
                     }
