@@ -139,7 +139,7 @@ public class EaterChainManager {
         EaterTask.TO_AUTO_EAT.init(
                 ()->{
                     modules.transfer.target();
-                    modules.transfer.eat();
+                    modules.transfer.normal();
                     modules.eater.down();
                     modules.eaterGrip.open();
 
@@ -152,7 +152,7 @@ public class EaterChainManager {
         );
         EaterTask.AUTO_TARGETING.init(
                 ()->{
-                    modules.transfer.eat();
+                    modules.transfer.normal();
                     modules.eater.down();
                     if(isTargeted){
                         timer.reset();
@@ -166,13 +166,13 @@ public class EaterChainManager {
                     modules.transfer.down();
                     modules.eater.down();
                     modules.transfer.eat();
-                    if(timer.seconds()>0.2){
+                    if(timer.seconds()>0.5){
                         modules.transfer.down();
                     }
-                    if(timer.seconds()>0.3){
+                    if(timer.seconds()>0.6){
                         modules.eaterGrip.close();
                     }
-                    if(timer.seconds()>0.5){
+                    if(timer.seconds()>0.7){
                         timer.reset();
                         task = EaterTask.AUTO_HOLD_IN;
                     }
@@ -180,8 +180,9 @@ public class EaterChainManager {
         );
         EaterTask.AUTO_HOLD_IN.init(
                 ()->{
-                    modules.transfer.target();
+                    modules.transfer.up();
                     modules.eaterGrip.close();
+                    modules.transfer.normal();
                     if(isTargeted){
                         timer.reset();
                         task = EaterTask.AUTO_SCORE;
@@ -192,6 +193,8 @@ public class EaterChainManager {
         EaterTask.AUTO_SCORE.init(
                 ()->{
                     modules.transfer.eatEnd();
+                    modules.transfer.down();
+                    modules.eater.down();
                     if(timer.seconds()>0.2){
                         modules.eaterGrip.open();
                     }

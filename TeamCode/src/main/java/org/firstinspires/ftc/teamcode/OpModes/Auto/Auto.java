@@ -31,6 +31,31 @@ public class Auto extends BaseMode {
                 wayPointsPool.goToHumanElements,
                 wayPointsPool.firstHumanElementEat,
                 wayPointsPool.bringFirstHumanElement,
+
+                wayPointsPool.secondHumanElement,
+                wayPointsPool.bringSecondHumanElement,
+
+                wayPointsPool.thirdHumanElement,
+                wayPointsPool.bringThirdHumanElement,
+
+                wayPointsPool.goToWallFromHuman,
+
+                wayPointsPool.goToChamber,
+                wayPointsPool.goToWall,
+
+                wayPointsPool.goToChamber2,
+                wayPointsPool.goToWall2,
+
+                wayPointsPool.goToChamber3,
+                wayPointsPool.goToWall3,
+
+                wayPointsPool.goToChamber4,
+                wayPointsPool.goToWall4,
+
+                wayPointsPool.goToChamber5,
+                wayPointsPool.goToWall5,
+
+
                 new WayPoint(new Position())
 
 //

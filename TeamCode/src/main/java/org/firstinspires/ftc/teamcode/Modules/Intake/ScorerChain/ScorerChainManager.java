@@ -135,6 +135,7 @@ public class ScorerChainManager {
 
         ScorerTask.SWIPE.init(
                 ()->{
+                    modules.scorerGrip.close();
                     modules.scorer.swipe();
                 }
         );

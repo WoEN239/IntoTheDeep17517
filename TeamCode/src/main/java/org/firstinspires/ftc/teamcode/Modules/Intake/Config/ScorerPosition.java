@@ -19,8 +19,8 @@ public class ScorerPosition {
     public static double regripYaw   = -115;
     public static double regripPitch =  0;
 
-    public static double swipeYaw   = -90;
-    public static double swipePitch = 130;
+    public static double swipeYaw   = 0;
+    public static double swipePitch = 10;
 
 
 }

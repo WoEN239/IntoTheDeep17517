@@ -86,7 +86,7 @@ public class TeleOp extends BaseMode {
             }
         }
 
-        robot.intake.setLiftManualMode(gamepad1.ps);
+        robot.intake.setLiftManualMode(gamepad1.dpad_down||gamepad1.dpad_up);
         if(gamepad1.dpad_up){
             robot.intake.setManualLiftVoltage(8);
         }
