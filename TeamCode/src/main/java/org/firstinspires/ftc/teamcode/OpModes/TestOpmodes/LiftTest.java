@@ -8,7 +8,6 @@ import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftManager;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 
-@Autonomous
 
 public class LiftTest extends LinearOpMode {
     LiftManager liftManager = new LiftManager();

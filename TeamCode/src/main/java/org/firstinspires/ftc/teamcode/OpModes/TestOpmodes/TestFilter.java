@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Devices.DriveTrainMotors;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 
-@TeleOp
+
 public class TestFilter extends BaseMode {
     public static boolean isSin = false;
     public static double u = 0;

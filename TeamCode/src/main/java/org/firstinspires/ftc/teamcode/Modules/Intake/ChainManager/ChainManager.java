@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.Modules.Intake.ChainManager;
 
 /*
- Writing by EgorKhvostikov
+  Writing by EgorKhvostikov
 */
 
 import org.firstinspires.ftc.teamcode.Modules.Intake.ScorerChain.ScorerChainManager;
@@ -74,6 +74,7 @@ public abstract class ChainManager {
         switch (state){
             case MOVE:
                 liftManager.setTarget(LiftPosition.DOWN);
+                modules.scorer.target();
                 isDone = true;
                 break;
             case SCORER:
@@ -91,7 +92,6 @@ public abstract class ChainManager {
         }
 
         liftManager.update();
-
     }
 
     public void rotateEater(double y){

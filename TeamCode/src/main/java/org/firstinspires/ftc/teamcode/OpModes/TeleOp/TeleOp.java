@@ -41,7 +41,7 @@ public class TeleOp extends BaseMode {
         Transfer.eatPos = trigers;
 
         Position targetVel = new Position(-gamepad1.left_stick_y *abs(gamepad1.left_stick_y) *700,
-                               -gamepad1.left_stick_x  * abs(gamepad1.left_stick_x) * 700,
+                               -gamepad1.left_stick_x  * abs(gamepad1.left_stick_x) * 1000,
                                  gamepad1.right_stick_x  *600);
 
         if(isNeedToSlow){
@@ -56,9 +56,9 @@ public class TeleOp extends BaseMode {
             robot.intake.centerEat();
         }
 
-
         if(gamepad1.left_bumper){
             robot.intake.wallEat();
+            isNeedToSlow= false;
         }
         robot.intake.setTargeted(gamepad1.triangle);
 

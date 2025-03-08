@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.WayPoint;
 import org.firstinspires.ftc.teamcode.Robot.TaskManager.Task;
 
 @Config
-@TeleOp
+
 public class PurePursuitSumulation extends BaseSimulation {
     int i = 0;
     ElapsedTime timer = new ElapsedTime();

@@ -10,7 +10,6 @@ import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Manager.DriveTrainManag
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
-@TeleOp(group = "Test")
 @Config
 public class VelocityConfigPID extends BaseMode {
     public static Position velPos = new Position();

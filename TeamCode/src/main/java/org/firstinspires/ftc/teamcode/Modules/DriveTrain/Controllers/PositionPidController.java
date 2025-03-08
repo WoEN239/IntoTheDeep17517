@@ -34,7 +34,7 @@ public class PositionPidController{
     public static PidStatus pidStatusX = new PidStatus(1.2, 18, 0., 0, 0, 0, 0, 25, 26);
     Pid pidX = new Pid(pidStatusX);
 
-    public static PidStatus pidStatusH = new PidStatus(2, 15, 0, 0, 0, 0, 0, 25, 35);
+    public static PidStatus pidStatusH = new PidStatus(2, 15, 0, 0, 0, 0, 0, 25, 40);
     Pid pidH = new Pid(pidStatusH);
     {
         pidH.isAngle = true;

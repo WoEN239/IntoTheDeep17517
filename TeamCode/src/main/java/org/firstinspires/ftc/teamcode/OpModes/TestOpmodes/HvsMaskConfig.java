@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 import org.firstinspires.ftc.teamcode.OpModes.Simulatiom.BaseSimulation;
 
-@Autonomous(group = "Test")
+
 public class HvsMaskConfig extends BaseSimulation {
     boolean isFirst = true;
     @Override

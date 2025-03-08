@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Math.Position;
 
 
 @Config
-@TeleOp
+
 public class SplineSimulations extends BaseSimulation{
     public static Position start = new Position();
     public static Position end   = new Position();

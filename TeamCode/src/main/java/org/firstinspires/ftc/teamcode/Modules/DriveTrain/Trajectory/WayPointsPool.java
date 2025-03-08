@@ -85,13 +85,13 @@ public class WayPointsPool {
     );
 
     public WayPoint secondHumanElement = new WayPoint(
-            new Position().copyFrom(PositionPool.humanElement).positionPlus(0,0,14),
+            new Position().copyFrom(PositionPool.humanElement).positionPlus(3,3,14),
             new Task(
                     TaskDelay::isDone,
                     ()->TaskDelay.setDelay(0.5),
                     ()->robot.intake.setTargeted(true),
                     ()->robot.driveTrain.setManualPosition(
-                            new Position().copyFrom(PositionPool.humanElement).positionPlus(0,0,14)
+                            new Position().copyFrom(PositionPool.humanElement).positionPlus(3,3,14)
                     )
             )
     );

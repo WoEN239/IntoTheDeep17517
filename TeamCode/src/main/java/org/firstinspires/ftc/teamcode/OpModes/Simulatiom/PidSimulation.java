@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Manager.DriveTrainManag
 import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.DriveTrainSimulation;
 
 @Config
-@TeleOp
+
 public class PidSimulation extends BaseSimulation{
     public static Position start = new Position();
     public static Position end   = new Position();

@@ -13,7 +13,6 @@ import org.firstinspires.ftc.teamcode.Modules.Intake.Config.TransferPosition;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
-@TeleOp(group = "Test")
 @Config
 public class PositionConfigPID extends BaseMode {
     public static Position pos = new Position()                ;

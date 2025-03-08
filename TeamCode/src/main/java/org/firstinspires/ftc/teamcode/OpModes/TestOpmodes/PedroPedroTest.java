@@ -1,15 +1,15 @@
-package org.firstinspires.ftc.teamcode.OpModes;
+package org.firstinspires.ftc.teamcode.OpModes.TestOpmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.PositionPool;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.WayPoint;
+import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 import org.firstinspires.ftc.teamcode.Robot.TaskManager.Task;
 
 
-@TeleOp
-public class PedroPedroTest extends BaseMode{
+public class PedroPedroTest extends BaseMode {
 
     public void callRun(){
 
