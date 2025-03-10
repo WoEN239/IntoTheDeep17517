@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.TrajectoryFo
 public class SplineFollower extends TrajectoryFollower <SplineTrajectorySegment>{
 
     public double targetAngle = 0;
-    public SplineTrajectorySegment path;
+    private SplineTrajectorySegment path;
     private double lastDisplacement = 0;
     public boolean isEndNear = false;
 

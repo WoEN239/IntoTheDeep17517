@@ -6,8 +6,10 @@ import com.acmerobotics.roadrunner.PositionPathSeqBuilder;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.LineFollower.LineTrajectorySegment;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.LineFollower.LineSegmentFollower;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.SplineFollower.SplineFollower;
+
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.SplineFollower.SplineTrajectorySegment;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.SplineFollower.PedroPedroFollower;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.SplineFollower.SplineFollower;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.TrajectorySegment;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.WayPoint;
 import org.firstinspires.ftc.teamcode.Robot.TaskManager.Task;
@@ -29,6 +31,7 @@ public class TrajectoryFollowController {
 
     LineSegmentFollower lineSegmentFollower = new LineSegmentFollower(new LineTrajectorySegment());
     SplineFollower      splineFollower      = new SplineFollower();
+    PedroPedroFollower  pedroPedroFollower  = new PedroPedroFollower();
 
     private final ArrayList<TrajectorySegment> trajectory = new ArrayList<>();
     public boolean isEndOfTrajectory = false;
@@ -52,7 +55,7 @@ public class TrajectoryFollowController {
                 );
             }else {
                 trajectory.add(new LineTrajectorySegment().
-                        makeWithTwoPoint(wayPoints.get(i - 1).position, wayPoints.get(i).position)
+                        makeFromTwoPoint(wayPoints.get(i - 1).position, wayPoints.get(i).position)
                 );
             }
         }

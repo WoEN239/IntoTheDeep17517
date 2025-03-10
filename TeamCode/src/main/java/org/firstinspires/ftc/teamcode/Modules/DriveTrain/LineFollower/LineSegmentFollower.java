@@ -6,7 +6,6 @@ import com.acmerobotics.dashboard.config.Config;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.TrajectoryFollower;
-import org.firstinspires.ftc.teamcode.Robot.Robot;
 
 /*
   Writing by EgorKhvostikov
@@ -32,9 +31,8 @@ public class LineSegmentFollower extends TrajectoryFollower<LineTrajectorySegmen
     @Override
     public Position getVirtualTarget(Position p){
         Position projection = targetLineSegment.findProjection(p);
-        Robot.telemetryPacket.put("angle p I",p.h);
 
-        LineTrajectorySegment unUnitTargetVector = new LineTrajectorySegment().makeWithTwoPoint(projection,targetLineSegment.end);
+        LineTrajectorySegment unUnitTargetVector = new LineTrajectorySegment().makeFromTwoPoint(projection,targetLineSegment.end);
         Position unitTargetVector = unUnitTargetVector.unitVector;
 
         Position linearU =  projection.vectorPlus(new Position().copyFrom(unitTargetVector).linearMultiply(localRadius));
@@ -54,11 +52,6 @@ public class LineSegmentFollower extends TrajectoryFollower<LineTrajectorySegmen
             angleEndNear = true;
             angleU = targetAngle;
         }
-
-        Robot.telemetryPacket.put("angle end",angleEndNear);
-        Robot.telemetryPacket.put("angle target",targetAngle);
-        Robot.telemetryPacket.put("angle p U",p.h);
-
 
         isEndNear = angleEndNear&&linearEndNear;
         return new Position(

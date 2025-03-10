@@ -26,10 +26,11 @@ public class LineTrajectorySegment extends TrajectorySegment {
     public double kY = 0;
     public double c = 0;
 
-    public LineTrajectorySegment makeWithTwoPoint(Position start, Position end) {
-        return makeWithTwoPoint(start.x, start.y, end.x, end.y);
+    public LineTrajectorySegment makeFromTwoPoint(Position start, Position end) {
+        return makeFromTwoPoint(start.x, start.y, end.x, end.y);
     }
-    public LineTrajectorySegment makeWithTwoPoint(double x1, double y1, double x2, double y2){
+
+    public LineTrajectorySegment makeFromTwoPoint(double x1, double y1, double x2, double y2){
         kX = y2 - y1;
         kY = -(x2 - x1);
         c =  -(kY*y1 + kX*x1) ;
@@ -45,6 +46,12 @@ public class LineTrajectorySegment extends TrajectorySegment {
 
         length = Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
         return this;
+    }
+
+    public LineTrajectorySegment makeFromOnePoint(Position s, double h){
+        Position dispVector = new Position(sin(h), cos(h), toDegrees(h));
+        Position e = new Position().copyFrom(s).vectorPlus(dispVector);
+        return makeFromTwoPoint(s,e);
     }
 
     public Position findProjection(Position p){
