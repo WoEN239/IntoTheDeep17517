@@ -20,7 +20,7 @@ public class PositionPool {
 
     public static Position wall = new Position  (124,-145,90);
 
-    public static Position chamber = new Position(0,-60,90);
+    public static Position chamber = new Position(0,-65,90);
     public static Position fChamber = new Position(0,-75,90);
 
 

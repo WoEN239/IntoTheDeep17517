@@ -21,7 +21,7 @@ public class RobotConstant {
 
     public static double ENCODER_CONSTANT = 480;
     public static double TRANSMISSION = 21d/27;
-    public static double LENGTH_OF_WHEEL = 9.6d*PI;
+    public static double LENGTH_OF_WHEEL =  9.6d*PI;
 
     public static double TIK_PER_ANGLE = 97.09166;//TODO
     public static double ENC_TIK_PER_SM = (TRANSMISSION * ENCODER_CONSTANT)/ LENGTH_OF_WHEEL;

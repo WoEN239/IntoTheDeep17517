@@ -41,7 +41,7 @@ public class WayPointsPool {
                     ()->{
                         robot.intake.setTargeted(false);
                         robot.intake.autoEat();
-                        Transfer.eatPos = 0.3;
+                        Transfer.eatPos = 0.32;
                     }
             ),
             new Task(
@@ -77,7 +77,7 @@ public class WayPointsPool {
                           ()->robot.intake.setTargeted(false),
                           ()->robot.intake.autoEat(),
                           ()->robot.intake.rotateEater(25),
-                          ()->Transfer.eatPos = 0.36
+                          ()->Transfer.eatPos = 0.37
                   },
                   ()->robot.intake.setTargeted(true),
                   ()->robot.driveTrain.setManualPosition(PositionPool.humanScore)
@@ -149,7 +149,7 @@ public class WayPointsPool {
             PositionPool.wall,
             new Task(
                     TaskDelay::isDone,
-                    ()-> TaskDelay.setDelay(1)
+                    ()-> TaskDelay.setDelay(1.3)
             ),
             new Task(
                     TaskDelay::isDone,

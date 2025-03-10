@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.Modules.Intake.Config.TransferPosition;
 import org.firstinspires.ftc.teamcode.Modules.Intake.EaterChain.Transfer.Transfer;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
+import org.firstinspires.ftc.teamcode.Robot.RobotConstant;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp
 public class TeleOp extends BaseMode {
@@ -27,8 +28,9 @@ public class TeleOp extends BaseMode {
     public static boolean isNeedToSlow = false;
     double trigers = TransferPosition.eat;
     public void loopRun() {
+        RobotConstant.MAX_MOTOR_TICKS_VEL = 2400;
 
-        double actTrigers = gamepad1.right_trigger * 0.03 - 0.03 * gamepad1.left_trigger;
+        double actTrigers = gamepad1.right_trigger * 0.015 - 0.015 * gamepad1.left_trigger;
         trigers += actTrigers;
 
         if(trigers > TransferPosition.eat){
@@ -88,10 +90,10 @@ public class TeleOp extends BaseMode {
 
         robot.intake.setLiftManualMode(gamepad1.dpad_down||gamepad1.dpad_up);
         if(gamepad1.dpad_up){
-            robot.intake.setManualLiftVoltage(8);
+            robot.intake.setManualLiftVoltage(12);
         }
         if(gamepad1.dpad_down){
-            robot.intake.setManualLiftVoltage(-8);
+            robot.intake.setManualLiftVoltage(-12);
         }
 
 
