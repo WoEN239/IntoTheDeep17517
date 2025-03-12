@@ -4,7 +4,7 @@ import com.acmerobotics.dashboard.config.Config;
 
 @Config
 public enum LiftPosition {
-    DOWN, SCORE_AXIS, HIGHEST_AXIS, HIGHEST_BASKET, SWIPE, IN_POSITION, WALL_EAT;
+    DOWN, SCORE_AXIS, HIGHEST_AXIS, HIGHEST_BASKET, SWIPE, IN_POSITION, WALL_EAT, LAUNCH;
 
 
     public static double down = 0;
@@ -13,8 +13,9 @@ public enum LiftPosition {
     public static double highestBasket = 2500;
     public static double swipe = 700;
 
-    public static double score = 540;
+    public static double score = 530;
     public static double inPos = 150;
+    public static double launch = 1000;
 
     public double get() {
         switch (this) {
@@ -33,6 +34,8 @@ public enum LiftPosition {
                 return inPos;
             case SCORE_AXIS:
                 return score;
+            case LAUNCH:
+                return launch;
         }
     }
 

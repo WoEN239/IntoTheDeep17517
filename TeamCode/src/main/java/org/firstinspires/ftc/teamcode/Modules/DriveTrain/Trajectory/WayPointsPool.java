@@ -85,7 +85,7 @@ public class WayPointsPool {
     );
 
     public WayPoint secondHumanElement = new WayPoint(
-            new Position().copyFrom(PositionPool.humanElement).positionPlus(3,3,14),
+            new Position().copyFrom(PositionPool.humanElement).positionPlus(5,5,14),
             new Task(
                     TaskDelay::isDone,
                     ()->TaskDelay.setDelay(0.5),
@@ -285,7 +285,7 @@ public class WayPointsPool {
     ).toSpline(-Math.PI*3.0/8.0,-Math.PI*0.5);
 
     public WayPoint goToChamber5 = new WayPoint(
-            PositionPool.chamber,
+            PositionPool.chamber.positionPlus(5,0,0),
             new Task(
                     ()->true,
                     ()->robot.intake.setTargeted(false)
