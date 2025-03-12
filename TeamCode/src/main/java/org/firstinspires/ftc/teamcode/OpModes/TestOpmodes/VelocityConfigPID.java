@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.OpModes.TestOpmodes;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Devices.DriveTrainMotors;
@@ -29,10 +28,10 @@ public class VelocityConfigPID extends BaseMode {
         Robot.telemetryPacket.put("yT", n*velTarget.y);
         Robot.telemetryPacket.put("hT", n*velTarget.h);
         if(timer.seconds()%(2*k) > k){
-            robot.driveTrain.setVelocityTarget(velTarget);
+            robot.driveTrain.setManualVelocityTarget(velTarget);
             n = 1;
         }else{
-            robot.driveTrain.setVelocityTarget(new Position(-velTarget.x,-velTarget.y,-velTarget.h));
+            robot.driveTrain.setManualVelocityTarget(new Position(-velTarget.x,-velTarget.y,-velTarget.h));
             n = -1;
         }
     }

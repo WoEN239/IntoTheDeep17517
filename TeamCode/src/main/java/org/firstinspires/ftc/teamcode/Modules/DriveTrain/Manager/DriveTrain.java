@@ -5,6 +5,7 @@ import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.DriveTrainV
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.PositionPidController;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.TrajectoryFollowController;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Controllers.VelocityPidController;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.LineFollower.LineTrajectorySegment;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Listeners.DeviceValueMap;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Listeners.PositionListener.DevicePositionListener;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Listeners.PositionListener.LocalPositionListener;
@@ -12,17 +13,15 @@ import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Listeners.PositionListe
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Listeners.VelocityListener.DeviceVelocityListener;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Listeners.VelocityListener.LocalVelocityListener;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Listeners.VelocityListener.VelocityListener;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.TrajectorySegment;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.WayPoint;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.DriveTrainSimulation;
-
-import java.util.List;
 
 /*
   Writing by EgorKhvostikov
 */
 abstract class DriveTrain {
-
     private final Position pidTarget = new Position();
     public Position getPidTarget() {return pidTarget;}
 
@@ -31,16 +30,17 @@ abstract class DriveTrain {
     private final Position localVelocity = new Position();
     private final Position localPosition = new Position();
 
+
     public Position getPosition() {
         return position;
     }
-
     public Position getLocalVelocity() {
         return localVelocity;
     }
 
-    protected enum DriveTrainState {PURE_PURSUIT,PID_CONTROL,TELE_OP,ANGEL_CONTROL}
+    protected enum DriveTrainState {PURE_PURSUIT,PID_CONTROL,TELE_OP,ANGEL_CONTROL,SPLINE_CONTROL}
     private DriveTrainState driveTrainState = DriveTrainState.PID_CONTROL;
+
     protected void setDriveTrainState(DriveTrainState driveTrainState) {this.driveTrainState = driveTrainState;}
 
     public void init(){
@@ -67,7 +67,7 @@ abstract class DriveTrain {
 
         switch (driveTrainState){
             case PID_CONTROL:
-                pidTarget.copyFrom(manualTarget);
+                pidTarget.copyFrom(manualPositionTarget);
                 setVoltages();
                 break;
             case PURE_PURSUIT:
@@ -81,8 +81,17 @@ abstract class DriveTrain {
                 setVoltagesFromVelocity();
                 break;
             case ANGEL_CONTROL:
-                pidTarget.copyFrom(manualTarget);
-                setVoltagesFromVelocityWithAngleControll();
+                pidTarget.copyFrom(manualPositionTarget);
+                setVoltagesFromVelocityWithAngleControl();
+                break;
+            case SPLINE_CONTROL:
+
+                trajectoryFollowController.setPosition(position);
+                trajectoryFollowController.computeTarget();
+
+                Position u = new Position();
+                u.copyFrom(trajectoryFollowController.getPidTarget());
+                setVoltagesFromVelocityWithSplineControl();
                 break;
         }
 
@@ -92,15 +101,19 @@ abstract class DriveTrain {
         }
     }
 
+    private final Position manualPositionTarget = new Position();
+    public void setManualPositionTarget(Position p) {this.manualPositionTarget.copyFrom(p);}
 
-    private final Position manualTarget = new Position();
-    public void setManualPosition(Position p) {
-            this.manualTarget.copyFrom(p);
+    private final Position manualVelocityTarget = new Position();
+    public void setManualVelocityTarget(Position manualVelocityTarget) {this.manualVelocityTarget.copyFrom(manualVelocityTarget);}
 
+    private TrajectorySegment manualTrajectorySegemnt = new LineTrajectorySegment();
+    public void setManualTrajectorySegemnt(TrajectorySegment manualTrajectorySegemnt) {
+        this.manualTrajectorySegemnt = manualTrajectorySegemnt;
     }
+
     public void addWayPoints(WayPoint... t){
         trajectoryFollowController.addWayPoints(t);}
-
     private final DriveTrainVoltageController driveTrainVoltageController = new DriveTrainVoltageController();
 
     private final DevicePositionListener devicePositionListener   = new DevicePositionListener();
@@ -110,6 +123,7 @@ abstract class DriveTrain {
     private final DeviceVelocityListener deviceVelocityListener   = new DeviceVelocityListener();
     private final LocalVelocityListener  localVelocityListener    = new LocalVelocityListener ();
     private final VelocityListener       velocityListener         = new VelocityListener      ();
+
 
     private void computePosition(){
         driveTrainVoltageController.updateData();
@@ -143,11 +157,11 @@ abstract class DriveTrain {
         this.localVelocity.copyFrom(localVelocity);
     }
 
-
     protected final TrajectoryFollowController trajectoryFollowController = new TrajectoryFollowController();
 
     private final PositionPidController  positionPidController    = new PositionPidController();
     private final VelocityPidController  velocityPidController    = new VelocityPidController();
+
 
     protected void setVoltages(){
         if(Robot.isDebug){
@@ -172,12 +186,7 @@ abstract class DriveTrain {
         }
     }
 
-    private Position velocityTarget = new Position();
-    public void setVelocityTarget(Position velocityTarget) {
-        this.velocityTarget = velocityTarget;
-    }
-
-    protected void setVoltagesFromVelocityWithAngleControll(){
+    protected void setVoltagesFromVelocityWithAngleControl(){
         if(Robot.isDebug){
             localPosition.copyFrom(DriveTrainSimulation.localPosition);
             position.copyFrom(DriveTrainSimulation.position);
@@ -191,10 +200,36 @@ abstract class DriveTrain {
         Position pidResult = positionPidController.getPidResult();
         pidPositionResult.copyFrom(pidResult);
 
-        velocityTarget.h = pidResult.h;
+        manualVelocityTarget.h = pidResult.h;
 
         velocityPidController.setVelocity(localVelocity);
-        velocityPidController.setTarget(velocityTarget);
+        velocityPidController.setTarget(manualVelocityTarget);
+        velocityPidController.computePidResult();
+
+        if(!Robot.isDebug){
+            Position voltageMap = velocityPidController.getPidResult();
+            driveTrainVoltageController.setVoltage(voltageMap);
+        }
+    }
+    protected void setVoltagesFromVelocityWithSplineControl(){
+        if(Robot.isDebug){
+            localPosition.copyFrom(DriveTrainSimulation.localPosition);
+            position.copyFrom(DriveTrainSimulation.position);
+        }
+
+        positionPidController.setLocalPosition(localPosition);
+        positionPidController.setGlobalPosition(position);
+        positionPidController.setTarget(pidTarget);
+        positionPidController.computePidResult();
+
+        Position pidResult = positionPidController.getPidResult();
+        pidPositionResult.copyFrom(pidResult);
+
+        Position u = new Position().copyFrom(manualVelocityTarget);
+        u.positionPlus(pidResult);
+
+        velocityPidController.setVelocity(localVelocity);
+        velocityPidController.setTarget(u);
         velocityPidController.computePidResult();
 
         if(!Robot.isDebug){
@@ -205,7 +240,7 @@ abstract class DriveTrain {
 
     protected void setVoltagesFromVelocity(){
         velocityPidController.setVelocity(localVelocity);
-        velocityPidController.setTarget(velocityTarget);
+        velocityPidController.setTarget(manualVelocityTarget);
         velocityPidController.computePidResult();
         if(!Robot.isDebug){
             Position voltageMap = velocityPidController.getPidResult();

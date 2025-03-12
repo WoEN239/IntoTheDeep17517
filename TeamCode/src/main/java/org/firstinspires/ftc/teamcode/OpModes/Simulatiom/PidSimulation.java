@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.OpModes.Simulatiom;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Manager.DriveTrainManager;
@@ -26,7 +25,7 @@ public class PidSimulation extends BaseSimulation{
       position = DriveTrainSimulation.position;
 
       robot.driveTrain.setState(DriveTrainManager.RobotState.POINT);
-      robot.driveTrain.setManualPosition(target);
+      robot.driveTrain.setManualPositionTarget(target);
 
     }
 

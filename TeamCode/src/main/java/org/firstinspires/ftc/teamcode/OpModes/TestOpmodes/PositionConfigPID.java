@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.OpModes.TestOpmodes;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Devices.DriveTrainMotors;
@@ -32,11 +31,11 @@ public class PositionConfigPID extends BaseMode {
         Robot.telemetryPacket.put("hT", n*target.h);
        if(timer.seconds()%(2*k) > k){
             robot.driveTrain.setState(DriveTrainManager.RobotState.POINT);
-            robot.driveTrain.setManualPosition(target);
+            robot.driveTrain.setManualPositionTarget(target);
            n = 1;
         }else{
            robot.driveTrain.setState(DriveTrainManager.RobotState.POINT);
-            robot.driveTrain.setManualPosition(new Position(-target.x,-target.y,-target.h));
+            robot.driveTrain.setManualPositionTarget(new Position(-target.x,-target.y,-target.h));
             n = -1;
         }
     }

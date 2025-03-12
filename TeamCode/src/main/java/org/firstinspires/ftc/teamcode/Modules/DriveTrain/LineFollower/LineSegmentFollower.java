@@ -15,10 +15,6 @@ import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.TrajectoryFo
 public class LineSegmentFollower extends TrajectoryFollower<LineTrajectorySegment> {
     public LineTrajectorySegment targetLineSegment;
 
-    public double targetAngle = 0;
-    public boolean isEndNear = false;
-
-
     public LineSegmentFollower(LineTrajectorySegment targetLineSegment) {
         this.targetLineSegment = targetLineSegment;
     }

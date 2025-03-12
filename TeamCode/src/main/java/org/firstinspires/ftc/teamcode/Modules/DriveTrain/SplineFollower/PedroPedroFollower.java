@@ -15,9 +15,6 @@ import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.TrajectoryFo
 public class PedroPedroFollower extends TrajectoryFollower<SplineTrajectorySegment> {
 
     private SplineTrajectorySegment path;
-    public boolean isEndNear = false;
-
-    public double targetAngle = 0;
     private double lastDisplacement;
 
     @Override

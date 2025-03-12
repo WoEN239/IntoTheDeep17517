@@ -42,7 +42,7 @@ public class TeleOpManual extends BaseMode {
         BaseMode.isField = true;
 
         robot.driveTrain.setState(DriveTrainManager.RobotState.TELE_OP);
-        robot.driveTrain.setVelocityTarget(
+        robot.driveTrain.setManualVelocityTarget(
                 new Position(-gamepad1.left_stick_y*240, gamepad1.left_stick_x*240, gamepad1.right_stick_x*100)
         );
 

@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.OpModes.Simulatiom;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
@@ -22,14 +21,14 @@ public class PurePursuitSumulation extends BaseSimulation {
                         new Task(
                                 "edf",
                                 ()->true,
-                                ()->robot.driveTrain.setManualPosition(new Position(100,0,0))
+                                ()->robot.driveTrain.setManualPositionTarget(new Position(100,0,0))
                         ))
                 ,
                 new WayPoint(new Position(100,50,10),
                         new Task(
                                 "edf",
                                 ()->true,
-                                ()->robot.driveTrain.setManualPosition(new Position(100,50,0))
+                                ()->robot.driveTrain.setManualPositionTarget(new Position(100,50,0))
                         ))
         );
 

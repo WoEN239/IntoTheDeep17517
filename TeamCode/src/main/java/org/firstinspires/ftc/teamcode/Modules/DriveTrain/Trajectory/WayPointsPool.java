@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory;
 import org.firstinspires.ftc.teamcode.Devices.IntakeDevices;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.ScorerGripPosition;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Config.ScorerPosition;
 import org.firstinspires.ftc.teamcode.Modules.Intake.EaterChain.Transfer.Transfer;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.TaskDelay;
@@ -30,7 +29,7 @@ public class WayPointsPool {
               },
               () -> robot.intake.setTargeted(true),
               ()->TaskDelay.setDelay(1),
-              () -> robot.driveTrain.setManualPosition(PositionPool.fChamber)
+              () -> robot.driveTrain.setManualPositionTarget(PositionPool.fChamber)
       )
     );
 
@@ -47,7 +46,7 @@ public class WayPointsPool {
             new Task(
                     "target",
                     ()->true,
-                    ()->robot.driveTrain.setManualPosition(PositionPool.humanElement)
+                    ()->robot.driveTrain.setManualPositionTarget(PositionPool.humanElement)
             )
     ).toSpline(-Math.PI*3.0/8.0,Math.PI/2.0);
 
@@ -61,7 +60,7 @@ public class WayPointsPool {
             new Task(
                     TaskDelay::isDone,
                     ()->robot.intake.setTargeted(false),
-                    ()->robot.driveTrain.setManualPosition(PositionPool.humanElement),
+                    ()->robot.driveTrain.setManualPositionTarget(PositionPool.humanElement),
                     ()->TaskDelay.setDelay(0.5)
             )
     );
@@ -80,7 +79,7 @@ public class WayPointsPool {
                           ()->Transfer.eatPos = 0.37
                   },
                   ()->robot.intake.setTargeted(true),
-                  ()->robot.driveTrain.setManualPosition(PositionPool.humanScore)
+                  ()->robot.driveTrain.setManualPositionTarget(PositionPool.humanScore)
           )
     );
 
@@ -90,7 +89,7 @@ public class WayPointsPool {
                     TaskDelay::isDone,
                     ()->TaskDelay.setDelay(0.5),
                     ()->robot.intake.setTargeted(true),
-                    ()->robot.driveTrain.setManualPosition(
+                    ()->robot.driveTrain.setManualPositionTarget(
                             new Position().copyFrom(PositionPool.humanElement).positionPlus(3,3,14)
                     )
             )
@@ -110,7 +109,7 @@ public class WayPointsPool {
                     },
                     ()->TaskDelay.setDelay(0.6),
                     ()->robot.intake.setTargeted(true),
-                    ()->robot.driveTrain.setManualPosition(PositionPool.humanScore)
+                    ()->robot.driveTrain.setManualPositionTarget(PositionPool.humanScore)
             )
     );
 
@@ -121,7 +120,7 @@ public class WayPointsPool {
             new Task(
                     ()->true,
                     ()->robot.intake.setTargeted(true),
-                    ()->robot.driveTrain.setManualPosition(
+                    ()->robot.driveTrain.setManualPositionTarget(
                             new Position().copyFrom(PositionPool.humanElement).positionPlus(0,0,32)
                     )
             )
@@ -141,7 +140,7 @@ public class WayPointsPool {
                     },
                     ()->TaskDelay.setDelay(0.6),
                     ()->robot.intake.setTargeted(true),
-                    ()->robot.driveTrain.setManualPosition(PositionPool.humanScore)
+                    ()->robot.driveTrain.setManualPositionTarget(PositionPool.humanScore)
             )
     );
 
@@ -158,7 +157,7 @@ public class WayPointsPool {
                     },
                     ()->TaskDelay.setDelay(0.5),
                     ()->IntakeDevices.scorerGrip.setPosition(ScorerGripPosition.close),
-                    ()->robot.driveTrain.setManualPosition(PositionPool.wall)
+                    ()->robot.driveTrain.setManualPositionTarget(PositionPool.wall)
             )
     );
 
@@ -176,7 +175,7 @@ public class WayPointsPool {
                     },
                     () -> robot.intake.setTargeted(true),
                     ()->TaskDelay.setDelay(1),
-                    () -> robot.driveTrain.setManualPosition(PositionPool.chamber)
+                    () -> robot.driveTrain.setManualPositionTarget(PositionPool.chamber)
             )
     ).toSpline(Math.PI*0.75,Math.PI*0.5);
 
@@ -189,7 +188,7 @@ public class WayPointsPool {
                     },
                     ()->IntakeDevices.scorerGrip.setPosition(ScorerGripPosition.close),
                     ()->TaskDelay.setDelay(0.3),
-                    ()->robot.driveTrain.setManualPosition(PositionPool.wall)
+                    ()->robot.driveTrain.setManualPositionTarget(PositionPool.wall)
             )
     ).toSpline(-Math.PI*3.0/8.0,-Math.PI*0.5);
 
@@ -207,7 +206,7 @@ public class WayPointsPool {
                     },
                     () -> robot.intake.setTargeted(true),
                     ()->TaskDelay.setDelay(1),
-                    () -> robot.driveTrain.setManualPosition(PositionPool.chamber)
+                    () -> robot.driveTrain.setManualPositionTarget(PositionPool.chamber)
             )
     ).toSpline(Math.PI*0.75,Math.PI*0.5);
 
@@ -220,7 +219,7 @@ public class WayPointsPool {
                     },
                     ()->TaskDelay.setDelay(0.3),
                     ()->IntakeDevices.scorerGrip.setPosition(ScorerGripPosition.close),
-                    ()->robot.driveTrain.setManualPosition(PositionPool.wall)
+                    ()->robot.driveTrain.setManualPositionTarget(PositionPool.wall)
             )
     ).toSpline(-Math.PI*3.0/8.0,-Math.PI*0.5);
 
@@ -237,7 +236,7 @@ public class WayPointsPool {
                     },
                     () -> robot.intake.setTargeted(true),
                     ()->TaskDelay.setDelay(1),
-                    () -> robot.driveTrain.setManualPosition(PositionPool.chamber)
+                    () -> robot.driveTrain.setManualPositionTarget(PositionPool.chamber)
             )
     ).toSpline(Math.PI*0.75,Math.PI*0.5);
 
@@ -250,7 +249,7 @@ public class WayPointsPool {
                     },
                     ()->TaskDelay.setDelay(0.3),
                     ()->IntakeDevices.scorerGrip.setPosition(ScorerGripPosition.close),
-                    ()->robot.driveTrain.setManualPosition(PositionPool.wall)
+                    ()->robot.driveTrain.setManualPositionTarget(PositionPool.wall)
             )
     ).toSpline(-Math.PI*3.0/8.0,-Math.PI*0.5);
 
@@ -267,7 +266,7 @@ public class WayPointsPool {
                     },
                     () -> robot.intake.setTargeted(true),
                     ()->TaskDelay.setDelay(1),
-                    () -> robot.driveTrain.setManualPosition(PositionPool.chamber)
+                    () -> robot.driveTrain.setManualPositionTarget(PositionPool.chamber)
             )
     ).toSpline(Math.PI*0.75,Math.PI*0.5);
 
@@ -280,7 +279,7 @@ public class WayPointsPool {
                     },
                     ()->TaskDelay.setDelay(0.3),
                     ()->IntakeDevices.scorerGrip.setPosition(ScorerGripPosition.close),
-                    ()->robot.driveTrain.setManualPosition(PositionPool.wall)
+                    ()->robot.driveTrain.setManualPositionTarget(PositionPool.wall)
             )
     ).toSpline(-Math.PI*3.0/8.0,-Math.PI*0.5);
 
@@ -297,7 +296,7 @@ public class WayPointsPool {
                     },
                     () -> robot.intake.setTargeted(true),
                     ()->TaskDelay.setDelay(1),
-                    () -> robot.driveTrain.setManualPosition(PositionPool.chamber)
+                    () -> robot.driveTrain.setManualPositionTarget(PositionPool.chamber)
             )
     ).toSpline(Math.PI*0.75,Math.PI*0.5);
 
@@ -310,7 +309,7 @@ public class WayPointsPool {
                     },
                     ()->TaskDelay.setDelay(0.3),
                     ()->IntakeDevices.scorerGrip.setPosition(ScorerGripPosition.close),
-                    ()->robot.driveTrain.setManualPosition(PositionPool.wall)
+                    ()->robot.driveTrain.setManualPositionTarget(PositionPool.wall)
             )
     ).toSpline(-Math.PI*3.0/8.0,-Math.PI*0.5);
 

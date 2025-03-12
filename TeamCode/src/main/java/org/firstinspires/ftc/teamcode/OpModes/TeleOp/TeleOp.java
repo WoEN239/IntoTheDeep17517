@@ -51,7 +51,7 @@ public class TeleOp extends BaseMode {
             targetVel.angleMultiply(0.15 );
         }
 
-        robot.driveTrain.setVelocityTarget(targetVel);
+        robot.driveTrain.setManualVelocityTarget(targetVel);
 
         if(gamepad1.right_bumper){
             trigers = TransferPosition.eat;
@@ -79,7 +79,7 @@ public class TeleOp extends BaseMode {
         if(moveStateButton.get(gamepad1.circle)){
             if(robot.driveTrain.getState() == DriveTrainManager.RobotState.TELE_OP){
                 robot.driveTrain.setState(DriveTrainManager.RobotState.TELE_OP_ANGLE_CONTROL);
-                robot.driveTrain.setManualPosition(
+                robot.driveTrain.setManualPositionTarget(
                         new Position
                         (0,0,robot.driveTrain.getPosition().h)
                 );

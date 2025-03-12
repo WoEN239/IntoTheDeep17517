@@ -12,6 +12,9 @@ public abstract class TrajectoryFollower <T extends TrajectorySegment> {
     public static double endDetectAngle    =  10 ;
     public static double localRadiusAngle   = 90 ;
 
+    public boolean isEndNear = false;
+    public double targetAngle = 0;
+
     public abstract void setTrajectorySegment(T trajectorySegment);
 
     public abstract Position getVirtualTarget(Position p);
