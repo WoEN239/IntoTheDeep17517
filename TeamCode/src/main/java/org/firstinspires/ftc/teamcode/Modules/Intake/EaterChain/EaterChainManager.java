@@ -137,10 +137,11 @@ public class EaterChainManager {
 
         EaterTask.TO_AUTO_EAT.init(
                 ()->{
-                    liftRequest = LiftPosition.IN_POSITION;
-                    modules.transfer.target();
-                    modules.transfer.normal();
-                    modules.eater.down();
+                    liftRequest = LiftPosition.LAUNCH;
+                    modules.transfer.horizon();
+                    modules.transfer.normal() ;
+
+                    modules.eater.horizon();
                     modules.eaterGrip.open();
 
                     modules.scorer.regrip();
@@ -153,7 +154,8 @@ public class EaterChainManager {
         EaterTask.AUTO_TARGETING.init(
                 ()->{
                     modules.transfer.normal();
-                    modules.eater.down();
+                    modules.transfer.horizon();
+                    modules.eater.horizon();
                     if(isTargeted){
                         timer.reset();
                         task = EaterTask.AUTO_ACCEPT_EAT;
@@ -163,18 +165,14 @@ public class EaterChainManager {
 
         EaterTask.AUTO_ACCEPT_EAT.init(
                 ()->{
-                    modules.transfer.down();
-                    modules.eater.down();
-                    //modules.transfer.eat();
-                    if(timer.seconds()>0.5){
-                        modules.transfer.down();
-                    }
+                    modules.transfer.horizon();
+                    modules.eater   .horizon();
+
                     if(timer.seconds()>0.6){
                         modules.eaterGrip.close();
                     }
                     if(timer.seconds()>0.7){
                         timer.reset();
-                    //    task = EaterTask.AUTO_HOLD_IN;
                         task = EaterTask.AUTO_LAUNCH;
                     }
                 }
@@ -194,15 +192,14 @@ public class EaterChainManager {
         EaterTask.AUTO_LAUNCH.init(
                 () -> {
                     liftRequest = LiftPosition.LAUNCH;
-                    if(timer.seconds() > 0.6){
-                        modules.transfer.in();
-                    }
-                    if(timer.seconds() > 0.75)
-                    {
+                    modules.transfer.in();
+                    if(timer.seconds() > 0.3) {
                         modules.eater.up();
+                    }
+                    if(timer.seconds() > 0.3) {
                         modules.transfer.up();
                     }
-                    if(timer.seconds() > 0.85){
+                    if(timer.seconds() > 0.5){
                         modules.eaterGrip.open();
                     }
                     if(timer.seconds() > 0.9){

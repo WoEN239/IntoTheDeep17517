@@ -112,10 +112,8 @@ public class ScorerChainManager {
         ScorerTask.SCORE.init(
                 ()->{
                     modules.scorer.score();
-                    if(timer.seconds()>0.7){
                         modules.scorerGrip.open();
-                    }
-                    if(timer.seconds()>0.9){
+                    if(timer.seconds()>0.3){
                         timer.reset();
                         task = ScorerTask.MOVE;
                     }
@@ -134,7 +132,7 @@ public class ScorerChainManager {
 
         ScorerTask.SWIPE.init(
                 ()->{
-                    liftRequest = LiftPosition.SWIPE;
+                    liftRequest = LiftPosition.SCORE_AXIS;
                     modules.scorerGrip.close();
                     modules.scorer.swipe();
                 }

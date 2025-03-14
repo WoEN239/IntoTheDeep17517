@@ -42,7 +42,10 @@ public class Transfer {
         flipLeft.setPosition (FlipPosition.target);
         flipRight.setPosition(FlipPosition.target);
     }
-
+    public void horizon() {
+        flipLeft.setPosition(FlipPosition.horizon);
+        flipRight.setPosition(FlipPosition.horizon);
+    }
     public void in(){
         transferServoRight.setPosition(TransferPosition.in);
         transferServoLeft .setPosition(TransferPosition.in);

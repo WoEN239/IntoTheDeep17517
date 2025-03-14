@@ -55,7 +55,7 @@ public class TeleOp extends BaseMode {
 
         if(gamepad1.right_bumper){
             trigers = TransferPosition.eat;
-            robot.intake.centerEat();
+            robot.intake.autoEat();
         }
 
         if(gamepad1.left_bumper){

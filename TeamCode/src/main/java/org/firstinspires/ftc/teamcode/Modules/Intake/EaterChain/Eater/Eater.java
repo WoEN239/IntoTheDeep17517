@@ -15,7 +15,13 @@ public class Eater {
     double pitch = 0;
 
     public void init(){
+
         eater = IntakeDevices.eater;
+    }
+    public void horizon(){
+        yaw   = EaterPosition  .horizonYaw;
+        pitch = EaterPosition  .horizonPitch;
+        eater.setTarget(yaw, pitch);
     }
 
     public void down(){
