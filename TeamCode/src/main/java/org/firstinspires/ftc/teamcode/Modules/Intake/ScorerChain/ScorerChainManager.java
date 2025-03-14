@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.Modules.Intake.ScorerChain;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager.IntakeModules;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Manager.IntakeModules;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
@@ -23,12 +23,12 @@ public class ScorerChainManager {
         timer.reset();
     }
     public void score(){
-        task = ScorerTask.TARGETING;
+        task = ScorerTask.AXIS_TARGETING;
         timer.reset();
     }
 
     public enum ScorerTask {
-        TO_EAT,EAT,END_EAT,WALL_TARGETING, TARGETING,SCORE,MOVE, SWIPE;
+        TO_EAT,EAT,END_EAT,WALL_TARGETING, AXIS_TARGETING,SCORE,MOVE, SWIPE;
 
         private Runnable[] update;
 
@@ -92,11 +92,11 @@ public class ScorerChainManager {
                     }
                     if(timer.seconds()>1){
                         timer.reset();
-                        task = ScorerTask.TARGETING;
+                        task = ScorerTask.AXIS_TARGETING;
                     }
                 }
         );
-        ScorerTask.TARGETING.init(
+        ScorerTask.AXIS_TARGETING.init(
                 ()->{
                     liftRequest = LiftPosition.SCORE_AXIS;
                     if(isTargeted){

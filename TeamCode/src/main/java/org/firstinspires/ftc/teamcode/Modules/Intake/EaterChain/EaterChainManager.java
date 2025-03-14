@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.EaterChain;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager.IntakeModules;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Manager.IntakeModules;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
 import org.firstinspires.ftc.teamcode.OpModes.TeleOp.TeleOp;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
@@ -10,7 +10,6 @@ import org.firstinspires.ftc.teamcode.Robot.Robot;
 public class EaterChainManager {
     private EaterTask task = EaterTask.MOVE;
     private boolean isTargeted = false;
-    private IntakeModules modules1;
 
     public void startEat(){
         task = EaterTask.TO_EAT;

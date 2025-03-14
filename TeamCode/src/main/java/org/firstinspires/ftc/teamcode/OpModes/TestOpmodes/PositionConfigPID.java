@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Devices.DriveTrainMotors;
 import org.firstinspires.ftc.teamcode.Devices.IntakeDevices;
 import org.firstinspires.ftc.teamcode.Math.Position;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Manager.DriveTrainManager;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Manager.DriveTrain;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.FlipPosition;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.TransferPosition;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
@@ -30,11 +30,11 @@ public class PositionConfigPID extends BaseMode {
         Robot.telemetryPacket.put("yT", n*target.y);
         Robot.telemetryPacket.put("hT", n*target.h);
        if(timer.seconds()%(2*k) > k){
-            robot.driveTrain.setState(DriveTrainManager.RobotState.POINT);
+            robot.driveTrain.setState(DriveTrain.RobotState.POINT);
             robot.driveTrain.setManualPositionTarget(target);
            n = 1;
         }else{
-           robot.driveTrain.setState(DriveTrainManager.RobotState.POINT);
+           robot.driveTrain.setState(DriveTrain.RobotState.POINT);
             robot.driveTrain.setManualPositionTarget(new Position(-target.x,-target.y,-target.h));
             n = -1;
         }

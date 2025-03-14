@@ -5,7 +5,7 @@ import static java.lang.Math.abs;
 import org.firstinspires.ftc.teamcode.Devices.DevicePool;
 import org.firstinspires.ftc.teamcode.Math.BorderButton;
 import org.firstinspires.ftc.teamcode.Math.Position;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Manager.DriveTrainManager;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Manager.DriveTrain;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.TransferPosition;
 import org.firstinspires.ftc.teamcode.Modules.Intake.EaterChain.Transfer.Transfer;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
@@ -17,7 +17,7 @@ public class TeleOp extends BaseMode {
     public void callRun(){
         DevicePool.isLiftInit = false;
 
-        robot.driveTrain.setState(DriveTrainManager.RobotState.TELE_OP);
+        robot.driveTrain.setState(DriveTrain.RobotState.TELE_OP);
         BaseMode.isField = true;
         isNeedToCall = false;
     }
@@ -77,14 +77,14 @@ public class TeleOp extends BaseMode {
         }
 
         if(moveStateButton.get(gamepad1.circle)){
-            if(robot.driveTrain.getState() == DriveTrainManager.RobotState.TELE_OP){
-                robot.driveTrain.setState(DriveTrainManager.RobotState.TELE_OP_ANGLE_CONTROL);
+            if(robot.driveTrain.getState() == DriveTrain.RobotState.TELE_OP){
+                robot.driveTrain.setState(DriveTrain.RobotState.TELE_OP_ANGLE_CONTROL);
                 robot.driveTrain.setManualPositionTarget(
                         new Position
                         (0,0,robot.driveTrain.getPosition().h)
                 );
             }else{
-                robot.driveTrain.setState(DriveTrainManager.RobotState.TELE_OP);
+                robot.driveTrain.setState(DriveTrain.RobotState.TELE_OP);
             }
         }
 

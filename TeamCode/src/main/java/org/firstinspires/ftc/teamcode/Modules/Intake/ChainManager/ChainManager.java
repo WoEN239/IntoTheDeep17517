@@ -6,7 +6,7 @@ package org.firstinspires.ftc.teamcode.Modules.Intake.ChainManager;
 
 import org.firstinspires.ftc.teamcode.Modules.Intake.ScorerChain.ScorerChainManager;
 import org.firstinspires.ftc.teamcode.Modules.Intake.EaterChain.EaterChainManager;
-import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager.IntakeModules;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Manager.IntakeModules;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftManager;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
@@ -21,9 +21,6 @@ public abstract class ChainManager {
 
     private boolean isDone = false;
     public boolean isDone(){return  isDone;}
-
-    public boolean isLiftDone(){return liftManager.isDone();}
-    public double getLiftPos() {return liftManager.position;}
 
     public void init(){
         modules.init();
@@ -54,9 +51,6 @@ public abstract class ChainManager {
     protected void castCenterEat(){
         eaterChainManager.startEat();
         state = ChainState.EATER;
-    }
-    protected void castCancel(){
-        state = ChainState.MOVE;
     }
 
     protected void castWallEat(){

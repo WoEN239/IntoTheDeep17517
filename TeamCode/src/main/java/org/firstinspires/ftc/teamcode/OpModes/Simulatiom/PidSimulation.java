@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.OpModes.Simulatiom;
 import com.acmerobotics.dashboard.config.Config;
 
 import org.firstinspires.ftc.teamcode.Math.Position;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Manager.DriveTrainManager;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Manager.DriveTrain;
 import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.DriveTrainSimulation;
 
 @Config
@@ -24,7 +24,7 @@ public class PidSimulation extends BaseSimulation{
     public void loopRun(){
       position = DriveTrainSimulation.position;
 
-      robot.driveTrain.setState(DriveTrainManager.RobotState.POINT);
+      robot.driveTrain.setState(DriveTrain.RobotState.POINT);
       robot.driveTrain.setManualPositionTarget(target);
 
     }

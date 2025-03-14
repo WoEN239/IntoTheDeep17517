@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager;
+package org.firstinspires.ftc.teamcode.Modules.Intake.Manager;
 
 import org.firstinspires.ftc.teamcode.Modules.Intake.ChainManager.ChainManager;
 
@@ -7,12 +7,10 @@ import org.firstinspires.ftc.teamcode.Modules.Intake.ChainManager.ChainManager;
 */
 public class IntakeManager extends ChainManager {
 
-    public void cancel(){
-        castCancel();
-    }
     public void centerEat(){
         castCenterEat();
     }
+
     public void autoEat(){
         castAutoCenterEat();
     }

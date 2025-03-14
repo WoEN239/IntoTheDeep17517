@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Devices.Battery;
 import org.firstinspires.ftc.teamcode.Devices.DevicePool;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Manager.DriveTrainManager;
-import org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager.IntakeManager;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Manager.DriveTrain;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Manager.IntakeManager;
 import org.firstinspires.ftc.teamcode.Robot.TaskManager.TaskManager;
 import org.firstinspires.ftc.teamcode.Telemetry.FieldView;
 
@@ -36,7 +36,7 @@ public class Robot{
     private final ElapsedTime timer  = new ElapsedTime();
     public double getSeconds() {return timer.seconds();}
 
-    public DriveTrainManager driveTrain = new DriveTrainManager ();
+    public DriveTrain driveTrain = new DriveTrain();
     public IntakeManager intake  = new IntakeManager();
     public FieldView fieldView  = new FieldView();
 
@@ -50,7 +50,7 @@ public class Robot{
         }
 
         driveTrain.init();
-        driveTrain.setState(DriveTrainManager.RobotState.TRAVELING);
+        driveTrain.setState(DriveTrain.RobotState.TRAVELING);
         intake.init();
 
         timer.reset();

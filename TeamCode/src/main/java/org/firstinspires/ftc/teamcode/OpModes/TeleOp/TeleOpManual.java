@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.OpModes.TeleOp;
 import org.firstinspires.ftc.teamcode.Math.Position;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Manager.DriveTrainManager;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Manager.DriveTrain;
 import org.firstinspires.ftc.teamcode.Modules.Intake.EaterChain.Eater.Eater;
 import org.firstinspires.ftc.teamcode.Modules.Intake.EaterChain.Transfer.Transfer;
 import org.firstinspires.ftc.teamcode.Modules.Intake.EaterChain.EaterGrip.EaterGrip;
@@ -41,7 +41,7 @@ public class TeleOpManual extends BaseMode {
     public void loopRun() {
         BaseMode.isField = true;
 
-        robot.driveTrain.setState(DriveTrainManager.RobotState.TELE_OP);
+        robot.driveTrain.setState(DriveTrain.RobotState.TELE_OP);
         robot.driveTrain.setManualVelocityTarget(
                 new Position(-gamepad1.left_stick_y*240, gamepad1.left_stick_x*240, gamepad1.right_stick_x*100)
         );

@@ -4,11 +4,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Devices.IntakeDevices;
 import org.firstinspires.ftc.teamcode.Math.Position;
-import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Manager.DriveTrainManager;
+import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Manager.DriveTrain;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.WayPoint;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.FlipPosition;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.ScorerGripPosition;
-import org.firstinspires.ftc.teamcode.Modules.Intake.Config.ScorerPosition;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.TransferPosition;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
@@ -29,7 +28,7 @@ public class Auto extends BaseMode {
 
     @Override
     public void callRun() {
-        robot.driveTrain.setState(DriveTrainManager.RobotState.TRAVELING);
+        robot.driveTrain.setState(DriveTrain.RobotState.TRAVELING);
         robot.driveTrain.addWayPoints(
                 wayPointsPool.lineScore,
                 wayPointsPool.goToHumanElements,

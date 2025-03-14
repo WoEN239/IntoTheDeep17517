@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Modules.Intake.IntakeManager;
+package org.firstinspires.ftc.teamcode.Modules.Intake.Manager;
 
 import org.firstinspires.ftc.teamcode.Modules.Intake.EaterChain.Transfer.Transfer;
 import org.firstinspires.ftc.teamcode.Modules.Intake.EaterChain.Eater.Eater;
