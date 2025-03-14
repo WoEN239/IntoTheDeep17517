@@ -29,7 +29,7 @@ public class EaterChainManager {
 
     public enum EaterTask {
         TO_EAT, EAT, END_EAT, SCORE,TARGET, MOVE,
-        TO_AUTO_EAT,AUTO_TARGETING,AUTO_ACCEPT_EAT,AUTO_HOLD_IN,AUTO_SCORE;
+        TO_AUTO_EAT,AUTO_TARGETING,AUTO_ACCEPT_EAT,AUTO_HOLD_IN,AUTO_SCORE, AUTO_LAUNCH;
         private Runnable[] update;
 
         public void init(Runnable... run) {
@@ -175,7 +175,8 @@ public class EaterChainManager {
                     }
                     if(timer.seconds()>0.7){
                         timer.reset();
-                        task = EaterTask.AUTO_HOLD_IN;
+                    //    task = EaterTask.AUTO_HOLD_IN;
+                        task = EaterTask.AUTO_LAUNCH;
                     }
                 }
         );
@@ -187,6 +188,27 @@ public class EaterChainManager {
                     if(isTargeted){
                         timer.reset();
                         task = EaterTask.AUTO_SCORE;
+                    }
+                }
+        );
+
+        EaterTask.AUTO_LAUNCH.init(
+                () -> {
+                    liftRequest = LiftPosition.LAUNCH;
+                    if(timer.seconds() > 0.6){
+                        modules.transfer.in();
+                    }
+                    if(timer.seconds() > 0.75)
+                    {
+                        modules.eater.up();
+                        modules.transfer.up();
+                    }
+                    if(timer.seconds() > 0.85){
+                        modules.eaterGrip.open();
+                    }
+                    if(timer.seconds() > 0.9){
+                        timer.reset();
+                        task = EaterTask.MOVE;
                     }
                 }
         );
