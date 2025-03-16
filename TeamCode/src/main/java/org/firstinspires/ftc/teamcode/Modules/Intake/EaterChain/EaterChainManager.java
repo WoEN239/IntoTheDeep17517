@@ -185,16 +185,19 @@ public class EaterChainManager {
                 () -> {
                     liftRequest = LiftPosition.LAUNCH;
                     modules.transfer.in();
-                    if(timer.seconds() > 0.3) {
+                    if(timer.seconds()<0.3){
+                        modules.transfer.target();
+                    }
+                    if(timer.seconds() > 0.4) {
                         modules.eater.up();
                     }
-                    if(timer.seconds() > 0.3) {
+                    if(timer.seconds() > 0.4) {
                         modules.transfer.up();
                     }
-                    if(timer.seconds() > 0.5){
+                    if(timer.seconds() > 0.6){
                         modules.eaterGrip.open();
                     }
-                    if(timer.seconds() > 0.9){
+                    if(timer.seconds() > 1){
                         timer.reset();
                         task = EaterTask.MOVE;
                     }
