@@ -10,6 +10,6 @@ public class EaterPosition {
     public static double downYaw   = 0  ;
     public static double downPitch = 50 ;
 
-    public static double horizonPitch = 150;
-    public static double horizonYaw    = 20;
+    public static double horizonPitch = 180;
+    public static double horizonYaw    = 0;
 }

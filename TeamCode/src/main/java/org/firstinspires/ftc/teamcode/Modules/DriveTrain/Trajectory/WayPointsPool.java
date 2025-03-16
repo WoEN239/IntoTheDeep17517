@@ -25,11 +25,12 @@ public class WayPointsPool {
       new Task(
               TaskDelay::isDone,
               new Runnable[]{
-                  ()->robot.intake.setTargeted(false)
+                  ()->robot.intake.setTargeted(false),
+                  ()->robot.intake.autoEat()
               },
-              () -> robot.intake.setTargeted(true),
-              ()->TaskDelay.setDelay(2),
-              () -> robot.driveTrain.setManualPositionTarget(PositionPool.fChamber)
+              ()-> robot.intake.setTargeted(true),
+              ()-> TaskDelay.setDelay(0.1),
+              () -> robot.driveTrain.setManualPositionTarget(PositionPool.fChamber.positionPlus(0,-25,0))
       )
     );
 
@@ -39,8 +40,7 @@ public class WayPointsPool {
                     ()->true,
                     ()->{
                         robot.intake.setTargeted(false);
-                        robot.intake.autoEat();
-                        Transfer.eatPos = 0.32;
+                        Transfer.eatPos = 0.15;
                     }
             ),
             new Task(
@@ -56,95 +56,48 @@ public class WayPointsPool {
             new Task(
                     TaskDelay::isDone,
                     new Runnable[]{
-                        ()->robot.intake.setTargeted(false)
+                        ()->robot.intake.setTargeted(false),
+                        ()->robot.intake.autoEat()
                     },
                     ()->robot.intake.setTargeted(true),
                     ()->robot.driveTrain.setManualPositionTarget(PositionPool.humanElement),
-                    ()->TaskDelay.setDelay(2)
+                    ()->TaskDelay.setDelay(1.2)
             )
     );
 
-    public WayPoint bringFirstHumanElement = new WayPoint(
-          new Position().copyFrom(PositionPool.humanElement).positionPlus(10,0,0),
-          new Task(
-                  ()->true
-          ),
-          new Task(
-                  ()->true,
-                  new Runnable[]{
-                          ()->robot.intake.setTargeted(false),
-                          ()->robot.intake.autoEat(),
-                          ()->Transfer.eatPos = 0.37
-                  },
-                  ()->robot.intake.setTargeted(true),
-                  ()->robot.driveTrain.setManualPositionTarget(
-                          new Position().copyFrom(PositionPool.humanElement).positionPlus(10,0,0)
-                  )
-          )
-    );
 
     public WayPoint secondHumanElement = new WayPoint(
-            new Position().copyFrom(PositionPool.humanElement).positionPlus(10,0,0),
-            new Task(
-                    TaskDelay::isDone,
-                    ()->TaskDelay.setDelay(0.5),
-                    ()->robot.intake.setTargeted(true),
-                    ()->robot.driveTrain.setManualPositionTarget(
-                            new Position().copyFrom(PositionPool.humanElement).positionPlus(10,0,0)
-                            )
-            )
-    );
-
-    public WayPoint bringSecondHumanElement = new WayPoint(
-            new Position().copyFrom(PositionPool.humanElement).positionPlus(20,0,0),
-            new Task(
-                    ()->true,
-                    ()->robot.intake.setTargeted(false)
-            ),
+            new Position().copyFrom(PositionPool.humanElement).positionPlus(25,0,0),
             new Task(
                     TaskDelay::isDone,
                     new Runnable[]{
                             ()->robot.intake.setTargeted(false),
-                            ()->robot.intake.wallEat(),
+                            ()->robot.intake.autoEat()
                     },
-                    ()->TaskDelay.setDelay(0.6),
+                    ()->TaskDelay.setDelay(1.2),
                     ()->robot.intake.setTargeted(true),
                     ()->robot.driveTrain.setManualPositionTarget(
-                            new Position().copyFrom(PositionPool.humanElement).positionPlus(10,0,0)
+                            new Position().copyFrom(PositionPool.humanElement).positionPlus(25,0,0)
                     )
             )
     );
-
-
 
     public WayPoint thirdHumanElement = new WayPoint(
-            new Position().copyFrom(PositionPool.humanElement).positionPlus(0,0,32),
-            new Task(
-                    ()->true,
-                    ()->robot.intake.setTargeted(true),
-                    ()->robot.driveTrain.setManualPositionTarget(
-                            new Position().copyFrom(PositionPool.humanElement).positionPlus(0,0,32)
-                    )
-            )
-    );
-
-    public WayPoint bringThirdHumanElement = new WayPoint(
-            PositionPool.humanScore,
-            new Task(
-                    ()->true,
-                    ()->robot.intake.setTargeted(false)
-            ),
+            new Position().copyFrom(PositionPool.humanElement).positionPlus(35,0,15),
             new Task(
                     TaskDelay::isDone,
                     new Runnable[]{
                             ()->robot.intake.setTargeted(false),
-                            ()->robot.intake.wallEat(),
+                            ()->robot.intake.wallEat()
                     },
-                    ()->TaskDelay.setDelay(0.6),
+                    ()->TaskDelay.setDelay(2),
                     ()->robot.intake.setTargeted(true),
-                    ()->robot.driveTrain.setManualPositionTarget(PositionPool.humanScore)
+                    ()->robot.driveTrain.setManualPositionTarget(
+                            new Position().copyFrom(PositionPool.humanElement).positionPlus(35,0,15)
+                    )
             )
     );
+
 
     public WayPoint goToWallFromHuman = new WayPoint(
             PositionPool.wall,
@@ -168,6 +121,7 @@ public class WayPointsPool {
             PositionPool.chamber,
             new Task(
                     ()->true,
+                    ()->TrajectoryFollower.localRadius = 100,
                     ()->robot.intake.setTargeted(false)
             ),
             new Task(
@@ -176,7 +130,7 @@ public class WayPointsPool {
                             ()->robot.intake.setTargeted(false)
                     },
                     () -> robot.intake.setTargeted(true),
-                    ()->TaskDelay.setDelay(1),
+                    ()->TaskDelay.setDelay(0.1),
                     () -> robot.driveTrain.setManualPositionTarget(PositionPool.chamber)
             )
     ).toSpline(Math.PI*0.75,Math.PI*0.5);
@@ -207,7 +161,7 @@ public class WayPointsPool {
                             ()->robot.intake.setTargeted(false)
                     },
                     () -> robot.intake.setTargeted(true),
-                    ()->TaskDelay.setDelay(1),
+                    ()->TaskDelay.setDelay(0.1),
                     () -> robot.driveTrain.setManualPositionTarget(PositionPool.chamber)
             )
     ).toSpline(Math.PI*0.75,Math.PI*0.5);
@@ -237,7 +191,7 @@ public class WayPointsPool {
                             ()->robot.intake.setTargeted(false)
                     },
                     () -> robot.intake.setTargeted(true),
-                    ()->TaskDelay.setDelay(1),
+                    ()->TaskDelay.setDelay(0.1),
                     () -> robot.driveTrain.setManualPositionTarget(PositionPool.chamber)
             )
     ).toSpline(Math.PI*0.75,Math.PI*0.5);
@@ -267,7 +221,7 @@ public class WayPointsPool {
                             ()->robot.intake.setTargeted(false)
                     },
                     () -> robot.intake.setTargeted(true),
-                    ()->TaskDelay.setDelay(1),
+                    ()->TaskDelay.setDelay(0.1),
                     () -> robot.driveTrain.setManualPositionTarget(PositionPool.chamber)
             )
     ).toSpline(Math.PI*0.75,Math.PI*0.5);
@@ -297,7 +251,7 @@ public class WayPointsPool {
                             ()->robot.intake.setTargeted(false)
                     },
                     () -> robot.intake.setTargeted(true),
-                    ()->TaskDelay.setDelay(1),
+                    ()->TaskDelay.setDelay(0.1),
                     () -> robot.driveTrain.setManualPositionTarget(PositionPool.chamber)
             )
     ).toSpline(Math.PI*0.75,Math.PI*0.5);

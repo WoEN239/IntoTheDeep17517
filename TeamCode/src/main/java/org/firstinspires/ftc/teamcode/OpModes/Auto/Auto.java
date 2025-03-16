@@ -32,12 +32,14 @@ public class Auto extends BaseMode {
         robot.driveTrain.addWayPoints(
                 wayPointsPool.lineScore,
                 wayPointsPool.goToHumanElements,
+
                 wayPointsPool.firstHumanElementEat,
-                wayPointsPool.bringFirstHumanElement,
+                //        wayPointsPool.bringFirstHumanElement,
 
                 wayPointsPool.secondHumanElement,
-                wayPointsPool.bringSecondHumanElement,
+//                wayPointsPool.bringSecondHumanElement,
 
+                wayPointsPool.thirdHumanElement, 
 
                 wayPointsPool.goToWallFromHuman,
 

@@ -139,7 +139,7 @@ public class EaterChainManager {
                 ()->{
                     liftRequest = LiftPosition.LAUNCH;
                     modules.transfer.horizon();
-                    modules.transfer.normal() ;
+                    modules.transfer.eat();
 
                     modules.eater.horizon();
                     modules.eaterGrip.open();
@@ -153,7 +153,7 @@ public class EaterChainManager {
         );
         EaterTask.AUTO_TARGETING.init(
                 ()->{
-                    modules.transfer.normal();
+                    modules.transfer.eat();
                     modules.transfer.horizon();
                     modules.eater.horizon();
                     if(isTargeted){
@@ -165,30 +165,22 @@ public class EaterChainManager {
 
         EaterTask.AUTO_ACCEPT_EAT.init(
                 ()->{
+                    modules.transfer.eatEnd();
+
                     modules.transfer.horizon();
                     modules.eater   .horizon();
 
-                    if(timer.seconds()>0.6){
+                    if(timer.seconds()>0.4){
                         modules.eaterGrip.close();
                     }
-                    if(timer.seconds()>0.7){
+
+                    if(timer.seconds()>0.5){
                         timer.reset();
+
                         task = EaterTask.AUTO_LAUNCH;
                     }
                 }
         );
-        EaterTask.AUTO_HOLD_IN.init(
-                ()->{
-                    modules.transfer.up();
-                    modules.eaterGrip.close();
-                    modules.transfer.normal();
-                    if(isTargeted){
-                        timer.reset();
-                        task = EaterTask.AUTO_SCORE;
-                    }
-                }
-        );
-
         EaterTask.AUTO_LAUNCH.init(
                 () -> {
                     liftRequest = LiftPosition.LAUNCH;
@@ -209,20 +201,6 @@ public class EaterChainManager {
                 }
         );
 
-        EaterTask.AUTO_SCORE.init(
-                ()->{
-                    modules.transfer.eatEnd();
-                    modules.transfer.down();
-                    modules.eater.down();
-                    if(timer.seconds()>0.2){
-                        modules.eaterGrip.open();
-                    }
-                    if(timer.seconds()>0.4){
-                        timer.reset();
-                        task = EaterTask.MOVE;
-                    }
-                }
-        );
     }
 
     public void setModules(IntakeModules modules) {this.modules = modules;}
