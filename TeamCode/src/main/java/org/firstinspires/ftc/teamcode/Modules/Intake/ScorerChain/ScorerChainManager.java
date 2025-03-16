@@ -112,8 +112,9 @@ public class ScorerChainManager {
         ScorerTask.SCORE.init(
                 ()->{
                     modules.scorer.score();
-                        modules.scorerGrip.open();
+                    modules.scorerGrip.open();
                     if(timer.seconds()>0.3){
+                        liftRequest = LiftPosition.IN_POSITION;
                         timer.reset();
                         task = ScorerTask.MOVE;
                     }
@@ -122,8 +123,7 @@ public class ScorerChainManager {
 
         ScorerTask.MOVE.init(
                 ()->{
-                    modules.scorer.eatAccept();
-                    if(timer.seconds()>1) {
+                    if(timer.seconds()>0.1) {
                         task = ScorerTask.TO_EAT;
                         timer.reset();
                     }

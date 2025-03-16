@@ -10,7 +10,7 @@ public abstract class TrajectoryFollower <T extends TrajectorySegment> {
     public static double endDetect          = 5 ;
 
     public static double endDetectAngle    =  5 ;
-    public static double localRadiusAngle   = 90 ;
+    public static double localRadiusAngle   = 50 ;
 
     public boolean isEndNear = false;
     public double targetAngle = 0;

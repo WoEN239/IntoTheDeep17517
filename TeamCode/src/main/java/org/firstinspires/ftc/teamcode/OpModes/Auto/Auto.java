@@ -39,7 +39,9 @@ public class Auto extends BaseMode {
                 wayPointsPool.secondHumanElement,
 //                wayPointsPool.bringSecondHumanElement,
 
-                wayPointsPool.thirdHumanElement, 
+                wayPointsPool.thirdHumanElement,
+
+                wayPointsPool.rotate,
 
                 wayPointsPool.goToWallFromHuman,
 

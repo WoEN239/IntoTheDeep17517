@@ -29,8 +29,8 @@ public class WayPointsPool {
                   ()->robot.intake.autoEat()
               },
               ()-> robot.intake.setTargeted(true),
-              ()-> TaskDelay.setDelay(0.1),
-              () -> robot.driveTrain.setManualPositionTarget(PositionPool.fChamber.positionPlus(0,-25,0))
+              ()-> TaskDelay.setDelay(0.5),
+              () -> robot.driveTrain.setManualPositionTarget(PositionPool.fChamber.positionPlus(0,-35,0))
       )
     );
 
@@ -61,7 +61,7 @@ public class WayPointsPool {
                     },
                     ()->robot.intake.setTargeted(true),
                     ()->robot.driveTrain.setManualPositionTarget(PositionPool.humanElement),
-                    ()->TaskDelay.setDelay(1.2)
+                    ()->TaskDelay.setDelay(2)
             )
     );
 
@@ -74,7 +74,7 @@ public class WayPointsPool {
                             ()->robot.intake.setTargeted(false),
                             ()->robot.intake.autoEat()
                     },
-                    ()->TaskDelay.setDelay(1.2),
+                    ()->TaskDelay.setDelay(2),
                     ()->robot.intake.setTargeted(true),
                     ()->robot.driveTrain.setManualPositionTarget(
                             new Position().copyFrom(PositionPool.humanElement).positionPlus(25,0,0)
@@ -83,21 +83,35 @@ public class WayPointsPool {
     );
 
     public WayPoint thirdHumanElement = new WayPoint(
-            new Position().copyFrom(PositionPool.humanElement).positionPlus(35,0,15),
+            new Position().copyFrom(PositionPool.humanElement).positionPlus(35,0,25),
             new Task(
                     TaskDelay::isDone,
                     new Runnable[]{
                             ()->robot.intake.setTargeted(false),
                             ()->robot.intake.wallEat()
                     },
-                    ()->TaskDelay.setDelay(2),
+                    ()->TaskDelay.setDelay(2.1),
                     ()->robot.intake.setTargeted(true),
                     ()->robot.driveTrain.setManualPositionTarget(
-                            new Position().copyFrom(PositionPool.humanElement).positionPlus(35,0,15)
+                            new Position().copyFrom(PositionPool.humanElement).positionPlus(35,0,25)
                     )
             )
     );
 
+    public WayPoint rotate = new WayPoint(
+            new Position().copyFrom(PositionPool.humanElement).positionPlus(0,0,180),
+            new Task(
+                    ()->true,
+                    ()->{
+                        TrajectoryFollower.endDetectAngle = 10;
+                        TrajectoryFollower.endDetect      = 10;
+                        TrajectoryFollower.localRadiusAngle = 90;
+                    }
+            ),
+            new Task(
+                    ()->true
+            )
+    );
 
     public WayPoint goToWallFromHuman = new WayPoint(
             PositionPool.wall,
@@ -146,7 +160,7 @@ public class WayPointsPool {
                     ()->TaskDelay.setDelay(0.3),
                     ()->robot.driveTrain.setManualPositionTarget(PositionPool.wall)
             )
-    ).toSpline(-Math.PI*3.0/8.0,-Math.PI*0.5);
+    ).toSpline(-Math.PI*4.0/8.0,-Math.PI*0.5);
 
 
     public WayPoint goToChamber2 = new WayPoint(
@@ -177,7 +191,7 @@ public class WayPointsPool {
                     ()->IntakeDevices.scorerGrip.setPosition(ScorerGripPosition.close),
                     ()->robot.driveTrain.setManualPositionTarget(PositionPool.wall)
             )
-    ).toSpline(-Math.PI*3.0/8.0,-Math.PI*0.5);
+    ).toSpline(-Math.PI*4.0/8.0,-Math.PI*0.5);
 
     public WayPoint goToChamber3 = new WayPoint(
             PositionPool.chamber,
@@ -207,7 +221,7 @@ public class WayPointsPool {
                     ()->IntakeDevices.scorerGrip.setPosition(ScorerGripPosition.close),
                     ()->robot.driveTrain.setManualPositionTarget(PositionPool.wall)
             )
-    ).toSpline(-Math.PI*3.0/8.0,-Math.PI*0.5);
+    ).toSpline(-Math.PI*4.0/8.0,-Math.PI*0.5);
 
     public WayPoint goToChamber4 = new WayPoint(
             PositionPool.chamber,
@@ -237,7 +251,7 @@ public class WayPointsPool {
                     ()->IntakeDevices.scorerGrip.setPosition(ScorerGripPosition.close),
                     ()->robot.driveTrain.setManualPositionTarget(PositionPool.wall)
             )
-    ).toSpline(-Math.PI*3.0/8.0,-Math.PI*0.5);
+    ).toSpline(-Math.PI*4.0/8.0,-Math.PI*0.5);
 
     public WayPoint goToChamber5 = new WayPoint(
             PositionPool.chamber.positionPlus(5,0,0),
@@ -267,7 +281,7 @@ public class WayPointsPool {
                     ()->IntakeDevices.scorerGrip.setPosition(ScorerGripPosition.close),
                     ()->robot.driveTrain.setManualPositionTarget(PositionPool.wall)
             )
-    ).toSpline(-Math.PI*3.0/8.0,-Math.PI*0.5);
+    ).toSpline(-Math.PI*4.0/8.0,-Math.PI*0.5);
 
 
 }
