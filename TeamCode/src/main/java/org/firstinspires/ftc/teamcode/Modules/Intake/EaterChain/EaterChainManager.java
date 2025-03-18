@@ -46,6 +46,7 @@ public class EaterChainManager {
     public void initTasks(){
         EaterTask.TO_EAT.init(
                 ()-> {
+                    modules.scorer.regrip();
                     modules.transfer.eat();
                     modules.transfer.up();
                     modules.eaterGrip.open();
@@ -165,16 +166,16 @@ public class EaterChainManager {
 
         EaterTask.AUTO_ACCEPT_EAT.init(
                 ()->{
-                    modules.transfer.eatEnd();
+                    modules.transfer.normal();
 
                     modules.transfer.horizon();
                     modules.eater   .horizon();
 
-                    if(timer.seconds()>0.4){
+                    if(timer.seconds()>0.2){
                         modules.eaterGrip.close();
                     }
 
-                    if(timer.seconds()>0.7){
+                    if(timer.seconds()>0.4){
                         timer.reset();
 
                         task = EaterTask.AUTO_LAUNCH;
@@ -186,15 +187,15 @@ public class EaterChainManager {
                     liftRequest = LiftPosition.LAUNCH;
                     modules.transfer.in();
 
-                    if(timer.seconds() > 0.6) {
+                    if(timer.seconds() > 0.3) {
                         modules.eater.up();
                     }
 
-                    if(timer.seconds() > 1) {
+                    if(timer.seconds() > 0.8) {
                         modules.transfer.up();
                     }
 
-                    if(timer.seconds() > 1.25){
+                    if(timer.seconds() > 1.1){
                         modules.eaterGrip.open();
                     }
 

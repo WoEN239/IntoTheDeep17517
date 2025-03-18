@@ -9,7 +9,7 @@ import com.acmerobotics.dashboard.config.Config;
 @Config
 public class TransferPosition {
     public static double eat   = 0.37 ;
-    public static double normal = 0.23;
+    public static double normal = 0.27;
     public static double in = 0.05;
 
 }
