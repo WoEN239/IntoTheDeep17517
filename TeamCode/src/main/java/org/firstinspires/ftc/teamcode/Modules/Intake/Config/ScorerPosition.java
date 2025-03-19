@@ -14,7 +14,7 @@ public class ScorerPosition {
     public static double eatAcceptPitch = 70;
 
     public static double scoreYaw    = 15;
-    public static double scorePitch  = 20;
+    public static double scorePitch  = 30;
 
     public static double regripYaw   = -100;
     public static double regripPitch =  90;

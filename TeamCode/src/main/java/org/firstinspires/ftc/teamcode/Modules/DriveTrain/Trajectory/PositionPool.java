@@ -14,7 +14,7 @@ public class PositionPool {
     public static Position start = new Position(13,-160,90);
 
 
-    public static Position humanElement = new Position(115,-110 ,-90);
+    public static Position humanElement = new Position(120,-110 ,-90);
 
     public static Position wall = new Position  (100,-143,90);
 

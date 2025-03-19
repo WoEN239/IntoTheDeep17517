@@ -113,8 +113,8 @@ public class ScorerChainManager {
                 ()->{
                     modules.scorer.score();
                     modules.scorerGrip.open();
+                    liftRequest = LiftPosition.IN_POSITION;
                     if(timer.seconds()>0.3){
-                        liftRequest = LiftPosition.IN_POSITION;
                         timer.reset();
                         task = ScorerTask.MOVE;
                     }
@@ -123,10 +123,8 @@ public class ScorerChainManager {
 
         ScorerTask.MOVE.init(
                 ()->{
-                    if(timer.seconds()>0.1) {
-                        task = ScorerTask.TO_EAT;
-                        timer.reset();
-                    }
+                    task = ScorerTask.TO_EAT;
+                    timer.reset();
                 }
         );
 
