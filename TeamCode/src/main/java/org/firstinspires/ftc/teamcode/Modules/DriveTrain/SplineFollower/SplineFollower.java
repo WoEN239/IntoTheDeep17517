@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.Modules.DriveTrain.SplineFollower;
 
 import static com.acmerobotics.roadrunner.Curves.project;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Arclength;
 import com.acmerobotics.roadrunner.Vector2dDual;
 
@@ -36,7 +35,7 @@ public class SplineFollower extends TrajectoryFollower <SplineTrajectorySegment>
             hT = targetAngle;
         }
 
-        isEndNear =  Math.abs(path.spline.length - displacement) < endDetect;
+        isEndNear =  Math.abs(path.spline.length - displacement) < endDetectX;
 
         return new Position(xT,yT,hT);
     }

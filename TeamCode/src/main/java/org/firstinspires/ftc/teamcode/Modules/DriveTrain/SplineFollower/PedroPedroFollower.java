@@ -37,7 +37,7 @@ public class PedroPedroFollower extends TrajectoryFollower<SplineTrajectorySegme
         double h = Math.atan2(projectRR.x.get(1),projectRR.y.get(0));
         Position unitVector = new Position(sin(h), cos(h), toDegrees(h));
         Position linearU = new Position().copyFrom(project).vectorPlus(unitVector.linearMultiply(localRadius));
-        boolean linearEndNear =  Math.abs(path.spline.length - displacement) < endDetect;
+        boolean linearEndNear =  Math.abs(path.spline.length - displacement) < endDetectX;
 
         double angleU = p.h + localRadiusAngle * Math.signum(targetAngle - p.h);
         boolean angleEndNear = false;

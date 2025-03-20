@@ -28,7 +28,7 @@ public class EaterChainManager {
 
     public enum EaterTask {
         TO_EAT, EAT, END_EAT, SCORE,TARGET, MOVE,
-        TO_AUTO_EAT,AUTO_TARGETING,AUTO_ACCEPT_EAT,AUTO_HOLD_IN,AUTO_SCORE, AUTO_LAUNCH;
+        TO_AUTO_EAT,AUTO_TARGETING,AUTO_ACCEPT_EAT, AUTO_LAUNCH;
         private Runnable[] update;
 
         public void init(Runnable... run) {
@@ -100,7 +100,7 @@ public class EaterChainManager {
 
                     modules.transfer.up();
                     modules.eater.up();
-                    modules.eaterGrip.regrip();
+                    modules.eaterGrip.close();
 
                     if(timer.seconds()> 0.6){
                         if(isTargeted) {
@@ -195,7 +195,7 @@ public class EaterChainManager {
                         modules.transfer.up();
                     }
 
-                    if(timer.seconds() > 1.1){
+                    if(timer.seconds() > 1.){
                         modules.eaterGrip.open();
                     }
 

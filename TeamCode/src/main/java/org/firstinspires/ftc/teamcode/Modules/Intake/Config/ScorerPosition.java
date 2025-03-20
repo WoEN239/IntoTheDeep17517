@@ -4,11 +4,11 @@ import com.acmerobotics.dashboard.config.Config;
 
 @Config
 public class ScorerPosition {
-    public static double targetPitch = 40;
-    public static double targetYaw   = 15;
+    public static double targetPitch = 30;
+    public static double targetYaw   = 30;
 
-    public static double wallYaw   = -180;
-    public static double wallPitch = 245 ;
+    public static double wallYaw   = -100;
+    public static double wallPitch = 170 ;
 
     public static double eatAcceptYaw   = -115;
     public static double eatAcceptPitch = 70;

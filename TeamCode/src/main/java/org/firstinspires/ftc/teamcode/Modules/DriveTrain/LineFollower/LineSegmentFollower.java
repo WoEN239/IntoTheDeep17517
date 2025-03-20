@@ -33,12 +33,18 @@ public class LineSegmentFollower extends TrajectoryFollower<LineTrajectorySegmen
 
         Position linearU =  projection.vectorPlus(new Position().copyFrom(unitTargetVector).linearMultiply(localRadius));
 
-        Position linearError = new Position().copyFrom(p).vectorMinus(targetLineSegment.end);
-        boolean linearEndNear = false;
+        double xError = new Position().copyFrom(p).vectorMinus(targetLineSegment.end).x;
+        double yError = new Position().copyFrom(p).vectorMinus(targetLineSegment.end).y;
+        boolean linearEndNearX = false;
+        boolean linearEndNearY = false;
 
-        if( abs(linearError.x) < endDetect && abs(linearError.y) < endDetect){
-            linearEndNear = true;
-            linearU.copyFrom(targetLineSegment.end);
+        if( abs(xError) < endDetectX){
+            linearEndNearX = true;
+            linearU.x= targetLineSegment.end.x;
+        }
+        if( abs(yError) < endDetectY){
+            linearEndNearY = true;
+            linearU.y= targetLineSegment.end.y;
         }
 
         double angleU =  p.h + localRadiusAngle * Math.signum(targetAngle - p.h);
@@ -49,7 +55,7 @@ public class LineSegmentFollower extends TrajectoryFollower<LineTrajectorySegmen
             angleU = targetAngle;
         }
 
-        isEndNear = angleEndNear&&linearEndNear;
+        isEndNear = angleEndNear&&linearEndNearX && linearEndNearY;
         return new Position(
                 linearU.x,linearU.y,angleU
         );
