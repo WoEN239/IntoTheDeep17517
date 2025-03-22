@@ -14,7 +14,7 @@ public enum LiftPosition {
     public static double swipe = 700;
 
     public static double score = 850;
-    public static double inPos = 450;
+    public static double inPos = 440;
     public static double launch = 1500;
 
     public double get() {

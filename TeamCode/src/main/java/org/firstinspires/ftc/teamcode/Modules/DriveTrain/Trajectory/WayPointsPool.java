@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory;
 import org.firstinspires.ftc.teamcode.Devices.IntakeDevices;
 import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.ScorerGripPosition;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Config.TransferPosition;
 import org.firstinspires.ftc.teamcode.Modules.Intake.EaterChain.Transfer.Transfer;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.TaskDelay;
@@ -30,13 +31,13 @@ public class WayPointsPool {
                   ()->robot.intake.autoEat()
               },
               ()-> robot.intake.setTargeted(true),
-              ()-> TaskDelay.setDelay(0.01),
+              ()-> TaskDelay.setDelay(0.1),
               () -> robot.driveTrain.setManualPositionTarget(PositionPool.fChamber.positionPlus(0,-35,0))
       )
     );
 
     public WayPoint goToHumanElements = new WayPoint(
-            PositionPool.humanElement,
+            new Position().copyFrom(PositionPool.humanElement).positionPlus(0,0,-2),
             new Task(
                     ()->true,
                     ()->{
@@ -55,22 +56,26 @@ public class WayPointsPool {
                             ()->TrajectoryFollower.endDetectY = 10,
                             ()->TrajectoryFollower.endDetectAngle = 2
                     },
-                    ()->robot.driveTrain.setManualPositionTarget(PositionPool.humanElement)
+                    ()->robot.driveTrain.setManualPositionTarget(
+                            new Position().copyFrom(PositionPool.humanElement).positionPlus(0,0,-2)
+
+                            )
             )
     ).toSpline(-Math.PI*3.0/8.0,Math.PI/2.0);
 
 
     public WayPoint firstHumanElementEat = new WayPoint(
-            new Position().copyFrom(PositionPool.humanElement).positionPlus(0,0,0.5),
+            new Position().copyFrom(PositionPool.humanElement).positionPlus(0,0,-2),
             new Task(
                     TaskDelay::isDone,
                     new Runnable[]{
                         ()->robot.intake.setTargeted(false),
-                        ()->robot.intake.autoEat()
+                        ()->robot.intake.autoEat(),
+                        ()-> Transfer.eatPos = 0.125
                     },
                     ()->robot.intake.setTargeted(true),
                     ()->robot.driveTrain.setManualPositionTarget(
-                            new Position().copyFrom(PositionPool.humanElement).positionPlus(0,0,0.5)
+                            new Position().copyFrom(PositionPool.humanElement).positionPlus(0,0,-2)
                     ),
                     ()->TaskDelay.setDelay(1.9)
             )
@@ -83,7 +88,7 @@ public class WayPointsPool {
                     TaskDelay::isDone,
                     new Runnable[]{
                             ()->robot.intake.setTargeted(false),
-                            ()->Transfer.eatPos = 0.18,
+                            ()->Transfer.eatPos = 0.16,
                             ()->robot.intake.autoEat()
                     },
                     ()->TaskDelay.setDelay(1.9),
@@ -136,7 +141,7 @@ public class WayPointsPool {
     );
 
     public WayPoint goToWallFromHuman = new WayPoint(
-             new Position().copyFrom( PositionPool.wall ).positionPlus(0,0,0),
+             new Position().copyFrom( PositionPool.wall ).positionPlus(0,-10,0),
             new Task(
                     ()->true
             ),
@@ -148,7 +153,7 @@ public class WayPointsPool {
                     ()->TaskDelay.setDelay(0.1),
                     ()->IntakeDevices.scorerGrip.setPosition(ScorerGripPosition.close),
                     ()->robot.driveTrain.setManualPositionTarget(
-                            new Position().copyFrom( PositionPool.wall ).positionPlus(0,0,0)
+                            new Position().copyFrom( PositionPool.wall ).positionPlus(0,-10,0)
                     )
             )
     );
@@ -164,7 +169,8 @@ public class WayPointsPool {
             new Task(
                     TaskDelay::isDone,
                     new Runnable[]{
-                            ()->robot.intake.setTargeted(false)
+                            ()->robot.intake.setTargeted(false),
+                            ()->robot.intake.wallEat()
                     },
                     () -> robot.intake.setTargeted(true),
                     ()->TaskDelay.setDelay(0.01),
@@ -195,7 +201,8 @@ public class WayPointsPool {
             new Task(
                     TaskDelay::isDone,
                     new Runnable[]{
-                            ()->robot.intake.setTargeted(false)
+                            ()->robot.intake.setTargeted(false),
+                            ()->robot.intake.wallEat()
                     },
                     () -> robot.intake.setTargeted(true),
                     ()->TaskDelay.setDelay(0.01),
@@ -225,7 +232,8 @@ public class WayPointsPool {
             new Task(
                     TaskDelay::isDone,
                     new Runnable[]{
-                            ()->robot.intake.setTargeted(false)
+                            ()->robot.intake.setTargeted(false),
+                            ()->robot.intake.wallEat()
                     },
                     () -> robot.intake.setTargeted(true),
                     ()->TaskDelay.setDelay(0.01),
@@ -255,7 +263,8 @@ public class WayPointsPool {
             new Task(
                     TaskDelay::isDone,
                     new Runnable[]{
-                            ()->robot.intake.setTargeted(false)
+                            ()->robot.intake.setTargeted(false),
+                            ()->robot.intake.wallEat()
                     },
                     () -> robot.intake.setTargeted(true),
                     ()->TaskDelay.setDelay(0.01),
@@ -285,7 +294,8 @@ public class WayPointsPool {
             new Task(
                     TaskDelay::isDone,
                     new Runnable[]{
-                            ()->robot.intake.setTargeted(false)
+                            ()->robot.intake.setTargeted(false),
+                            ()->robot.intake.wallEat()
                     },
                     () -> robot.intake.setTargeted(true),
                     ()->TaskDelay.setDelay(0.01),

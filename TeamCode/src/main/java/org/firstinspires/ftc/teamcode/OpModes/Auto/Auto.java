@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Trajectory.WayPoint;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.FlipPosition;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.ScorerGripPosition;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.TransferPosition;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 
@@ -24,11 +25,13 @@ public class Auto extends BaseMode {
         IntakeDevices.transferRight.setPosition(TransferPosition.in);
 
         IntakeDevices.scorerGrip.setPosition(ScorerGripPosition.close);
+
     }
 
     @Override
     public void callRun() {
         robot.driveTrain.setState(DriveTrain.RobotState.TRAVELING);
+        LiftPosition.score = 830;
         robot.driveTrain.addWayPoints(
                 wayPointsPool.lineScore,
                 wayPointsPool.goToHumanElements,

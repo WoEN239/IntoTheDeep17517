@@ -144,6 +144,7 @@ public class EaterChainManager {
 
                     modules.eater.horizon();
                     modules.eaterGrip.open();
+                    modules.scorerGrip.open();
 
                     modules.scorer.regrip();
                     if(timer.seconds()>0.5){

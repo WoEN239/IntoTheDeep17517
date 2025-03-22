@@ -74,6 +74,9 @@ public class ScorerChainManager {
         ScorerTask.EAT.init(
                 ()-> {
                     modules.scorerGrip.close();
+                    if(timer.seconds()>0.3) {
+                        liftRequest = LiftPosition.SCORE_AXIS;
+                    }
                     if (timer.seconds() > 0.5) {
                         modules.scorer.eatAccept();
                     }
@@ -86,7 +89,6 @@ public class ScorerChainManager {
         ScorerTask.END_EAT.init(
                 ()->{
                     modules.scorer.target();
-                    liftRequest = LiftPosition.SCORE_AXIS;
                     if(timer.seconds()>0.5){
                         modules.scorerGrip.close();
                     }

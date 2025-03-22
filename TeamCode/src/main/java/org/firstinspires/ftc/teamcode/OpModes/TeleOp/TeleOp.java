@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain.Manager.DriveTrain;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.TransferPosition;
 import org.firstinspires.ftc.teamcode.Modules.Intake.EaterChain.Transfer.Transfer;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
 import org.firstinspires.ftc.teamcode.OpModes.BaseMode;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 import org.firstinspires.ftc.teamcode.Robot.RobotConstant;
@@ -29,6 +30,7 @@ public class TeleOp extends BaseMode {
     double trigers = TransferPosition.eat;
     public void loopRun() {
         RobotConstant.MAX_MOTOR_TICKS_VEL = 2400;
+        LiftPosition.score = 850;
 
         double actTrigers = gamepad1.right_trigger * 0.015 - 0.015 * gamepad1.left_trigger;
         trigers += actTrigers;

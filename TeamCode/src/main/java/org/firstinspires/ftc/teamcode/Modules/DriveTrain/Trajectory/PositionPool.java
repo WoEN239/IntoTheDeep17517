@@ -13,13 +13,13 @@ public class PositionPool {
 
     public static Position start = new Position(13,-160,90);
 
-    public static Position humanElement = new Position(123,-110 ,-90);
+    public static Position humanElement = new Position(120,-110 ,-90);
 
     public static Position wall = new Position  (100,-143,90);
 
-    public static Position chamber = new Position(0,-55,90);
+    public static Position chamber = new Position(13,-55,90);
 
-    public static Position fChamber = new Position(13,-75,90);
+    public static Position fChamber = new Position(13,-80,90);
 
 
 }
