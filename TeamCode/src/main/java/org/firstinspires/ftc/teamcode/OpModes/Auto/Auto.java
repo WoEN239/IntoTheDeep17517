@@ -31,7 +31,8 @@ public class Auto extends BaseMode {
     @Override
     public void callRun() {
         robot.driveTrain.setState(DriveTrain.RobotState.TRAVELING);
-        LiftPosition.score = 830;
+        LiftPosition.score = 820;
+        LiftPosition.inPos = 430;
         robot.driveTrain.addWayPoints(
                 wayPointsPool.lineScore,
                 wayPointsPool.goToHumanElements,

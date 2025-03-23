@@ -31,6 +31,7 @@ public class TeleOp extends BaseMode {
     public void loopRun() {
         RobotConstant.MAX_MOTOR_TICKS_VEL = 2400;
         LiftPosition.score = 850;
+        LiftPosition.inPos = 400;
 
         double actTrigers = gamepad1.right_trigger * 0.015 - 0.015 * gamepad1.left_trigger;
         trigers += actTrigers;

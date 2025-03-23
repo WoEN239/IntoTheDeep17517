@@ -5,6 +5,7 @@ import org.firstinspires.ftc.teamcode.Math.Position;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.ScorerGripPosition;
 import org.firstinspires.ftc.teamcode.Modules.Intake.Config.TransferPosition;
 import org.firstinspires.ftc.teamcode.Modules.Intake.EaterChain.Transfer.Transfer;
+import org.firstinspires.ftc.teamcode.Modules.Intake.Lift.LiftPosition;
 import org.firstinspires.ftc.teamcode.Robot.Robot;
 import org.firstinspires.ftc.teamcode.Robot.RobotSimulation.TaskDelay;
 import org.firstinspires.ftc.teamcode.Robot.TaskManager.Task;
@@ -20,6 +21,7 @@ public class WayPointsPool {
       PositionPool.fChamber,
       new Task(
               ()->true,
+              ()-> LiftPosition.score = 840,
               ()->TrajectoryFollower.endDetectAngle = 5,
               ()->robot.intake.scoreAxis(),
               ()->robot.intake.setTargeted(false)
@@ -37,12 +39,13 @@ public class WayPointsPool {
     );
 
     public WayPoint goToHumanElements = new WayPoint(
-            new Position().copyFrom(PositionPool.humanElement).positionPlus(0,0,-2),
+            new Position().copyFrom(PositionPool.humanElement).positionPlus(0,0,-5),
             new Task(
                     ()->true,
+                    ()-> LiftPosition.score = 820,
                     ()->{
                         robot.intake.setTargeted(false);
-                        Transfer.eatPos = 0.1;
+                        Transfer.eatPos = 0.23;
                         TrajectoryFollower.localRadiusAngle = 100;
                     }
             ),
@@ -57,7 +60,7 @@ public class WayPointsPool {
                             ()->TrajectoryFollower.endDetectAngle = 2
                     },
                     ()->robot.driveTrain.setManualPositionTarget(
-                            new Position().copyFrom(PositionPool.humanElement).positionPlus(0,0,-2)
+                            new Position().copyFrom(PositionPool.humanElement).positionPlus(0,0,-5)
 
                             )
             )
@@ -65,17 +68,18 @@ public class WayPointsPool {
 
 
     public WayPoint firstHumanElementEat = new WayPoint(
-            new Position().copyFrom(PositionPool.humanElement).positionPlus(0,0,-2),
+            new Position().copyFrom(PositionPool.humanElement).positionPlus(0,0,-5),
             new Task(
                     TaskDelay::isDone,
                     new Runnable[]{
                         ()->robot.intake.setTargeted(false),
                         ()->robot.intake.autoEat(),
-                        ()-> Transfer.eatPos = 0.125
+                        ()-> Transfer.eatPos = 0.21
+
                     },
                     ()->robot.intake.setTargeted(true),
                     ()->robot.driveTrain.setManualPositionTarget(
-                            new Position().copyFrom(PositionPool.humanElement).positionPlus(0,0,-2)
+                            new Position().copyFrom(PositionPool.humanElement).positionPlus(0,0,-5)
                     ),
                     ()->TaskDelay.setDelay(1.9)
             )
@@ -88,7 +92,7 @@ public class WayPointsPool {
                     TaskDelay::isDone,
                     new Runnable[]{
                             ()->robot.intake.setTargeted(false),
-                            ()->Transfer.eatPos = 0.16,
+                            ()->Transfer.eatPos = 0.25,
                             ()->robot.intake.autoEat()
                     },
                     ()->TaskDelay.setDelay(1.9),

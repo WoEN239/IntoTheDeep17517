@@ -99,7 +99,7 @@ public class EaterChainManager {
                     modules.scorer.regrip();
 
                     modules.transfer.up();
-                    modules.eater.up();
+                   //modules.eater.up();
                     modules.eaterGrip.close();
 
                     if(timer.seconds()> 0.6){
@@ -113,7 +113,7 @@ public class EaterChainManager {
 
        EaterTask.SCORE.init(
                ()->{
-                   modules.transfer.down();
+                   modules.transfer.target();
                    modules.transfer.eatEnd();
                    modules.eater.down();
 
@@ -130,7 +130,7 @@ public class EaterChainManager {
             ()->{
                 liftRequest = LiftPosition.IN_POSITION;
 
-                modules.eater   .up();
+                //  modules.eater   .up();
                 modules.transfer.target();
                 modules.transfer.in();
             }
@@ -139,10 +139,10 @@ public class EaterChainManager {
         EaterTask.TO_AUTO_EAT.init(
                 ()->{
                     liftRequest = LiftPosition.LAUNCH;
-                    modules.transfer.horizon();
+                    modules.transfer.target();
                     modules.transfer.eat();
 
-                    modules.eater.horizon();
+                    modules.eater.down();
                     modules.eaterGrip.open();
                     modules.scorerGrip.open();
 
@@ -156,8 +156,8 @@ public class EaterChainManager {
         EaterTask.AUTO_TARGETING.init(
                 ()->{
                     modules.transfer.eat();
-                    modules.transfer.horizon();
-                    modules.eater.horizon();
+                    modules.transfer.target();
+                    modules.eater.down();
                     if(isTargeted){
                         timer.reset();
                         task = EaterTask.AUTO_ACCEPT_EAT;
@@ -167,10 +167,10 @@ public class EaterChainManager {
 
         EaterTask.AUTO_ACCEPT_EAT.init(
                 ()->{
-                    modules.transfer.normal();
+                    modules.transfer.eat();
 
-                    modules.transfer.horizon();
-                    modules.eater   .horizon();
+                    modules.transfer.down();
+                    modules.eater   .down();
 
                     if(timer.seconds()>0.2){
                         modules.eaterGrip.close();

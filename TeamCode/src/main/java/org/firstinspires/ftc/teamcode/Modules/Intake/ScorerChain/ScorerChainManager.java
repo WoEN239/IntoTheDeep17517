@@ -78,7 +78,7 @@ public class ScorerChainManager {
                         liftRequest = LiftPosition.SCORE_AXIS;
                     }
                     if (timer.seconds() > 0.5) {
-                        modules.scorer.eatAccept();
+                        modules.scorer.target();
                     }
                     if (timer.seconds() > 0.8) {
                         timer.reset();
