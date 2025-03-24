@@ -87,24 +87,24 @@ public class WayPointsPool {
 
 
     public WayPoint secondHumanElement = new WayPoint(
-            new Position().copyFrom(PositionPool.humanElement).positionPlus(23,0,0),
+            new Position().copyFrom(PositionPool.humanElement).positionPlus(23,5,0),
             new Task(
                     TaskDelay::isDone,
                     new Runnable[]{
                             ()->robot.intake.setTargeted(false),
-                            ()->Transfer.eatPos = 0.25,
+                            ()->Transfer.eatPos = 0.24,
                             ()->robot.intake.autoEat()
                     },
                     ()->TaskDelay.setDelay(1.9),
                     ()->robot.intake.setTargeted(true),
                     ()->robot.driveTrain.setManualPositionTarget(
-                            new Position().copyFrom(PositionPool.humanElement).positionPlus(23,0,0)
+                            new Position().copyFrom(PositionPool.humanElement).positionPlus(23,5,0)
                     )
             )
     );
 
     public WayPoint thirdHumanElement = new WayPoint(
-            new Position().copyFrom(PositionPool.humanElement).positionPlus(32,0,22),
+            new Position().copyFrom(PositionPool.humanElement).positionPlus(32,5,22),
             new Task(
                     TaskDelay::isDone,
                     new Runnable[]{
@@ -121,7 +121,7 @@ public class WayPointsPool {
                     ()->TaskDelay.setDelay(1.9),
                     ()->robot.intake.setTargeted(true),
                     ()->robot.driveTrain.setManualPositionTarget(
-                            new Position().copyFrom(PositionPool.humanElement).positionPlus(32,0,22)
+                            new Position().copyFrom(PositionPool.humanElement).positionPlus(32,5,22)
                     )
             )
     );
